@@ -14,10 +14,10 @@
    inkscape:version="0.48.3.1 r9886"
    version="1.1"
    id="svg2985"
-   height="48px"
-   width="48px"
-   enable-background="new"
-   sodipodi:docname="New document 2">
+   height="128"
+   width="128"
+   sodipodi:docname="logo.svg"
+   style="enable-background:new">
   <defs
      id="defs2987">
     <linearGradient
@@ -32,7 +32,6 @@
          id="stop5253" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient5235"
        osb:paint="gradient">
       <stop
@@ -61,88 +60,11 @@
        x2="37.571426"
        y2="23.214287"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-0.25,0.78571415)" />
+       gradientTransform="matrix(4,0,0,4,-33.035715,-106.35714)" />
     <filter
        id="filter5378"
-       inkscape:label="filter1" />
-    <filter
-       inkscape:collect="always"
-       id="filter5973">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5975" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter5977">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5979" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter6009">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.38194836"
-         id="feGaussianBlur6011" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter6009-1">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.38194836"
-         id="feGaussianBlur6011-2" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5977-5">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5979-1" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5973-3">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5975-1" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter6009-4">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.38194836"
-         id="feGaussianBlur6011-3" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5977-3">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5979-9" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5973-5">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.10416773"
-         id="feGaussianBlur5975-4" />
-    </filter>
+       inkscape:label="filter1"
+       color-interpolation-filters="sRGB" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -151,23 +73,27 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.627417"
-     inkscape:cx="26.786076"
-     inkscape:cy="22.959904"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="-48.839448"
+     inkscape:cy="-24.69799"
      inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
      inkscape:window-width="1918"
-     inkscape:window-height="1045"
+     inkscape:window-height="1064"
      inkscape:window-x="0"
-     inkscape:window-y="33"
+     inkscape:window-y="14"
      inkscape:window-maximized="1"
      showguides="false"
      inkscape:snap-global="false">
     <inkscape:grid
        type="xygrid"
-       id="grid3015" />
+       id="grid3015"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata2990">
@@ -177,7 +103,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -186,22 +112,22 @@
      id="layer3"
      inkscape:label="Layer"
      style="display:inline"
-     sodipodi:insensitive="true">
+     transform="translate(0,80)">
     <rect
        style="fill:url(#linearGradient5255);fill-opacity:1;stroke:none"
        id="rect5233"
-       width="26.642857"
-       height="25"
+       width="106.57143"
+       height="100"
        x="10.678572"
-       y="11.5"
-       ry="3.8571429" />
+       y="-63.5"
+       ry="15.428572" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Layer#1"
      style="display:none"
-     sodipodi:insensitive="true">
+     transform="translate(0,80)">
     <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
        id="text5257"
@@ -222,11 +148,12 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Layer#2"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,80)">
     <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:none;stroke:#000000;stroke-width:0.40000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline;font-family:Sans"
        id="text5257-67-6"
-       transform="translate(0.021273,1.025)">
+       transform="matrix(4,0,0,4,-31.950623,-105.4)">
       <path
          d="M 19.330078,24.191406 16.394531,29.5 l -1.924804,0 3.348632,-5.756836 c -0.322268,-0.117182 -0.629885,-0.266595 -0.922851,-0.448242 -0.287112,-0.181634 -0.541994,-0.413079 -0.764649,-0.694336 -0.216798,-0.287102 -0.38965,-0.629875 -0.518554,-1.02832 -0.128908,-0.39843 -0.193361,-0.870109 -0.19336,-1.415039 -1e-6,-1.160146 0.369139,-2.033192 1.107422,-2.619141 0.744138,-0.591784 1.851559,-0.887683 3.322266,-0.887695 l 3.27832,0 0,12.849609 -1.643555,0 0,-5.308594 -2.15332,0 m 2.15332,-6.143554 -1.652343,0 c -0.433599,1.1e-5 -0.820318,0.04396 -1.160157,0.131835 -0.333988,0.08204 -0.618167,0.213879 -0.852539,0.395508 -0.228519,0.181652 -0.4043,0.416026 -0.527343,0.703125 -0.117191,0.28126 -0.175784,0.621104 -0.175782,1.019532 -2e-6,0.386727 0.05566,0.73536 0.166993,1.045898 0.117184,0.304695 0.290035,0.565437 0.518554,0.782227 0.228512,0.216804 0.515621,0.383796 0.861328,0.500976 0.351558,0.117194 0.764644,0.175788 1.239258,0.175781 l 1.582031,0 0,-4.754882"
          style="font-size:18px;font-variant:normal;font-stretch:normal;fill:none;stroke:#000000;stroke-width:0.40000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Droid Sans;-inkscape-font-specification:Droid Sans"
@@ -241,7 +168,7 @@
     <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
        id="text5257-67"
-       transform="translate(0.121582,0.9248045)">
+       transform="matrix(4,0,0,4,-31.549387,-105.80078)">
       <path
          d="M 19.330078,24.191406 16.394531,29.5 l -1.924804,0 3.348632,-5.756836 c -0.322268,-0.117182 -0.629885,-0.266595 -0.922851,-0.448242 -0.287112,-0.181634 -0.541994,-0.413079 -0.764649,-0.694336 -0.216798,-0.287102 -0.38965,-0.629875 -0.518554,-1.02832 -0.128908,-0.39843 -0.193361,-0.870109 -0.19336,-1.415039 -1e-6,-1.160146 0.369139,-2.033192 1.107422,-2.619141 0.744138,-0.591784 1.851559,-0.887683 3.322266,-0.887695 l 3.27832,0 0,12.849609 -1.643555,0 0,-5.308594 -2.15332,0 m 2.15332,-6.143554 -1.652343,0 c -0.433599,1.1e-5 -0.820318,0.04396 -1.160157,0.131835 -0.333988,0.08204 -0.618167,0.213879 -0.852539,0.395508 -0.228519,0.181652 -0.4043,0.416026 -0.527343,0.703125 -0.117191,0.28126 -0.175784,0.621104 -0.175782,1.019532 -2e-6,0.386727 0.05566,0.73536 0.166993,1.045898 0.117184,0.304695 0.290035,0.565437 0.518554,0.782227 0.228512,0.216804 0.515621,0.383796 0.861328,0.500976 0.351558,0.117194 0.764644,0.175788 1.239258,0.175781 l 1.582031,0 0,-4.754882"
          style="font-size:18px;font-variant:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Droid Sans;-inkscape-font-specification:Droid Sans"
