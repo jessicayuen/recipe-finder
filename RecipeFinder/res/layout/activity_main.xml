@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/fave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:text="@string/fave"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/view_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fave"
+        android:layout_toRightOf="@+id/fave"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:text="@string/view_all"
+        android:textSize="15sp" />
+    
+    <Button
+        android:id="@+id/create_my_own"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/my_ingredients"
+        android:minHeight="36dp"
+        android:text="@string/create_my_own"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/my_ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:minHeight="36dp"
+        android:text="@string/my_ingredients"
+        android:textSize="15sp" />
+    
+    <TextView
+        android:id="@+id/find_recipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/create_my_own"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="117dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:text="@string/find_recipes"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/find_recipes"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="33dp"
+        android:layout_toLeftOf="@+id/search_button"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/search_bar"
+        android:layout_alignBottom="@+id/search_bar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:minHeight="36dp"
+        android:text="@string/search"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/advanced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/search_bar"
+        android:layout_below="@+id/search_bar"
+        android:paddingLeft="5dp"
+        android:text="@string/advanced"
+        android:textSize="11sp" />
+    
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Recipe Finder</string>
+    <string name="menu_settings">Settings</string>
+    <string name="fave">Faves:</string>
+    <string name="view_all">(view all)</string>
+    <string name="create_my_own">Create My Own</string>
+    <string name="my_ingredients">My Ingredients</string>
+    <string name="find_recipes">Find Recipes:</string>
+    <string name="search">Search</string>
+    <string name="advanced">advanced</string>
+
+</resources>
