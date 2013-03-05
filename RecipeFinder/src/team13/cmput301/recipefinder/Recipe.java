@@ -6,12 +6,15 @@ public class Recipe {
 	String name;
 	String description;
 	String author;
-	float rating;
 	List<String> ingredients;
 	List<Photo> photos;
+	float rating;
 	
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<Photo> photos, float rating) {
+		this.name = name;
+		this.description = description;
+		this.author = author;
 		
 	}
 }
