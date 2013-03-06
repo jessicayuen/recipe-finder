@@ -14,5 +14,7 @@
     <string name="title_activity_create_recipe">Create Recipe</string>
     <string name="name">Name:</string>
     <string name="descr">Description:</string>
+    <string name="ingredient">Ingredient(s):</string>
+    <string name="instruc">Instructions:</string>
 
 </resources>
