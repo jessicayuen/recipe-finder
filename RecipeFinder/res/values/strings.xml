@@ -10,5 +10,9 @@
     <string name="find_recipes">Find Recipes:</string>
     <string name="search">Search</string>
     <string name="advanced">advanced</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_create_recipe">Create Recipe</string>
+    <string name="name">Name:</string>
+    <string name="descr">Description:</string>
 
 </resources>

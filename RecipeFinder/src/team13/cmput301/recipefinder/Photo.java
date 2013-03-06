@@ -1,7 +1,7 @@
 package team13.cmput301.recipefinder;
 
 import java.util.Date;
-import android.graphics.Bitmap;;
+import android.graphics.Bitmap;
 
 
 /**
