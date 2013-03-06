@@ -6,7 +6,6 @@ import android.graphics.Bitmap;;
 
 /**
  * class used to store photos along with their author and date inserted
- * @author jim
  *
  */
 public class Photo {
