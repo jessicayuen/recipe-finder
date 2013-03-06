@@ -31,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/my_ingredients"
         android:minHeight="36dp"
+        android:onClick="openCreateActivity"
         android:text="@string/create_my_own"
         android:textSize="15sp" />
 
