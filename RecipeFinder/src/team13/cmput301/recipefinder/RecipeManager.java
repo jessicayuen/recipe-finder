@@ -36,4 +36,12 @@ public class RecipeManager {
 	private static void addRecipeToUser(Recipe recipe) {
 		userRecipes.add(recipe);
 	}
+
+	public static List<Recipe> getFaveRecipes() {
+		return faveRecipes;
+	}
+
+	public static List<Recipe> getUserRecipes() {
+		return userRecipes;
+	}
 }
