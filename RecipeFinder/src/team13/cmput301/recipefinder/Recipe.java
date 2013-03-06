@@ -79,6 +79,45 @@ public class Recipe {
 		this.date = new Date();
 	}
 
+	/** 
+	 * Add a photo to the recipe
+	 * @param photo
+	 */
+	public void addPhoto(Photo photo) {
+		photos.add(photo);
+	}
+	
+	/**
+	 * Add a ingredient to the recipe
+	 * @param ingredient
+	 */
+	public void addIngredient(String ingredient) {
+		ingredients.add(ingredient);
+	}
+	
+	/**
+	 * Add an instruction to the end of the recipe
+	 * @param instruction
+	 */
+	public void addInstruction(String instruction) {
+		instructions.add(instruction);
+	}
+	
+	/**
+	 * Add an instruction to the recipe at location i
+	 * @param instruction
+	 * @param i
+	 * @return false if i is out of bounds, true otherwise
+	 */
+	public boolean addInstruction(String instruction, int i) {
+		try {
+			instructions.add(i, instruction);
+		} catch (IndexOutOfBoundsException e) {
+			return false;
+		}
+		return true;
+	}
+	
 	public String getName() {
 		return name;
 	}
