@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Recipe {
+	
 	private String name;
 	private String description;
 	private String author;
@@ -13,6 +14,7 @@ public class Recipe {
 	private List<Photo> photos;
 	private float rating;
 	private Date date;
+
 	
 	/** 
 	 * Constructor for Recipe object
@@ -180,5 +182,10 @@ public class Recipe {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
