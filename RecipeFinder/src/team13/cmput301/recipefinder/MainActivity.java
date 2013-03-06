@@ -20,6 +20,13 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
-
+	
+	/** 
+	 * Starts the activity Create Recipe on 'Create My Own' button click
+	 * @param view
+	 */
+	public void openCreateRecipe(View view) {
+		Intent intent = new Intent(this, CreateRecipeActivity.class);
+		startActivity(intent);
+	}
 }
