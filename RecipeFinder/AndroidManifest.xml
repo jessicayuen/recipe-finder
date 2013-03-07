@@ -26,6 +26,10 @@
             android:name="team13.cmput301.recipefinder.CreateRecipeActivity"
             android:label="@string/title_activity_create_recipe" >
         </activity>
+        <activity
+            android:name="team13.cmput301.recipefinder.FileExplorerActivity"
+            android:label="@string/title_activity_file_explorer" >
+        </activity>
     </application>
 
 </manifest>

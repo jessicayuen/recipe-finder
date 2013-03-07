@@ -16,5 +16,6 @@
     <string name="descr">Description:</string>
     <string name="ingredient">Ingredient(s):</string>
     <string name="instruc">Instructions:</string>
+    <string name="title_activity_file_explorer">File Explorer</string>
 
 </resources>
