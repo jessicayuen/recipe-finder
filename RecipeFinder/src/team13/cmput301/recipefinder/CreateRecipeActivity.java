@@ -32,7 +32,7 @@ public class CreateRecipeActivity extends Activity {
 		
 		
 
-		gallery = (Gallery)findViewById(R.id.gallery1);
+		gallery = (Gallery)findViewById(R.id.gallery);
 		//imageView = (ImageView)findViewById(R.id.i)
 		gallery.setAdapter(new ImageAdapter(this));
 		gallery.setOnItemClickListener(new OnItemClickListener(){
