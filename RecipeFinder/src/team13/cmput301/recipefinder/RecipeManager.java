@@ -27,7 +27,7 @@ public class RecipeManager {
 	 * Add recipe to the favorite list.
 	 * @param recipe
 	 */
-	public static void addRecipeToFave(Recipe recipe) {
+	public void addRecipeToFave(Recipe recipe) {
 		if (userRecipes.contains(recipe)) {
 			faveRecipes.add(recipe);
 		}
@@ -37,15 +37,15 @@ public class RecipeManager {
 	 * Add recipe to the user list.
 	 * @param recipe
 	 */
-	public static void addRecipeToUser(Recipe recipe) {
+	public void addRecipeToUser(Recipe recipe) {
 		userRecipes.add(recipe);
 	}
 
-	public static List<Recipe> getFaveRecipes() {
+	public List<Recipe> getFaveRecipes() {
 		return faveRecipes;
 	}
 
-	public static List<Recipe> getUserRecipes() {
+	public List<Recipe> getUserRecipes() {
 		return userRecipes;
 	}
 }
