@@ -54,7 +54,7 @@ public class ImageAdapter extends BaseAdapter implements SpinnerAdapter {
 		return imageView;
 	}
 
-	public Integer[] pictureIds = {
+	public static Integer[] pictureIds = {
 			//todo some ids
 			// this is where the image ids are held
 	};
