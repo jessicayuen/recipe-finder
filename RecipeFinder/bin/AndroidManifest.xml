@@ -27,6 +27,18 @@
             android:label="@string/title_activity_create_recipe" >
         </activity>
         <activity
+            android:name="team13.cmput301.recipefinder.MyIngredientsActivity"
+            android:label="@string/title_activity_my_ingredients" >
+        </activity>
+        <activity
+            android:name="team13.cmput301.recipefinder.RecipesActivity"
+            android:label="@string/title_activity_recipes" >
+        </activity>
+        <activity
+            android:name="team13.cmput301.recipefinder.SearchResultsActivity"
+            android:label="@string/title_activity_search_results" >
+        </activity>
+        <activity
             android:name="team13.cmput301.recipefinder.FileExplorerActivity"
             android:label="@string/title_activity_file_explorer" >
         </activity>
