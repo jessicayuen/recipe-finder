@@ -16,5 +16,8 @@
     <string name="descr">Description:</string>
     <string name="ingredient">Ingredient(s):</string>
     <string name="instruc">Instructions:</string>
+    <string name="title_activity_my_ingredients">My Ingredients</string>
+    <string name="title_activity_recipes">Recipes</string>
+    <string name="title_activity_search_results">Search Results</string>
 
 </resources>
