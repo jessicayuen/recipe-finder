@@ -18,7 +18,7 @@
         android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/addName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/nameText"
@@ -42,7 +42,7 @@
         android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/addDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/descrText"
@@ -52,7 +52,7 @@
         android:inputType="textMultiLine" />
 
      <Button
-         android:id="@+id/button1"
+         android:id="@+id/addIngredients"
          style="?android:attr/buttonStyleSmall"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
          android:textSize="15sp" />
 
      <EditText
-         android:id="@+id/editText3"
+         android:id="@+id/addInstructions"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentRight="true"
@@ -95,7 +95,7 @@
          android:inputType="textMultiLine" />
 
      <Button
-         android:id="@+id/button2"
+         android:id="@+id/addPictures"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@+id/editText3"
@@ -104,7 +104,7 @@
          android:text="Button_add placeholder" />
 
      <Button
-         android:id="@+id/button3"
+         android:id="@+id/createButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
@@ -113,7 +113,7 @@
          android:text="Create" />
 
      <Button
-         android:id="@+id/button4"
+         android:id="@+id/exitButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
