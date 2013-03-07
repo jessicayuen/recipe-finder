@@ -10,7 +10,11 @@ public class RecipeManager {
 	private static List<Recipe> faveRecipes;
 	private static List<Recipe> userRecipes;
 	
-	static RecipeManager getRecipeManager() {
+	protected RecipeManager() {
+		// Exists only to defeat instantiation
+	}
+	
+	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
 			recipeManager.faveRecipes = new ArrayList<Recipe>();
