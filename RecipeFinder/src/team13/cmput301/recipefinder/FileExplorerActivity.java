@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
@@ -199,6 +200,11 @@ public class FileExplorerActivity extends Activity {
 					// File picked
 					else {
 						// Perform action with file picked
+						Intent resultData = new Intent();
+						String filePath = sel.getPath();
+						resultData.putExtra("path", filePath);
+						setResult(Activity.RESULT_OK, resultData);
+						finish();
 					}
 
 				}
