@@ -1,132 +1,159 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CreateRecipe" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/nameText"
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/name"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/addName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="23dp"
+                android:layout_toRightOf="@+id/nameText"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/descrText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nameText"
+                android:layout_below="@+id/nameText"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/descr"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ingredientText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/descrText"
+                android:layout_below="@+id/addDescription"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/ingredient"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/addIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ingredientText"
+                android:layout_below="@+id/addDescription"
+                android:layout_toRightOf="@+id/descrText"
+                android:ems="8" >
+            </EditText>
+
+            <Button
+                android:id="@+id/addIngredientsButn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ingredientText"
+                android:layout_below="@+id/addDescription"
+                android:layout_toRightOf="@+id/addIngredients"
+                android:text="Add_placeHolder" />
+
+            <TextView
+                android:id="@+id/instructionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/ingredientText"
+                android:layout_below="@+id/ingredientListView"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/instruc"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/addInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/instructionText"
+                android:layout_below="@+id/ingredientListView"
+                android:layout_marginBottom="50dp"
+                android:layout_toRightOf="@+id/instructionText"
+                android:ems="10" />
+
+            <EditText
+                android:id="@+id/addDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/descrText"
+                android:layout_alignBottom="@+id/descrText"
+                android:layout_toRightOf="@+id/ingredientText"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+            <ListView
+                android:id="@+id/ingredientListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addIngredients"
+                android:layout_below="@+id/addIngredients" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/instructionListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addInstructions"
+                android:layout_below="@+id/instructionText" >
+            </ListView>
+
+            <Button
+                android:id="@+id/addPicturesButn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/instructionListView"
+                android:layout_centerHorizontal="true"
+                android:text="Button_add placeholder" />
+
+            <Gallery
+                android:id="@+id/gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addName"
+                android:layout_below="@+id/addPicturesButn" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="40dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/name"
-        android:textSize="15sp" />
+        android:layout_toLeftOf="@+id/exitButton"
+        android:layout_alignParentBottom="true"
+        android:text="Create" />
 
-    <EditText
-        android:id="@+id/editText1"
+    <Button
+        android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/nameText"
-        android:layout_alignBottom="@+id/nameText"
-        android:layout_toRightOf="@+id/nameText"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/descrText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/nameText"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="14dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/descr"
-        android:textSize="15sp" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/descrText"
-        android:layout_alignBottom="@+id/descrText"
-        android:layout_toRightOf="@+id/descrText"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-
-     <Button
-         android:id="@+id/button1"
-         style="?android:attr/buttonStyleSmall"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/ingredientText"
-         android:layout_alignBottom="@+id/ingredientText"
-         android:layout_alignParentRight="true"
-         android:text="Add_placeHolder" />
-
-     <TextView
-         android:id="@+id/ingredientText"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/descrText"
-         android:layout_below="@+id/editText2"
-         android:layout_marginTop="18dp"
-         android:paddingLeft="5dp"
-         android:paddingTop="10dp"
-         android:text="@string/ingredient"
-         android:textSize="15sp" />
-
-     <TextView
-         android:id="@+id/instructionText"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/ingredientText"
-         android:layout_below="@+id/button1"
-         android:layout_marginTop="25dp"
-         android:paddingLeft="5dp"
-         android:paddingTop="10dp"
-         android:text="@string/instruc"
-         android:textSize="15sp" />
-
-     <EditText
-         android:id="@+id/editText3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentRight="true"
-         android:layout_alignTop="@+id/instructionText"
-         android:ems="10"
-         android:inputType="textMultiLine" />
-
-     <Button
-         android:id="@+id/button2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/editText3"
-         android:layout_marginTop="28dp"
-         android:layout_toRightOf="@+id/nameText"
-         android:text="Button_add placeholder" />
-
-     <Button
-         android:id="@+id/button3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:layout_marginLeft="38dp"
-         android:layout_toRightOf="@+id/ingredientText"
-         android:text="Create" />
-
-     <Button
-         android:id="@+id/button4"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:layout_toRightOf="@+id/button3"
-         android:text="Exit" />
-
-     <Gallery
-         android:id="@+id/gallery1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/instructionText"
-         android:layout_below="@+id/button2"
-         android:layout_marginLeft="16dp"
-         android:layout_marginTop="54dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/createButton"
+        android:text="Exit" />
 
 </RelativeLayout>

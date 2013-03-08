@@ -15,6 +15,21 @@
     <string name="name">Name:</string>
     <string name="descr">Description:</string>
     <string name="ingredient">Ingredient(s):</string>
-    <string name="instruc">Instructions:</string>
+    <string name="instruc">Instructions(s):</string>
+    <string name="title_activity_my_ingredients">My Ingredients</string>
+    <string name="title_activity_recipes">Recipes</string>
+    <string name="title_activity_search_results">Search Results</string>
+    <string name="title_activity_file_explorer">File Explorer</string>
+
+    <color name="green">#6BE400</color>
+
+    <string name="title_activity_display_recipe">Display Recipe</string>
+    <string name="title_activity_search_recipe">Search Recipe</string>
+    <string name="buffer">buffbuffbuffbuffbuffbuffbuffbuff</string>
+    <string name="author">Author:</string>
+    <string name="shortbuff">buffer</string>
+    <string name="addPhoto">Add Photo</string>
+    <string name="share">Share</string>
+    <string name="download">Download</string>
 
 </resources>

@@ -10,7 +10,11 @@ public class RecipeManager {
 	private static List<Recipe> faveRecipes;
 	private static List<Recipe> userRecipes;
 	
-	static RecipeManager getRecipeManager() {
+	protected RecipeManager() {
+		// Exists only to defeat instantiation
+	}
+	
+	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
 			recipeManager.faveRecipes = new ArrayList<Recipe>();
@@ -23,7 +27,7 @@ public class RecipeManager {
 	 * Add recipe to the favorite list.
 	 * @param recipe
 	 */
-	private static void addRecipeToFave(Recipe recipe) {
+	public void addRecipeToFave(Recipe recipe) {
 		if (userRecipes.contains(recipe)) {
 			faveRecipes.add(recipe);
 		}
@@ -33,15 +37,15 @@ public class RecipeManager {
 	 * Add recipe to the user list.
 	 * @param recipe
 	 */
-	private static void addRecipeToUser(Recipe recipe) {
+	public void addRecipeToUser(Recipe recipe) {
 		userRecipes.add(recipe);
 	}
 
-	public static List<Recipe> getFaveRecipes() {
+	public List<Recipe> getFaveRecipes() {
 		return faveRecipes;
 	}
 
-	public static List<Recipe> getUserRecipes() {
+	public List<Recipe> getUserRecipes() {
 		return userRecipes;
 	}
 }
