@@ -18,7 +18,7 @@ import android.widget.ImageView;
 public class CreateRecipeActivity extends Activity {
 
 	private boolean textChanged = false;
-	private Button saveButton, exitButton;
+	private Button saveButton, exitButton, addPictures, addIngredient;
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
 	private ImageView imageView;
@@ -30,6 +30,8 @@ public class CreateRecipeActivity extends Activity {
 
 		saveButton = (Button) findViewById(R.id.createButton);
 		exitButton = (Button) findViewById(R.id.exitButton);
+		addPictures = (Button) findViewById(R.id.addPicturesButn);
+		addIngredient = (Button) findViewById(R.id.addIngredientsButn);
 		addName = (EditText) findViewById(R.id.addName);
 		addIngredients = (EditText) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
@@ -59,10 +61,10 @@ public class CreateRecipeActivity extends Activity {
 				addedIngredients();
 				addedInstructions();
 				addedDescription();
-				if(textChanged && photo) {
+				if(textChanged) {
 
 				}
-				else if(textChanged && noPhoto) {
+				else if(!textChanged) {
 
 				}
 				else {

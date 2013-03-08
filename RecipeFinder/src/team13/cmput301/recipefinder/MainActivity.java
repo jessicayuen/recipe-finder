@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		rm = RecipeManager.getRecipeManager();
-		displayFaves();
+		//displayFaves();
 	}
 
 	@Override
@@ -37,11 +37,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	private void displayFaves() {
-		Random r = new Random();
-		int numFaves = rm.getFaveRecipes().size();
-		int recipe = r.nextInt(numFaves - 1);
-		
-		
-	}
+//	private void displayFaves() {
+//		Random r = new Random();
+//		int numFaves = rm.getFaveRecipes().size();
+//		int recipe = r.nextInt(numFaves - 1);
+//		
+//		
+//	}
 }
