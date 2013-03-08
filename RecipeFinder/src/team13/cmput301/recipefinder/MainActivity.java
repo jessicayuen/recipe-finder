@@ -2,7 +2,6 @@ package team13.cmput301.recipefinder;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
