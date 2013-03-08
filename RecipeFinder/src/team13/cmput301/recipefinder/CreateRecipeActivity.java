@@ -3,6 +3,7 @@ package team13.cmput301.recipefinder;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
@@ -84,21 +85,22 @@ public class CreateRecipeActivity extends Activity {
 		});
 
 		addPictures.setOnClickListener(new View.OnClickListener() {			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				/* show a message if fields not entered */
 				AlertDialog alertDialog = new AlertDialog.Builder(
 						CreateRecipeActivity.this).create();
 				alertDialog.setTitle("Add a Picture");
-				alertDialog.setButton("Use Existing", new DialogInterface.OnClickListener() {
+				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
+						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						
-						Intent intent = new Intent(CreateRecipeActivity.this, FileExplorerActivity.class);
+
+						Intent intent = new Intent(CreateRecipeActivity.this, 
+								FileExplorerActivity.class);
 						startActivityForResult(intent, FILE_PATH_REQUEST);
-						//startActivity(intent);
 					} });
-				alertDialog.setButton("Take a Picture", new DialogInterface.OnClickListener() {
+				alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
+						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {	
 					} });
 				alertDialog.show();
@@ -109,23 +111,23 @@ public class CreateRecipeActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-	    // if the results is coming from BROWSER_ACTIVATION_REQUEST 
-	    if (requestCode == FILE_PATH_REQUEST) {
+		// if the results is coming from BROWSER_ACTIVATION_REQUEST 
+		if (requestCode == FILE_PATH_REQUEST) {
 
-	        // check the result code set by the activity
-	        if (resultCode == RESULT_OK) {
+			// check the result code set by the activity
+			if (resultCode == RESULT_OK) {
 
-	            // get the intent extras and get the value returned
-	            String filePath = data.getExtras().getString("filePath");
+				// get the intent extras and get the value returned
+				String filePath = data.getExtras().getString("filePath");
 
-	            
-	            // do something with returned value
-	            // Tip: check for the null value before you use the returned value,
-	            // otherwise it will throw you a NullPointerException
-	        }
-	    }
+
+				// do something with returned value
+				// Tip: check for the null value before you use the returned value,
+				// otherwise it will throw you a NullPointerException
+			}
+		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
