@@ -118,17 +118,18 @@
         android:layout_below="@+id/instructionsInfo"
         android:layout_marginTop="20dp"
         android:minHeight="36dp"
+        android:onClick="addPhoto"
         android:text="@string/addPhoto"
         android:textSize="15sp" />
 
     <Button
-        android:id="@+id/download"
+        android:id="@+id/publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:minHeight="36dp"
-        android:text="@string/download"
+        android:text="@string/publish"
         android:textSize="15sp" />
 
     <Button
@@ -139,6 +140,7 @@
         android:layout_alignRight="@+id/authorInfo"
         android:minHeight="36dp"
         android:text="@string/share"
+        android:onClick="shareRecipe"
         android:textSize="15sp" />
 
 </RelativeLayout>

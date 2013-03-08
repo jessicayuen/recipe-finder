@@ -2,6 +2,7 @@ package team13.cmput301.recipefinder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Recipe {
 	
@@ -13,11 +14,8 @@ public class Recipe {
 	private List<Photo> photos;
 	private float rating;
 	private Date date;
+	private UUID id;
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> f378de49d5c90a01b0acbe2ccc764ef222755aa2
 	/** 
 	 * Constructor for Recipe object
 	 * @param name
@@ -162,4 +160,11 @@ public class Recipe {
 		this.date = date;
 	}
 
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
 }
