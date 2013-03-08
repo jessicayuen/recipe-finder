@@ -1,7 +1,7 @@
 CMPUT301W13T13
 ===========
 
-Android project development for CMPUT 301.
+Android project development for University of Alberta's CMPUT 301.
 
 Please consult the wiki for a more detailed documentation.
 
