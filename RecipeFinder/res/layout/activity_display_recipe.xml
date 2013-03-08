@@ -3,6 +3,142 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DisplayRecipeActivity" >
+    
+     <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/displayPic"
+        android:layout_toRightOf="@+id/displayPic"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/author"
+        android:textSize="16sp" />
+     
+    <TextView
+        android:id="@+id/ingredientsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/description"
+        android:layout_below="@+id/description"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/buffer"
+        android:textSize="15sp" />
+    
+    <ImageView
+        android:id="@+id/displayPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:maxHeight="120dp"
+        android:maxWidth="120dp"
+        android:minHeight="120dp"
+        android:minWidth="120dp"
+        android:src="@drawable/directory_icon" />
 
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/author"
+        android:layout_below="@+id/author"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/descr"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/authorInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/description"
+        android:layout_toRightOf="@+id/author"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/shortbuff"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/ingredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/displayPic"
+        android:layout_below="@+id/displayPic"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/ingredient"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/descriptionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ingredients"
+        android:layout_below="@+id/ingredients"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/buffer"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/descriptionInfo"
+        android:layout_centerVertical="true"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/instruc"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/instructionsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructions"
+        android:layout_below="@+id/instructions"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/buffer"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructionsInfo"
+        android:layout_below="@+id/instructionsInfo"
+        android:layout_marginTop="20dp"
+        android:minHeight="36dp"
+        android:text="@string/addPhoto"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:minHeight="36dp"
+        android:text="@string/download"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/authorInfo"
+        android:minHeight="36dp"
+        android:text="@string/share"
+        android:textSize="15sp" />
 
 </RelativeLayout>
