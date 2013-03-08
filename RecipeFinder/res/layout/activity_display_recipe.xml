@@ -122,13 +122,13 @@
         android:textSize="15sp" />
 
     <Button
-        android:id="@+id/download"
+        android:id="@+id/publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:minHeight="36dp"
-        android:text="@string/download"
+        android:text="@string/publish"
         android:textSize="15sp" />
 
     <Button
