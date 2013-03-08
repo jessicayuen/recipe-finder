@@ -84,6 +84,9 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
+		/*
+		 * listen to add picture button click
+		 */
 		addPictures.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -119,7 +122,8 @@ public class CreateRecipeActivity extends Activity {
 
 				// get the intent extras and get the value returned
 				String filePath = data.getExtras().getString("filePath");
-
+				
+				System.out.println(filePath);
 
 				// do something with returned value
 				// Tip: check for the null value before you use the returned value,
