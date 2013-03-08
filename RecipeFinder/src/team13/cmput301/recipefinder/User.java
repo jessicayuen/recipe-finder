@@ -5,17 +5,21 @@
 package team13.cmput301.recipefinder;
 
 public class User {
-	private String username;
-	private String email;
+	//Singleton
+	transient private static User user = null;
 	
-	/**
-	 * Constructor for User
-	 * @param username
-	 * @param email
-	 */
-	public User(String username, String email) {
-		this.username = username;
-		this.email = email;
+	private String username = "";
+	private String email = "";
+	
+	protected User() {
+		// Exists only to defeat instantiation
+	}
+	
+	public static User getUser() {
+		if (user == null) {
+			user = new User();
+		}
+		return user;
 	}
 
 	public String getUsername() {
