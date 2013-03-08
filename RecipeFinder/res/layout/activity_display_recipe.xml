@@ -118,6 +118,7 @@
         android:layout_below="@+id/instructionsInfo"
         android:layout_marginTop="20dp"
         android:minHeight="36dp"
+        android:onClick="addPhoto"
         android:text="@string/addPhoto"
         android:textSize="15sp" />
 
