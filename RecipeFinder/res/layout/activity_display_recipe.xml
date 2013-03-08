@@ -140,6 +140,7 @@
         android:layout_alignRight="@+id/authorInfo"
         android:minHeight="36dp"
         android:text="@string/share"
+        android:onClick="shareRecipe"
         android:textSize="15sp" />
 
 </RelativeLayout>
