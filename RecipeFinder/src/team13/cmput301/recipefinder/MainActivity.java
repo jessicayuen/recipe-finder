@@ -40,6 +40,15 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
+	 * Starts the activity My Ingredients on 'My Ingredients' button click
+	 * @param view
+	 */
+	public void openMyIngredients(View view) {
+		Intent intent = new Intent(this, MyIngredientsActivity.class);
+		startActivity(intent);
+	}
+	
+	/**
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
 	private void displayFaves() {
