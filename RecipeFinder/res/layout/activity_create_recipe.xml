@@ -26,9 +26,8 @@
                 android:id="@+id/addName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addDescription"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="23dp"
-                android:layout_toRightOf="@+id/nameText"
                 android:ems="10" >
 
                 <requestFocus />
@@ -41,7 +40,7 @@
                 android:layout_alignLeft="@+id/nameText"
                 android:layout_below="@+id/nameText"
                 android:paddingLeft="5dp"
-                android:paddingTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/descr"
                 android:textSize="15sp" />
 
@@ -52,7 +51,7 @@
                 android:layout_alignLeft="@+id/descrText"
                 android:layout_below="@+id/addDescription"
                 android:paddingLeft="5dp"
-                android:paddingTop="10dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/ingredient"
                 android:textSize="15sp" />
 
@@ -61,9 +60,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/ingredientText"
+                android:layout_alignLeft="@+id/addDescription"
                 android:layout_below="@+id/addDescription"
-                android:layout_toRightOf="@+id/descrText"
                 android:ems="8" >
+
             </EditText>
 
             <Button
@@ -83,7 +83,7 @@
                 android:layout_alignLeft="@+id/ingredientText"
                 android:layout_below="@+id/ingredientListView"
                 android:paddingLeft="5dp"
-                android:paddingTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/instruc"
                 android:textSize="15sp" />
 
@@ -91,9 +91,8 @@
                 android:id="@+id/addInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/instructionText"
+                android:layout_alignBottom="@+id/instructionText"
                 android:layout_below="@+id/ingredientListView"
-                android:layout_marginBottom="50dp"
                 android:layout_toRightOf="@+id/instructionText"
                 android:ems="10" />
 
@@ -101,8 +100,8 @@
                 android:id="@+id/addDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/descrText"
                 android:layout_alignBottom="@+id/descrText"
+                android:layout_alignLeft="@+id/addInstructions"
                 android:layout_toRightOf="@+id/ingredientText"
                 android:ems="10"
                 android:inputType="textMultiLine" />
@@ -120,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/addInstructions"
-                android:layout_below="@+id/instructionText" >
+                android:layout_below="@+id/addInstructions" >
             </ListView>
 
             <Button
@@ -129,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/instructionListView"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:text="Button_add placeholder" />
 
             <Gallery

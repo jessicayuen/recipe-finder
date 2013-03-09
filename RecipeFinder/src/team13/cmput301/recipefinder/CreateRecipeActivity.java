@@ -50,7 +50,6 @@ public class CreateRecipeActivity extends Activity {
 			public void onItemClick(AdapterView<?> adapter, View arg1, int position,
 					long arg3) {
 				// TODO when clicked on a picture we are going to make it bigger
-
 			}		
 
 		});
@@ -84,6 +83,9 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
+		/*
+		 * listen to add picture button click
+		 */
 		addPictures.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -94,7 +96,9 @@ public class CreateRecipeActivity extends Activity {
 				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-
+						
+						/* open file explorer when user clicks on choose existing
+						 * picture */
 						Intent intent = new Intent(CreateRecipeActivity.this, 
 								FileExplorerActivity.class);
 						startActivityForResult(intent, FILE_PATH_REQUEST);
@@ -108,21 +112,19 @@ public class CreateRecipeActivity extends Activity {
 		});
 	}
 
+	/*
+	 * Obtain the filepath of the image returned from file explorer activity
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 		// if the results is coming from BROWSER_ACTIVATION_REQUEST 
 		if (requestCode == FILE_PATH_REQUEST) {
 
 			// check the result code set by the activity
 			if (resultCode == RESULT_OK) {
-
 				// get the intent extras and get the value returned
-				String filePath = data.getExtras().getString("filePath");
-
-
-				// do something with returned value
-				// Tip: check for the null value before you use the returned value,
+				String filePath = data.getExtras().getString("path");
+				// TODO: check for the null value before you use the returned value,
 				// otherwise it will throw you a NullPointerException
 			}
 		}
