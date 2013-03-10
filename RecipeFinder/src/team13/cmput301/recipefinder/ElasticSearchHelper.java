@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,8 +23,25 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
-	private HttpClient httpclient = new DefaultHttpClient();
-	private Gson gson = new Gson();
+	// Singleton
+	transient private static ElasticSearchHelper elasticSearchHelper = null;
+	
+	private HttpClient httpclient;
+	private Gson gson;
+	
+	protected ElasticSearchHelper() {
+		// Exists only to defeat instantiation
+	}
+	
+	public static ElasticSearchHelper getElasticSearchHelper() {
+		if (elasticSearchHelper == null) {
+			elasticSearchHelper.httpclient = new DefaultHttpClient();
+			elasticSearchHelper.gson = new Gson();
+		}
+		return elasticSearchHelper;
+	}
+	
+
 
 	/**
 	 * Consumes the POST/Insert operation of the service
