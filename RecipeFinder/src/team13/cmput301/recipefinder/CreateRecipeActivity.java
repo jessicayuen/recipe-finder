@@ -50,14 +50,17 @@ public class CreateRecipeActivity extends Activity {
 		ingredListView = (ListView) findViewById(R.id.ingredientListView);
 		instrListView = (ListView) findViewById(R.id.instructionListView);
 
-
+		ingredients = new ArrayList<String>();
+		instructions = new ArrayList<String>();
+		
 		instrAdapter =      
 				new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, instructions);
 		instrListView.setAdapter(instrAdapter); 
+		
 		ingredAdapter =      
 				new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ingredients);
 		ingredListView.setAdapter(ingredAdapter); 
-
+		
 		gallery = (Gallery)findViewById(R.id.gallery);
 		//imageView = (ImageView)findViewById(R.id.i)
 		gallery.setAdapter(new ImageAdapter(this));
@@ -164,24 +167,24 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
-		addInsButton.setOnClickListener(new View.OnClickListener() {
-
-			Toast toast;
-			@Override
-			public void onClick(View arg0) {
-				textChanged = false;
-				addedInstructions();
-				// TODO Auto-generated method stub
-				if(textChanged){
-					instructions.add(addIngredients.getText().toString());
-					instrAdapter.notifyDataSetChanged();
-				} else {
-					toast = Toast.makeText(CreateRecipeActivity.this,
-							"No Text Entered", Toast.LENGTH_SHORT);
-					toast.show();
-				}
-			}
-		});
+//		addInsButton.setOnClickListener(new View.OnClickListener() {
+//
+//			Toast toast;
+//			@Override
+//			public void onClick(View arg0) {
+//				textChanged = false;
+//				addedInstructions();
+//				// TODO Auto-generated method stub
+//				if(textChanged){
+//					instructions.add(addIngredients.getText().toString());
+//					instrAdapter.notifyDataSetChanged();
+//				} else {
+//					toast = Toast.makeText(CreateRecipeActivity.this,
+//							"No Text Entered", Toast.LENGTH_SHORT);
+//					toast.show();
+//				}
+//			}
+//		});
 	}
 	
 	/*
@@ -272,6 +275,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 	private void addedIngredients() {
 
+		System.out.println("Came in");
 		addIngredients.addTextChangedListener(new TextWatcher(){
 			@Override
 			public void afterTextChanged(Editable s) {
@@ -284,9 +288,9 @@ public class CreateRecipeActivity extends Activity {
 			}
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {}
+					int after) { System.out.println("Came in2");}
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {System.out.println("Came in3");}
 		});
 	}
 }
