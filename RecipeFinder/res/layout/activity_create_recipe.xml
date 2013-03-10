@@ -5,11 +5,11 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_above="@+id/createButton" >
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <TextView
@@ -97,7 +97,7 @@
                 android:ems="8" />
             
             <Button
-                android:id="@+id/addInstructionBtn"
+                android:id="@+id/addInstructionsButn"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

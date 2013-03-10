@@ -43,6 +43,7 @@ public class CreateRecipeActivity extends Activity {
 		exitButton = (Button) findViewById(R.id.exitButton);
 		addPicButton = (Button) findViewById(R.id.addPicturesButn);
 		addIngredButton = (Button) findViewById(R.id.addIngredientsButn);
+		addInsButton = (Button) findViewById(R.id.addInstructionsButn);
 		addName = (EditText) findViewById(R.id.addName);
 		addIngredients = (EditText) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
@@ -149,8 +150,6 @@ public class CreateRecipeActivity extends Activity {
 				// TODO Auto-generated method stub
 				String tempStr = addIngredients.getText().toString();
 				if(tempStr.length() != 0) {
-					System.out.println(tempStr);
-					System.out.println(ingredients.size());
 					if(!ingredients.contains(tempStr)){
 						ingredients.add(tempStr);
 						ingredAdapter.notifyDataSetChanged();
@@ -167,24 +166,23 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
-//		addInsButton.setOnClickListener(new View.OnClickListener() {
-//
-//			Toast toast;
-//			@Override
-//			public void onClick(View arg0) {
-//				textChanged = false;
-//				addedInstructions();
-//				// TODO Auto-generated method stub
-//				if(textChanged){
-//					instructions.add(addIngredients.getText().toString());
-//					instrAdapter.notifyDataSetChanged();
-//				} else {
-//					toast = Toast.makeText(CreateRecipeActivity.this,
-//							"No Text Entered", Toast.LENGTH_SHORT);
-//					toast.show();
-//				}
-//			}
-//		});
+		addInsButton.setOnClickListener(new View.OnClickListener() {
+
+			Toast toast;
+			@Override
+			public void onClick(View arg0) {
+				String tempStr = addIngredients.getText().toString();
+				// TODO Auto-generated method stub
+				if(tempStr.length() != 0){
+					instructions.add(tempStr);
+					instrAdapter.notifyDataSetChanged();
+				} else {
+					toast = Toast.makeText(CreateRecipeActivity.this,
+							"No Text Entered", Toast.LENGTH_SHORT);
+					toast.show();
+				}
+			}
+		});
 	}
 	
 	/*
