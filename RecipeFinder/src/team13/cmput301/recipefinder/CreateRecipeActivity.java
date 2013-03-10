@@ -178,7 +178,7 @@ public class CreateRecipeActivity extends Activity {
 			Toast toast;
 			@Override
 			public void onClick(View arg0) {
-				String tempStr = addIngredients.getText().toString();
+				String tempStr = addInstructions.getText().toString();
 				// TODO Auto-generated method stub
 				if(tempStr.length() != 0){
 					instructions.add(tempStr);
@@ -251,8 +251,7 @@ public class CreateRecipeActivity extends Activity {
 			CharSequence[] ingredCharSequence = ingredients.toArray(new CharSequence[ingredients.size()]);
 			// Set the dialog title
 			dialogBuilder.setTitle("Your Ingredients: ")
-			// Specify the list array, the items to be selected by default (null for none),
-			// and the listener through which to receive callbacks when items are selected
+			//set the choices as the list of ingredients
 			.setMultiChoiceItems(ingredCharSequence, null,
 					new DialogInterface.OnMultiChoiceClickListener() {
 				@Override
@@ -271,8 +270,7 @@ public class CreateRecipeActivity extends Activity {
 			.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
-					// User clicked OK, so save the mSelectedItems results somewhere
-					// or return them to the component that opened the dialog
+					// User clicked OK, we then remove the selected ingredients
 					for(int i = mSelectedItems.size() - 1; i >= 0; i--){
 						ingredients.remove(mSelectedItems.get(i).intValue());
 					}
@@ -294,8 +292,7 @@ public class CreateRecipeActivity extends Activity {
 			CharSequence[] instrCharSequence = instructions.toArray(new CharSequence[instructions.size()]);
 			// Set the dialog title
 			dialogBuilder.setTitle("Your Instructions: ")
-			// Specify the list array, the items to be selected by default (null for none),
-			// and the listener through which to receive callbacks when items are selected
+			//set the choices as the list of instructions
 			.setMultiChoiceItems(instrCharSequence, null,
 					new DialogInterface.OnMultiChoiceClickListener() {
 				@Override
@@ -314,8 +311,7 @@ public class CreateRecipeActivity extends Activity {
 			.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
-					// User clicked OK, so save the mSelectedItems results somewhere
-					// or return them to the component that opened the dialog7
+					// User clicked OK, so delete all the selected instructions
 					for(int i = mSelectedItems.size() - 1; i >= 0; i--){
 						instructions.remove(mSelectedItems.get(i).intValue());
 					}
