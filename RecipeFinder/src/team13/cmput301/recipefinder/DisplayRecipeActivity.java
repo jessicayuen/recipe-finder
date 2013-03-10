@@ -6,18 +6,27 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DisplayRecipeActivity extends Activity {
 
 	private final int FILE_PATH_REQUEST = 1; // request code
+    private static final int CAMERA_REQUEST = 1888; 
+    private Gallery picGallery;
+    private PicAdapter imgAdapt;
 	Recipe recipe;
 	
 	@Override
@@ -42,6 +51,10 @@ public class DisplayRecipeActivity extends Activity {
 					"=)", ingredients, instructions, new ArrayList<Photo>());
 			displayRecipe();
 		}
+		
+		picGallery = (Gallery) findViewById(R.id.gallery);
+		imgAdapt = new PicAdapter(this);
+		picGallery.setAdapter(imgAdapt);
 	}
 
 	@Override
@@ -113,10 +126,26 @@ public class DisplayRecipeActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 			
 			/* Listen for Take a Picture button click */
-			public void onClick(DialogInterface dialog, int which) {} });
+			public void onClick(DialogInterface dialog, int which) {
+                Intent cameraIntent = new Intent(
+                		android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
+                startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+			} 
+		});
 		alertDialog.show();
 	}
 	
+	/**
+	 * Takes the intent result and does something with it.
+	 */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	/* Display the image taken by the camera */
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
+            Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+            imgAdapt.addPic(photo);
+            picGallery.setAdapter(imgAdapt);
+        }  
+    } 	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param views
@@ -156,5 +185,56 @@ public class DisplayRecipeActivity extends Activity {
 			}
 		});
 		alertDialog.show();
+	}
+	
+	/**
+	 * Adapter for images in the gallery
+	 */
+	private class PicAdapter extends BaseAdapter {
+
+		private int defaultItemBackground;
+		private Context galleryContext;
+		private List<Photo> imagePhotos;
+		
+		public PicAdapter(Context c) {
+			galleryContext = c;
+			imagePhotos = recipe.getPhotos();
+			TypedArray styleAttrs = galleryContext.obtainStyledAttributes(
+					R.styleable.PicGallery);
+			defaultItemBackground = styleAttrs.getResourceId(
+					R.styleable.PicGallery_android_galleryItemBackground, 0);
+			styleAttrs.recycle();
+		}
+		
+		@Override
+		public int getCount() {
+			return imagePhotos.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ImageView imageView = new ImageView(galleryContext);
+			imageView.setImageBitmap(imagePhotos.get(position).getPhoto());
+			imageView.setLayoutParams(new Gallery.LayoutParams(120, 100));
+			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			imageView.setBackgroundResource(defaultItemBackground);
+			return imageView;
+		}
+		
+		public void addPic(Bitmap pic) {
+			recipe.addPhoto(new Photo(User.getUser().getUsername(), pic));
+			imagePhotos = recipe.getPhotos();
+		}
+		
 	}
 }
