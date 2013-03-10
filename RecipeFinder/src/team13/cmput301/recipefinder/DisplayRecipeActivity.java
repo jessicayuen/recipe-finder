@@ -135,12 +135,11 @@ public class DisplayRecipeActivity extends Activity {
 	 * Takes the intent result and does something with it.
 	 */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	/* Display the image taken by the camera */
+    	/* Display the image taken by the camera or from chosen file */
         if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
         		&& resultCode == RESULT_OK) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data"); 
     		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-            imgAdapt.addPic(photo);
             picGallery.setAdapter(imgAdapt);
         }
     } 	

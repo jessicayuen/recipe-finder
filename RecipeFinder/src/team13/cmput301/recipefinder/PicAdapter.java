@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -54,5 +53,4 @@ class PicAdapter extends BaseAdapter {
 		imageView.setBackgroundResource(defaultItemBackground);
 		return imageView;
 	}
-
 }

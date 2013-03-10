@@ -33,14 +33,11 @@ public class CreateRecipeActivity extends Activity {
 	private static final int INSTRUCTIONDIALOG = 2;
 	private boolean textChanged = false, contentChanged = false;
 	private Button saveButton, exitButton, addPicButton, addIngredButton, addInsButton;
-	private Button ingredListButton, instrListButton;
+	private Button ingredListButton, instrListButton, imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
-	private ImageView imageView;
-	//private ListView ingredListView, instrListView;
 	private ArrayList<String> ingredients, instructions;
 	private List<Integer> mSelectedItems;
-	private ArrayAdapter<String> instrAdapter, ingredAdapter;
 	private ArrayList<Photo> imageList;
 	private PicAdapter picAdapt;
 
@@ -60,8 +57,6 @@ public class CreateRecipeActivity extends Activity {
 		addIngredients = (EditText) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
-		//		ingredListView = (ListView) findViewById(R.id.ingredientListView);
-		//		instrListView = (ListView) findViewById(R.id.instructionListView);
 
 		ingredients = new ArrayList<String>();
 		instructions = new ArrayList<String>();
@@ -75,7 +70,35 @@ public class CreateRecipeActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View arg1, int position,
 					long arg3) {
-				// TODO when clicked on a picture we are going to make it bigger
+				final int itemPos = position;
+				Dialog picDialog = new Dialog(CreateRecipeActivity.this);
+				picDialog.setContentView(R.layout.custom_dialog_display);
+				picDialog.setCancelable(true);
+				ImageView imgView = (ImageView) picDialog.findViewById(R.id.enlargedImage);
+
+				if(imageList.size() > 0){
+					imgView.setImageBitmap(imageList.get(position).getPhoto());
+					imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
+					imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
+					imageDeleteButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							imageList.remove(itemPos);
+							gallery.setAdapter(picAdapt);
+						}
+					});
+					imageCancelButton.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+					picDialog.show();
+				}
 			}		
 
 		});
@@ -251,7 +274,6 @@ public class CreateRecipeActivity extends Activity {
 		}
 
 		if(bMap != null){
-			picAdapt.addPic(bMap);
 			photo = new Photo(User.getUser().getUsername(), bMap);
 			imageList.add(photo);
 		}
