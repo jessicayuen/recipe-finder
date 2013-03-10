@@ -1,3 +1,7 @@
+/**
+ * Sends a email to the recipient using the User's email
+ */
+
 package team13.cmput301.recipefinder;
 
 import javax.activation.DataHandler;   
@@ -33,18 +37,18 @@ public class EmailSender extends javax.mail.Authenticator {
 		this.password = User.getUser().getEmailPassword();
 		this.host = "smtp.gmail.com";
 		
-        Properties props = new Properties();   
+        Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");   
         props.setProperty("mail.host", host);   
         props.put("mail.smtp.auth", "true");   
         props.put("mail.smtp.port", "465");   
         props.put("mail.smtp.socketFactory.port", "465");   
-        props.put("mail.smtp.socketFactory.class",   
+        props.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");   
         props.put("mail.smtp.socketFactory.fallback", "false");   
         props.setProperty("mail.smtp.quitwait", "false");   
 
-        session = Session.getDefaultInstance(props, this);   
+        session = Session.getDefaultInstance(props, this);  
 	} 
 
     protected PasswordAuthentication getPasswordAuthentication() {   
@@ -53,20 +57,18 @@ public class EmailSender extends javax.mail.Authenticator {
 
     public synchronized void sendMail(String subject, String body)
     		throws Exception {   
-        try{
+
         MimeMessage message = new MimeMessage(session);   
-        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));   
+        DataHandler handler = new DataHandler(
+        		new ByteArrayDataSource(body.getBytes(), "text/plain"));   
         message.setSender(new InternetAddress(from));   
-        message.setSubject(subject);   
+        message.setSubject(subject);
         message.setDataHandler(handler);   
         if (to.indexOf(',') > 0)   
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));   
         else  
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));   
         Transport.send(message);   
-        }catch(Exception e){
-
-        }
     }   
 
     public class ByteArrayDataSource implements DataSource {   
