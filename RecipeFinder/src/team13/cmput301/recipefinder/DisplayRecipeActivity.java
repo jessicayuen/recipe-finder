@@ -136,12 +136,13 @@ public class DisplayRecipeActivity extends Activity {
 	 */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	/* Display the image taken by the camera */
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
+        if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
+        		&& resultCode == RESULT_OK) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data"); 
     		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
             imgAdapt.addPic(photo);
             picGallery.setAdapter(imgAdapt);
-        }  
+        }
     } 	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
