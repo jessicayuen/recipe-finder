@@ -35,6 +35,7 @@ public class Recipe {
 		this.photos = photos;
 		this.rating = 0;
 		this.date = new Date();
+		this.id = new UUID(name.hashCode(), author.hashCode());
 	}
 	
 	/** 
@@ -159,11 +160,7 @@ public class Recipe {
 		this.date = date;
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public String getId() {
+		return id.toString();
 	}
 }
