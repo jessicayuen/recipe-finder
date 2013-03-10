@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/nameText"
-                android:layout_below="@+id/nameText"
+                android:layout_below="@+id/addName"
                 android:paddingLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/descr"
@@ -83,7 +83,7 @@
                 android:layout_alignLeft="@+id/ingredientText"
                 android:layout_below="@+id/ingredientListView"
                 android:paddingLeft="5dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/instruc"
                 android:textSize="15sp" />
 
@@ -94,7 +94,17 @@
                 android:layout_alignBottom="@+id/instructionText"
                 android:layout_below="@+id/ingredientListView"
                 android:layout_toRightOf="@+id/instructionText"
-                android:ems="10" />
+                android:ems="8" />
+            
+            <Button
+                android:id="@+id/addInstructionBtn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ingredientListView"
+                android:layout_alignBottom="@+id/instructionText"
+                android:layout_toRightOf="@+id/addInstructions"
+                android:text="Add_placeHolder" />
 
             <EditText
                 android:id="@+id/addDescription"
@@ -103,8 +113,7 @@
                 android:layout_alignBottom="@+id/descrText"
                 android:layout_alignLeft="@+id/addInstructions"
                 android:layout_toRightOf="@+id/ingredientText"
-                android:ems="10"
-                android:inputType="textMultiLine" />
+                android:ems="10" />
 
             <ListView
                 android:id="@+id/ingredientListView"
