@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class DisplayRecipeActivity extends Activity {
 
@@ -23,6 +25,7 @@ public class DisplayRecipeActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			recipe = (Recipe) extras.getParcelable("recipe");
+			displayRecipe();
 		}
 	}
 
@@ -31,6 +34,43 @@ public class DisplayRecipeActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_display_recipe, menu);
 		return true;
+	}
+	
+	/**
+	 * Display the contents of the recipe
+	 */
+	private void displayRecipe() {
+        TextView textView;
+        ImageView imageView;
+        String ingredients = "";
+        String instructions = "";
+        
+        for (int i = 0; i < recipe.getIngredients().size(); i++) {
+        	ingredients.concat(i + ". " + 
+        			recipe.getIngredients().get(i) + "\n");
+        }
+        
+        for (int i = 0; i < recipe.getInstructions().size(); i++) {
+        	instructions.concat(i + ". " + 
+        			recipe.getInstructions().get(i) + "\n");
+        }
+        
+        if (!recipe.getPhotos().isEmpty()) {
+        	imageView = (ImageView) this.findViewById(R.id.displayPic);
+        	imageView.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
+        }
+        
+        textView = (TextView) this.findViewById(R.id.authorInfo);
+        textView.setText(recipe.getAuthor());
+        
+        textView = (TextView) this.findViewById(R.id.descriptionInfo);
+        textView.setText(recipe.getDescription());
+        
+        textView = (TextView) this.findViewById(R.id.ingredientsInfo);
+        textView.setText(ingredients);
+ 
+        textView = (TextView) this.findViewById(R.id.instructionsInfo);
+        textView.setText(instructions);
 	}
 	
 	/**
