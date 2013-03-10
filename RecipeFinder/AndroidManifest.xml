@@ -52,10 +52,6 @@
             android:name="team13.cmput301.recipefinder.SearchRecipeActivity"
             android:label="@string/title_activity_search_recipe" >
         </activity>
-        <activity
-            android:name="team13.cmput301.recipefinder.TakePhotoActivity"
-            android:label="@string/title_activity_take_photo" >
-        </activity>
     </application>
 
 </manifest>
