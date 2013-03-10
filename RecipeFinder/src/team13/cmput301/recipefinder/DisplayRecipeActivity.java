@@ -53,7 +53,7 @@ public class DisplayRecipeActivity extends Activity {
 		}
 		
 		picGallery = (Gallery) findViewById(R.id.gallery);
-		imgAdapt = new PicAdapter(this);
+		imgAdapt = new PicAdapter(this, recipe.getPhotos());
 		picGallery.setAdapter(imgAdapt);
 	}
 
@@ -142,6 +142,7 @@ public class DisplayRecipeActivity extends Activity {
     	/* Display the image taken by the camera */
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+    		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
             imgAdapt.addPic(photo);
             picGallery.setAdapter(imgAdapt);
         }  
@@ -185,56 +186,5 @@ public class DisplayRecipeActivity extends Activity {
 			}
 		});
 		alertDialog.show();
-	}
-	
-	/**
-	 * Adapter for images in the gallery
-	 */
-	private class PicAdapter extends BaseAdapter {
-
-		private int defaultItemBackground;
-		private Context galleryContext;
-		private List<Photo> imagePhotos;
-		
-		public PicAdapter(Context c) {
-			galleryContext = c;
-			imagePhotos = recipe.getPhotos();
-			TypedArray styleAttrs = galleryContext.obtainStyledAttributes(
-					R.styleable.PicGallery);
-			defaultItemBackground = styleAttrs.getResourceId(
-					R.styleable.PicGallery_android_galleryItemBackground, 0);
-			styleAttrs.recycle();
-		}
-		
-		@Override
-		public int getCount() {
-			return imagePhotos.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ImageView imageView = new ImageView(galleryContext);
-			imageView.setImageBitmap(imagePhotos.get(position).getPhoto());
-			imageView.setLayoutParams(new Gallery.LayoutParams(120, 100));
-			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-			imageView.setBackgroundResource(defaultItemBackground);
-			return imageView;
-		}
-		
-		public void addPic(Bitmap pic) {
-			recipe.addPhoto(new Photo(User.getUser().getUsername(), pic));
-			imagePhotos = recipe.getPhotos();
-		}
-		
 	}
 }
