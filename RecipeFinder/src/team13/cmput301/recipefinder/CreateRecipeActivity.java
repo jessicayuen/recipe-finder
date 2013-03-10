@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 public class CreateRecipeActivity extends Activity {
 
+	private static final int CAMERA_REQUEST = 1;
 	private static final int FILE_PATH_REQUEST = 2; // request code
 	private static final int INGREDIENTDIALOG = 1;
 	private static final int INSTRUCTIONDIALOG = 2;
@@ -38,6 +41,8 @@ public class CreateRecipeActivity extends Activity {
 	private ArrayList<String> ingredients, instructions;
 	private List<Integer> mSelectedItems;
 	private ArrayAdapter<String> instrAdapter, ingredAdapter;
+	private ArrayList<Photo> imageList;
+	private PicAdapter picAdapt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +65,11 @@ public class CreateRecipeActivity extends Activity {
 
 		ingredients = new ArrayList<String>();
 		instructions = new ArrayList<String>();
-
-		//		instrAdapter =      
-		//				new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, instructions);
-		//		instrListView.setAdapter(instrAdapter); 
-		//
-		//		ingredAdapter =      
-		//				new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ingredients);
-		//		ingredListView.setAdapter(ingredAdapter); 
+		imageList = new ArrayList<Photo>();
 
 		gallery = (Gallery) findViewById(R.id.gallery);
-		//imageView = (ImageView)findViewById(R.id.i)
-		gallery.setAdapter(new ImageAdapter(this));
+		picAdapt = new PicAdapter(this, imageList);
+		gallery.setAdapter(picAdapt);
 		gallery.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -141,7 +139,10 @@ public class CreateRecipeActivity extends Activity {
 					} });
 				alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
 						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {	
+					public void onClick(DialogInterface dialog, int which) {
+						Intent cameraIntent = new Intent(
+								android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
+						startActivityForResult(cameraIntent, CAMERA_REQUEST); 
 					} });
 				alertDialog.show();
 			}
@@ -229,16 +230,32 @@ public class CreateRecipeActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// if the results is coming from BROWSER_ACTIVATION_REQUEST 
+		Photo photo;
+		Bitmap bMap = null;
+
 		if (requestCode == FILE_PATH_REQUEST) {
 
 			// check the result code set by the activity
 			if (resultCode == RESULT_OK) {
 				// get the intent extras and get the value returned
 				String filePath = data.getExtras().getString("path");
-				// TODO: check for the null value before you use the returned value,
-				// otherwise it will throw you a NullPointerException
+				if(filePath != null){
+					bMap = BitmapFactory.decodeFile(filePath);
+				}
+			}
+		} else if(requestCode == CAMERA_REQUEST) {
+			if (resultCode == RESULT_OK) {
+				// get the intent extras and get the value returned
+				bMap = (Bitmap) data.getExtras().get("data"); 
 			}
 		}
+
+		if(bMap != null){
+			picAdapt.addPic(bMap);
+			photo = new Photo(User.getUser().getUsername(), bMap);
+			imageList.add(photo);
+		}
+		gallery.setAdapter(picAdapt);
 	}
 
 	protected Dialog onCreateDialog(int choice) {
@@ -246,7 +263,7 @@ public class CreateRecipeActivity extends Activity {
 		AlertDialog.Builder dialogBuilder;
 		mSelectedItems = new ArrayList<Integer>();  // Where we track the selected items
 		contentChanged = false;
-		
+
 		switch(choice){
 		case INGREDIENTDIALOG:
 			dialogBuilder = new AlertDialog.Builder(this);
