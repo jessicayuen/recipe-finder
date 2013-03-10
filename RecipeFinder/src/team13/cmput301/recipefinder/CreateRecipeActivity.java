@@ -61,7 +61,7 @@ public class CreateRecipeActivity extends Activity {
 				new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ingredients);
 		ingredListView.setAdapter(ingredAdapter); 
 		
-		gallery = (Gallery)findViewById(R.id.gallery);
+		gallery = (Gallery) findViewById(R.id.gallery);
 		//imageView = (ImageView)findViewById(R.id.i)
 		gallery.setAdapter(new ImageAdapter(this));
 		gallery.setOnItemClickListener(new OnItemClickListener(){
@@ -146,12 +146,12 @@ public class CreateRecipeActivity extends Activity {
 			Toast toast;
 			@Override
 			public void onClick(View arg0) {
-				textChanged = false;
-				addedIngredients();
 				// TODO Auto-generated method stub
-				if(textChanged){
-					String tempStr = addIngredients.getText().toString();
-					if(ingredients.contains(tempStr)){
+				String tempStr = addIngredients.getText().toString();
+				if(tempStr.length() != 0) {
+					System.out.println(tempStr);
+					System.out.println(ingredients.size());
+					if(!ingredients.contains(tempStr)){
 						ingredients.add(tempStr);
 						ingredAdapter.notifyDataSetChanged();
 					} else {

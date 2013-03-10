@@ -5,18 +5,18 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/createButton" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:text="@string/name"
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/addDescription"
-                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/nameText"
                 android:ems="10" >
 
                 <requestFocus />
@@ -59,7 +59,7 @@
                 android:id="@+id/addIngredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/ingredientText"
+                android:layout_alignTop="@+id/ingredientText"
                 android:layout_alignLeft="@+id/addDescription"
                 android:layout_below="@+id/addDescription"
                 android:ems="8" >
@@ -91,7 +91,7 @@
                 android:id="@+id/addInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/instructionText"
+                android:layout_alignTop="@+id/instructionText"
                 android:layout_below="@+id/ingredientListView"
                 android:layout_toRightOf="@+id/instructionText"
                 android:ems="8" />
@@ -110,7 +110,7 @@
                 android:id="@+id/addDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/descrText"
+                android:layout_alignTop="@+id/descrText"
                 android:layout_alignLeft="@+id/addInstructions"
                 android:layout_toRightOf="@+id/ingredientText"
                 android:ems="10" />
