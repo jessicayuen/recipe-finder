@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +45,7 @@ public class DisplayRecipeActivity extends Activity {
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
 				new DialogInterface.OnClickListener() {
 			
+			/* Listen for Use Existing button click */
 			public void onClick(DialogInterface dialog, int which) {
 				Intent intent = new Intent(DisplayRecipeActivity.this, 
 						FileExplorerActivity.class);
@@ -54,13 +54,15 @@ public class DisplayRecipeActivity extends Activity {
 		});
 		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
 				new DialogInterface.OnClickListener() {
+			
+			/* Listen for Take a Picture button click */
 			public void onClick(DialogInterface dialog, int which) {} });
 		alertDialog.show();
 	}
 	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
-	 * @param view
+	 * @param views
 	 */
 	public void shareRecipe(View view) {
 		AlertDialog alertDialog =
@@ -74,25 +76,16 @@ public class DisplayRecipeActivity extends Activity {
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
 				new DialogInterface.OnClickListener() {
 
-			@Override
+			/* Listen for Send button click */
 			public void onClick(DialogInterface dialog, int which) {
 				String recipient = input.getText().toString();
-				Intent intent = new Intent(Intent.ACTION_SEND);
-				intent.setType("text/html");
-				intent.putExtra(Intent.EXTRA_EMAIL, recipient);
-				intent.putExtra(Intent.EXTRA_SUBJECT, 
-						"You have a new Recipe from " + 
-						User.getUser().getUsername() + "!");
-				intent.putExtra(Intent.EXTRA_TEXT, 
-						Html.fromHtml(recipe.toString()));
-				startActivity(intent);
 				return;
 			}
 		});
 		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", 
 				new DialogInterface.OnClickListener() {
 
-			@Override
+			/* Listen for Cancel button click */
 			public void onClick(DialogInterface dialog, int which) {
 				return;
 			}

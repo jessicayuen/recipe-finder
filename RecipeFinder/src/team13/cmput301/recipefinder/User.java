@@ -10,6 +10,7 @@ public class User {
 	
 	private String username = "";
 	private String email = "";
+	private String emailPassword = "";
 	
 	protected User() {
 		// Exists only to defeat instantiation
@@ -30,6 +31,14 @@ public class User {
 		this.username = username;
 	}
 
+	public String getEmailPassword() {
+		return emailPassword;
+	}
+	
+	public void setEmailPassword(String emailPassword) {
+		this.emailPassword = emailPassword;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
