@@ -54,9 +54,4 @@ class PicAdapter extends BaseAdapter {
 		imageView.setBackgroundResource(defaultItemBackground);
 		return imageView;
 	}
-	
-	public void addPic(Bitmap pic) {
-		imagePhotos.add(new Photo(User.getUser().getUsername(), pic));
-	}
-	
 }

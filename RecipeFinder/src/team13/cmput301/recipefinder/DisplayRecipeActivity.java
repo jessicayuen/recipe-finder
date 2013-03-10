@@ -6,16 +6,12 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -139,12 +135,11 @@ public class DisplayRecipeActivity extends Activity {
 	 * Takes the intent result and does something with it.
 	 */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	/* Display the image taken by the camera */
+    	/* Display the image taken by the camera or from chosen file */
         if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
         		&& resultCode == RESULT_OK) {  
             Bitmap photo = (Bitmap) data.getExtras().get("data"); 
     		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-            imgAdapt.addPic(photo);
             picGallery.setAdapter(imgAdapt);
         }
     } 	
