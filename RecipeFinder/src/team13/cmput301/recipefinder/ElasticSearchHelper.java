@@ -41,8 +41,6 @@ public class ElasticSearchHelper {
 		return elasticSearchHelper;
 	}
 	
-
-
 	/**
 	 * Consumes the POST/Insert operation of the service
 	 * 
