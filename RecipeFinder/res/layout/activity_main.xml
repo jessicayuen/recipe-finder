@@ -23,7 +23,7 @@
         android:paddingTop="10dp"
         android:text="@string/view_all"
         android:textSize="15sp" />
-    
+        
     <Button
         android:id="@+id/create_my_own"
         android:layout_width="wrap_content"
@@ -141,5 +141,17 @@
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:src="@drawable/directory_icon" />
+
+    <Button
+        android:id="@+id/TEST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/advanced"
+        android:layout_below="@+id/advanced"
+        android:layout_marginTop="14dp"
+        android:minHeight="36dp"
+        android:onClick="TEST"
+        android:text="@string/shortbuff"
+        android:textSize="15sp" />
     
 </RelativeLayout>

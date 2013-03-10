@@ -48,6 +48,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	public void TEST(View view) {
+		Intent intent = new Intent(this, DisplayRecipeActivity.class);
+		startActivity(intent);
+	}
+	
 	/**
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
