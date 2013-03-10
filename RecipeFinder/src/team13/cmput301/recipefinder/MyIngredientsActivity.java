@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,50 +41,59 @@ public class MyIngredientsActivity extends Activity {
 		/**
 		 * Initiates the addButton functionality
 		 */
-		 addButton.setOnClickListener(new View.OnClickListener() {			
-			 @SuppressLint("NewApi")
-			 @SuppressWarnings("deprecation")
-			 @Override
-			 public void onClick(View v) {
-				 // TODO Auto-generated method stub
-				 ingredient = ingredientsEditText.getText().toString();
-				 if (ingredient.matches("")) {
-					 /* show a message if fields not entered */
-					 int duration = Toast.LENGTH_SHORT;
-					 Context context = getApplicationContext();
-					 Toast.makeText(context,"Missing field ingredient", duration).show();
-				 }
-				 if (checkItem(checkedItem) == true){
-					 int duration = Toast.LENGTH_SHORT;
-					 Context context = getApplicationContext();
-					 Toast.makeText(context,"Ingredient already exists", duration).show();
-				 }
-
-				 if (!ingredient.matches("") && checkItem(checkedItem) == false){
-					 addItem();
-					 myList.setAdapter(adapter);
-				 }
-			 }
-
-		 });
-
-		 deleteButton.setOnClickListener(new View.OnClickListener() {			
-			 @SuppressLint("NewApi")
-			 @Override
-			 public void onClick(View v) {
-				 deleteCheckedItems();
-				 myList.setAdapter(adapter);
-			 }
-
-		 });
-		 backButton.setOnClickListener(new View.OnClickListener() {
-
-				public void onClick(View v) {
-					finish();
+		addButton.setOnClickListener(new View.OnClickListener() {			
+			@SuppressLint("NewApi")
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ingredient = ingredientsEditText.getText().toString();
+				if (ingredient.matches("")) {
+					/* show a message if fields not entered */
+					int duration = Toast.LENGTH_SHORT;
+					Context context = getApplicationContext();
+					Toast.makeText(context,"Missing field ingredient", duration).show();
 				}
-			});
-	}
+				if (checkItem(checkedItem) == true){
+					int duration = Toast.LENGTH_SHORT;
+					Context context = getApplicationContext();
+					Toast.makeText(context,"Ingredient already exists", duration).show();
+				}
 
+				if (!ingredient.matches("") && checkItem(checkedItem) == false){
+					addItem();
+					myList.setAdapter(adapter);
+				}
+			}
+
+		});
+
+		deleteButton.setOnClickListener(new View.OnClickListener() {			
+			@SuppressLint("NewApi")
+			@Override
+			public void onClick(View v) {
+				deleteCheckedItems();
+				myList.setAdapter(adapter);
+			}
+
+		});
+		backButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		searchButton.setOnClickListener(new View.OnClickListener() {			
+			@SuppressLint("NewApi")
+			@Override
+			public void onClick(View v) {
+				searchCheckedItems();
+				Intent myIntent = new Intent(MyIngredientsActivity.this, SearchResultsActivity.class);
+				MyIngredientsActivity.this.startActivity(myIntent);
+			}
+
+		});
+	}
 
 	public void addItem() {
 		// Add the current string in the EditText to the ListView
@@ -115,4 +125,11 @@ public class MyIngredientsActivity extends Activity {
 		}
 
 	}
+
+	private void searchCheckedItems() {
+
+
+	}
+
+
 }

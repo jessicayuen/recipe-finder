@@ -4,6 +4,92 @@
     android:layout_height="match_parent"
     tools:context=".SearchResultsActivity" >
 
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="17dp"
+        android:ems="10" >
 
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/searchfor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_toRightOf="@+id/editText1"
+        android:text="Search" />
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"
+        android:text="Displaying results for:"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/advanced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/searchfor"
+        android:paddingLeft="5dp"
+        android:text="Advanced"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/discrip1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/VisualCol"
+        android:layout_alignBottom="@+id/VisualCol"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/advanced"
+        android:paddingLeft="5dp"
+        android:text="Discription"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/author1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/discrip1"
+        android:layout_alignBottom="@+id/discrip1"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/discrip1"
+        android:paddingLeft="5dp"
+        android:text="Author"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/VisualCol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/display"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="5dp"
+        android:text="Visual"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/rating1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/author1"
+        android:layout_alignBottom="@+id/author1"
+        android:layout_alignRight="@+id/searchfor"
+        android:paddingLeft="5dp"
+        android:text="Rating"
+        android:textSize="15sp" />
 
 </RelativeLayout>
