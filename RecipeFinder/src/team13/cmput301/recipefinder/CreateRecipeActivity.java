@@ -159,7 +159,6 @@ public class CreateRecipeActivity extends Activity {
 						ingredients.add(tempStr);
 						addIngredients.setText("");
 						contentChanged = true;
-						//						ingredAdapter.notifyDataSetChanged();
 					} else {
 						toast = Toast.makeText(CreateRecipeActivity.this,
 								"Ingredient Already Exist", Toast.LENGTH_SHORT);
@@ -173,6 +172,10 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
+		/*
+		 * monitors the button for when user clicks, we add the text to a list
+		 * if the text field is not empty
+		 */
 		addInsButton.setOnClickListener(new View.OnClickListener() {
 
 			Toast toast;
@@ -184,7 +187,6 @@ public class CreateRecipeActivity extends Activity {
 					instructions.add(tempStr);
 					addInstructions.setText("");
 					contentChanged = true;
-					//					instrAdapter.notifyDataSetChanged();
 				} else {
 					toast = Toast.makeText(CreateRecipeActivity.this,
 							"No Text Entered", Toast.LENGTH_SHORT);
@@ -286,10 +288,11 @@ public class CreateRecipeActivity extends Activity {
 			break;
 		case INSTRUCTIONDIALOG:
 			dialogBuilder = new AlertDialog.Builder(this);
+			ArrayList<String> tempStrList = new ArrayList<String>();
 			for(int i = 0; i < instructions.size(); i++){
-				instructions.set(i, new String(i + 1 + ". " + instructions.get(i))); 
+				tempStrList.add(i, new String(i + 1 + ". " + instructions.get(i))); 
 			}
-			CharSequence[] instrCharSequence = instructions.toArray(new CharSequence[instructions.size()]);
+			CharSequence[] instrCharSequence = tempStrList.toArray(new CharSequence[tempStrList.size()]);
 			// Set the dialog title
 			dialogBuilder.setTitle("Your Instructions: ")
 			//set the choices as the list of instructions
