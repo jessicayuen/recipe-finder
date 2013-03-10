@@ -79,6 +79,14 @@ public class DisplayRecipeActivity extends Activity {
 			/* Listen for Send button click */
 			public void onClick(DialogInterface dialog, int which) {
 				String recipient = input.getText().toString();
+				// test start
+				EmailSender sender = new EmailSender(recipient);
+				try {
+					sender.sendMail("Test", "testtets");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// test end
 				return;
 			}
 		});

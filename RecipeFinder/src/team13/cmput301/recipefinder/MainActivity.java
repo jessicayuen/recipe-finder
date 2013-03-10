@@ -20,6 +20,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		rm = RecipeManager.getRecipeManager();
+		User user = User.getUser();
+		user.setEmail("cmput301w13t13@gmail.com");
+		user.setEmailPassword("ualberta");
 		displayFaves();
 	}
 
