@@ -107,7 +107,7 @@ public class MyIngredientsActivity extends Activity {
 	private void deleteCheckedItems() {
 
 		int count = this.myList.getAdapter().getCount();
-		for (int i = 0; i < count; i++) {
+		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
 				listItems.remove(i);
 				adapter.notifyDataSetChanged();
