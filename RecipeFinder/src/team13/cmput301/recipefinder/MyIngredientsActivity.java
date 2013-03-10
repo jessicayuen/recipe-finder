@@ -17,7 +17,7 @@ public class MyIngredientsActivity extends Activity {
 	private ArrayList<String> listItems = new ArrayList<String>();
 	private ArrayAdapter<String> adapter;
 	private EditText ingredientsEditText;
-	private Button addButton, searchButton, deleteButton;
+	private Button addButton, searchButton, deleteButton, backButton;
 	private ListView myList;
 	private boolean checkedItem = false;
 	private String ingredient;
@@ -29,6 +29,7 @@ public class MyIngredientsActivity extends Activity {
 
 		addButton = (Button) findViewById(R.id.addPH);
 		deleteButton = (Button) findViewById(R.id.deletePH);
+		backButton = (Button) findViewById(R.id.backButton);
 		searchButton = (Button) findViewById(R.id.searchPH);
 		myList = (ListView) findViewById(R.id.listOfIng);
 
@@ -75,6 +76,12 @@ public class MyIngredientsActivity extends Activity {
 			 }
 
 		 });
+		 backButton.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View v) {
+					finish();
+				}
+			});
 	}
 
 
