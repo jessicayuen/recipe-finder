@@ -1,5 +1,8 @@
 package team13.cmput301.recipefinder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +29,18 @@ public class DisplayRecipeActivity extends Activity {
 		if (extras != null) {
 			recipe = (Recipe) extras.getParcelable("recipe");
 			displayRecipe();
+		} else {
+			// TEST - CONVERT TO JUNIT LATER
+			List<String> ingredients = new ArrayList<String>();
+			ingredients.add("apples");
+			ingredients.add("oranges");
+			List<String> instructions = new ArrayList<String>();
+			instructions.add("Smash the apples");
+			instructions.add("Smash the oranges");
+			instructions.add("Smash the apples and oranges together");
+			recipe = new Recipe("Hamburger", "This is some description. BlahBlah.",
+					"=)", ingredients, instructions, new ArrayList<Photo>());
+			displayRecipe();
 		}
 	}
 
@@ -46,14 +61,16 @@ public class DisplayRecipeActivity extends Activity {
         String instructions = "";
         
         for (int i = 0; i < recipe.getIngredients().size(); i++) {
-        	ingredients.concat(i + ". " + 
+        	ingredients = ingredients.concat(i+1 + ". " + 
         			recipe.getIngredients().get(i) + "\n");
         }
         
         for (int i = 0; i < recipe.getInstructions().size(); i++) {
-        	instructions.concat(i + ". " + 
+        	instructions = instructions.concat(i+1 + ". " + 
         			recipe.getInstructions().get(i) + "\n");
         }
+        
+        setTitle(recipe.getName());
         
         if (!recipe.getPhotos().isEmpty()) {
         	imageView = (ImageView) this.findViewById(R.id.displayPic);

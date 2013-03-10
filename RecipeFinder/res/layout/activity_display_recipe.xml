@@ -16,7 +16,7 @@
         android:textSize="16sp" />
      
     <TextView
-        android:id="@+id/ingredientsInfo"
+        android:id="@+id/descriptionInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/description"
@@ -76,50 +76,16 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/descriptionInfo"
+        android:id="@+id/ingredientsInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ingredients"
+        android:layout_alignRight="@+id/descriptionInfo"
         android:layout_below="@+id/ingredients"
         android:maxWidth="180dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/buffer"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/descriptionInfo"
-        android:layout_centerVertical="true"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/instruc"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/instructionsInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/instructions"
-        android:layout_below="@+id/instructions"
-        android:maxWidth="180dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/buffer"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/addPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/instructionsInfo"
-        android:layout_below="@+id/instructionsInfo"
-        android:layout_marginTop="20dp"
-        android:minHeight="36dp"
-        android:onClick="addPhoto"
-        android:text="@string/addPhoto"
         android:textSize="15sp" />
 
     <Button
@@ -141,6 +107,42 @@
         android:minHeight="36dp"
         android:text="@string/share"
         android:onClick="shareRecipe"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ingredientsInfo"
+        android:layout_centerVertical="true"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/instruc"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/instructionsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructions"
+        android:layout_alignRight="@+id/ingredientsInfo"
+        android:layout_below="@+id/instructions"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/buffer"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructionsInfo"
+        android:layout_below="@+id/instructionsInfo"
+        android:layout_marginTop="20dp"
+        android:minHeight="36dp"
+        android:onClick="addPhoto"
+        android:text="@string/addPhoto"
         android:textSize="15sp" />
 
 </RelativeLayout>
