@@ -23,8 +23,8 @@ public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
 	
-	private static final String USER_PATH = "userrecipelog.sav";
-	private static final String FAVE_PATH = "faverecipelog.sav";
+	private static final String PATH = "recipelog.sav";
+
 	private List<Recipe> faveRecipes;
 	private List<Recipe> userRecipes;
 	
@@ -61,10 +61,11 @@ public class RecipeManager {
 			in.close();
 			
 			// read favorite recipes
-			fis = ctx.openFileInput(FAVE_PATH);
-			in = new ObjectInputStream(fis);
-			faveRecipes = (ArrayList<Recipe>) in.readObject();
-			in.close();
+			for (int i = 0; i < userRecipes.size(); i++) {
+				Recipe recipe = userRecipes.get(i);
+				if (recipe.isFave())
+					faveRecipes.add(recipe);
+			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

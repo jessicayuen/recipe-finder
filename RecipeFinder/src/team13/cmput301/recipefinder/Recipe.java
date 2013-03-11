@@ -18,6 +18,7 @@ public class Recipe {
 	private List<String> instructions;
 	private List<String> ingredients;
 	private List<Photo> photos;
+	private boolean fave;
 	private float rating;
 	private Date date;
 	private UUID id;
@@ -169,5 +170,13 @@ public class Recipe {
 
 	public String getId() {
 		return id.toString();
+	}
+
+	public boolean isFave() {
+		return fave;
+	}
+
+	public void setFave(boolean fave) {
+		this.fave = fave;
 	}
 }
