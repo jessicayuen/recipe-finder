@@ -103,5 +103,4 @@ public class MainActivity extends Activity {
 			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
 		}
 	}
-	s
 }

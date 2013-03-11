@@ -133,29 +133,35 @@ public class ElasticSearchHelper {
 	/**
 	 * search by keywords
 	 */
-	public void searchRecipes(String str) throws ClientProtocolException,
+	public void searchRecipes(String string) throws ClientProtocolException,
 			IOException {
-		HttpGet searchRequest = new HttpGet(
-				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1&q="
-						+ java.net.URLEncoder.encode(str, "UTF-8"));
-		searchRequest.setHeader("Accept", "application/json");
-		HttpResponse response = httpclient.execute(searchRequest);
-		String status = response.getStatusLine().toString();
-		System.out.println(status);
+		final String myString = string;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				HttpGet searchRequest = new HttpGet(
+						"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1&q="
+								+ java.net.URLEncoder.encode(myString, "UTF-8"));
+				searchRequest.setHeader("Accept", "application/json");
+				HttpResponse response = httpclient.execute(searchRequest);
+				String status = response.getStatusLine().toString();
+				System.out.println(status);
 
-		String json = getEntityContent(response);
+				String json = getEntityContent(response);
 
-		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
-		}.getType();
-		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
-				elasticSearchSearchResponseType);
-		System.err.println(esResponse);
-		for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
-			Recipe recipe = r.getSource();
-			System.err.println(recipe);
-		}
-		// searchRequest.releaseConnection(); not available in android
-		// httpclient
+				Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+				}.getType();
+				ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(
+						json, elasticSearchSearchResponseType);
+				System.err.println(esResponse);
+				for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
+					Recipe recipe = r.getSource();
+					System.err.println(recipe);
+				}
+				// searchRequest.releaseConnection(); not available in android
+				// httpclient
+			}
+		}).start();
 	}
 
 	/**
