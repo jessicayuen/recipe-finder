@@ -34,6 +34,10 @@ public class EmailSender extends javax.mail.Authenticator {
         Security.addProvider(new JSSEProvider());   
     }  
     
+    /**
+     * Constructor for email sender
+     * @param to The email to have the recipe to be sent to
+     */
 	public EmailSender(String to) {
 		this.to = to;
 		this.from = User.getUser().getEmail();
@@ -54,10 +58,19 @@ public class EmailSender extends javax.mail.Authenticator {
         session = Session.getDefaultInstance(props, this);  
 	} 
 
+	/**
+	 * Ensures password is valid for user email
+	 */
     protected PasswordAuthentication getPasswordAuthentication() {   
         return new PasswordAuthentication(from, password);   
     }   
 
+    /**
+     * Send the email
+     * @param subject
+     * @param body
+     * @throws Exception
+     */
     public synchronized void sendMail(String subject, String body)
     		throws Exception {   
 
