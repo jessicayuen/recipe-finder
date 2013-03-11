@@ -4,6 +4,55 @@
     android:layout_height="match_parent"
     tools:context=".MyIngredientsActivity" >
 
-    
+    <EditText
+        android:id="@+id/ingredientItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="22dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/addPH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ingredientItem"
+        android:layout_alignBottom="@+id/ingredientItem"
+        android:layout_alignParentRight="true"
+        android:text="add_PH" />
+
+    <Button
+        android:id="@+id/searchPH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="38dp"
+        android:text="search_PH" />
+
+    <ListView
+        android:id="@+id/listOfIng"
+        android:layout_width="match_parent"
+        android:layout_height="238dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/addPH"
+        android:choiceMode="multipleChoice" >
+    </ListView>
+
+    <Button
+        android:id="@+id/deletePH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/searchPH"
+        android:layout_alignBottom="@+id/searchPH"
+        android:layout_alignLeft="@+id/ingredientItem"
+        android:layout_marginLeft="34dp"
+        android:text="delete_PH" />
 
 </RelativeLayout>

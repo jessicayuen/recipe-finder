@@ -1,8 +1,8 @@
 package team13.cmput301.recipefinder;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Recipe {
 	
@@ -14,7 +14,29 @@ public class Recipe {
 	private List<Photo> photos;
 	private float rating;
 	private Date date;
+	private UUID id;
 
+	/** 
+	 * Constructor for Recipe object
+	 * @param name
+	 * @param description
+	 * @param author
+	 * @param ingredients
+	 * @param instructions
+	 * @param photos
+	 */
+	public Recipe(String name, String description, String author,
+			List<String> ingredients, List<String> instructions,
+			List<Photo> photos) {
+		this.name = name;
+		this.description = description;
+		this.instructions = instructions;
+		this.author = author; 
+		this.ingredients = ingredients;
+		this.photos = photos;
+		this.rating = 0;
+		this.date = new Date();
+	}
 	
 	/** 
 	 * Constructor for Recipe object
@@ -29,57 +51,11 @@ public class Recipe {
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 
 			List<Photo> photos, float rating) {
-		this.name = name;
-		this.description = description;
-		this.instructions = instructions;
-		this.author = author;
-		this.ingredients = ingredients;
-		this.photos = photos;
+		this(name, description, author, ingredients, instructions,
+				photos);
 		this.rating = rating;
-		this.date = new Date();
 	}
-	
-	/**
-	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients
-	 * @param instructions
-	 * @param photos
-	 */
-	public Recipe(String name, String description, String author,
-			List<String> ingredients, List<String> instructions, 
-			List<Photo> photos) {
-		this.name = name;
-		this.description = description;
-		this.instructions = instructions;
-		this.author = author;
-		this.ingredients = ingredients;
-		this.photos = photos;
-		this.rating = 0;
-		this.date = new Date();
-	}
-	
-	/** 
-	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients
-	 * @param instructions
-	 */
-	public Recipe(String name, String description, String author,
-			List<String> ingredients, List<String> instructions) {
-		this.name = name;
-		this.description = description;
-		this.instructions = instructions;
-		this.author = author; 
-		this.ingredients = ingredients;
-		this.photos = new ArrayList<Photo>();
-		this.rating = 0;
-		this.date = new Date();
-	}
+
 
 	/** 
 	 * Add a photo to the recipe
@@ -184,8 +160,11 @@ public class Recipe {
 		this.date = date;
 	}
 
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 }

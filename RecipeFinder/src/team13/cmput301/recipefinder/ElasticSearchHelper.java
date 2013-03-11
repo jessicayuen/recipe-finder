@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,9 +23,24 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
-	private HttpClient httpclient = new DefaultHttpClient();
-	private Gson gson = new Gson();
-
+	// Singleton
+	transient private static ElasticSearchHelper elasticSearchHelper = null;
+	
+	private HttpClient httpclient;
+	private Gson gson;
+	
+	protected ElasticSearchHelper() {
+		// Exists only to defeat instantiation
+	}
+	
+	public static ElasticSearchHelper getElasticSearchHelper() {
+		if (elasticSearchHelper == null) {
+			elasticSearchHelper.httpclient = new DefaultHttpClient();
+			elasticSearchHelper.gson = new Gson();
+		}
+		return elasticSearchHelper;
+	}
+	
 	/**
 	 * Consumes the POST/Insert operation of the service
 	 * 
@@ -33,7 +50,7 @@ public class ElasticSearchHelper {
 	public void insertRecipe(Recipe recipe) throws IllegalStateException,
 			IOException {
 		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/testing/lab02/"
+				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/"
 						+ recipe.getId());
 		StringEntity stringentity = null;
 		try {
@@ -83,7 +100,7 @@ public class ElasticSearchHelper {
 	public void getRecipe() {
 		try {
 			HttpGet getRequest = new HttpGet(
-					"http://cmput301.softwareprocess.es:8080/testing/lab02/999?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+					"http://cmput301.softwareprocess.es:8080/cmput301w13t12/999?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
 
 			getRequest.addHeader("Accept", "application/json");
 
@@ -122,7 +139,7 @@ public class ElasticSearchHelper {
 	public void searchRecipes(String str) throws ClientProtocolException,
 			IOException {
 		HttpGet searchRequest = new HttpGet(
-				"http://cmput301.softwareprocess.es:8080/testing/lab02/_search?pretty=1&q="
+				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1&q="
 						+ java.net.URLEncoder.encode(str, "UTF-8"));
 		searchRequest.setHeader("Accept", "application/json");
 		HttpResponse response = httpclient.execute(searchRequest);
@@ -150,7 +167,7 @@ public class ElasticSearchHelper {
 	public void searchsearchRecipes(String str) throws ClientProtocolException,
 			IOException {
 		HttpPost searchRequest = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/testing/lab02/_search?pretty=1");
+				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1");
 		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients\",\"query\" : \""
 				+ str + "\"}}}";
 		StringEntity stringentity = new StringEntity(query);
@@ -183,7 +200,7 @@ public class ElasticSearchHelper {
 	public void updateRecipes(String str) throws ClientProtocolException,
 			IOException {
 		HttpPost updateRequest = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/testing/lab02/1/_update");
+				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/1/_update");
 		String query = "{\"script\" : \"ctx._source." + str + "}";
 		StringEntity stringentity = new StringEntity(query);
 
@@ -204,7 +221,7 @@ public class ElasticSearchHelper {
 	 */
 	public void deleteRecipe() throws IOException {
 		HttpDelete httpDelete = new HttpDelete(
-				"http://cmput301.softwareprocess.es:8080/testing/lab02/1");
+				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/1");
 		httpDelete.addHeader("Accept", "application/json");
 
 		HttpResponse response = httpclient.execute(httpDelete);

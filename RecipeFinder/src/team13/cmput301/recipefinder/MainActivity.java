@@ -1,17 +1,26 @@
 package team13.cmput301.recipefinder;
 
-import android.os.Bundle;
+import java.util.Collections;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 
+	RecipeManager rm;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		rm = RecipeManager.getRecipeManager();
+		displayFaves();
 	}
 
 	@Override
@@ -28,5 +37,46 @@ public class MainActivity extends Activity {
 	public void openCreateRecipe(View view) {
 		Intent intent = new Intent(this, CreateRecipeActivity.class);
 		startActivity(intent);
+	}
+	
+	/**
+	 * Starts the activity My Ingredients on 'My Ingredients' button click
+	 * @param view
+	 */
+	public void openMyIngredients(View view) {
+		Intent intent = new Intent(this, MyIngredientsActivity.class);
+		startActivity(intent);
+	}
+	
+	public void TEST(View view) {
+		Intent intent = new Intent(this, DisplayRecipeActivity.class);
+		startActivity(intent);
+	}
+	
+	/**
+	 * Displays a random 4 recipes from the favorite recipe list.
+	 */
+	private void displayFaves() {
+		List<Recipe> faveRecipes = rm.getFaveRecipes();
+		Collections.shuffle(faveRecipes);
+		int numFaves = faveRecipes.size();
+		if (numFaves > 0) {
+			ImageView imageView;
+			
+			imageView = (ImageView) findViewById(R.id.faveTopLeft);
+			imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
+			if (numFaves == 1) return;
+			
+			imageView = (ImageView) findViewById(R.id.faveTopRight);
+			imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
+			if (numFaves == 2) return;
+			
+			imageView = (ImageView) findViewById(R.id.faveBottomLeft);
+			imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
+			if (numFaves == 3) return;
+			
+			imageView = (ImageView) findViewById(R.id.faveBottomRight);
+			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
+		}
 	}
 }

@@ -10,7 +10,10 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.provider.MediaStore.Files;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +31,7 @@ public class FileExplorerActivity extends Activity {
 
 	private static final String TAG = "F_PATH";
 
-	private Item[] fileList;
+	private ArrayList<Item> fileList;
 	private File path = new File(Environment.getExternalStorageDirectory() + "");
 	private String chosenFile;
 	private static final int DIALOG_LOAD_FILE = 1000;
@@ -69,28 +72,32 @@ public class FileExplorerActivity extends Activity {
 			};
 
 			String[] fList = path.list(filter);
-			fileList = new Item[fList.length];
+			fileList = new ArrayList<Item>();
 			for (int i = 0; i < fList.length; i++) {
-				fileList[i] = new Item(fList[i], R.drawable.file_icon);
-
+				fileList.add(i, new Item(fList[i], R.drawable.file_icon));
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
+				if(sel.isFile()){
+					if(BitmapFactory.decodeFile(sel.getPath()) == null){
+						fileList.remove(i);
+					}
+				}				
 				// Set drawables
-				if (sel.isDirectory()) {
-					fileList[i].icon = R.drawable.directory_icon;
-					Log.d("DIRECTORY", fileList[i].file);
+				else if (sel.isDirectory()) {
+					fileList.get(i).icon = R.drawable.directory_icon;
+					Log.d("DIRECTORY", fileList.get(i).file);
 				} else {
-					Log.d("FILE", fileList[i].file);
+					Log.d("FILE", fileList.get(i).file);
 				}
 			}
 
 			if (!firstLvl) {
-				Item temp[] = new Item[fileList.length + 1];
-				for (int i = 0; i < fileList.length; i++) {
-					temp[i + 1] = fileList[i];
+				ArrayList<Item> temp = new ArrayList<Item>();
+				for (int i = 0; i < fileList.size(); i++) {
+					temp.add(i, fileList.get(i));
 				}
-				temp[0] = new Item("Up", R.drawable.directory_up);
+				temp.add(0, new Item("Up", R.drawable.directory_up));
 				fileList = temp;
 			}
 		} else {
@@ -109,7 +116,7 @@ public class FileExplorerActivity extends Activity {
 
 				// put the image on the text view
 				textView.setCompoundDrawablesWithIntrinsicBounds(
-						fileList[position].icon, 0, 0, 0);
+						fileList.get(position).icon, 0, 0, 0);
 
 				// add margin between image and text (support various screen
 				// densities)
@@ -155,7 +162,7 @@ public class FileExplorerActivity extends Activity {
 				@SuppressWarnings("deprecation")
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					chosenFile = fileList[which].file;
+					chosenFile = fileList.get(which).file;
 					File sel = new File(path + "/" + chosenFile);
 					if (sel.isDirectory()) {
 						firstLvl = false;
@@ -199,6 +206,11 @@ public class FileExplorerActivity extends Activity {
 					// File picked
 					else {
 						// Perform action with file picked
+						Intent resultData = new Intent();
+						String filePath = sel.getPath();
+						resultData.putExtra("path", filePath);
+						setResult(Activity.RESULT_OK, resultData);
+						finish();
 					}
 
 				}
