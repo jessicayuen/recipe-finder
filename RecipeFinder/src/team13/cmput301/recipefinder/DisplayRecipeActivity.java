@@ -39,7 +39,8 @@ public class DisplayRecipeActivity extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			recipe = RecipeManager.getRecipeManager().getUserRecipes().get(extras.getInt("recipe"));
+			recipe = RecipeManager.getRecipeManager().
+					getUserRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
 		} else {
 			// TEST - CONVERT TO JUNIT LATER
@@ -50,7 +51,8 @@ public class DisplayRecipeActivity extends Activity {
 			instructions.add("Smash the apples");
 			instructions.add("Smash the oranges");
 			instructions.add("Smash the apples and oranges together");
-			recipe = new Recipe("Hamburger", "This is some description. BlahBlah.",
+			recipe = new Recipe("Hamburger", 
+					"This is some description. BlahBlah.",
 					"=)", ingredients, instructions, new ArrayList<Photo>());
 			displayRecipe();
 		}
@@ -141,7 +143,8 @@ public class DisplayRecipeActivity extends Activity {
 	/**
 	 * Takes the intent result and does something with it.
 	 */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, 
+    		Intent data) {
     	/* Display the image taken by the camera or from chosen file */
         if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
         		&& resultCode == RESULT_OK) {  
@@ -150,6 +153,7 @@ public class DisplayRecipeActivity extends Activity {
             picGallery.setAdapter(imgAdapt);
         }
     } 	
+    
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param views

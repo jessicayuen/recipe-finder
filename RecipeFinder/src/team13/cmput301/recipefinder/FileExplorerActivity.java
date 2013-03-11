@@ -54,6 +54,9 @@ public class FileExplorerActivity extends Activity {
 		Log.d(TAG, path.getAbsolutePath());
 	}
 
+	/**
+	 * Loads the list of files
+	 */
 	private void loadFileList() {
 		try {
 			path.mkdirs();
@@ -130,8 +133,8 @@ public class FileExplorerActivity extends Activity {
 
 	}
 
-	/*
-	 * class to store items include the file path as a string and whether
+	/**
+	 * Inner class to store items include the file path as a string and whether
 	 * its a folder or file the icon is set respectively
 	 */
 	private class Item {
