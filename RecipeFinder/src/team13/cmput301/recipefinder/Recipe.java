@@ -7,11 +7,14 @@
 
 package team13.cmput301.recipefinder;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class Recipe {
+public class Recipe implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String name;
 	private String description;
 	private String author;

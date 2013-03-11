@@ -91,7 +91,6 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
-			loadRecipes(ctx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -111,7 +110,6 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
-			loadRecipes(ctx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
