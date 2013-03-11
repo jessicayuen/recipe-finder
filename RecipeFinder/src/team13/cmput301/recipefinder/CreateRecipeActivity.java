@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class CreateRecipeActivity extends Activity {
+public class CreateRecipeActivity extends Activity implements Parcelable {
 
 	private static final int CAMERA_REQUEST = 1;
 	private static final int FILE_PATH_REQUEST = 2; // request code
@@ -36,10 +38,11 @@ public class CreateRecipeActivity extends Activity {
 	private Button ingredListButton, instrListButton, imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
-	private ArrayList<String> ingredients, instructions;
+	private List<String> ingredients, instructions;
 	private List<Integer> mSelectedItems;
-	private ArrayList<Photo> imageList;
+	private List<Photo> imageList;
 	private PicAdapter picAdapt;
+	Recipe recipe;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,30 +74,37 @@ public class CreateRecipeActivity extends Activity {
 			public void onItemClick(AdapterView<?> adapter, View arg1, int position,
 					long arg3) {
 				final int itemPos = position;
-				Dialog picDialog = new Dialog(CreateRecipeActivity.this);
+				final Dialog picDialog = new Dialog(CreateRecipeActivity.this);
 				picDialog.setContentView(R.layout.custom_dialog_display);
 				picDialog.setCancelable(true);
 				ImageView imgView = (ImageView) picDialog.findViewById(R.id.enlargedImage);
 
+				/*
+				 * if we have image in the list then create a dialog to be
+				 * displayed when the user clicks on a certain image.
+				 * 
+				 * the dialog enlarges the photo clicked
+				 */
 				if(imageList.size() > 0){
 					imgView.setImageBitmap(imageList.get(position).getPhoto());
 					imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
 					imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
 					imageDeleteButton.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
 							imageList.remove(itemPos);
 							gallery.setAdapter(picAdapt);
+							picDialog.dismiss();
 						}
 					});
 					imageCancelButton.setOnClickListener(new View.OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							
+							picDialog.dismiss();
 						}
 					});
 					picDialog.show();
@@ -103,6 +113,10 @@ public class CreateRecipeActivity extends Activity {
 
 		});
 
+		/*
+		 * saves the recipe and displays the recipe, when user clicks on the save
+		 * button and all the necessary fields are filled in
+		 */
 		saveButton.setOnClickListener(new View.OnClickListener() {			
 			@SuppressWarnings("deprecation")
 			@Override
@@ -110,10 +124,17 @@ public class CreateRecipeActivity extends Activity {
 				// TODO Auto-generated method stub
 				addedName();
 				addedDescription();
-				if(textChanged) {
-
-				}
-				else if(!textChanged) {
+				if(textChanged && ingredients.size() > 0 && instructions.size() > 0) {
+					recipe = new Recipe(addName.getText().toString(), 
+							addDescription.getText().toString(), User.getUser().getUsername(),
+							ingredients, instructions, imageList);
+					Intent displayIntent = new Intent(CreateRecipeActivity.this, 
+							DisplayRecipeActivity.class);
+					Bundle recipeBundle = new Bundle();
+//					recipeBundle.putParcelable("recipe", recipe);
+//					displayIntent.putExtra("recipe", recipe);
+					startActivity(displayIntent);
+					finish();
 
 				}
 				else {
@@ -279,7 +300,12 @@ public class CreateRecipeActivity extends Activity {
 		}
 		gallery.setAdapter(picAdapt);
 	}
-
+	
+	
+	/**
+	 * over ride the createdialog and make it custom to allow for list and multi
+	 * check mark display of either ingredients or instructions
+	 */
 	protected Dialog onCreateDialog(int choice) {
 		Dialog dialog = null;
 		AlertDialog.Builder dialogBuilder;
@@ -289,7 +315,8 @@ public class CreateRecipeActivity extends Activity {
 		switch(choice){
 		case INGREDIENTDIALOG:
 			dialogBuilder = new AlertDialog.Builder(this);
-			CharSequence[] ingredCharSequence = ingredients.toArray(new CharSequence[ingredients.size()]);
+			CharSequence[] ingredCharSequence = ingredients.toArray(new 
+					CharSequence[ingredients.size()]);
 			// Set the dialog title
 			dialogBuilder.setTitle("Your Ingredients: ")
 			//set the choices as the list of ingredients
@@ -331,7 +358,8 @@ public class CreateRecipeActivity extends Activity {
 			for(int i = 0; i < instructions.size(); i++){
 				tempStrList.add(i, new String(i + 1 + ". " + instructions.get(i))); 
 			}
-			CharSequence[] instrCharSequence = tempStrList.toArray(new CharSequence[tempStrList.size()]);
+			CharSequence[] instrCharSequence = tempStrList.toArray(new 
+					CharSequence[tempStrList.size()]);
 			// Set the dialog title
 			dialogBuilder.setTitle("Your Instructions: ")
 			//set the choices as the list of instructions
@@ -422,5 +450,17 @@ public class CreateRecipeActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 		});
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }
