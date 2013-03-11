@@ -31,26 +31,50 @@ public class User {
 		return user;
 	}
 
+	/**
+	 * 
+	 * @return user name
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * sets the username to the provided parameter
+	 * @param username
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	/**
+	 * 
+	 * @return users email password
+	 */
 	public String getEmailPassword() {
 		return emailPassword;
 	}
 	
+	/**
+	 * sets the users email password as given parameter
+	 * @param emailPassword
+	 */
 	public void setEmailPassword(String emailPassword) {
 		this.emailPassword = emailPassword;
 	}
 	
+	/**
+	 * 
+	 * @return users email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * sets users email as provided parameter
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

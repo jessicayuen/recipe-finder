@@ -43,6 +43,7 @@ public class CreateRecipeActivity extends Activity {
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
 	private List<String> ingredients, instructions;
+	// list for user selected items to allow user to delete items 
 	private List<Integer> mSelectedItems;
 	private List<Photo> imageList;
 	private PicAdapter picAdapt;
@@ -71,6 +72,12 @@ public class CreateRecipeActivity extends Activity {
 		gallery = (Gallery) findViewById(R.id.gallery);
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
+		
+		/*
+		 * sets up the gallery to allow user to click on a picture and enlarge
+		 * it, the user is then allowed to delete the picture if the user presses
+		 * delete button
+		 */
 		gallery.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -96,7 +103,6 @@ public class CreateRecipeActivity extends Activity {
 
 						@Override
 						public void onClick(View v) {
-							// TODO Auto-generated method stub
 							imageList.remove(itemPos);
 							gallery.setAdapter(picAdapt);
 							picDialog.dismiss();
@@ -106,7 +112,6 @@ public class CreateRecipeActivity extends Activity {
 
 						@Override
 						public void onClick(View v) {
-							// TODO Auto-generated method stub
 							picDialog.dismiss();
 						}
 					});
@@ -126,7 +131,9 @@ public class CreateRecipeActivity extends Activity {
 		});
 
 		/*
-		 * listen to add picture button click
+		 * listen to add picture button click and promt user to use camera
+		 * and take a picture or attach a pre-existing picture from the 
+		 * phone memory.
 		 */
 		addPicButton.setOnClickListener(new View.OnClickListener() {			
 			@Override
@@ -154,7 +161,12 @@ public class CreateRecipeActivity extends Activity {
 				alertDialog.show();
 			}
 		});
-
+		
+		/*
+		 * when add ingredient button is clicked, check if the text field is 
+		 * filled out, if so the add the content to the ingredient list otherwise
+		 * print an error alert
+		 */
 		addIngredButton.setOnClickListener(new View.OnClickListener() {
 
 			Toast toast;
@@ -203,6 +215,11 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
+		/*
+		 * of show all ingredient list button is clicked then 
+		 * list out all of the ingredients user entered and allow user to delete
+		 * selected
+		 */
 		ingredListButton.setOnClickListener(new View.OnClickListener() {
 
 			@SuppressWarnings("deprecation")
@@ -216,6 +233,9 @@ public class CreateRecipeActivity extends Activity {
 			}
 		});
 
+		/*
+		 * displays the users intruction list and allow user to modify the list
+		 */
 		instrListButton.setOnClickListener(new View.OnClickListener() {
 
 			@SuppressWarnings("deprecation")
@@ -316,6 +336,7 @@ public class CreateRecipeActivity extends Activity {
 			dialog = dialogBuilder.create();
 			break;
 		case INSTRUCTIONDIALOG:
+			/* handles the instruction list dialog*/
 			dialogBuilder = new AlertDialog.Builder(this);
 			ArrayList<String> tempStrList = new ArrayList<String>();
 			for(int i = 0; i < instructions.size(); i++){
@@ -380,6 +401,7 @@ public class CreateRecipeActivity extends Activity {
 	public void createButtonClicked(View view) {			
 			addedName();
 			addedDescription();
+			/* if all the field are filled out then we can create a recipe*/
 			if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
 				recipe = new Recipe(addName.getText().toString(), 
 						addDescription.getText().toString(), User.getUser().getUsername(),
@@ -417,6 +439,9 @@ public class CreateRecipeActivity extends Activity {
 		}
 	}
 
+	/**
+	 * checks whether the description is filled out or not
+	 */
 	private void addedDescription() {
 
 		if(addDescription.getText().toString().length() != 0){

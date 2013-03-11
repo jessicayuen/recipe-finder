@@ -130,6 +130,10 @@ public class FileExplorerActivity extends Activity {
 
 	}
 
+	/*
+	 * class to store items include the file path as a string and whether
+	 * its a folder or file the icon is set respectively
+	 */
 	private class Item {
 		public String file;
 		public int icon;
@@ -206,7 +210,7 @@ public class FileExplorerActivity extends Activity {
 					}
 					// File picked
 					else {
-						// Perform action with file picked
+						//return the file path to the caller acivity
 						Intent resultData = new Intent();
 						String filePath = sel.getPath();
 						resultData.putExtra("path", filePath);

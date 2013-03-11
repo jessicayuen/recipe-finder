@@ -87,6 +87,9 @@ public class EmailSender extends javax.mail.Authenticator {
         Transport.send(message);   
     }   
 
+    /*
+     * Nested class to handle data sending and recieving
+     */
     public class ByteArrayDataSource implements DataSource {   
         private byte[] data;   
         private String type;   
