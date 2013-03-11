@@ -1,5 +1,8 @@
 /**
- * Sends a email to the recipient using the User's email
+ * Sends a email to the recipient using the User's email.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
 package team13.cmput301.recipefinder;

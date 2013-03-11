@@ -1,3 +1,11 @@
+/**
+ * PicAdapter updates images and displays them for the 
+ * gallery in the provided activity.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.List;
@@ -19,6 +27,11 @@ class PicAdapter extends BaseAdapter {
 	private Context galleryContext;
 	private List<Photo> imagePhotos;
 	
+	/**
+	 * Constructor for PicAdapter
+	 * @param c Context
+	 * @param photos Photos to be displayed in the gallery
+	 */
 	public PicAdapter(Context c, List<Photo> photos) {
 		galleryContext = c;
 		imagePhotos = photos;

@@ -1,3 +1,11 @@
+/**
+ * Activity that allows user to navigate the phone directories
+ * to retrieve images.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.io.File;
@@ -40,14 +48,10 @@ public class FileExplorerActivity extends Activity {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
-
 		loadFileList();
-
 		showDialog(DIALOG_LOAD_FILE);
 		Log.d(TAG, path.getAbsolutePath());
-
 	}
 
 	private void loadFileList() {
@@ -104,8 +108,7 @@ public class FileExplorerActivity extends Activity {
 		}
 
 		adapter = new ArrayAdapter<Item>(this,
-				android.R.layout.select_dialog_item, android.R.id.text1,
-				fileList) {
+				android.R.layout.select_dialog_item, android.R.id.text1, fileList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				// creates view
@@ -117,8 +120,7 @@ public class FileExplorerActivity extends Activity {
 				textView.setCompoundDrawablesWithIntrinsicBounds(
 						fileList.get(position).icon, 0, 0, 0);
 
-				// add margin between image and text (support various screen
-				// densities)
+				// add margin between image and text (support various screen densities)
 				int dp5 = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
 				textView.setCompoundDrawablePadding(dp5);
 
@@ -219,6 +221,5 @@ public class FileExplorerActivity extends Activity {
 		dialog = builder.show();
 		return dialog;
 	}
-
 }
 

@@ -1,3 +1,11 @@
+/**
+ * Singleton that manages all the user's recipes, including their own
+ * and ones that were downloaded. Also keeps track of favourite recipes.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.ArrayList;
@@ -14,6 +22,9 @@ public class RecipeManager {
 		// Exists only to defeat instantiation
 	}
 	
+	/**
+	 * Returns the singleton RecipeManager
+	 */
 	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
