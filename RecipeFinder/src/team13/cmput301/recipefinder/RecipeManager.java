@@ -7,8 +7,8 @@ public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
 	
-	private static List<Recipe> faveRecipes;
-	private static List<Recipe> userRecipes;
+	private List<Recipe> faveRecipes;
+	private List<Recipe> userRecipes;
 	
 	protected RecipeManager() {
 		// Exists only to defeat instantiation

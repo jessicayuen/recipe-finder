@@ -1,19 +1,18 @@
 package team13.cmput301.recipefinder;
 
-import android.os.Bundle;
-import android.app.Activity;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore.Files;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
