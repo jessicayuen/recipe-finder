@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
         android:maxHeight="300dp"
         android:maxWidth="300dp"
         android:minHeight="300dp"
