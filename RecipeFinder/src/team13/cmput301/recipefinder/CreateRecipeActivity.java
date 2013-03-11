@@ -1,5 +1,4 @@
 /**
- * 
  * Activity that allows user to create a recipe. The user is allowed to attach
  * one or multiple photos to the recipe. A name for the recipe, the instructions
  * of the recipe, the ingredients or the recipe and the description must be
@@ -14,9 +13,6 @@ package team13.cmput301.recipefinder;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,21 +20,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-public class CreateRecipeActivity extends Activity implements Parcelable {
+public class CreateRecipeActivity extends Activity {
 
 	private static final int CAMERA_REQUEST = 1;
 	private static final int FILE_PATH_REQUEST = 2; // request code
@@ -121,7 +116,6 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 					picDialog.show();
 				}
 			}		
-
 		});
 
 		/*
@@ -135,20 +129,16 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 				// TODO Auto-generated method stub
 				addedName();
 				addedDescription();
-				if(textChanged && ingredients.size() > 0 && instructions.size() > 0) {
+				if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
 					recipe = new Recipe(addName.getText().toString(), 
 							addDescription.getText().toString(), User.getUser().getUsername(),
 							ingredients, instructions, imageList);
 					Intent displayIntent = new Intent(CreateRecipeActivity.this, 
 							DisplayRecipeActivity.class);
-					Bundle recipeBundle = new Bundle();
-					//					recipeBundle.putParcelable("recipe", recipe);
-					//					displayIntent.putExtra("recipe", recipe);
+					displayIntent.putExtra("recipe", recipe);
 					startActivity(displayIntent);
 					finish();
-
-				}
-				else {
+				} else {
 					/* show a message if fields not entered */
 					AlertDialog alertDialog = new AlertDialog.Builder(
 							CreateRecipeActivity.this).create();
@@ -186,7 +176,6 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-
 						/* open file explorer when user clicks on choose existing
 						 * picture */
 						Intent intent = new Intent(CreateRecipeActivity.this, 
@@ -462,17 +451,5 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 		});
-	}
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-
 	}
 }
