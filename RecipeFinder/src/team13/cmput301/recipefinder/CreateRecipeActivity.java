@@ -1,3 +1,14 @@
+/**
+ * 
+ * Activity that allows user to create a recipe. The user is allowed to attach
+ * one or multiple photos to the recipe. A name for the recipe, the instructions
+ * of the recipe, the ingredients or the recipe and the description must be
+ * present if user wishes to save the recipe.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.ArrayList;
@@ -131,8 +142,8 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 					Intent displayIntent = new Intent(CreateRecipeActivity.this, 
 							DisplayRecipeActivity.class);
 					Bundle recipeBundle = new Bundle();
-//					recipeBundle.putParcelable("recipe", recipe);
-//					displayIntent.putExtra("recipe", recipe);
+					//					recipeBundle.putParcelable("recipe", recipe);
+					//					displayIntent.putExtra("recipe", recipe);
 					startActivity(displayIntent);
 					finish();
 
@@ -143,7 +154,8 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 							CreateRecipeActivity.this).create();
 					alertDialog.setTitle("Error");
 					alertDialog.setMessage("Necessary Field Not Entered!");
-					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new 
+							DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {	
 						} });
 					alertDialog.show();
@@ -300,8 +312,8 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 		}
 		gallery.setAdapter(picAdapt);
 	}
-	
-	
+
+
 	/**
 	 * over ride the createdialog and make it custom to allow for list and multi
 	 * check mark display of either ingredients or instructions
@@ -461,6 +473,6 @@ public class CreateRecipeActivity extends Activity implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel arg0, int arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
