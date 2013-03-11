@@ -49,49 +49,50 @@ public class ElasticSearchHelper {
 	 */
 	public void insertRecipe(Recipe recipe) throws IllegalStateException,
 			IOException {
-		HttpPost httpPost = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/"
-						+ recipe.getId());
-		StringEntity stringentity = null;
-		try {
-			stringentity = new StringEntity(gson.toJson(recipe));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		httpPost.setHeader("Accept", "application/json");
+		final Recipe r = recipe;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
 
-		httpPost.setEntity(stringentity);
-		HttpResponse response = null;
-		try {
-			response = httpclient.execute(httpPost);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				HttpPost httpPost = new HttpPost(
+						"http://cmput301.softwareprocess.es:8080/cmput301w13t12/"
+								+ r.getId());
+				StringEntity stringentity = null;
+				try {
+					stringentity = new StringEntity(gson.toJson(r));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				httpPost.setHeader("Accept", "application/json");
 
-		String status = response.getStatusLine().toString();
-		System.out.println(status);
-		HttpEntity entity = response.getEntity();
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				entity.getContent()));
-		String output;
-		System.err.println("Output from Server -> ");
-		while ((output = br.readLine()) != null) {
-			System.err.println(output);
-		}
+				httpPost.setEntity(stringentity);
+				HttpResponse response = null;
+				try {
+					response = httpclient.execute(httpPost);
+					String status = response.getStatusLine().toString();
+					System.out.println(status);
+					HttpEntity entity = response.getEntity();
+					BufferedReader br = new BufferedReader(new InputStreamReader(
+							entity.getContent()));
+					String output;
+					System.err.println("Output from Server -> ");
+					while ((output = br.readLine()) != null) {
+						System.err.println(output);
+					}
+					entity.consumeContent();
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-		try {
-			// EntityUtils.consume(entity); not available in android httpclient
-			entity.consumeContent();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// httpPost.releaseConnection(); not available in android httpclient
+			}
+		}).start();
+
 	}
 
 	/**
