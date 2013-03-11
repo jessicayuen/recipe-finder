@@ -4,6 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
@@ -29,10 +31,6 @@
         <activity
             android:name="team13.cmput301.recipefinder.MyIngredientsActivity"
             android:label="@string/title_activity_my_ingredients" >
-        </activity>
-        <activity
-            android:name="team13.cmput301.recipefinder.RecipesActivity"
-            android:label="@string/title_activity_recipes" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.SearchResultsActivity"

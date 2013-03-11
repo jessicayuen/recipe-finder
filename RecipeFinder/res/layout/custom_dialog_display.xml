@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/imgCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgDeleteButton"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="66dp"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/imgDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enlargedImage"
+        android:layout_marginRight="44dp"
+        android:layout_toLeftOf="@+id/imgCancelButton"
+        android:text="Delete" />
+
+    <ImageView
+        android:id="@+id/enlargedImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:maxHeight="300dp"
+        android:maxWidth="300dp"
+        android:minHeight="300dp"
+        android:minWidth="300dp" />
+
+</RelativeLayout>

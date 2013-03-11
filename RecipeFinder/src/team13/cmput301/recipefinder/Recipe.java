@@ -1,3 +1,10 @@
+/**
+ * Recipe class that models a Recipe
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.Date;
@@ -5,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class Recipe {
-	
 	private String name;
 	private String description;
 	private String author;
@@ -36,6 +42,7 @@ public class Recipe {
 		this.photos = photos;
 		this.rating = 0;
 		this.date = new Date();
+		this.id = new UUID(name.hashCode(), author.hashCode());
 	}
 	
 	/** 
@@ -160,11 +167,7 @@ public class Recipe {
 		this.date = date;
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public String getId() {
+		return id.toString();
 	}
 }

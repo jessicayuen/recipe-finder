@@ -13,10 +13,10 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/author"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
      
     <TextView
-        android:id="@+id/ingredientsInfo"
+        android:id="@+id/descriptionInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/description"
@@ -25,7 +25,7 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/buffer"
-        android:textSize="15sp" />
+        android:textSize="12sp" />
     
     <ImageView
         android:id="@+id/displayPic"
@@ -50,7 +50,7 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/descr"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/authorInfo"
@@ -62,7 +62,7 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/shortbuff"
-        android:textSize="15sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/ingredients"
@@ -73,54 +73,20 @@
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/ingredient"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/descriptionInfo"
+        android:id="@+id/ingredientsInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ingredients"
+        android:layout_alignRight="@+id/descriptionInfo"
         android:layout_below="@+id/ingredients"
         android:maxWidth="180dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:text="@string/buffer"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/descriptionInfo"
-        android:layout_centerVertical="true"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/instruc"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/instructionsInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/instructions"
-        android:layout_below="@+id/instructions"
-        android:maxWidth="180dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/buffer"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/addPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/instructionsInfo"
-        android:layout_below="@+id/instructionsInfo"
-        android:layout_marginTop="20dp"
-        android:minHeight="36dp"
-        android:onClick="addPhoto"
-        android:text="@string/addPhoto"
-        android:textSize="15sp" />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/publish"
@@ -132,15 +98,58 @@
         android:text="@string/publish"
         android:textSize="15sp" />
 
+    <TextView
+        android:id="@+id/instructionsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructions"
+        android:layout_alignRight="@+id/ingredientsInfo"
+        android:layout_below="@+id/instructions"
+        android:maxWidth="180dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/buffer"
+        android:textSize="12sp" />
+
+    <Gallery
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/addPhoto"
+        android:layout_below="@+id/addPhoto"
+        android:paddingTop="5dp" />
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructionsInfo"
+        android:layout_below="@+id/instructionsInfo"
+        android:minHeight="36dp"
+        android:onClick="addPhoto"
+        android:text="@string/addPhoto"
+        android:textSize="15sp" />
+
     <Button
         android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/authorInfo"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/authorInfo"
         android:minHeight="36dp"
-        android:text="@string/share"
         android:onClick="shareRecipe"
+        android:text="@string/share"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ingredientsInfo"
+        android:layout_below="@+id/ingredientsInfo"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/instruc"
         android:textSize="15sp" />
 
 </RelativeLayout>

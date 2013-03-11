@@ -1,5 +1,8 @@
 /**
- * Holds all the user information.
+ * User class holds all the user information.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
 package team13.cmput301.recipefinder;
@@ -16,6 +19,11 @@ public class User {
 		// Exists only to defeat instantiation
 	}
 	
+	/**
+	 * Retrieves the singleton User. Initializes it if it hasn't
+	 * been initialized previous to call.
+	 * @return
+	 */
 	public static User getUser() {
 		if (user == null) {
 			user = new User();

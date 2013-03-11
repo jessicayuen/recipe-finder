@@ -1,19 +1,40 @@
+/**
+ * Singleton that manages all the user's recipes, including their own
+ * and ones that were downloaded. Also keeps track of favourite recipes.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
 
 public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
 	
-	private static List<Recipe> faveRecipes;
-	private static List<Recipe> userRecipes;
+	private static final String USER_PATH = "userrecipelog.sav";
+	private static final String FAVE_PATH = "faverecipelog.sav";
+	private List<Recipe> faveRecipes;
+	private List<Recipe> userRecipes;
 	
 	protected RecipeManager() {
 		// Exists only to defeat instantiation
 	}
 	
+	/**
+	 * Returns the singleton RecipeManager
+	 */
 	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
@@ -23,6 +44,115 @@ public class RecipeManager {
 		return recipeManager;
 	}
 	
+	/**
+	 * Loads the user and favorite recipes
+	 * @param ctx Context
+	 */
+	@SuppressWarnings("unchecked")
+	public void loadRecipes(Context ctx) {
+		try {
+			FileInputStream fis;
+			ObjectInputStream in;
+			
+			// read user recipes
+			fis = ctx.openFileInput(USER_PATH);
+			in = new ObjectInputStream(fis);
+			userRecipes = (ArrayList<Recipe>) in.readObject();
+			in.close();
+			
+			// read favorite recipes
+			fis = ctx.openFileInput(FAVE_PATH);
+			in = new ObjectInputStream(fis);
+			faveRecipes = (ArrayList<Recipe>) in.readObject();
+			in.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Appends the recipe into the existing user recipe list 
+	 * and saves it onto file
+	 * @param recipe Recipe to be appended
+	 * @param ctx Context
+	 */
+	public void writeToUserRecipeLog(Recipe recipe, Context ctx) {
+		try {
+			userRecipes.add(recipe);
+			FileOutputStream fos = ctx.openFileOutput(USER_PATH, Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(userRecipes);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Appends the recipe into the existing favorite recipe list 
+	 * and saves it onto file
+	 * @param recipe Recipe to be appended
+	 * @param ctx Context
+	 */
+	public void writeToFaveRecipeLog(Recipe recipe, Context ctx) {
+		try {
+			faveRecipes.add(recipe);
+			FileOutputStream fos = ctx.openFileOutput(FAVE_PATH, Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(faveRecipes);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Saves the provided list of user recipes onto file, overwriting previous
+	 * @param recipes List of user recipes
+	 * @param ctx Context
+	 */
+	public void writeToUserRecipeLog(List<Recipe> recipes, Context ctx) {
+		try {
+			userRecipes = recipes;
+			FileOutputStream fos = ctx.openFileOutput(USER_PATH, Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(userRecipes);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Saves the provided list of fave recipes onto file, overwriting previous
+	 * @param recipes List of fave recipes
+	 * @param ctx Context
+	 */
+	public void writeToFaveRecipeLog(List<Recipe> recipes, Context ctx) {
+		try {
+			faveRecipes = recipes;
+			FileOutputStream fos = ctx.openFileOutput(FAVE_PATH, Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(faveRecipes);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	 
 	/**
 	 * Add recipe to the favorite list.
 	 * @param recipe

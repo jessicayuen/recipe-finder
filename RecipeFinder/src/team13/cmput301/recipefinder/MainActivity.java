@@ -1,3 +1,12 @@
+/**
+ * Main activity when application first starts and displays the 
+ * user's favourite recipes, search bar, and ability to create
+ * their own recipe.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.Collections;
@@ -20,6 +29,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		rm = RecipeManager.getRecipeManager();
+		User user = User.getUser();
+		user.setEmail("cmput301w13t13@gmail.com");
+		user.setEmailPassword("ualberta");
 		displayFaves();
 	}
 

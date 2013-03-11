@@ -5,18 +5,18 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/createButton" >
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:text="@string/name"
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/addDescription"
-                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/nameText"
                 android:ems="10" >
 
                 <requestFocus />
@@ -38,9 +38,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/nameText"
-                android:layout_below="@+id/nameText"
-                android:paddingLeft="5dp"
+                android:layout_below="@+id/addName"
                 android:layout_marginTop="20dp"
+                android:paddingLeft="5dp"
                 android:text="@string/descr"
                 android:textSize="15sp" />
 
@@ -50,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/descrText"
                 android:layout_below="@+id/addDescription"
-                android:paddingLeft="5dp"
                 android:layout_marginTop="30dp"
+                android:paddingLeft="5dp"
                 android:text="@string/ingredient"
                 android:textSize="15sp" />
 
@@ -59,11 +59,10 @@
                 android:id="@+id/addIngredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/ingredientText"
                 android:layout_alignLeft="@+id/addDescription"
+                android:layout_alignTop="@+id/ingredientText"
                 android:layout_below="@+id/addDescription"
                 android:ems="8" >
-
             </EditText>
 
             <Button
@@ -81,9 +80,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/ingredientText"
-                android:layout_below="@+id/ingredientListView"
+                android:layout_below="@+id/ingredientListButton"
+                android:layout_marginTop="30dp"
                 android:paddingLeft="5dp"
-                android:layout_marginTop="20dp"
                 android:text="@string/instruc"
                 android:textSize="15sp" />
 
@@ -91,42 +90,51 @@
                 android:id="@+id/addInstructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/instructionText"
-                android:layout_below="@+id/ingredientListView"
+                android:layout_alignTop="@+id/instructionText"
+                android:layout_below="@+id/ingredientListButton"
                 android:layout_toRightOf="@+id/instructionText"
-                android:ems="10" />
+                android:ems="8" />
+
+            <Button
+                android:id="@+id/addInstructionsButn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/instructionText"
+                android:layout_below="@+id/ingredientListButton"
+                android:layout_toRightOf="@+id/addInstructions"
+                android:text="Add_placeHolder" />
 
             <EditText
                 android:id="@+id/addDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/descrText"
                 android:layout_alignLeft="@+id/addInstructions"
+                android:layout_alignTop="@+id/descrText"
                 android:layout_toRightOf="@+id/ingredientText"
-                android:ems="10"
-                android:inputType="textMultiLine" />
+                android:ems="10" />
 
-            <ListView
-                android:id="@+id/ingredientListView"
+            <Button
+                android:id="@+id/ingredientListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addIngredients"
-                android:layout_below="@+id/addIngredients" >
-            </ListView>
+                android:layout_below="@+id/addIngredients"
+                android:layout_centerHorizontal="true"
+                android:text="View List ..." />
 
-            <ListView
-                android:id="@+id/instructionListView"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/instructionListButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addInstructions"
-                android:layout_below="@+id/addInstructions" >
-            </ListView>
+                android:layout_below="@+id/addInstructions"
+                android:layout_centerHorizontal="true"
+                android:text="View List ..." />
 
             <Button
                 android:id="@+id/addPicturesButn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/instructionListView"
+                android:layout_below="@+id/instructionListButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="Button_add placeholder" />
@@ -144,8 +152,8 @@
         android:id="@+id/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/exitButton"
         android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/exitButton"
         android:text="Create" />
 
     <Button
