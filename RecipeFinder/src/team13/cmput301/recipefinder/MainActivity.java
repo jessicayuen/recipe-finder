@@ -28,10 +28,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		/* Load recipes */
 		rm = RecipeManager.getRecipeManager();
+		rm.loadRecipes(this);
+		
 		User user = User.getUser();
+		// test start
 		user.setEmail("cmput301w13t13@gmail.com");
 		user.setEmailPassword("ualberta");
+		// test end
 		displayFaves();
 	}
 

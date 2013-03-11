@@ -7,17 +7,21 @@
 
 package team13.cmput301.recipefinder;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class Recipe {
+public class Recipe implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String name;
 	private String description;
 	private String author;
 	private List<String> instructions;
 	private List<String> ingredients;
 	private List<Photo> photos;
+	private boolean fave;
 	private float rating;
 	private Date date;
 	private UUID id;
@@ -169,5 +173,14 @@ public class Recipe {
 
 	public String getId() {
 		return id.toString();
+	}
+
+	public boolean isFave() {
+		return fave;
+	}
+
+	public void setFave(boolean fave) {
+		this.fave = fave;
+		RecipeManager.getRecipeManager().addRecipeToFave(this);
 	}
 }
