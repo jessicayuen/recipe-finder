@@ -39,7 +39,7 @@ public class DisplayRecipeActivity extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			recipe = (Recipe) extras.getParcelable("recipe");
+			recipe = RecipeManager.getRecipeManager().getUserRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
 		} else {
 			// TEST - CONVERT TO JUNIT LATER

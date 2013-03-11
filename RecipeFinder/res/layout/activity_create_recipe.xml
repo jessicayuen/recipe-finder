@@ -154,6 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/exitButton"
+        android:onClick="createButtonClicked"
         android:text="Create" />
 
     <Button
