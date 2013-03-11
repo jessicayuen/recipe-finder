@@ -33,17 +33,20 @@ import android.widget.Toast;
 
 public class CreateRecipeActivity extends Activity {
 
+	// Request Codes
 	private static final int CAMERA_REQUEST = 1;
-	private static final int FILE_PATH_REQUEST = 2; // request code
+	private static final int FILE_PATH_REQUEST = 2; 
 	private static final int INGREDIENTDIALOG = 1;
 	private static final int INSTRUCTIONDIALOG = 2;
+	
+	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
 	private Button exitButton, addPicButton, addIngredButton, addInsButton;
 	private Button ingredListButton, instrListButton, imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
+	
 	private List<String> ingredients, instructions;
-	// list for user selected items to allow user to delete items 
 	private List<Integer> mSelectedItems;
 	private List<Photo> imageList;
 	private PicAdapter picAdapt;
@@ -251,7 +254,7 @@ public class CreateRecipeActivity extends Activity {
 
 	}
 
-	/*
+	/**
 	 * Obtain the filepath of the image returned from file explorer activity
 	 */
 	@Override

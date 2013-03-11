@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 
 /**
  * class used to store photos along with their author and date inserted
- *
  */
 public class Photo {
 
@@ -33,7 +32,6 @@ public class Photo {
 	}
 
 	/**
-	 * 
 	 * @return photo bitmap
 	 */
 	public Bitmap getPhoto() {
@@ -41,7 +39,6 @@ public class Photo {
 	}
 	
 	/**
-	 * 
 	 * @return photo creation date
 	 */
 	public Date getDate() {
@@ -49,7 +46,6 @@ public class Photo {
 	}
 	
 	/**
-	 * 
 	 * @return return author of the photo
 	 */
 	public String getAuthor() {
@@ -57,7 +53,7 @@ public class Photo {
 	}
 	
 	/**
-	 * 	sets author of the photo as given in the parameter
+	 * sets author of the photo as given in the parameter
 	 * @param author
 	 */
 	public void setAuthor(String author) {

@@ -107,82 +107,143 @@ public class Recipe implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * @return Recipe name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name Set the name of the recipe to this
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return Recipe description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description Set the description of the recipe to this
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return Author of the recipe
+	 */
 	public String getAuthor() {
 		return author;
 	}
 
+	/**
+	 * @param author Set the author of the recipe to this
+	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 
+	/**
+	 * @return the instructions
+	 */
 	public List<String> getInstructions() {
 		return instructions;
 	}
 
+	/**
+	 * @param instructions Set the recipe instructions to this
+	 */
 	public void setInstructions(List<String> instructions) {
 		this.instructions = instructions;
 	}
 
+	/**
+	 * @return The list of recipe ingredients
+	 */
 	public List<String> getIngredients() {
 		return ingredients;
 	}
 
+	/**
+	 * @param ingredients Set the recipe ingredients to this
+	 */
 	public void setIngredients(List<String> ingredients) {
 		this.ingredients = ingredients;
 	}
 
+	/**
+	 * @return The list of photos
+	 */
 	public List<Photo> getPhotos() {
 		return photos;
 	}
 
+	/**
+	 * @param photos Set the list of photos for the recipe to this
+	 */
 	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
 
+	/**
+	 * @return The recipe rating
+	 */
 	public float getRating() {
 		return rating;
 	}
 
+	/**
+	 * @param rating Set the recipe rating to this
+	 */
 	public void setRating(float rating) {
 		this.rating = rating;
 	}
 
+	/**
+	 * @return The date the recipe was created
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * @param date Set the date of the recipe to this
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	/**
+	 * @return the recipe ID
+	 */
 	public String getId() {
 		return id.toString();
 	}
 
+	/**
+	 * @return Whether the recipe is favorited
+	 */
 	public boolean isFave() {
 		return fave;
 	}
 
+	/**
+	 * @return the String version of the recipe object
+	 */
 	public String toString() {
-		return "[ name: " + name + ", " + "author: " + author + ", " + "description: " + description + "]";
+		return "[ name: " + name + ", " + "author: " + 
+				author + ", " + "description: " + description + "]";
 	}
 	
+	/**
+	 * @param fave Sets whether the recipe is favorited
+	 */
 	public void setFave(boolean fave) {
 		this.fave = fave;
 		RecipeManager.getRecipeManager().addRecipeToFave(this);

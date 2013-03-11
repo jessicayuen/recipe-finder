@@ -1,3 +1,11 @@
+/**
+ * Deals with operations related to searching and retrieving of
+ * recipes from http://cmput301.softwareprocess.es:8080/cmput301w13t12/
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.io.BufferedReader;
@@ -34,6 +42,11 @@ public class ElasticSearchHelper {
 		// Exists only to defeat instantiation
 	}
 
+	/**
+	 * Retrieves the singleton ElasticSearchHelper. Initializes
+	 * it if first call.
+	 * @return elasticSearchHelper
+	 */
 	public static ElasticSearchHelper getElasticSearchHelper() {
 		if (elasticSearchHelper == null) {
 			elasticSearchHelper = new ElasticSearchHelper();
@@ -215,7 +228,7 @@ public class ElasticSearchHelper {
 		String status = response.getStatusLine().toString();
 		System.out.println(status);
 
-		String json = getEntityContent(response);
+		// String json = getEntityContent(response);
 		// updateRequest.releaseConnection(); not available in android
 		// httpclient
 	}
