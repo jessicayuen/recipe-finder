@@ -21,8 +21,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +38,7 @@ public class CreateRecipeActivity extends Activity {
 	private static final int INGREDIENTDIALOG = 1;
 	private static final int INSTRUCTIONDIALOG = 2;
 	private boolean textChanged = false, contentChanged = false;
-	private Button saveButton, exitButton, addPicButton, addIngredButton, addInsButton;
+	private Button exitButton, addPicButton, addIngredButton, addInsButton;
 	private Button ingredListButton, instrListButton, imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, addDescription;
 	private Gallery gallery;
@@ -57,7 +55,6 @@ public class CreateRecipeActivity extends Activity {
 
 		ingredListButton = (Button) findViewById(R.id.ingredientListButton);
 		instrListButton = (Button) findViewById(R.id.instructionListButton);
-		saveButton = (Button) findViewById(R.id.createButton);
 		exitButton = (Button) findViewById(R.id.exitButton);
 		addPicButton = (Button) findViewById(R.id.addPicturesButn);
 		addIngredButton = (Button) findViewById(R.id.addIngredientsButn);
@@ -116,41 +113,6 @@ public class CreateRecipeActivity extends Activity {
 					picDialog.show();
 				}
 			}		
-		});
-
-		/*
-		 * saves the recipe and displays the recipe, when user clicks on the save
-		 * button and all the necessary fields are filled in
-		 */
-		saveButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				addedName();
-				addedDescription();
-				if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
-					recipe = new Recipe(addName.getText().toString(), 
-							addDescription.getText().toString(), User.getUser().getUsername(),
-							ingredients, instructions, imageList);
-					Intent displayIntent = new Intent(CreateRecipeActivity.this, 
-							DisplayRecipeActivity.class);
-					displayIntent.putExtra("recipe", recipe);
-					startActivity(displayIntent);
-					finish();
-				} else {
-					/* show a message if fields not entered */
-					AlertDialog alertDialog = new AlertDialog.Builder(
-							CreateRecipeActivity.this).create();
-					alertDialog.setTitle("Error");
-					alertDialog.setMessage("Necessary Field Not Entered!");
-					alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new 
-							DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {	
-						} });
-					alertDialog.show();
-				}
-			}
 		});
 
 		/*
@@ -401,8 +363,7 @@ public class CreateRecipeActivity extends Activity {
 		}
 		return dialog;
 	}
-
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -410,6 +371,40 @@ public class CreateRecipeActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Saves the recipe and displays the recipe, when user clicks on the save
+	 * button and all the necessary fields are filled in.
+	 * 
+	 * @param view
+	 */
+	public void createButtonClicked(View view) {			
+			addedName();
+			addedDescription();
+			if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
+				recipe = new Recipe(addName.getText().toString(), 
+						addDescription.getText().toString(), User.getUser().getUsername(),
+						ingredients, instructions, imageList);
+				RecipeManager.getRecipeManager().AddToUserRecipe(recipe, this);
+				Intent displayIntent = new Intent(CreateRecipeActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra
+					("recipe", RecipeManager.getRecipeManager().getUserRecipes().size() - 1);
+				startActivity(displayIntent);
+				finish();
+			} else {
+				/* show a message if fields not entered */
+				AlertDialog alertDialog = new AlertDialog.Builder(
+						CreateRecipeActivity.this).create();
+				alertDialog.setTitle("Error");
+				alertDialog.setMessage("Necessary Field Not Entered!");
+				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new 
+						DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {	
+					} });
+				alertDialog.show();
+			}
+	}
+	
 	/**
 	 * checks whether name of the recipe is filled out or not
 	 */

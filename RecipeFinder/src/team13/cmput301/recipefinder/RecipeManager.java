@@ -84,7 +84,7 @@ public class RecipeManager {
 	 * @param recipe Recipe to be appended
 	 * @param ctx Context
 	 */
-	public void writeToUserRecipeLog(Recipe recipe, Context ctx) {
+	public void AddToUserRecipe(Recipe recipe, Context ctx) {
 		try {
 			userRecipes.add(recipe);
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
@@ -103,7 +103,7 @@ public class RecipeManager {
 	 * @param recipes List of user recipes
 	 * @param ctx Context
 	 */
-	public void writeToUserRecipeLog(List<Recipe> recipes, Context ctx) {
+	public void AddToUserRecipe(List<Recipe> recipes, Context ctx) {
 		try {
 			userRecipes = recipes;
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
@@ -125,14 +125,6 @@ public class RecipeManager {
 		if (userRecipes.contains(recipe)) {
 			faveRecipes.add(recipe);
 		}
-	}
-	
-	/**
-	 * Add recipe to the user list.
-	 * @param recipe
-	 */
-	public void addRecipeToUser(Recipe recipe) {
-		userRecipes.add(recipe);
 	}
 
 	public List<Recipe> getFaveRecipes() {
