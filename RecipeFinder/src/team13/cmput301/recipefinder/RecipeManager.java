@@ -55,7 +55,7 @@ public class RecipeManager {
 			ObjectInputStream in;
 			
 			// read user recipes
-			fis = ctx.openFileInput(USER_PATH);
+			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
 			userRecipes = (ArrayList<Recipe>) in.readObject();
 			in.close();
@@ -85,29 +85,9 @@ public class RecipeManager {
 	public void writeToUserRecipeLog(Recipe recipe, Context ctx) {
 		try {
 			userRecipes.add(recipe);
-			FileOutputStream fos = ctx.openFileOutput(USER_PATH, Context.MODE_PRIVATE);
+			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Appends the recipe into the existing favorite recipe list 
-	 * and saves it onto file
-	 * @param recipe Recipe to be appended
-	 * @param ctx Context
-	 */
-	public void writeToFaveRecipeLog(Recipe recipe, Context ctx) {
-		try {
-			faveRecipes.add(recipe);
-			FileOutputStream fos = ctx.openFileOutput(FAVE_PATH, Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(faveRecipes);
 			out.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -124,28 +104,9 @@ public class RecipeManager {
 	public void writeToUserRecipeLog(List<Recipe> recipes, Context ctx) {
 		try {
 			userRecipes = recipes;
-			FileOutputStream fos = ctx.openFileOutput(USER_PATH, Context.MODE_PRIVATE);
+			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Saves the provided list of fave recipes onto file, overwriting previous
-	 * @param recipes List of fave recipes
-	 * @param ctx Context
-	 */
-	public void writeToFaveRecipeLog(List<Recipe> recipes, Context ctx) {
-		try {
-			faveRecipes = recipes;
-			FileOutputStream fos = ctx.openFileOutput(FAVE_PATH, Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(faveRecipes);
 			out.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
