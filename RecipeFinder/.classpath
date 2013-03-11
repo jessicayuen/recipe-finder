@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="libs/activation.jar"/>
 	<classpathentry kind="lib" path="libs/additionnal.jar"/>
 	<classpathentry kind="lib" path="libs/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jessica/Desktop/development/eclipse/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
