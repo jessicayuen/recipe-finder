@@ -178,5 +178,6 @@ public class Recipe {
 
 	public void setFave(boolean fave) {
 		this.fave = fave;
+		RecipeManager.getRecipeManager().addRecipeToFave(this);
 	}
 }

@@ -28,9 +28,11 @@ public class RecipeManager {
 	private List<Recipe> faveRecipes;
 	private List<Recipe> userRecipes;
 	
-	protected RecipeManager() {
-		// Exists only to defeat instantiation
-	}
+	/**
+	 * DO NOT USE
+	 * Constructor - exists only to defeat instantiation 
+	 */
+	protected RecipeManager() {}
 	
 	/**
 	 * Returns the singleton RecipeManager
@@ -89,6 +91,7 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
+			loadRecipes(ctx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -108,6 +111,7 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
+			loadRecipes(ctx);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
