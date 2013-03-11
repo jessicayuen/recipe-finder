@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="libs/activation.jar"/>
 	<classpathentry kind="lib" path="libs/additionnal.jar"/>
 	<classpathentry kind="lib" path="libs/mail.jar"/>
-	<classpathentry kind="lib" path="/home/jim/git/CMPUT301T13/RecipeFinder/libs/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="libs/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
