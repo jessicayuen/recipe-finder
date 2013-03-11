@@ -1,3 +1,11 @@
+/**
+ * Activity that allows user to keep track of their ingredients,
+ * including addition, deletion and searching with selected ingredients.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.util.ArrayList;
@@ -35,7 +43,8 @@ public class MyIngredientsActivity extends Activity {
 		searchButton = (Button) findViewById(R.id.searchPH);
 		myList = (ListView) findViewById(R.id.listOfIng);
 
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, listItems);
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_multiple_choice, listItems);
 
 		ingredientsEditText = (EditText) findViewById(R.id.ingredientItem);
 
@@ -47,13 +56,12 @@ public class MyIngredientsActivity extends Activity {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				ingredient = ingredientsEditText.getText().toString();
 				if (ingredient.matches("")) {
 					/* show a message if fields not entered */
 					int duration = Toast.LENGTH_SHORT;
 					Context context = getApplicationContext();
-					Toast.makeText(context,"Missing field ingredient", duration).show();
+					Toast.makeText(context,"Enter a ingredient", duration).show();
 				}
 				if (checkItem(checkedItem) == true){
 					int duration = Toast.LENGTH_SHORT;
@@ -69,6 +77,9 @@ public class MyIngredientsActivity extends Activity {
 
 		});
 
+		/**
+		 * Listens for delete button click
+		 */
 		deleteButton.setOnClickListener(new View.OnClickListener() {			
 			@SuppressLint("NewApi")
 			@Override
@@ -78,12 +89,20 @@ public class MyIngredientsActivity extends Activity {
 			}
 
 		});
+		
+		/**
+		 * Exits the activity on Back button click
+		 */
 		backButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		
+		/**
+		 * Listens for search button click
+		 */
 		searchButton.setOnClickListener(new View.OnClickListener() {			
 			@SuppressLint("NewApi")
 			@Override
@@ -96,25 +115,32 @@ public class MyIngredientsActivity extends Activity {
 		});
 	}
 
+	/**
+	 * Add a item to the list of ingredients
+	 */
 	public void addItem() {
-		// Add the current string in the EditText to the ListView
 		listItems.add(ingredient);
 	}
-	// Checks if the current item already exists in the list of ingredients
+	
+	/**
+	 * Check if the current item already exists in the list of ingredients
+	 * @param checkedItem Item to be checked
+	 * @return
+	 */
 	public boolean checkItem(boolean checkedItem){
 		for(int index = 0; index < listItems.size(); index++){
 			if(listItems.get(index).equals(ingredient)){
 				checkedItem = true;
-			}
-			else{
+			} else {
 				checkedItem = false;
 			}
 		}
 		return checkedItem;
 	}
 
-
-
+	/**
+	 * Remove ingredients that were checked
+	 */
 	private void deleteCheckedItems() {
 
 		int count = this.myList.getAdapter().getCount();
@@ -127,10 +153,10 @@ public class MyIngredientsActivity extends Activity {
 
 	}
 
+	/**
+	 * Search the items that were checked
+	 */
 	private void searchCheckedItems() {
 
-
 	}
-
-
 }
