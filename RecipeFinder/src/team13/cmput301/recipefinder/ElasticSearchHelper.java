@@ -20,16 +20,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
+	private static final String BASEURL = "http://cmput301.softwareprocess.es:8080/cmput301w13t12/";
+
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
-	
+
 	private HttpClient httpclient;
 	private Gson gson;
-	
+
 	protected ElasticSearchHelper() {
 		// Exists only to defeat instantiation
 	}
-	
+
 	public static ElasticSearchHelper getElasticSearchHelper() {
 		if (elasticSearchHelper == null) {
 			elasticSearchHelper = new ElasticSearchHelper();
@@ -38,9 +40,10 @@ public class ElasticSearchHelper {
 		}
 		return elasticSearchHelper;
 	}
-	
+
 	/**
-	 * Inserts a recipe to elasticSearch service. Consumes the POST/Insert operation of the service.
+	 * Inserts a recipe to elasticSearch service. Consumes the POST/Insert
+	 * operation of the service.
 	 * 
 	 * @throws IOException
 	 * @throws IllegalStateException
@@ -51,9 +54,7 @@ public class ElasticSearchHelper {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				HttpPost httpPost = new HttpPost(
-						"http://cmput301.softwareprocess.es:8080/cmput301w13t12/"
-								+ r.getId());
+				HttpPost httpPost = new HttpPost(BASEURL + r.getId());
 				StringEntity stringentity = null;
 				try {
 					stringentity = new StringEntity(gson.toJson(r));
@@ -69,8 +70,8 @@ public class ElasticSearchHelper {
 					String status = response.getStatusLine().toString();
 					System.out.println(status);
 					HttpEntity entity = response.getEntity();
-					BufferedReader br = new BufferedReader(new InputStreamReader(
-							entity.getContent()));
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(entity.getContent()));
 					String output;
 					System.err.println("Output from Server -> ");
 					while ((output = br.readLine()) != null) {
@@ -93,8 +94,7 @@ public class ElasticSearchHelper {
 	 */
 	public void getRecipe() {
 		try {
-			HttpGet getRequest = new HttpGet(
-					"http://cmput301.softwareprocess.es:8080/cmput301w13t12/999?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+			HttpGet getRequest = new HttpGet(BASEURL + "999?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
 
 			getRequest.addHeader("Accept", "application/json");
 
@@ -130,44 +130,28 @@ public class ElasticSearchHelper {
 	/**
 	 * search by keywords
 	 */
-	public void searchRecipes(String string) throws ClientProtocolException,
+	public void searchRecipes(String str) throws ClientProtocolException,
 			IOException {
-		final String myString = string;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				HttpGet searchRequest;
-				try {
-					searchRequest = new HttpGet(
-							"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1&q="
-									+ java.net.URLEncoder.encode(myString,
-											"UTF-8"));
-					searchRequest.setHeader("Accept", "application/json");
-					HttpResponse response = httpclient.execute(searchRequest);
-					String status = response.getStatusLine().toString();
-					System.out.println(status);
-					String json = getEntityContent(response);
-					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
-					}.getType();
-					ElasticSearchSearchResponse<Recipe> esResponse = gson
-							.fromJson(json, elasticSearchSearchResponseType);
-					System.err.println(esResponse);
-					for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
-						Recipe recipe = r.getSource();
-						System.err.println(recipe);
-					}
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
+		HttpGet searchRequest = new HttpGet(BASEURL + "_search?pretty=1&q="
+				+ java.net.URLEncoder.encode(str, "UTF-8"));
+		searchRequest.setHeader("Accept", "application/json");
+		HttpResponse response = httpclient.execute(searchRequest);
+		String status = response.getStatusLine().toString();
+		System.out.println(status);
 
-				}
-				
-				
-				// searchRequest.releaseConnection(); not available in android
-				// httpclient
-			}
-		}).start();
+		String json = getEntityContent(response);
+
+		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+		}.getType();
+		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
+				elasticSearchSearchResponseType);
+		System.err.println(esResponse);
+		for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
+			Recipe recipe = r.getSource();
+			System.err.println(recipe);
+		}
+		// searchRequest.releaseConnection(); not available in android
+		// httpclient
 	}
 
 	/**
@@ -175,8 +159,7 @@ public class ElasticSearchHelper {
 	 */
 	public void searchsearchRecipes(String str) throws ClientProtocolException,
 			IOException {
-		HttpPost searchRequest = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/_search?pretty=1");
+		HttpPost searchRequest = new HttpPost(BASEURL + "_search?pretty=1");
 		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients\",\"query\" : \""
 				+ str + "\"}}}";
 		StringEntity stringentity = new StringEntity(query);
@@ -208,8 +191,7 @@ public class ElasticSearchHelper {
 	 */
 	public void updateRecipes(String str) throws ClientProtocolException,
 			IOException {
-		HttpPost updateRequest = new HttpPost(
-				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/1/_update");
+		HttpPost updateRequest = new HttpPost(BASEURL + "1/_update");
 		String query = "{\"script\" : \"ctx._source." + str + "}";
 		StringEntity stringentity = new StringEntity(query);
 
@@ -229,8 +211,7 @@ public class ElasticSearchHelper {
 	 * delete an entry specified by the id
 	 */
 	public void deleteRecipe() throws IOException {
-		HttpDelete httpDelete = new HttpDelete(
-				"http://cmput301.softwareprocess.es:8080/cmput301w13t12/1");
+		HttpDelete httpDelete = new HttpDelete(BASEURL + "1");
 		httpDelete.addHeader("Accept", "application/json");
 
 		HttpResponse response = httpclient.execute(httpDelete);
