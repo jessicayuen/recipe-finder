@@ -61,7 +61,7 @@ public class Photo {
 	}
 	
 	/**
-	 * sets the photo as the given paremeter bitmap
+	 * sets the photo as the given parameter bitmap
 	 * @param photo
 	 */
 	public void setPhoto(Bitmap photo) {

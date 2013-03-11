@@ -41,9 +41,11 @@ public class CreateRecipeActivity extends Activity {
 	
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
-	private Button exitButton, addPicButton, addIngredButton, addInsButton;
-	private Button ingredListButton, instrListButton, imageDeleteButton, imageCancelButton;
-	private EditText addName, addIngredients, addInstructions, addDescription;
+	private Button exitButton, addPicButton, addIngredButton, 
+		addInsButton, ingredListButton, instrListButton, 
+		imageDeleteButton, imageCancelButton;
+	private EditText addName, addIngredients, addInstructions, 
+		addDescription;
 	private Gallery gallery;
 	
 	private List<String> ingredients, instructions;
@@ -53,6 +55,10 @@ public class CreateRecipeActivity extends Activity {
 	Recipe recipe;
 
 	@Override
+	/**
+	 * Started when create recipe is first created. Initializes 
+	 * Button listeners.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_recipe);

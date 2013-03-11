@@ -75,7 +75,8 @@ public class MainActivity extends Activity {
 	public void searchRecipe(View view) {
 		Intent intent  = new Intent(this, SearchResultsActivity.class);
 		 // Pass the search query string into the search activity as an intent extra.
-		 String simpleSearchQuery = ((EditText) findViewById(R.id.search_bar)).getText().toString();
+		 String simpleSearchQuery = 
+				 ((EditText) findViewById(R.id.search_bar)).getText().toString();
 		 intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 	}
 	/**

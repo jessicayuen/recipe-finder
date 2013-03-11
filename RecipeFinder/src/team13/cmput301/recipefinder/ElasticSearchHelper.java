@@ -30,7 +30,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
-	private static final String BASEURL = "http://cmput301.softwareprocess.es:8080/cmput301w13t12/";
+	private static final String BASEURL = 
+			"http://cmput301.softwareprocess.es:8080/cmput301w13t12/";
 
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
@@ -123,7 +124,8 @@ public class ElasticSearchHelper {
 					String json = getEntityContent(response);
 
 					// We have to tell GSON what type we expect
-					Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<Recipe>>() {
+					Type elasticSearchResponseType = 
+							new TypeToken<ElasticSearchResponse<Recipe>>() {
 					}.getType();
 					// Now we expect to get a Recipe response
 					ElasticSearchResponse<Recipe> esResponse = gson.fromJson(
@@ -163,7 +165,8 @@ public class ElasticSearchHelper {
 
 					String json = getEntityContent(response);
 
-					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+					Type elasticSearchSearchResponseType = 
+							new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
 					}.getType();
 					ElasticSearchSearchResponse<Recipe> esResponse = gson
 							.fromJson(json, elasticSearchSearchResponseType);
@@ -186,7 +189,8 @@ public class ElasticSearchHelper {
 	public void searchsearchRecipes(String str) throws ClientProtocolException,
 			IOException {
 		HttpPost searchRequest = new HttpPost(BASEURL + "_search?pretty=1");
-		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients\",\"query\" : \""
+		String query = "{\"query\" : {\"query_string\" : " +
+				"{\"default_field\" : \"ingredients\",\"query\" : \""
 				+ str + "\"}}}";
 		StringEntity stringentity = new StringEntity(query);
 
@@ -199,7 +203,8 @@ public class ElasticSearchHelper {
 
 		String json = getEntityContent(response);
 
-		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+		Type elasticSearchSearchResponseType = 
+				new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
 		}.getType();
 		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
 				elasticSearchSearchResponseType);

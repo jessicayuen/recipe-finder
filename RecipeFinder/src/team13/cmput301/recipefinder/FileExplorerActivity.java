@@ -39,7 +39,8 @@ public class FileExplorerActivity extends Activity {
 	private static final String TAG = "F_PATH";
 
 	private ArrayList<Item> fileList;
-	private File path = new File(Environment.getExternalStorageDirectory() + "");
+	private File path = 
+			new File(Environment.getExternalStorageDirectory() + "");
 	private String chosenFile;
 	private static final int DIALOG_LOAD_FILE = 1000;
 

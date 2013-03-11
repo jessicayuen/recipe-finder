@@ -107,7 +107,8 @@ public class MyIngredientsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				searchCheckedItems();
-				Intent myIntent = new Intent(MyIngredientsActivity.this, SearchResultsActivity.class);
+				Intent myIntent = new Intent(
+						MyIngredientsActivity.this, SearchResultsActivity.class);
 				MyIngredientsActivity.this.startActivity(myIntent);
 			}
 
