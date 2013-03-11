@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity {
@@ -70,6 +71,12 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	public void searchRecipe(View view) {
+		Intent intent  = new Intent(this, SearchResultsActivity.class);
+		// Pass the search query string into the search activity as an intent extra.
+		String simpleSearchQuery = ((EditText) findViewById(R.id.search_bar)).getText().toString();
+		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
+	}
 	/**
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
@@ -96,4 +103,5 @@ public class MainActivity extends Activity {
 			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
 		}
 	}
+	s
 }
