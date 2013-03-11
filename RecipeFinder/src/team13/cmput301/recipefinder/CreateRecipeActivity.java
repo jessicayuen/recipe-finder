@@ -415,41 +415,19 @@ public class CreateRecipeActivity extends Activity {
 	 */
 	private void addedName() {
 
-		addName.addTextChangedListener(new TextWatcher(){
-			@Override
-			public void afterTextChanged(Editable s) {
-				if(s.toString().trim().length() != 0){
-					textChanged = true;
-				}
-				else{
-					textChanged = false;
-				}
-			}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-		});
+		if(addName.getText().toString().length() != 0){
+			textChanged = true;
+		} else {
+			textChanged = false;
+		}
 	}
 
 	private void addedDescription() {
 
-		addDescription.addTextChangedListener(new TextWatcher(){
-			@Override
-			public void afterTextChanged(Editable s) {
-				if(s.toString().trim().length() != 0){
-					textChanged = true;
-				}
-				else{
-					textChanged = false;
-				}
-			}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-		});
+		if(addDescription.getText().toString().length() != 0){
+			textChanged = true;
+		} else {
+			textChanged = false;
+		}
 	}
 }
