@@ -35,6 +35,7 @@ public class ElasticSearchHelper {
 	
 	public static ElasticSearchHelper getElasticSearchHelper() {
 		if (elasticSearchHelper == null) {
+			elasticSearchHelper = new ElasticSearchHelper();
 			elasticSearchHelper.httpclient = new DefaultHttpClient();
 			elasticSearchHelper.gson = new Gson();
 		}
@@ -42,7 +43,7 @@ public class ElasticSearchHelper {
 	}
 	
 	/**
-	 * Consumes the POST/Insert operation of the service
+	 * Inserts a recipe to elasticSearch service. Consumes the POST/Insert operation of the service.
 	 * 
 	 * @throws IOException
 	 * @throws IllegalStateException
@@ -53,8 +54,6 @@ public class ElasticSearchHelper {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-
 				HttpPost httpPost = new HttpPost(
 						"http://cmput301.softwareprocess.es:8080/cmput301w13t12/"
 								+ r.getId());
@@ -62,7 +61,6 @@ public class ElasticSearchHelper {
 				try {
 					stringentity = new StringEntity(gson.toJson(r));
 				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				httpPost.setHeader("Accept", "application/json");
@@ -83,10 +81,8 @@ public class ElasticSearchHelper {
 					}
 					entity.consumeContent();
 				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 

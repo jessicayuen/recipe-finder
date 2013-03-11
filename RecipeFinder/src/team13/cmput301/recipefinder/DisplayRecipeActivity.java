@@ -7,6 +7,7 @@
 
 package team13.cmput301.recipefinder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,5 +190,17 @@ public class DisplayRecipeActivity extends Activity {
 			}
 		});
 		alertDialog.show();
+	}
+	public void publishRecipe(View view) {
+		ElasticSearchHelper esh = ElasticSearchHelper.getElasticSearchHelper();
+		try {
+			esh.insertRecipe(recipe);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
