@@ -31,7 +31,7 @@ public class DisplayRecipeActivity extends Activity {
     private static final int CAMERA_REQUEST = 1888; 
     private Gallery picGallery;
     private PicAdapter imgAdapt;
-	Recipe recipe;
+	private Recipe recipe;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +142,8 @@ public class DisplayRecipeActivity extends Activity {
 	}
 	
 	/**
-	 * Takes the intent result and does something with it.
+	 * Takes the intent result and does something with it. In this case, watches
+	 * for Camera and File results.
 	 */
     protected void onActivityResult(int requestCode, int resultCode, 
     		Intent data) {

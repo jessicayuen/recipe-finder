@@ -127,10 +127,16 @@ public class RecipeManager {
 		}
 	}
 
+	/**
+	 * @return List of favorite recipes
+	 */
 	public List<Recipe> getFaveRecipes() {
 		return faveRecipes;
 	}
 
+	/**
+	 * @return List of user recipes
+	 */
 	public List<Recipe> getUserRecipes() {
 		return userRecipes;
 	}

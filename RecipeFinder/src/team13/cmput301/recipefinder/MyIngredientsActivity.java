@@ -53,7 +53,6 @@ public class MyIngredientsActivity extends Activity {
 		 */
 		addButton.setOnClickListener(new View.OnClickListener() {			
 			@SuppressLint("NewApi")
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				ingredient = ingredientsEditText.getText().toString();
@@ -108,7 +107,8 @@ public class MyIngredientsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				searchCheckedItems();
-				Intent myIntent = new Intent(MyIngredientsActivity.this, SearchResultsActivity.class);
+				Intent myIntent = new Intent(
+						MyIngredientsActivity.this, SearchResultsActivity.class);
 				MyIngredientsActivity.this.startActivity(myIntent);
 			}
 
@@ -157,6 +157,6 @@ public class MyIngredientsActivity extends Activity {
 	 * Search the items that were checked
 	 */
 	private void searchCheckedItems() {
-
+		// TO BE IMPLEMENTED
 	}
 }

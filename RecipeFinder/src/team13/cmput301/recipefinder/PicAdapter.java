@@ -42,22 +42,37 @@ class PicAdapter extends BaseAdapter {
 		styleAttrs.recycle();
 	}
 	
+	/**
+	 * @return number of photos in the gallery
+	 */
 	@Override
 	public int getCount() {
 		return imagePhotos.size();
 	}
 
 	@Override
+	/**
+	 * @return Image at @param position
+	 */
 	public Object getItem(int position) {
 		return position;
 	}
 
 	@Override
+	/**
+	 * @return ID of the image at @param position
+	 */
 	public long getItemId(int position) {
 		return position;
 	}
 
 	@Override
+	/**
+	 * Displays the images in the provided gallery
+	 * @param position
+	 * @param convertView
+	 * @param parent
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView = new ImageView(galleryContext);
 		imageView.setImageBitmap(imagePhotos.get(position).getPhoto());
