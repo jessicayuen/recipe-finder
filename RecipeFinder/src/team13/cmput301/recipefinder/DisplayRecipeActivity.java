@@ -158,7 +158,7 @@ public class DisplayRecipeActivity extends Activity {
     
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
-	 * @param views
+	 * @param view
 	 */
 	public void shareRecipe(View view) {
 		AlertDialog alertDialog =

@@ -1,2 +1,7 @@
 RecipeFinder/gen
 RecipeFinder/bin
+RecipeFinderTest/gen
+RecipeFinderTest/bin
+*.log
+*.swp
+
