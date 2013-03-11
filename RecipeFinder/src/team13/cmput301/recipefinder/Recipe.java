@@ -179,6 +179,10 @@ public class Recipe implements Serializable {
 		return fave;
 	}
 
+	public String toString() {
+		return "[ name: " + name + ", " + "author: " + author + ", " + "description: " + description + "]";
+	}
+	
 	public void setFave(boolean fave) {
 		this.fave = fave;
 		RecipeManager.getRecipeManager().addRecipeToFave(this);

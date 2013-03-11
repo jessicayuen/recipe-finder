@@ -91,5 +91,20 @@
         android:paddingLeft="5dp"
         android:text="Rating"
         android:textSize="15sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/searchfor"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/discrip1" >
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </ScrollView>
 
 </RelativeLayout>
