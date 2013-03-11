@@ -16,6 +16,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -90,68 +92,79 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * Consumes the Get operation of the service
+	 * Retrieves a recipe object from its UUID from elasticSearch
 	 */
-	public void getRecipe() {
-		try {
-			HttpGet getRequest = new HttpGet(BASEURL + "999?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+	public void getRecipe(String uuid) {
+		final String myUuid = uuid;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					HttpGet getRequest = new HttpGet(BASEURL + myUuid
+							+ "?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
 
-			getRequest.addHeader("Accept", "application/json");
+					getRequest.addHeader("Accept", "application/json");
+					HttpResponse response = httpclient.execute(getRequest);
+					String status = response.getStatusLine().toString();
+					System.out.println(status);
+					String json = getEntityContent(response);
 
-			HttpResponse response = httpclient.execute(getRequest);
+					// We have to tell GSON what type we expect
+					Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<Recipe>>() {
+					}.getType();
+					// Now we expect to get a Recipe response
+					ElasticSearchResponse<Recipe> esResponse = gson.fromJson(
+							json, elasticSearchResponseType);
+					// We get the recipe from it!
+					Recipe recipe = esResponse.getSource();
+					System.out.println(recipe.toString());
 
-			String status = response.getStatusLine().toString();
-			System.out.println(status);
+				} catch (ClientProtocolException e) {
 
-			String json = getEntityContent(response);
+					e.printStackTrace();
 
-			// We have to tell GSON what type we expect
-			Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<Recipe>>() {
-			}.getType();
-			// Now we expect to get a Recipe response
-			ElasticSearchResponse<Recipe> esResponse = gson.fromJson(json,
-					elasticSearchResponseType);
-			// We get the recipe from it!
-			Recipe recipe = esResponse.getSource();
-			System.out.println(recipe.toString());
-			// getRequest.releaseConnection(); not available in android
-			// httpclient
+				} catch (IOException e) {
 
-		} catch (ClientProtocolException e) {
-
-			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	/**
 	 * search by keywords
 	 */
-	public void searchRecipes(String str) throws ClientProtocolException,
-			IOException {
-		HttpGet searchRequest = new HttpGet(BASEURL + "_search?pretty=1&q="
-				+ java.net.URLEncoder.encode(str, "UTF-8"));
-		searchRequest.setHeader("Accept", "application/json");
-		HttpResponse response = httpclient.execute(searchRequest);
-		String status = response.getStatusLine().toString();
-		System.out.println(status);
+	public void searchRecipes(String query) {
+		final String myQuery = query;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					HttpGet searchRequest = new HttpGet(BASEURL
+							+ "_search?pretty=1&q="
+							+ java.net.URLEncoder.encode(myQuery, "UTF-8"));
+					searchRequest.setHeader("Accept", "application/json");
+					HttpResponse response = httpclient.execute(searchRequest);
+					String status = response.getStatusLine().toString();
+					System.out.println(status);
 
-		String json = getEntityContent(response);
+					String json = getEntityContent(response);
 
-		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
-		}.getType();
-		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
-				elasticSearchSearchResponseType);
-		System.err.println(esResponse);
-		for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
-			Recipe recipe = r.getSource();
-			System.err.println(recipe);
-		}
-		// searchRequest.releaseConnection(); not available in android
-		// httpclient
+					Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+					}.getType();
+					ElasticSearchSearchResponse<Recipe> esResponse = gson
+							.fromJson(json, elasticSearchSearchResponseType);
+					System.err.println(esResponse);
+					for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
+						Recipe recipe = r.getSource();
+						System.err.println(recipe);
+						Log.wtf("recipe", recipe.toString());
+					}
+				} catch (IOException e) {
+					
+				}
+			}
+		}).start();
 	}
 
 	/**
