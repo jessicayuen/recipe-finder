@@ -39,6 +39,7 @@ public class CreateRecipeActivity extends Activity {
 	private static final int INGREDIENTDIALOG = 1;
 	private static final int INSTRUCTIONDIALOG = 2;
 	
+	
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
 	private Button exitButton, addPicButton, addIngredButton, 
