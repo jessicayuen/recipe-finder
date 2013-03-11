@@ -113,14 +113,8 @@ public class CreateRecipeActivityTest extends ActivityInstrumentationTestCase2
 		TouchUtils.clickView(this, instrButtonTest);
 		assertEquals(addInstrTest.length(), 0);
 	}
-//	@Test
-//	public void testCreationFail() {
-//		TouchUtils.clickView(this, createRecipeButtonTest);
-//
-//		assertEquals(recipe, new Recipe(addNameTest.getText().toString(),"Mr.Test",
-//				addDesrTest.getText().toString(), tempIngredList, tempInstrList,
-//				new ArrayList<Photo>()));
-//	}
+
+	
 	@Test
 	public void  testRecipeCreation() {
 		
@@ -135,16 +129,16 @@ public class CreateRecipeActivityTest extends ActivityInstrumentationTestCase2
 		
 		TouchUtils.tapView(this, addIngredTest);
 		sendKeys("T E S T 1");
+		tempIngredList.add(addIngredTest.getText().toString());
 		
 		TouchUtils.clickView(this, ingredButtonTest);
-		tempIngredList.add(addIngredTest.getText().toString());
 		assertEquals(addIngredTest.length(), 0);
 		
 		TouchUtils.tapView(this, addInstrTest);
 		sendKeys("T E S T 2");
+		tempInstrList.add(addInstrTest.getText().toString());
 		
 		TouchUtils.clickView(this, instrButtonTest);
-		tempInstrList.add(addInstrTest.getText().toString());
 		assertEquals(addInstrTest.length(), 0);
 		
 		TouchUtils.clickView(this, createRecipeButtonTest);
