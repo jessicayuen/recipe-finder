@@ -47,6 +47,7 @@ public class Recipe implements Serializable {
 		this.rating = 0;
 		this.date = new Date();
 		this.id = new UUID(name.hashCode(), author.hashCode());
+		this.fave = false;
 	}
 	
 	/** 
@@ -66,8 +67,7 @@ public class Recipe implements Serializable {
 				photos);
 		this.rating = rating;
 	}
-
-
+	
 	/** 
 	 * Add a photo to the recipe
 	 * @param photo

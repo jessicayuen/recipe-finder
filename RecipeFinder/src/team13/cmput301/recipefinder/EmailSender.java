@@ -76,17 +76,23 @@ public class EmailSender extends javax.mail.Authenticator {
 
         MimeMessage message = new MimeMessage(session);   
         DataHandler handler = new DataHandler(
-        		new ByteArrayDataSource(body.getBytes(), "text/plain"));   
+        		new ByteArrayDataSource(body.getBytes(), "text/plain"));
         message.setSender(new InternetAddress(from));   
         message.setSubject(subject);
         message.setDataHandler(handler);   
-        if (to.indexOf(',') > 0)   
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));   
-        else  
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));   
+        if (to.indexOf(',') > 0) {
+            message.setRecipients(Message.RecipientType.TO, 
+            		InternetAddress.parse(to));   
+        } else {  
+            message.setRecipient(Message.RecipientType.TO, 
+            		new InternetAddress(to));
+        }
         Transport.send(message);   
     }   
 
+    /**
+     * Nested class to handle data sending and receiving
+     */
     public class ByteArrayDataSource implements DataSource {   
         private byte[] data;   
         private String type;   

@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 		
 		User user = User.getUser();
 		// test start
+		user.setUsername("Mr. Tomato Man");
 		user.setEmail("cmput301w13t13@gmail.com");
 		user.setEmailPassword("ualberta");
 		// test end

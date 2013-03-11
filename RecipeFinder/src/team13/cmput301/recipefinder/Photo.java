@@ -32,30 +32,50 @@ public class Photo {
 		this.date = new Date();
 	}
 
-	/*
-	 * below are gets and setters of the class
+	/**
+	 * 
+	 * @return photo bitmap
 	 */
-	
 	public Bitmap getPhoto() {
 		return this.photo;
 	}
 	
+	/**
+	 * 
+	 * @return photo creation date
+	 */
 	public Date getDate() {
 		return this.date;
 	}
 	
+	/**
+	 * 
+	 * @return return author of the photo
+	 */
 	public String getAuthor() {
 		return this.author;
 	}
 	
+	/**
+	 * 	sets author of the photo as given in the parameter
+	 * @param author
+	 */
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 	
+	/**
+	 * sets the photo as the given paremeter bitmap
+	 * @param photo
+	 */
 	public void setPhoto(Bitmap photo) {
 		this.photo =  photo;
 	}
 	
+	/**
+	 * sets the date as the given date
+	 * @param date
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
