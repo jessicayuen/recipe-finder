@@ -31,7 +31,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
 	private static final String BASEURL = 
-			"http://cmput301.softwareprocess.es:8080/cmput301w13t12/";
+			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/";
 
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
