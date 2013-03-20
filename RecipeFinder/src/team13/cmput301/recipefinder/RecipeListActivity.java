@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class RecipeListActivity extends Activity {
 	private List<Recipe> allRecipes;
 	private List<Recipe> favRecipes;
 	private List<Recipe> ownRecipes;
+	private CustomListAdapter ownListAdapter, allListAdapter, favListAdapter;
+	private ListView myListView, allListView, favListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +31,20 @@ public class RecipeListActivity extends Activity {
 
 		ownRecipes = new ArrayList<Recipe>();
 		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-		favRecipes =  RecipeManager.getRecipeManager().getFaveRecipes();
+		favRecipes = new ArrayList<Recipe>();
 
 		if(allRecipes.size() > 0){
 			findOwnRecipes();
+			findFavRecipes();
 		}
 		TabHost recipeListTabs = (TabHost)findViewById(R.id.tabView);
-		ListView allListView = (ListView)findViewById(R.id.allRecipeList);
-		ListView favListView = (ListView)findViewById(R.id.favRecipeList);
-		ListView myListView = (ListView)findViewById(R.id.myRecipeList);
+		allListView = (ListView)findViewById(R.id.allRecipeList);
+		favListView = (ListView)findViewById(R.id.favRecipeList);
+		myListView = (ListView)findViewById(R.id.myRecipeList);
 
-		CustomListAdapter allListAdapter = new CustomListAdapter(this, allRecipes);
-		CustomListAdapter favListAdapter = new CustomListAdapter(this, favRecipes);
-		CustomListAdapter ownListAdapter = new CustomListAdapter(this, ownRecipes);
+		allListAdapter = new CustomListAdapter(this, allRecipes);
+		favListAdapter = new CustomListAdapter(this, favRecipes);
+		ownListAdapter = new CustomListAdapter(this, ownRecipes);
 
 		allListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
@@ -99,17 +103,55 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(allTab);
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
+		
+		recipeListTabs.setOnTabChangedListener(new OnTabChangeListener(){
+
+			@Override
+			public void onTabChanged(String id) {
+				allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
+				if(id.equals("Favorite Recipe(s)")) {
+			        findFavRecipes();
+			        favListAdapter.setRecipeList(favRecipes);
+			    }
+				else if(id.equals("My Recipe(s)")) {
+			        findOwnRecipes();
+			        ownListAdapter.setRecipeList(ownRecipes);
+			    }
+				else {
+					ownListAdapter.setRecipeList(allRecipes);
+				}
+			}
+			
+		});
 
 		recipeListTabs.setCurrentTab(0);
 	}
 
+	/**
+	 *  populate users own recipe list from the all recipe list
+	 */
 	private void findOwnRecipes() {
+		ownRecipes = new ArrayList<Recipe>();
 		Recipe temp;
 		for(int i = 0; i < allRecipes.size(); i++){
 			temp = allRecipes.get(i);
-			if(temp.getAuthor().trim().compareTo(User.getUser().getUsername().trim()) == 0){
-				System.out.println(User.getUser().getUsername());
+			if(temp.getAuthor().trim().compareTo(User.getUser().getUsername().trim()) == 0
+					&& !ownRecipes.contains(temp)){
 				ownRecipes.add(temp);
+			}
+		}
+	}
+	
+	/**
+	 * populate users favourite recipes with recipes from all recipe list
+	 */
+	private void findFavRecipes(){
+		favRecipes = new ArrayList<Recipe>();
+		Recipe temp;
+		for(int i = 0; i < allRecipes.size(); i++){
+			temp = allRecipes.get(i);
+			if(temp.isFave() && !favRecipes.contains(temp)){
+				favRecipes.add(temp);
 			}
 		}
 	}

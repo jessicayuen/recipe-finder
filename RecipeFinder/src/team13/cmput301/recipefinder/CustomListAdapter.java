@@ -39,6 +39,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		}
 	}
 	
+	public void setRecipeList(List<Recipe> list){
+		this.recipeList = list;
+		notifyDataSetChanged();
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -77,7 +81,6 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
 		descr.setTextSize(fontSize);
-		descr.setWidth(descriptionWidth);
 		descr.setText(recipe.getDescription());
 
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
@@ -116,9 +119,14 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		if(tRecipe.id == FAV_BUTTON_CLICK){
 			//TODO add the recipe to favorites
 			Recipe recipe = tRecipe.recipe;
+			int index = RecipeManager.getRecipeManager().getUserRecipes().indexOf(recipe);
+			recipe.setFave(true);
+			RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
+
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;
 	        recipeList.remove(recipe);
+	        RecipeManager.getRecipeManager().getUserRecipes().remove(recipe);
 		}
         notifyDataSetChanged();
         
