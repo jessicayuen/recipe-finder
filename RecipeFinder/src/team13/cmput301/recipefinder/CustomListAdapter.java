@@ -28,6 +28,17 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		this.context = context;
 		this.recipeList = recipeList;
 	}
+	
+	public class TempRecipe {
+		private int id;
+		private Recipe recipe;
+		
+		public TempRecipe(int id, Recipe recipe){
+			this.id = id;
+			this.recipe = recipe;
+		}
+	}
+	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -62,7 +73,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		fav.setFocusableInTouchMode(false);
 		fav.setFocusable(false);
 		fav.setOnClickListener(this);		
-		fav.setTag(FAV_BUTTON_CLICK,recipe);
+		fav.setTag(new TempRecipe(FAV_BUTTON_CLICK,recipe));
 
 		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
 		descr.setTextSize(fontSize);
@@ -93,7 +104,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 		//keep track of which entry was removed so that it
 		// can be removed from the database
-		btnRemove.setTag(REMOVE_BUTTON_CLICK,recipe);   
+		btnRemove.setTag(new TempRecipe(REMOVE_BUTTON_CLICK,recipe));   
 		
 		return convertView;
 	}
@@ -101,11 +112,12 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if(v.getTag(FAV_BUTTON_CLICK) != null){
+		TempRecipe tRecipe = (TempRecipe)v.getTag();
+		if(tRecipe.id == FAV_BUTTON_CLICK){
 			//TODO add the recipe to favorites
-			Recipe recipe = (Recipe) v.getTag();
-		} else if(v.getTag(REMOVE_BUTTON_CLICK) != null){
-			Recipe recipe = (Recipe) v.getTag();
+			Recipe recipe = tRecipe.recipe;
+		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
+			Recipe recipe = tRecipe.recipe;
 	        recipeList.remove(recipe);
 		}
         notifyDataSetChanged();

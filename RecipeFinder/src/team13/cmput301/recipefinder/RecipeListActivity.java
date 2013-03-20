@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 public class RecipeListActivity extends Activity {
 
@@ -39,14 +40,13 @@ public class RecipeListActivity extends Activity {
 		});
 
 		allListView.setAdapter(allListAdapter);
-		
+
 		favListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
 			}
 		});
-		
 		favListView.setAdapter(favListAdapter);
-		
+
 		recipeListTabs.setup();
 
 		TabSpec allTab = recipeListTabs.newTabSpec("All Recipe(s)");
@@ -61,10 +61,10 @@ public class RecipeListActivity extends Activity {
 		ownTab.setContent(R.id.myRecipesTab);
 		ownTab.setIndicator("My Recipe(s)");
 
-		recipeListTabs.addTab(ownTab);
-		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(allTab);
-		
+		recipeListTabs.addTab(favTab);
+		recipeListTabs.addTab(ownTab);
+
 		recipeListTabs.setCurrentTab(0);
 	}
 

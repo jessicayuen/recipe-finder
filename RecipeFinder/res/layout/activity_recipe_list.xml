@@ -80,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tabView"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="45dp"
         android:ems="10"
         android:inputType="textMultiLine" >
 
@@ -96,6 +95,6 @@
         android:layout_below="@+id/tabView"
         android:layout_alignRight="@+id/tabView"
         android:layout_toRightOf="@+id/searchBar"
-        android:text="Button" />
+        android:text="Search" />
 
 </RelativeLayout>
