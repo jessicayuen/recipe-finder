@@ -15,6 +15,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -114,7 +115,12 @@ public class MainActivity extends Activity {
 	 * Shows all recipe when user touches show all recipe text
 	 */
 	private void showAll(){
+		
+		String first = "( ";
+		String word = "<font color='#0000FF'>Show All </font>)";
+		
 		TextView showAllRecipe = (TextView)findViewById(R.id.view_all);
+		showAllRecipe.setText(Html.fromHtml(first+word));
 		
 		showAllRecipe.setOnTouchListener(new OnTouchListener(){
 

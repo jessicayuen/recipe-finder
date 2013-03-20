@@ -21,7 +21,6 @@
         android:layout_toRightOf="@+id/fave"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:text="@string/view_all"
         android:textSize="15sp" />
 
     <Button
