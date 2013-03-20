@@ -33,5 +33,7 @@
     <string name="download">Download</string>
     <string name="publish">Publish</string>
     <string name="title_activity_take_photo">Take Photo</string>
+    <string name="title_activity_recipe_list">Recipe List</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

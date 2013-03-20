@@ -16,9 +16,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -40,6 +43,7 @@ public class MainActivity extends Activity {
 		user.setEmailPassword("ualberta");
 		// test end
 		displayFaves();
+		showAll();
 	}
 
 	@Override
@@ -104,5 +108,27 @@ public class MainActivity extends Activity {
 			imageView = (ImageView) findViewById(R.id.faveBottomRight);
 			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
 		}
+	}
+	
+	/**
+	 * Shows all recipe when user touches show all recipe text
+	 */
+	private void showAll(){
+		TextView showAllRecipe = (TextView)findViewById(R.id.view_all);
+		
+		showAllRecipe.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				// TODO Auto-generated method stub
+				Intent displayRecipeIntent = new Intent(MainActivity.this, 
+						RecipeListActivity.class);
+				
+				startActivity(displayRecipeIntent);
+				
+				return true;
+			}
+			
+		});
 	}
 }

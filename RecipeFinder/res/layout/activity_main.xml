@@ -23,7 +23,7 @@
         android:paddingTop="10dp"
         android:text="@string/view_all"
         android:textSize="15sp" />
-        
+
     <Button
         android:id="@+id/create_my_own"
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
         android:onClick="openMyIngredients"
         android:text="@string/my_ingredients"
         android:textSize="15sp" />
-    
+
     <TextView
         android:id="@+id/find_recipes"
         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
         android:layout_marginTop="33dp"
         android:layout_toLeftOf="@+id/search_button"
         android:ems="10" />
-
+
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
@@ -154,5 +154,5 @@
         android:onClick="TEST"
         android:text="@string/shortbuff"
         android:textSize="15sp" />
-    
+
 </RelativeLayout>
