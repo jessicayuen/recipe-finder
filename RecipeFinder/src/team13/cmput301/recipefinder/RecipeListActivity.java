@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,12 @@ public class RecipeListActivity extends Activity {
 
 		allListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Intent displayIntent = new Intent(RecipeListActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra
+					("recipe", position);
+				startActivity(displayIntent);
+				finish();
 			}
 		});
 
@@ -43,6 +50,12 @@ public class RecipeListActivity extends Activity {
 
 		favListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Intent displayIntent = new Intent(RecipeListActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra
+					("recipe", position);
+				startActivity(displayIntent);
+				finish();
 			}
 		});
 		favListView.setAdapter(favListAdapter);
