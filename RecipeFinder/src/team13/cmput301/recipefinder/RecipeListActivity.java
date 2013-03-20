@@ -65,7 +65,7 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(allTab);
 		
-		recipeListTabs.setCurrentTab(1);
+		recipeListTabs.setCurrentTab(0);
 	}
 
 	@Override
