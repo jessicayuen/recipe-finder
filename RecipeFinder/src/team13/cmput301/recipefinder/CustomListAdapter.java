@@ -18,7 +18,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 	private Context context;
 	private List<Recipe> recipeList;
-	private final int fontSize = 3;
+	private final int fontSize = 10;
 	private final int descriptionWidth = 16;
 	private final int authorWidth = 10;
 	private static final int FAV_BUTTON_CLICK = 1;

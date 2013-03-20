@@ -1,5 +1,6 @@
 package team13.cmput301.recipefinder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -18,15 +19,20 @@ public class RecipeListActivity extends Activity {
 
 	private List<Recipe> allRecipes;
 	private List<Recipe> favRecipes;
+	private List<Recipe> ownRecipes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_list);
 
+		ownRecipes = new ArrayList<Recipe>();
 		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 		favRecipes =  RecipeManager.getRecipeManager().getFaveRecipes();
 
+		if(allRecipes.size() > 0){
+			findOwnRecipes();
+		}
 		TabHost recipeListTabs = (TabHost)findViewById(R.id.tabView);
 		ListView allListView = (ListView)findViewById(R.id.allRecipeList);
 		ListView favListView = (ListView)findViewById(R.id.favRecipeList);
@@ -34,6 +40,7 @@ public class RecipeListActivity extends Activity {
 
 		CustomListAdapter allListAdapter = new CustomListAdapter(this, allRecipes);
 		CustomListAdapter favListAdapter = new CustomListAdapter(this, favRecipes);
+		CustomListAdapter ownListAdapter = new CustomListAdapter(this, ownRecipes);
 
 		allListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
@@ -59,6 +66,21 @@ public class RecipeListActivity extends Activity {
 			}
 		});
 		favListView.setAdapter(favListAdapter);
+		
+		myListView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Intent displayIntent = new Intent(RecipeListActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra
+					("recipe", position);
+				startActivity(displayIntent);
+				finish();
+			}
+		});
+		myListView.setAdapter(ownListAdapter);
+		
+		// TODO make sure that when one recipe is deleted that it is deleted from
+		// other lists as well
 
 		recipeListTabs.setup();
 
@@ -79,6 +101,17 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(ownTab);
 
 		recipeListTabs.setCurrentTab(0);
+	}
+
+	private void findOwnRecipes() {
+		Recipe temp;
+		for(int i = 0; i < allRecipes.size(); i++){
+			temp = allRecipes.get(i);
+			if(temp.getAuthor().trim().compareTo(User.getUser().getUsername().trim()) == 0){
+				System.out.println(User.getUser().getUsername());
+				ownRecipes.add(temp);
+			}
+		}
 	}
 
 	@Override
