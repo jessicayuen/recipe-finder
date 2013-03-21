@@ -118,7 +118,6 @@
         android:layout_height="100dp"
         android:layout_alignLeft="@+id/addPhoto"
         android:layout_below="@+id/addPhoto"
-        android:onClick="enlargeGallery"
         android:paddingTop="5dp" />
 
     <Button

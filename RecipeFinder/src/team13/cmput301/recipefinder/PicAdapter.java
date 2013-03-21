@@ -44,7 +44,11 @@ class PicAdapter extends BaseAdapter {
 		styleAttrs.recycle();
 	}
 
-	public void onPhotoClick(final int position) {
+	/**
+	 * Enlarges the photo in the gallery allowing the user to delete it as well.
+	 * @param position the position of the photo in the gallery
+	 */
+	public void enlargePhoto(final int position) {
 		final Dialog picDialog = new Dialog(galleryContext);
 		picDialog.setContentView(R.layout.custom_dialog_display);
 		picDialog.setCancelable(true);
