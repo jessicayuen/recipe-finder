@@ -10,6 +10,8 @@
 
 package team13.cmput301.recipefinder;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,17 +43,17 @@ public class CreateRecipeActivity extends Activity {
 	private static final int FILE_PATH_REQUEST = 2; 
 	private static final int INGREDIENTDIALOG = 1;
 	private static final int INSTRUCTIONDIALOG = 2;
-	
-	
+
+
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
 	private Button exitButton, addPicButton, addIngredButton, 
-		addInsButton, ingredListButton, instrListButton, 
-		imageDeleteButton, imageCancelButton;
+	addInsButton, ingredListButton, instrListButton, 
+	imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, 
-		addDescription, addAmount;
+	addDescription, addAmount;
 	private Gallery gallery;
-	
+
 	private List<String> ingredients, instructions;
 	private List<Integer> mSelectedItems;
 	private List<Photo> imageList;
@@ -83,7 +88,7 @@ public class CreateRecipeActivity extends Activity {
 		gallery = (Gallery) findViewById(R.id.gallery);
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
-		
+
 		/*
 		 * sets up the gallery to allow user to click on a picture and enlarge
 		 * it, the user is then allowed to delete the picture if the user presses
@@ -156,10 +161,10 @@ public class CreateRecipeActivity extends Activity {
 				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						/* open file explorer when user clicks on choose existing
-						 * picture */
-						Intent intent = new Intent(CreateRecipeActivity.this, 
-								FileExplorerActivity.class);
+						/* opens embedded android gallery explorer when user 
+						 * clicks on choose existing picture */
+						Intent intent = new Intent(Intent.ACTION_PICK,
+								android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 						startActivityForResult(intent, FILE_PATH_REQUEST);
 					} });
 				alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
@@ -172,7 +177,7 @@ public class CreateRecipeActivity extends Activity {
 				alertDialog.show();
 			}
 		});
-		
+
 		/*
 		 * when add ingredient button is clicked, check if the text field is 
 		 * filled out, if so the add the content to the ingredient list otherwise
@@ -276,9 +281,16 @@ public class CreateRecipeActivity extends Activity {
 			// check the result code set by the activity
 			if (resultCode == RESULT_OK) {
 				// get the intent extras and get the value returned
-				String filePath = data.getExtras().getString("path");
-				if(filePath != null){
-					bMap = BitmapFactory.decodeFile(filePath);
+				//String filePath = data.getExtras().getString("path");
+				Uri filePath = data.getData();
+				try {
+					bMap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		} else if(requestCode == CAMERA_REQUEST) {
@@ -299,6 +311,7 @@ public class CreateRecipeActivity extends Activity {
 	/**
 	 * over ride the createdialog and make it custom to allow for list and multi
 	 * check mark display of either ingredients or instructions
+	 * @param choice the list that user chose to display
 	 */
 	protected Dialog onCreateDialog(int choice) {
 		Dialog dialog = null;
@@ -395,7 +408,7 @@ public class CreateRecipeActivity extends Activity {
 		}
 		return dialog;
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -410,34 +423,34 @@ public class CreateRecipeActivity extends Activity {
 	 * @param view
 	 */
 	public void createButtonClicked(View view) {			
-			addedName();
-			addedDescription();
-			/* if all the field are filled out then we can create a recipe*/
-			if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
-				recipe = new Recipe(addName.getText().toString(), 
-						addDescription.getText().toString(), User.getUser().getUsername(),
-						ingredients, instructions, imageList);
-				RecipeManager.getRecipeManager().AddToUserRecipe(recipe, this);
-				Intent displayIntent = new Intent(CreateRecipeActivity.this, 
-						DisplayRecipeActivity.class);
-				displayIntent.putExtra
-					("recipe", RecipeManager.getRecipeManager().getUserRecipes().size() - 1);
-				startActivity(displayIntent);
-				finish();
-			} else {
-				/* show a message if fields not entered */
-				AlertDialog alertDialog = new AlertDialog.Builder(
-						CreateRecipeActivity.this).create();
-				alertDialog.setTitle("Error");
-				alertDialog.setMessage("Necessary Field Not Entered!");
-				alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new 
-						DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {	
-					} });
-				alertDialog.show();
-			}
+		addedName();
+		addedDescription();
+		/* if all the field are filled out then we can create a recipe*/
+		if (textChanged && ingredients.size() > 0 && instructions.size() > 0) {
+			recipe = new Recipe(addName.getText().toString(), 
+					addDescription.getText().toString(), User.getUser().getUsername(),
+					ingredients, instructions, imageList);
+			RecipeManager.getRecipeManager().AddToUserRecipe(recipe, this);
+			Intent displayIntent = new Intent(CreateRecipeActivity.this, 
+					DisplayRecipeActivity.class);
+			displayIntent.putExtra
+			("recipe", RecipeManager.getRecipeManager().getUserRecipes().size() - 1);
+			startActivity(displayIntent);
+			finish();
+		} else {
+			/* show a message if fields not entered */
+			AlertDialog alertDialog = new AlertDialog.Builder(
+					CreateRecipeActivity.this).create();
+			alertDialog.setTitle("Error");
+			alertDialog.setMessage("Necessary Field Not Entered!");
+			alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new 
+					DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {	
+				} });
+			alertDialog.show();
+		}
 	}
-	
+
 	/**
 	 * checks whether name of the recipe is filled out or not
 	 */

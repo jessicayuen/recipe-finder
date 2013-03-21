@@ -82,22 +82,20 @@ public class FileExplorerActivity extends Activity {
 			fileList = new ArrayList<Item>();
 			for (int i = 0; i < fList.length; i++) {
 				Item temp = new Item(fList[i], R.drawable.file_icon);
+				int tempIndex = fileList.indexOf(temp);
 				fileList.add(temp);
 				// Convert into file path
 				File sel = new File(path, fList[i]);
-
-				if(sel.isFile()){
-					if(BitmapFactory.decodeFile(sel.getPath()) == null){
-						fileList.remove(temp);
-					}
-				}				
+			
 				// Set drawables
-				else if (sel.isDirectory()) {
-					int tempIndex = fileList.indexOf(temp);
+				if (sel.isDirectory()) {
 					fileList.get(tempIndex).icon = R.drawable.directory_icon;
 					Log.d("DIRECTORY", fileList.get(tempIndex).file);
 				} else {
-					Log.d("FILE", fileList.get(i).file);
+					if(BitmapFactory.decodeFile(sel.getPath()) == null){
+						fileList.remove(temp);
+					}
+					Log.d("FILE", fileList.get(tempIndex).file);
 				}
 			}
 

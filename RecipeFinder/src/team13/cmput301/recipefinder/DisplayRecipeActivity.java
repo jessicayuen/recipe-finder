@@ -8,6 +8,7 @@
 package team13.cmput301.recipefinder;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -130,8 +133,8 @@ public class DisplayRecipeActivity extends Activity {
 
 			/* Listen for Use Existing button click */
 			public void onClick(DialogInterface dialog, int which) {
-				Intent intent = new Intent(DisplayRecipeActivity.this, 
-						FileExplorerActivity.class);
+				Intent intent = new Intent(Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, FILE_PATH_REQUEST);
 			} 
 		});
@@ -154,10 +157,26 @@ public class DisplayRecipeActivity extends Activity {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, 
 			Intent data) {
+		Bitmap photo = null;
 		/* Display the image taken by the camera or from chosen file */
-		if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
-				&& resultCode == RESULT_OK) {  
-			Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+		if (requestCode == CAMERA_REQUEST){
+			if(resultCode == RESULT_OK){
+				photo = (Bitmap) data.getExtras().get("data"); 
+			}
+		}
+		else if(requestCode == FILE_PATH_REQUEST){
+			if(resultCode == RESULT_OK){
+				Uri filePath = data.getData();
+				try {
+					photo = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
 			picGallery.setAdapter(imgAdapt);
 		}
@@ -193,19 +212,19 @@ public class DisplayRecipeActivity extends Activity {
 				EmailSender sender = new EmailSender();
 				File cacheDir = getBaseContext().getCacheDir();
 				File f = new File(cacheDir, "temp_email_image.jpg");
-				
+
 				/* Attach the photos to the email */
 				for (int i = 0; i < recipe.getPhotos().size(); i++) {
-	                try {
-	                    FileOutputStream out = new FileOutputStream(f);
-	                    recipe.getPhotos().get(i).getPhoto().compress(
-	                            Bitmap.CompressFormat.JPEG,
-	                            100, out);
-	                    out.flush();
-	                    out.close();
-	                    sender.addAttachment(cacheDir.getAbsolutePath() + 
-	                    		"/temp_email_image.jpg");
-	                } catch (Exception e) {
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						recipe.getPhotos().get(i).getPhoto().compress(
+								Bitmap.CompressFormat.JPEG,
+								100, out);
+						out.flush();
+						out.close();
+						sender.addAttachment(cacheDir.getAbsolutePath() + 
+								"/temp_email_image.jpg");
+					} catch (Exception e) {
 						Log.e("DisplayRecipeActivity", "Problems attaching photo", e); 
 					}
 				}
