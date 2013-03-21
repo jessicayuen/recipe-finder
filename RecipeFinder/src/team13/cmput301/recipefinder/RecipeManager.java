@@ -27,6 +27,7 @@ public class RecipeManager {
 
 	private List<Recipe> faveRecipes;
 	private List<Recipe> userRecipes;
+	private List<Recipe> ownRecipes;
 	
 	/**
 	 * DO NOT USE
@@ -42,6 +43,7 @@ public class RecipeManager {
 			recipeManager = new RecipeManager();
 			recipeManager.faveRecipes = new ArrayList<Recipe>();
 			recipeManager.userRecipes = new ArrayList<Recipe>();
+			recipeManager.ownRecipes = new ArrayList<Recipe>();
 		}
 		return recipeManager;
 	}
@@ -67,6 +69,10 @@ public class RecipeManager {
 				Recipe recipe = userRecipes.get(i);
 				if (recipe.isFave())
 					faveRecipes.add(recipe);
+				if(recipe.getAuthor().trim().compareTo(User.getUser()
+						.getUsername()) == 0){
+					ownRecipes.add(recipe);
+				}
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -139,5 +145,37 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getUserRecipes() {
 		return userRecipes;
+	}
+	
+	/**
+	 * @return List of user's own recipes
+	 */
+	public List<Recipe> getOwnRecipes() {
+		return ownRecipes;
+	}
+	
+	/**
+	 * updates the all lists of recipes when called
+	 */
+	public void removeFromAllLists(Recipe recipe) {
+		userRecipes.remove(recipe);
+		if(ownRecipes.contains(recipe)){
+			ownRecipes.remove(recipe);
+		}
+		if(faveRecipes.contains(recipe)){
+			faveRecipes.remove(recipe);
+		}
+	}
+	
+	public void addToFavList(Recipe recipe) {
+		if(!faveRecipes.contains(recipe)){
+			faveRecipes.add(recipe);
+		}
+	}
+	
+	public void removeFromFavList(Recipe recipe) {
+		if(faveRecipes.contains(recipe)){
+			faveRecipes.remove(recipe);
+		}
 	}
 }

@@ -117,16 +117,24 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		// TODO Auto-generated method stub
 		TempRecipe tRecipe = (TempRecipe)v.getTag();
 		if(tRecipe.id == FAV_BUTTON_CLICK){
-			//TODO add the recipe to favorites
+			// add the recipe to favorites
 			Recipe recipe = tRecipe.recipe;
 			int index = RecipeManager.getRecipeManager().getUserRecipes().indexOf(recipe);
-			recipe.setFave(true);
-			RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
+			if(!recipe.isFave()){
+				recipe.setFave(true);
+				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
+				RecipeManager.getRecipeManager().addToFavList(recipe);
+			}
+			else{
+				recipe.setFave(false);
+				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
+				RecipeManager.getRecipeManager().removeFromFavList(recipe);
+			}
 
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;
 	        recipeList.remove(recipe);
-	        RecipeManager.getRecipeManager().getUserRecipes().remove(recipe);
+	        RecipeManager.getRecipeManager().removeFromAllLists(recipe);
 		}
         notifyDataSetChanged();
         

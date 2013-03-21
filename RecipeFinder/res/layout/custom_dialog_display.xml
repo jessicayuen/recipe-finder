@@ -5,22 +5,22 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/imgCancelButton"
+        android:id="@+id/imgDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgDeleteButton"
+        android:layout_alignBottom="@+id/imgCancelButton"
         android:layout_alignParentRight="true"
         android:layout_marginRight="66dp"
-        android:text="Cancel" />
+        android:text="Delete" />
 
     <Button
-        android:id="@+id/imgDeleteButton"
+        android:id="@+id/imgCancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enlargedImage"
         android:layout_marginRight="44dp"
-        android:layout_toLeftOf="@+id/imgCancelButton"
-        android:text="Delete" />
+        android:layout_toLeftOf="@+id/imgDeleteButton"
+        android:text="Cancel" />
 
     <ImageView
         android:id="@+id/enlargedImage"

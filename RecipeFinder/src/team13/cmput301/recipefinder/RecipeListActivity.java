@@ -29,14 +29,10 @@ public class RecipeListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_list);
 
-		ownRecipes = new ArrayList<Recipe>();
+		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-		favRecipes = new ArrayList<Recipe>();
+		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 
-		if(allRecipes.size() > 0){
-			findOwnRecipes();
-			findFavRecipes();
-		}
 		TabHost recipeListTabs = (TabHost)findViewById(R.id.tabView);
 		allListView = (ListView)findViewById(R.id.allRecipeList);
 		favListView = (ListView)findViewById(R.id.favRecipeList);
@@ -115,16 +111,16 @@ public class RecipeListActivity extends Activity {
 
 			@Override
 			public void onTabChanged(String id) {
-				allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 				if(id.equals("Favorite Recipe(s)")) {
-			        findFavRecipes();
+			        favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 			        favListAdapter.setRecipeList(favRecipes);
 			    }
 				else if(id.equals("My Recipe(s)")) {
-			        findOwnRecipes();
+			        ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 			        ownListAdapter.setRecipeList(ownRecipes);
 			    }
 				else {
+					allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 					ownListAdapter.setRecipeList(allRecipes);
 				}
 			}
@@ -133,36 +129,6 @@ public class RecipeListActivity extends Activity {
 
 		recipeListTabs.setCurrentTab(0);
 	}
-
-	/**
-	 *  populate users own recipe list from the all recipe list
-	 */
-	private void findOwnRecipes() {
-		ownRecipes = new ArrayList<Recipe>();
-		Recipe temp;
-		for(int i = 0; i < allRecipes.size(); i++){
-			temp = allRecipes.get(i);
-			if(temp.getAuthor().trim().compareTo(User.getUser().getUsername().trim()) == 0
-					&& !ownRecipes.contains(temp)){
-				ownRecipes.add(temp);
-			}
-		}
-	}
-	
-	/**
-	 * populate users favourite recipes with recipes from all recipe list
-	 */
-	private void findFavRecipes(){
-		favRecipes = new ArrayList<Recipe>();
-		Recipe temp;
-		for(int i = 0; i < allRecipes.size(); i++){
-			temp = allRecipes.get(i);
-			if(temp.isFave() && !favRecipes.contains(temp)){
-				favRecipes.add(temp);
-			}
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
