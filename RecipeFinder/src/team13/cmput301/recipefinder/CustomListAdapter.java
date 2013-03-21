@@ -120,14 +120,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			int index = RecipeManager.getRecipeManager().getUserRecipes().indexOf(recipe);
 			if(!recipe.isFave()){
 				// add the recipe to favorites
-				recipe.setFave(true);
-				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
 				RecipeManager.getRecipeManager().addToFavList(recipe);
 			}
 			else{
 				//remove recipe from fav if it is already favorited
-				recipe.setFave(false);
-				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
 				RecipeManager.getRecipeManager().removeFromFavList(recipe);
 			}
 

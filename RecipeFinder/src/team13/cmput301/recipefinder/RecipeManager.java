@@ -70,7 +70,7 @@ public class RecipeManager {
 				if (recipe.isFave())
 					faveRecipes.add(recipe);
 				if(recipe.getAuthor().trim().compareTo(User.getUser()
-						.getUsername()) == 0){
+						.getUsername().trim()) == 0){
 					ownRecipes.add(recipe);
 				}
 			}
@@ -174,8 +174,14 @@ public class RecipeManager {
 	 * @param recipe
 	 */
 	public void addToFavList(Recipe recipe) {
+		Recipe temp = recipe;
+		int index = userRecipes.indexOf(recipe);
 		if(!faveRecipes.contains(recipe)){
+			temp.setFave(true);
 			faveRecipes.add(recipe);
+			userRecipes.set(index, temp);	
+			
+			// TODO change it so that own list gets updated too
 		}
 	}
 	
@@ -184,8 +190,12 @@ public class RecipeManager {
 	 * @param recipe
 	 */
 	public void removeFromFavList(Recipe recipe) {
+		Recipe temp = recipe;
+		int index = userRecipes.indexOf(recipe);
 		if(faveRecipes.contains(recipe)){
 			faveRecipes.remove(recipe);
+			temp.setFave(false);
+			userRecipes.set(index, temp);			
 		}
 	}
 }
