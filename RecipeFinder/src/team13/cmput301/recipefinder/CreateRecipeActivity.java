@@ -10,8 +10,6 @@
 
 package team13.cmput301.recipefinder;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +43,7 @@ public class CreateRecipeActivity extends Activity {
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
 	private Button exitButton, addPicButton, addIngredButton, 
-	addInsButton, ingredListButton, instrListButton, 
-	imageDeleteButton, imageCancelButton;
+	addInsButton, ingredListButton, instrListButton;
 	private EditText addName, addIngredients, addInstructions, 
 	addDescription, addAmount;
 	private Gallery gallery;
@@ -143,11 +140,9 @@ public class CreateRecipeActivity extends Activity {
 		 * print an error alert
 		 */
 		addIngredButton.setOnClickListener(new View.OnClickListener() {
-
 			Toast toast;
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				String tempStr = addIngredients.getText().toString();
 				if(tempStr.length() != 0) {
 					if(!ingredients.contains(tempStr)){
@@ -172,12 +167,10 @@ public class CreateRecipeActivity extends Activity {
 		 * if the text field is not empty
 		 */
 		addInsButton.setOnClickListener(new View.OnClickListener() {
-
 			Toast toast;
 			@Override
 			public void onClick(View arg0) {
 				String tempStr = addInstructions.getText().toString();
-				// TODO Auto-generated method stub
 				if(tempStr.length() != 0){
 					instructions.add(tempStr);
 					addInstructions.setText("");
@@ -196,11 +189,9 @@ public class CreateRecipeActivity extends Activity {
 		 * selected
 		 */
 		ingredListButton.setOnClickListener(new View.OnClickListener() {
-
 			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				if(contentChanged){
 					removeDialog(INGREDIENTDIALOG);
 				}
@@ -216,7 +207,6 @@ public class CreateRecipeActivity extends Activity {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				if(contentChanged){
 					removeDialog(INSTRUCTIONDIALOG);
 				}
@@ -226,44 +216,31 @@ public class CreateRecipeActivity extends Activity {
 
 	}
 
-	/**
-	 * Obtain the filepath of the image returned from file explorer activity
-	 */
 	@Override
+	/**
+	 * Takes the intent result and does something with it. In this case, watches
+	 * for Camera and File results.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// if the results is coming from BROWSER_ACTIVATION_REQUEST 
-		Photo photo;
-		Bitmap bMap = null;
-
-		if (requestCode == FILE_PATH_REQUEST) {
-
-			// check the result code set by the activity
-			if (resultCode == RESULT_OK) {
-				// get the intent extras and get the value returned
-				//String filePath = data.getExtras().getString("path");
+		/* Display the image taken by the camera or from chosen file */
+		if (resultCode == RESULT_OK) {
+			Bitmap photo = null;
+			
+			if (requestCode == CAMERA_REQUEST){
+				photo = (Bitmap) data.getExtras().get("data"); 
+			} else if(requestCode == FILE_PATH_REQUEST) {
 				Uri filePath = data.getData();
 				try {
-					bMap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					photo = MediaStore.Images.Media.getBitmap(
+							getContentResolver(), filePath);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		} else if(requestCode == CAMERA_REQUEST) {
-			if (resultCode == RESULT_OK) {
-				// get the intent extras and get the value returned
-				bMap = (Bitmap) data.getExtras().get("data"); 
-			}
+		
+			imageList.add(new Photo(User.getUser().getUsername(), photo));
+			gallery.setAdapter(picAdapt);
 		}
-
-		if(bMap != null){
-			photo = new Photo(User.getUser().getUsername(), bMap);
-			imageList.add(photo);
-		}
-		gallery.setAdapter(picAdapt);
 	}
 
 

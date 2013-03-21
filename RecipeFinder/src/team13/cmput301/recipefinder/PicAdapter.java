@@ -68,6 +68,7 @@ class PicAdapter extends BaseAdapter {
 			imageDeleteButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					imagePhotos.remove(position);
+					notifyDataSetChanged();
 					picDialog.dismiss();
 				}
 			});

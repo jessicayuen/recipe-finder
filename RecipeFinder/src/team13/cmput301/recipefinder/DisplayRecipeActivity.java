@@ -166,11 +166,14 @@ public class DisplayRecipeActivity extends Activity {
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, 
 			Intent data) {
-		Bitmap photo = null;
+		
 		/* Display the image taken by the camera or from chosen file */
-		if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+		if (resultCode == RESULT_OK) {
+			Bitmap photo = null;
+			
+			if (requestCode == CAMERA_REQUEST){
 				photo = (Bitmap) data.getExtras().get("data"); 
-		} else if(requestCode == FILE_PATH_REQUEST && resultCode == RESULT_OK) {
+			} else if(requestCode == FILE_PATH_REQUEST) {
 				Uri filePath = data.getData();
 				try {
 					photo = MediaStore.Images.Media.getBitmap(
@@ -178,9 +181,11 @@ public class DisplayRecipeActivity extends Activity {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+		
+			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
+			picGallery.setAdapter(imgAdapt);
 		}
-		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-		picGallery.setAdapter(imgAdapt);
 	} 	
 	
 	/**
