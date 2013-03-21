@@ -7,6 +7,7 @@
 
 package team13.cmput301.recipefinder;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -105,6 +106,26 @@ public class Recipe implements Serializable {
 			return false;
 		}
 		return true;
+	}
+	
+	/** 
+	 * Converts Recipe to a string that is suitable for email
+	 * @return a string describing the Recipe in a email-able format.
+	 */
+	public String toEmailString() {
+		String instr = "";
+		String ingred = "";
+		
+		for (int i = 0; i < instructions.size(); i++)
+			instr = instr.concat(i + 1 + ". " + instructions.get(i) + "\n");
+		for (int i = 0; i < ingredients.size(); i++)
+			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
+		
+		return new String("Name: " + name + "\n\n" +
+				"Author: " + author + "\n\n" +
+				"Description: " + description + "\n\n" +
+				"Instructions:\n" + instr + "\n" +
+				"Ingredients:\n" + ingred + "\n");
 	}
 	
 	/**

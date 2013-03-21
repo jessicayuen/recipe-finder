@@ -7,128 +7,122 @@
 
 package team13.cmput301.recipefinder;
 
-import javax.activation.DataHandler;   
-import javax.activation.DataSource;   
-import javax.mail.Message;   
-import javax.mail.PasswordAuthentication;   
-import javax.mail.Session;   
-import javax.mail.Transport;   
-import javax.mail.internet.InternetAddress;   
-import javax.mail.internet.MimeMessage;   
-import java.io.ByteArrayInputStream;   
-import java.io.IOException;   
-import java.io.InputStream;   
-import java.io.OutputStream;   
-import java.security.Security;   
-import java.util.Properties;   
+import java.util.Date;
+import java.util.Properties;
 
-public class EmailSender extends javax.mail.Authenticator {
+import javax.activation.CommandMap;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.activation.MailcapCommandMap;
+import javax.mail.BodyPart;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import android.util.Log;
+
+
+public class EmailSender extends javax.mail.Authenticator { 
+	private String user; 
+	private String pass; 
 	
-	private String to;
-	private String from;
-	private String password;
+	private String port; 
+	private String sport; 
+
 	private String host; 
-	private Session session;
 
-    static {   
-        Security.addProvider(new JSSEProvider());   
-    }  
-    
-    /**
-     * Constructor for email sender
-     * @param to The email to have the recipe to be sent to
-     */
-	public EmailSender(String to) {
-		this.to = to;
-		this.from = User.getUser().getEmail();
-		this.password = User.getUser().getEmailPassword();
-		this.host = "smtp.gmail.com";
+	private Multipart multipart; 
+
+	public EmailSender() { 
+		host = "smtp.gmail.com"; 
+		port = "465"; 
+		sport = "465"; 
+		user = User.getUser().getEmail(); 
+		pass = User.getUser().getEmailPassword(); 
 		
-        Properties props = new Properties();
-        props.setProperty("mail.transport.protocol", "smtp");   
-        props.setProperty("mail.host", host);   
-        props.put("mail.smtp.auth", "true");   
-        props.put("mail.smtp.port", "465");   
-        props.put("mail.smtp.socketFactory.port", "465");   
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");   
-        props.put("mail.smtp.socketFactory.fallback", "false");   
-        props.setProperty("mail.smtp.quitwait", "false");   
+		multipart = new MimeMultipart(); 
 
-        session = Session.getDefaultInstance(props, this);  
+		// There is something wrong with MailCap, javamail cannot find a handler 
+		// for the multipart/mixed part, so this bit needs to be added. 
+		MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap(); 
+		mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html"); 
+		mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml"); 
+		mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain"); 
+		mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed"); 
+		mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822"); 
+		CommandMap.setDefaultCommandMap(mc); 
 	} 
 
-	/**
-	 * Ensures password is valid for user email
-	 */
-    protected PasswordAuthentication getPasswordAuthentication() {   
-        return new PasswordAuthentication(from, password);   
-    }   
+	public boolean send(final String subject, final String body, final String to) {
+		final Properties props = _setProperties(); 
 
-    /**
-     * Send the email
-     * @param subject
-     * @param body
-     * @throws Exception
-     */
-    public synchronized void sendMail(String subject, String body)
-    		throws Exception {   
+		if(!to.equals("")) { 
+			new Thread(new Runnable(){
 
-        MimeMessage message = new MimeMessage(session);   
-        DataHandler handler = new DataHandler(
-        		new ByteArrayDataSource(body.getBytes(), "text/plain"));
-        message.setSender(new InternetAddress(from));   
-        message.setSubject(subject);
-        message.setDataHandler(handler);   
-        if (to.indexOf(',') > 0) {
-            message.setRecipients(Message.RecipientType.TO, 
-            		InternetAddress.parse(to));   
-        } else {  
-            message.setRecipient(Message.RecipientType.TO, 
-            		new InternetAddress(to));
-        }
-        Transport.send(message);   
-    }   
+				public void run() {
+					Session session = Session.getInstance(props, EmailSender.this); 
 
-    /**
-     * Nested class to handle data sending and receiving
-     */
-    public class ByteArrayDataSource implements DataSource {   
-        private byte[] data;   
-        private String type;   
+					MimeMessage msg = new MimeMessage(session); 
 
-        public ByteArrayDataSource(byte[] data, String type) {   
-            super();   
-            this.data = data;   
-            this.type = type;   
-        }   
+					try {
+						msg.setFrom(new InternetAddress(user)); 
+						msg.setRecipient(MimeMessage.RecipientType.TO, 
+								new InternetAddress(to)); 
+						msg.setSubject(subject); 
+						msg.setSentDate(new Date()); 
+	
+						// setup message body 
+						BodyPart messageBodyPart = new MimeBodyPart(); 
+						messageBodyPart.setText(body); 
+						multipart.addBodyPart(messageBodyPart); 
+	
+						// Put parts in message 
+						msg.setContent(multipart); 
+	
+						// send email 
+						Transport.send(msg); 
+					} catch (Exception e) {
+						Log.e("Email Sender", "Problems sending email", e); 
+					}
+ 				}	
+			}).start();
+			return true; 
+		} else { 
+			return false; 
+		} 
+	} 
 
-        public ByteArrayDataSource(byte[] data) {   
-            super();   
-            this.data = data;   
-        }   
+	public void addAttachment(String filename) throws Exception { 
+		BodyPart messageBodyPart = new MimeBodyPart(); 
+		DataSource source = new FileDataSource(filename); 
+		messageBodyPart.setDataHandler(new DataHandler(source)); 
+		messageBodyPart.setFileName(filename); 
 
-        public void setType(String type) {   
-            this.type = type;   
-        }   
+		multipart.addBodyPart(messageBodyPart); 
+	} 
 
-        public String getContentType() {   
-            if (type == null)   
-                return "application/octet-stream";   
-            else  
-                return type;   
-        }   
+	@Override 
+	public PasswordAuthentication getPasswordAuthentication() { 
+		return new PasswordAuthentication(user, pass); 
+	} 
 
-        public InputStream getInputStream() throws IOException {   
-            return new ByteArrayInputStream(data);   
-        }   
+	private Properties _setProperties() { 
+		Properties props = new Properties(); 
 
-        public String getName() {   
-            return "ByteArrayDataSource";   
-        }   
+		props.put("mail.smtp.host", host); 
+		props.put("mail.smtp.auth", "true"); 
+		
+		props.put("mail.smtp.port", port); 
+		props.put("mail.smtp.socketFactory.port", sport); 
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); 
+		props.put("mail.smtp.socketFactory.fallback", "false"); 
 
-        public OutputStream getOutputStream() throws IOException {   
-            throw new IOException("Not Supported");   
-        }   
-    }   
-}
+		return props; 
+	} 
+} 
