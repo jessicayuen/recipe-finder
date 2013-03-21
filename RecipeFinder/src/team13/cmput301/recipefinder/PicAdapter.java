@@ -10,11 +10,13 @@ package team13.cmput301.recipefinder;
 
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 
@@ -26,7 +28,7 @@ class PicAdapter extends BaseAdapter {
 	private int defaultItemBackground;
 	private Context galleryContext;
 	private List<Photo> imagePhotos;
-	
+
 	/**
 	 * Constructor for PicAdapter
 	 * @param c Context
@@ -41,7 +43,45 @@ class PicAdapter extends BaseAdapter {
 				R.styleable.PicGallery_android_galleryItemBackground, 0);
 		styleAttrs.recycle();
 	}
-	
+
+	/**
+	 * Enlarges the photo in the gallery allowing the user to delete it as well.
+	 * @param position the position of the photo in the gallery
+	 */
+	public void enlargePhoto(final int position) {
+		final Dialog picDialog = new Dialog(galleryContext);
+		picDialog.setContentView(R.layout.custom_dialog_display);
+		picDialog.setCancelable(true);
+		ImageView imgView = (ImageView) picDialog.findViewById(R.id.enlargedImage);
+
+		/*
+		 * if we have image in the list then create a dialog to be
+		 * displayed when the user clicks on a certain image.
+		 * 
+		 * the dialog enlarges the photo clicked
+		 */
+		if(imagePhotos.size() > 0){
+			imgView.setImageBitmap(imagePhotos.get(position).getPhoto());
+			Button imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
+			Button imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
+
+			imageDeleteButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					imagePhotos.remove(position);
+					picDialog.dismiss();
+				}
+			});
+
+			imageCancelButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					picDialog.dismiss();
+				}
+			});
+
+			picDialog.show();
+		}
+	}
+
 	/**
 	 * @return number of photos in the gallery
 	 */

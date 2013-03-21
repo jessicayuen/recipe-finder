@@ -21,11 +21,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +31,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class CreateRecipeActivity extends Activity {
@@ -89,51 +86,13 @@ public class CreateRecipeActivity extends Activity {
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
 
-		/*
-		 * sets up the gallery to allow user to click on a picture and enlarge
-		 * it, the user is then allowed to delete the picture if the user presses
-		 * delete button
-		 */
-		gallery.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> adapter, View arg1, int position,
-					long arg3) {
-				final int itemPos = position;
-				final Dialog picDialog = new Dialog(CreateRecipeActivity.this);
-				picDialog.setContentView(R.layout.custom_dialog_display);
-				picDialog.setCancelable(true);
-				ImageView imgView = (ImageView) picDialog.findViewById(R.id.enlargedImage);
-
-				/*
-				 * if we have image in the list then create a dialog to be
-				 * displayed when the user clicks on a certain image.
-				 * 
-				 * the dialog enlarges the photo clicked
-				 */
-				if(imageList.size() > 0){
-					imgView.setImageBitmap(imageList.get(position).getPhoto());
-					imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
-					imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
-					imageDeleteButton.setOnClickListener(new View.OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							imageList.remove(itemPos);
-							gallery.setAdapter(picAdapt);
-							picDialog.dismiss();
-						}
-					});
-					imageCancelButton.setOnClickListener(new View.OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							picDialog.dismiss();
-						}
-					});
-					picDialog.show();
-				}
-			}		
+		/* Listen for clicks to the image gallery */
+		gallery.setOnItemClickListener(new OnItemClickListener() {
+		    //handle clicks
+		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		        picAdapt.enlargePhoto(position);
+		        gallery.setAdapter(picAdapt);
+		    }
 		});
 
 		/*

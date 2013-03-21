@@ -8,7 +8,6 @@
 package team13.cmput301.recipefinder;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -70,6 +71,15 @@ public class DisplayRecipeActivity extends Activity {
 		picGallery = (Gallery) findViewById(R.id.gallery);
 		imgAdapt = new PicAdapter(this, recipe.getPhotos());
 		picGallery.setAdapter(imgAdapt);
+		
+		/* Listen for clicks to the image gallery */
+		picGallery.setOnItemClickListener(new OnItemClickListener() {
+		    //handle clicks
+		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		        imgAdapt.enlargePhoto(position);
+		        picGallery.setAdapter(imgAdapt);
+		    }
+		});
 	}
 
 	@Override
@@ -158,29 +168,21 @@ public class DisplayRecipeActivity extends Activity {
 			Intent data) {
 		Bitmap photo = null;
 		/* Display the image taken by the camera or from chosen file */
-		if (requestCode == CAMERA_REQUEST){
-			if(resultCode == RESULT_OK){
+		if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
 				photo = (Bitmap) data.getExtras().get("data"); 
-			}
-		}
-		else if(requestCode == FILE_PATH_REQUEST){
-			if(resultCode == RESULT_OK){
+		} else if(requestCode == FILE_PATH_REQUEST && resultCode == RESULT_OK) {
 				Uri filePath = data.getData();
 				try {
-					photo = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					photo = MediaStore.Images.Media.getBitmap(
+							getContentResolver(), filePath);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-			picGallery.setAdapter(imgAdapt);
 		}
+		recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
+		picGallery.setAdapter(imgAdapt);
 	} 	
-
+	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param view
