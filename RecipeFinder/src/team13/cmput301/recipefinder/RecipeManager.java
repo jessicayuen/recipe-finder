@@ -158,7 +158,9 @@ public class RecipeManager {
 	 * updates the all lists of recipes when called
 	 */
 	public void removeFromAllLists(Recipe recipe) {
-		userRecipes.remove(recipe);
+		if(userRecipes.contains(recipe)){
+			userRecipes.remove(recipe);
+		}
 		if(ownRecipes.contains(recipe)){
 			ownRecipes.remove(recipe);
 		}

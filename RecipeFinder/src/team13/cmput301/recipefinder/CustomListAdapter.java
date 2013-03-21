@@ -114,18 +114,18 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		TempRecipe tRecipe = (TempRecipe)v.getTag();
 		if(tRecipe.id == FAV_BUTTON_CLICK){
-			// add the recipe to favorites
 			Recipe recipe = tRecipe.recipe;
 			int index = RecipeManager.getRecipeManager().getUserRecipes().indexOf(recipe);
 			if(!recipe.isFave()){
+				// add the recipe to favorites
 				recipe.setFave(true);
 				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
 				RecipeManager.getRecipeManager().addToFavList(recipe);
 			}
 			else{
+				//remove recipe from fav if it is already favorited
 				recipe.setFave(false);
 				RecipeManager.getRecipeManager().getUserRecipes().set(index, recipe);
 				RecipeManager.getRecipeManager().removeFromFavList(recipe);
@@ -137,8 +137,6 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	        RecipeManager.getRecipeManager().removeFromAllLists(recipe);
 		}
         notifyDataSetChanged();
-        
-       //TODO write code to make sure on click works with both fav and remove
 	}
 
 }
