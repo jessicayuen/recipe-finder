@@ -39,6 +39,10 @@ public class EmailSender extends javax.mail.Authenticator {
 
 	private Multipart multipart; 
 
+	/**
+	 * Constructor for creating a email sender. Uses the email
+	 * in the user's settings.
+	 */
 	public EmailSender() { 
 		host = "smtp.gmail.com"; 
 		port = "465"; 
@@ -59,8 +63,15 @@ public class EmailSender extends javax.mail.Authenticator {
 		CommandMap.setDefaultCommandMap(mc); 
 	} 
 
+	/**
+	 * Sends the email to the recipient
+	 * @param subject The subject of the email
+	 * @param body The body of the email
+	 * @param to The recipient
+	 * @return true if successfully sent, false otherwise
+	 */
 	public boolean send(final String subject, final String body, final String to) {
-		final Properties props = _setProperties(); 
+		final Properties props = setProperties(); 
 
 		if(!to.equals("")) { 
 			new Thread(new Runnable(){
@@ -98,6 +109,11 @@ public class EmailSender extends javax.mail.Authenticator {
 		} 
 	} 
 
+	/**
+	 * Add an attachment to the email
+	 * @param filename The path where the photo is located
+	 * @throws Exception if a problem occured while attaching to the email
+	 */
 	public void addAttachment(String filename) throws Exception { 
 		BodyPart messageBodyPart = new MimeBodyPart(); 
 		DataSource source = new FileDataSource(filename); 
@@ -108,11 +124,18 @@ public class EmailSender extends javax.mail.Authenticator {
 	} 
 
 	@Override 
+	/**
+	 * Authenticate user email and user password
+	 */
 	public PasswordAuthentication getPasswordAuthentication() { 
 		return new PasswordAuthentication(user, pass); 
 	} 
 
-	private Properties _setProperties() { 
+	/**
+	 * Set server properties
+	 * @return properties of the server
+	 */
+	private Properties setProperties() { 
 		Properties props = new Properties(); 
 
 		props.put("mail.smtp.host", host); 
