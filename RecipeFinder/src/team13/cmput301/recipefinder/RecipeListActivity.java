@@ -1,6 +1,5 @@
 package team13.cmput301.recipefinder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
 
 public class RecipeListActivity extends Activity {
 
@@ -85,12 +83,10 @@ public class RecipeListActivity extends Activity {
 			}
 		});
 		myListView.setAdapter(ownListAdapter);
-		
-		// TODO make sure that when one recipe is deleted that it is deleted from
-		// other lists as well
 
 		recipeListTabs.setup();
 
+		//Add the tabs to display
 		TabSpec allTab = recipeListTabs.newTabSpec("All Recipe(s)");
 		allTab.setContent(R.id.allRecipesTab);
 		allTab.setIndicator("All Recipe(s)");
@@ -107,6 +103,9 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
 		
+		/*
+		 * handle change to a tab to refresh all the tabs 
+		 */
 		recipeListTabs.setOnTabChangedListener(new OnTabChangeListener(){
 
 			@Override

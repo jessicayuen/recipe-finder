@@ -169,12 +169,20 @@ public class RecipeManager {
 		}
 	}
 	
+	/**
+	 * add recipes from favorite list
+	 * @param recipe
+	 */
 	public void addToFavList(Recipe recipe) {
 		if(!faveRecipes.contains(recipe)){
 			faveRecipes.add(recipe);
 		}
 	}
 	
+	/**
+	 * remove recipes from favorite list
+	 * @param recipe
+	 */
 	public void removeFromFavList(Recipe recipe) {
 		if(faveRecipes.contains(recipe)){
 			faveRecipes.remove(recipe);
