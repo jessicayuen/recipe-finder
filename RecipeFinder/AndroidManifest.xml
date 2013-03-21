@@ -41,10 +41,6 @@
             android:label="@string/title_activity_search_results" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.FileExplorerActivity"
-            android:label="@string/title_activity_file_explorer" >
-        </activity>
-        <activity
             android:name="team13.cmput301.recipefinder.DisplayRecipeActivity"
             android:label="@string/title_activity_display_recipe" >
         </activity>
