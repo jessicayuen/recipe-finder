@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -162,6 +163,11 @@ public class DisplayRecipeActivity extends Activity {
 		}
 	} 	
 
+	public void enlargeGallery(int position, View view, ViewGroup vg) {
+		imgAdapt.onPhotoClick(position);
+		picGallery.setAdapter(imgAdapt);
+	}
+	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param view

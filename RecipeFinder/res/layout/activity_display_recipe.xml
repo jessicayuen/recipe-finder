@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DisplayRecipeActivity" >
-    
-     <TextView
+
+    <TextView
         android:id="@+id/author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:paddingTop="5dp"
         android:text="@string/author"
         android:textSize="15sp" />
-     
+
     <TextView
         android:id="@+id/descriptionInfo"
         android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
         android:paddingTop="5dp"
         android:text="@string/buffer"
         android:textSize="12sp" />
-    
+
     <ImageView
         android:id="@+id/displayPic"
         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         android:paddingTop="5dp"
         android:text="@string/buffer"
         android:textSize="12sp" />
-
+
     <Button
         android:id="@+id/publish"
         android:layout_width="wrap_content"
@@ -118,6 +118,7 @@
         android:layout_height="100dp"
         android:layout_alignLeft="@+id/addPhoto"
         android:layout_below="@+id/addPhoto"
+        android:onClick="enlargeGallery"
         android:paddingTop="5dp" />
 
     <Button
