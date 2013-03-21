@@ -120,11 +120,11 @@ public class Recipe implements Serializable {
 		for (int i = 0; i < ingredients.size(); i++)
 			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
 		
-		return new String("<html><bold><font size=\"6\">" + name + "\n</font></bold>" +
+		return new String("<html><body><bold><font size=\"6\">" + name + "\n</font></bold>" +
 				"<font size = \"5\">" + author + "\n\n\n" +
 				"Description:\n" + description + "\n\n" +
 				"Instructions:\n" + instr + "\n" +
-				"Ingredients:\n" + ingred + "\n</font></html>");
+				"Ingredients:\n" + ingred + "\n</font></body></html>");
 	}
 	
 	/**
