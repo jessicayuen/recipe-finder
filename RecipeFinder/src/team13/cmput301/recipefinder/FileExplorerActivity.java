@@ -81,19 +81,21 @@ public class FileExplorerActivity extends Activity {
 			String[] fList = path.list(filter);
 			fileList = new ArrayList<Item>();
 			for (int i = 0; i < fList.length; i++) {
-				fileList.add(new Item(fList[i], R.drawable.file_icon));
+				Item temp = new Item(fList[i], R.drawable.file_icon);
+				fileList.add(temp);
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 
 				if(sel.isFile()){
 					if(BitmapFactory.decodeFile(sel.getPath()) == null){
-						fileList.remove(i);
+						fileList.remove(temp);
 					}
 				}				
 				// Set drawables
 				else if (sel.isDirectory()) {
-					fileList.get(i).icon = R.drawable.directory_icon;
-					Log.d("DIRECTORY", fileList.get(i).file);
+					int tempIndex = fileList.indexOf(temp);
+					fileList.get(tempIndex).icon = R.drawable.directory_icon;
+					Log.d("DIRECTORY", fileList.get(tempIndex).file);
 				} else {
 					Log.d("FILE", fileList.get(i).file);
 				}
