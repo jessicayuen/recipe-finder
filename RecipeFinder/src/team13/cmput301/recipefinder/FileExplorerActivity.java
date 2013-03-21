@@ -81,7 +81,7 @@ public class FileExplorerActivity extends Activity {
 			String[] fList = path.list(filter);
 			fileList = new ArrayList<Item>();
 			for (int i = 0; i < fList.length; i++) {
-				fileList.add(i, new Item(fList[i], R.drawable.file_icon));
+				fileList.add(new Item(fList[i], R.drawable.file_icon));
 				// Convert into file path
 				File sel = new File(path, fList[i]);
 

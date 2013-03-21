@@ -46,7 +46,7 @@ public class CreateRecipeActivity extends Activity {
 		addInsButton, ingredListButton, instrListButton, 
 		imageDeleteButton, imageCancelButton;
 	private EditText addName, addIngredients, addInstructions, 
-		addDescription;
+		addDescription, addAmount;
 	private Gallery gallery;
 	
 	private List<String> ingredients, instructions;
@@ -74,6 +74,7 @@ public class CreateRecipeActivity extends Activity {
 		addIngredients = (EditText) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
+		addAmount = (EditText) findViewById(R.id.addAmount);
 
 		ingredients = new ArrayList<String>();
 		instructions = new ArrayList<String>();

@@ -59,6 +59,10 @@ public class RecipeListActivity extends Activity {
 
 		allListView.setAdapter(allListAdapter);
 
+		/*
+		 * set up the adapter to display favorite recipes when in favoritate tab
+		 * recipe view
+		 */
 		favListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
@@ -71,6 +75,9 @@ public class RecipeListActivity extends Activity {
 		});
 		favListView.setAdapter(favListAdapter);
 		
+		/*
+		 * set up view to display users recipes when under my recipes view
+		 */
 		myListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
