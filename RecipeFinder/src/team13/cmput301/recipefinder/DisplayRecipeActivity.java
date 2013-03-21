@@ -170,22 +170,25 @@ public class DisplayRecipeActivity extends Activity {
 		AlertDialog alertDialog =
 				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
 		alertDialog.setTitle("Email Recipe");
-		alertDialog.setMessage("Enter recipient: ");
+		alertDialog.setMessage("Enter recipient(s): ");
 
-		// Set an EditText view to get user input
+		/* Set an EditText view to get user input */
 		final EditText input = new EditText(this);
+		input.setHeight(200);
+		input.setHint("Seperate recipents by ,");
+		input.setGravity(0);
 		alertDialog.setView(input);
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
 				new DialogInterface.OnClickListener() {
 
 			/* Listen for Send button click */
-			@SuppressLint("NewApi")
 			public void onClick(DialogInterface dialog, int which) {
-				String recipient = input.getText().toString().trim();
+				String[] recipients = input.getText().toString().replaceAll("\\s", "").split(",");
 				EmailSender sender = new EmailSender();
 				File cacheDir = getBaseContext().getCacheDir();
 				File f = new File(cacheDir, "temp_email_image.jpg");
 				
+				/* Attach the photos to the email */
 				for (int i = 0; i < recipe.getPhotos().size(); i++) {
 	                try {
 	                    FileOutputStream out = new FileOutputStream(f);
@@ -194,14 +197,16 @@ public class DisplayRecipeActivity extends Activity {
 	                            100, out);
 	                    out.flush();
 	                    out.close();
-	                    sender.addAttachment(cacheDir.getAbsolutePath() + "/temp_email_image.jpg");
+	                    sender.addAttachment(cacheDir.getAbsolutePath() + 
+	                    		"/temp_email_image.jpg");
 	                } catch (Exception e) {
 						Log.e("DisplayRecipeActivity", "Problems attaching photo", e); 
 					}
 				}
+				/* Try to send the email */
 				if(sender.send(new String(User.getUser().getUsername() + 
 						" wants to share a recipe with you!"), 
-						recipe.toEmailString(), recipient)) { 
+						recipe.toEmailString(), recipients)) { 
 					Toast.makeText(DisplayRecipeActivity.this, 
 							"Email was sent successfully.", Toast.LENGTH_LONG).show(); 
 				} else { 

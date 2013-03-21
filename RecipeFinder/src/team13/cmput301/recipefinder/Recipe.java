@@ -7,7 +7,6 @@
 
 package team13.cmput301.recipefinder;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -121,9 +120,9 @@ public class Recipe implements Serializable {
 		for (int i = 0; i < ingredients.size(); i++)
 			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
 		
-		return new String("Name: " + name + "\n\n" +
-				"Author: " + author + "\n\n" +
-				"Description: " + description + "\n\n" +
+		return new String(name + "\n" +
+				author + "\n\n\n" +
+				"Description:\n" + description + "\n\n" +
 				"Instructions:\n" + instr + "\n" +
 				"Ingredients:\n" + ingred + "\n");
 	}

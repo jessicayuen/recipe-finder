@@ -92,11 +92,38 @@
         android:textSize="11sp" />
 
     <ImageView
-        android:id="@+id/faveBottomRight"
+        android:id="@+id/faveTopRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/search_bar"
-        android:layout_alignLeft="@+id/faveTopRight"
+        android:layout_alignTop="@+id/faveTopLeft"
+        android:layout_marginLeft="17dp"
+        android:layout_toRightOf="@+id/faveTopLeft"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:src="@drawable/directory_icon" />
+
+    <Button
+        android:id="@+id/TEST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/advanced"
+        android:layout_below="@+id/advanced"
+        android:layout_marginTop="14dp"
+        android:minHeight="36dp"
+        android:onClick="TEST"
+        android:text="@string/shortbuff"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/faveTopLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/search_bar"
+        android:layout_below="@+id/fave"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="16dp"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
         android:minHeight="100dp"
@@ -116,42 +143,15 @@
         android:src="@drawable/directory_icon" />
 
     <ImageView
-        android:id="@+id/faveTopRight"
+        android:id="@+id/faveBottomRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/faveTopLeft"
-        android:layout_marginLeft="17dp"
-        android:layout_toRightOf="@+id/faveTopLeft"
+        android:layout_alignLeft="@+id/faveTopRight"
+        android:layout_below="@+id/faveTopRight"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:src="@drawable/directory_icon" />
-
-    <ImageView
-        android:id="@+id/faveTopLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/faveBottomLeft"
-        android:layout_alignLeft="@+id/search_bar"
-        android:layout_marginBottom="19dp"
-        android:layout_marginLeft="32dp"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:src="@drawable/directory_icon" />
-
-    <Button
-        android:id="@+id/TEST"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/advanced"
-        android:layout_below="@+id/advanced"
-        android:layout_marginTop="14dp"
-        android:minHeight="36dp"
-        android:onClick="TEST"
-        android:text="@string/shortbuff"
-        android:textSize="15sp" />
 
 </RelativeLayout>
