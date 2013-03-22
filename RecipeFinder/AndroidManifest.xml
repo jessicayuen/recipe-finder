@@ -52,6 +52,10 @@
             android:name="team13.cmput301.recipefinder.RecipeListActivity"
             android:label="@string/title_activity_recipe_list" >
         </activity>
+        <activity
+            android:name="team13.cmput301.recipefinder.FirstTimeUserActivity"
+            android:label="@string/title_activity_first_time_user" >
+        </activity>
     </application>
 
 </manifest>

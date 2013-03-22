@@ -34,11 +34,20 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		User user = User.getUser();
-		// test start
+		
+		/* Load user settings */
+		user.loadUserSettings(this);
+		if (user.getHasUsedApp().equals(0)) {
+			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+			startActivity(intent);
+		}
+		
+		// test start - remove in finished product
 		user.setUsername("Mr. Tomato Man");
 		user.setEmail("cmput301w13t13@gmail.com");
 		user.setEmailPassword("ualberta");
-		// test end
+		// test end - remove in finished product
+		
 		/* Load recipes */
 		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
@@ -130,7 +139,6 @@ public class MainActivity extends Activity {
 
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
-				// TODO Auto-generated method stub
 				Intent displayRecipeIntent = new Intent(MainActivity.this, 
 						RecipeListActivity.class);
 				
