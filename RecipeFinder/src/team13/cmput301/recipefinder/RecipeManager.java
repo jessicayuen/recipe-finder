@@ -9,15 +9,14 @@
 package team13.cmput301.recipefinder;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 public class RecipeManager {
 	// Singleton
@@ -76,13 +75,8 @@ public class RecipeManager {
 					ownRecipes.add(recipe);
 				}
 			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("RecipeManager", "Problems loading recipes", e); 
 		}
 	}
 
@@ -103,10 +97,8 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("User", "Problems saving recipes to file", e); 
 		}
 	}
 
@@ -122,10 +114,8 @@ public class RecipeManager {
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
 			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("User", "Problems saving user settings", e); 
 		}
 	}
 
