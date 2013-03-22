@@ -31,7 +31,7 @@ public class IngredientManager {
 	/**
 	 * Returns the singleton ingredient manager
 	 */
-	public static IngredientManager getRecipeManager() {
+	public static IngredientManager getIngredientManager() {
 		if (ingredientManager == null) {
 			ingredientManager = new IngredientManager();
 			ingredientManager.ingredients = new ArrayList<Ingredient>();

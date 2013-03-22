@@ -27,6 +27,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	RecipeManager rm;
+	IngredientManager im;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends Activity {
 		user.setEmailPassword("ualberta");
 		// test end - remove in finished product
 		
+		/* load ingredients*/
+		im = IngredientManager.getIngredientManager();
 		/* Load recipes */
 		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
