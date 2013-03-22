@@ -14,6 +14,9 @@ public class User {
 	private String username = "";
 	private String email = "";
 	private String emailPassword = "";
+	private String emailHost = "";
+	private String emailSocketPort = "";
+	private String emailPort = "";
 	
 	protected User() {
 		// Exists only to defeat instantiation
@@ -77,5 +80,59 @@ public class User {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	/**
+	 * Get the host of the user's email server
+	 * @return host of the user's email server
+	 */
+	public String getEmailHost() {
+		return emailHost;
+	}
+	
+	/**
+	 * Set the host of the user's email server
+	 * @param emailHost host of the user's email server
+	 */
+
+	public void setEmailHost(String emailHost) {
+		this.emailHost = emailHost;
+	}
+	
+	/**
+	 * Get the socket port of the user's email server
+	 * @return the socket port of the user's email server
+	 */
+
+	public String getEmailSocketPort() {
+		return emailSocketPort;
+	}
+	
+	/**
+	 * Set the socket port of the user's email server
+	 * @param emailSocketPort the socket port of the user's email server
+	 */
+
+	public void setEmailSocketPort(String emailSocketPort) {
+		this.emailSocketPort = emailSocketPort;
+	}
+	
+	/**
+	 * Get the port of the user's email server
+	 * @return the port of the user's email server
+	 */
+
+	public String getEmailPort() {
+		return emailPort;
+	}
+	
+	/**
+	 * Set the port of the user's email server
+	 * @param emailPort the port of the user's email server
+	 */
+
+	public void setEmailPort(String emailPort) {
+		this.emailPort = emailPort;
 	}
 }
