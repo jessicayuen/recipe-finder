@@ -26,11 +26,29 @@ public class Ingredient {
 		return quantity;
 	}
 	
+	/**
+	 * decrease the quantity of the ingredient, if the quantity provided is 0
+	 * the decrement the ingredient quantity by 1
+	 * @param quantity
+	 */
 	public void decreseQuantity(float quantity) {
-		this.quantity -= quantity;
+		if(quantity == 0){
+			this.quantity--;
+		} else {
+			this.quantity -= quantity;
+		}
 	}
 	
+	/**
+	 * increment the quantity of the ingredient, if quantity is zero
+	 * then the ingredient is incremented once
+	 * @param quantity
+	 */
 	public void increaseQuantity(float quantity) {
-		this.quantity += quantity;
+		if(quantity == 0){
+			this.quantity++;
+		} else {
+			this.quantity += quantity;
+		}
 	}
 }
