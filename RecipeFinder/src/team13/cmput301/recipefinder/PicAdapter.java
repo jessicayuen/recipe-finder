@@ -62,8 +62,8 @@ class PicAdapter extends BaseAdapter {
 		 */
 		if(imagePhotos.size() > 0){
 			imgView.setImageBitmap(imagePhotos.get(position).getPhoto());
-			Button imageDeleteButton = (Button) picDialog.findViewById(R.id.imgCancelButton);
-			Button imageCancelButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);					
+			Button imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
+			Button imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
 
 			imageDeleteButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
