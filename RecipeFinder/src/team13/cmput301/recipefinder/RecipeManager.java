@@ -93,6 +93,10 @@ public class RecipeManager {
 	public void AddToUserRecipe(Recipe recipe, Context ctx) {
 		try {
 			userRecipes.add(recipe);
+			if(recipe.getAuthor().trim().compareTo(User.getUser()
+					.getUsername().trim()) == 0){
+				ownRecipes.add(recipe);
+			}
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userRecipes);
