@@ -70,7 +70,7 @@ public class EmailSender extends javax.mail.Authenticator {
 	 * @param to The recipient
 	 * @return true if successfully sent, false otherwise
 	 */
-	public boolean send(final String subject, final String body, final String to) {
+	public boolean send(final String subject, final String body, final String[] to) {
 		final Properties props = setProperties(); 
 
 		if(!to.equals("")) { 
@@ -80,14 +80,18 @@ public class EmailSender extends javax.mail.Authenticator {
 					Session session = Session.getInstance(props, EmailSender.this); 
 
 					MimeMessage msg = new MimeMessage(session); 
-
+					
 					try {
+						InternetAddress[] addressesTo = new InternetAddress[to.length];
+						for (int i = 0; i < to.length; i++) {
+							addressesTo[i] = new InternetAddress(to[i]);
+						}
+						
 						msg.setFrom(new InternetAddress(user)); 
-						msg.setRecipient(MimeMessage.RecipientType.TO, 
-								new InternetAddress(to)); 
 						msg.setSubject(subject); 
 						msg.setSentDate(new Date()); 
-	
+						msg.setRecipients(MimeMessage.RecipientType.TO, addressesTo);
+						
 						// setup message body 
 						BodyPart messageBodyPart = new MimeBodyPart(); 
 						messageBodyPart.setText(body); 

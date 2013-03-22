@@ -20,10 +20,14 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -66,6 +70,15 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 		picGallery = (Gallery) findViewById(R.id.gallery);
 		imgAdapt = new PicAdapter(this, recipe.getPhotos());
 		picGallery.setAdapter(imgAdapt);
+		
+		/* Listen for clicks to the image gallery */
+		picGallery.setOnItemClickListener(new OnItemClickListener() {
+		    //handle clicks
+		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		        imgAdapt.enlargePhoto(position);
+		        picGallery.setAdapter(imgAdapt);
+		    }
+		});
 	}
 
 	@Override
@@ -128,8 +141,8 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 
 			/* Listen for Use Existing button click */
 			public void onClick(DialogInterface dialog, int which) {
-				Intent intent = new Intent(DisplayRecipeActivity.this, 
-						FileExplorerActivity.class);
+				Intent intent = new Intent(Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, FILE_PATH_REQUEST);
 			} 
 		});
@@ -152,15 +165,28 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, 
 			Intent data) {
+		
 		/* Display the image taken by the camera or from chosen file */
-		if ((requestCode == CAMERA_REQUEST || requestCode == FILE_PATH_REQUEST)
-				&& resultCode == RESULT_OK) {  
-			Bitmap photo = (Bitmap) data.getExtras().get("data"); 
+		if (resultCode == RESULT_OK) {
+			Bitmap photo = null;
+			
+			if (requestCode == CAMERA_REQUEST){
+				photo = (Bitmap) data.getExtras().get("data"); 
+			} else if(requestCode == FILE_PATH_REQUEST) {
+				Uri filePath = data.getData();
+				try {
+					photo = MediaStore.Images.Media.getBitmap(
+							getContentResolver(), filePath);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
 			picGallery.setAdapter(imgAdapt);
 		}
 	} 	
-
+	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param view
@@ -169,38 +195,43 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 		AlertDialog alertDialog =
 				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
 		alertDialog.setTitle("Email Recipe");
-		alertDialog.setMessage("Enter recipient: ");
+		alertDialog.setMessage("Enter recipient(s): ");
 
-		// Set an EditText view to get user input
+		/* Set an EditText view to get user input */
 		final EditText input = new EditText(this);
+		input.setHeight(200);
+		input.setHint("Seperate recipents by ,");
+		input.setGravity(0);
 		alertDialog.setView(input);
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
 				new DialogInterface.OnClickListener() {
 
 			/* Listen for Send button click */
-			@SuppressLint("NewApi")
 			public void onClick(DialogInterface dialog, int which) {
-				String recipient = input.getText().toString().trim();
+				String[] recipients = input.getText().toString().replaceAll("\\s", "").split(",");
 				EmailSender sender = new EmailSender();
 				File cacheDir = getBaseContext().getCacheDir();
 				File f = new File(cacheDir, "temp_email_image.jpg");
-				
+
+				/* Attach the photos to the email */
 				for (int i = 0; i < recipe.getPhotos().size(); i++) {
-	                try {
-	                    FileOutputStream out = new FileOutputStream(f);
-	                    recipe.getPhotos().get(i).getPhoto().compress(
-	                            Bitmap.CompressFormat.JPEG,
-	                            100, out);
-	                    out.flush();
-	                    out.close();
-	                    sender.addAttachment(cacheDir.getAbsolutePath() + "/temp_email_image.jpg");
-	                } catch (Exception e) {
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						recipe.getPhotos().get(i).getPhoto().compress(
+								Bitmap.CompressFormat.JPEG,
+								100, out);
+						out.flush();
+						out.close();
+						sender.addAttachment(cacheDir.getAbsolutePath() + 
+								"/temp_email_image.jpg");
+					} catch (Exception e) {
 						Log.e("DisplayRecipeActivity", "Problems attaching photo", e); 
 					}
 				}
+				/* Try to send the email */
 				if(sender.send(new String(User.getUser().getUsername() + 
 						" wants to share a recipe with you!"), 
-						recipe.toEmailString(), recipient)) { 
+						recipe.toEmailString(), recipients)) { 
 					Toast.makeText(DisplayRecipeActivity.this, 
 							"Email was sent successfully.", Toast.LENGTH_LONG).show(); 
 				} else { 

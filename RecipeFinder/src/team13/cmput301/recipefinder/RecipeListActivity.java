@@ -1,6 +1,5 @@
 package team13.cmput301.recipefinder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
 
 public class RecipeListActivity extends Activity {
 
@@ -29,14 +27,10 @@ public class RecipeListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_list);
 
-		ownRecipes = new ArrayList<Recipe>();
+		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-		favRecipes = new ArrayList<Recipe>();
+		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 
-		if(allRecipes.size() > 0){
-			findOwnRecipes();
-			findFavRecipes();
-		}
 		TabHost recipeListTabs = (TabHost)findViewById(R.id.tabView);
 		allListView = (ListView)findViewById(R.id.allRecipeList);
 		favListView = (ListView)findViewById(R.id.favRecipeList);
@@ -65,10 +59,12 @@ public class RecipeListActivity extends Activity {
 		 */
 		favListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Recipe temp = favRecipes.get(position);
+				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", position);
+					("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
@@ -80,21 +76,21 @@ public class RecipeListActivity extends Activity {
 		 */
 		myListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Recipe temp = ownRecipes.get(position);
+				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", position);
+					("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
 		});
 		myListView.setAdapter(ownListAdapter);
-		
-		// TODO make sure that when one recipe is deleted that it is deleted from
-		// other lists as well
 
 		recipeListTabs.setup();
 
+		//Add the tabs to display
 		TabSpec allTab = recipeListTabs.newTabSpec("All Recipe(s)");
 		allTab.setContent(R.id.allRecipesTab);
 		allTab.setIndicator("All Recipe(s)");
@@ -111,21 +107,27 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
 		
+		/*
+		 * handle change to a tab to refresh all the tabs 
+		 */
 		recipeListTabs.setOnTabChangedListener(new OnTabChangeListener(){
 
 			@Override
 			public void onTabChanged(String id) {
-				allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 				if(id.equals("Favorite Recipe(s)")) {
-			        findFavRecipes();
+			        favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 			        favListAdapter.setRecipeList(favRecipes);
+			        favListView.setAdapter(favListAdapter);
 			    }
 				else if(id.equals("My Recipe(s)")) {
-			        findOwnRecipes();
+			        ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 			        ownListAdapter.setRecipeList(ownRecipes);
+			        myListView.setAdapter(ownListAdapter);
 			    }
 				else {
-					ownListAdapter.setRecipeList(allRecipes);
+					allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
+					allListAdapter.setRecipeList(allRecipes);
+					allListView.setAdapter(allListAdapter);
 				}
 			}
 			
@@ -133,36 +135,6 @@ public class RecipeListActivity extends Activity {
 
 		recipeListTabs.setCurrentTab(0);
 	}
-
-	/**
-	 *  populate users own recipe list from the all recipe list
-	 */
-	private void findOwnRecipes() {
-		ownRecipes = new ArrayList<Recipe>();
-		Recipe temp;
-		for(int i = 0; i < allRecipes.size(); i++){
-			temp = allRecipes.get(i);
-			if(temp.getAuthor().trim().compareTo(User.getUser().getUsername().trim()) == 0
-					&& !ownRecipes.contains(temp)){
-				ownRecipes.add(temp);
-			}
-		}
-	}
-	
-	/**
-	 * populate users favourite recipes with recipes from all recipe list
-	 */
-	private void findFavRecipes(){
-		favRecipes = new ArrayList<Recipe>();
-		Recipe temp;
-		for(int i = 0; i < allRecipes.size(); i++){
-			temp = allRecipes.get(i);
-			if(temp.isFave() && !favRecipes.contains(temp)){
-				favRecipes.add(temp);
-			}
-		}
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -170,4 +142,11 @@ public class RecipeListActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	protected void onPause() {
+		RecipeManager.getRecipeManager().AddToUserRecipe(
+				RecipeManager.getRecipeManager().getUserRecipes(), this);
+		super.onPause();
+	}
+	
 }

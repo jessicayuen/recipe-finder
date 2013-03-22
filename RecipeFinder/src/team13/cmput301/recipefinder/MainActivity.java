@@ -33,16 +33,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		/* Load recipes */
-		rm = RecipeManager.getRecipeManager();
-		rm.loadRecipes(this);
-		
 		User user = User.getUser();
 		// test start
 		user.setUsername("Mr. Tomato Man");
 		user.setEmail("cmput301w13t13@gmail.com");
 		user.setEmailPassword("ualberta");
 		// test end
+		/* Load recipes */
+		rm = RecipeManager.getRecipeManager();
+		rm.loadRecipes(this);
 		displayFaves();
 		showAll();
 	}
@@ -85,6 +84,7 @@ public class MainActivity extends Activity {
 		 intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 		 startActivity(intent);
 	}
+	
 	/**
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
@@ -96,19 +96,23 @@ public class MainActivity extends Activity {
 			ImageView imageView;
 			
 			imageView = (ImageView) findViewById(R.id.faveTopLeft);
-			imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(0).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
 			if (numFaves == 1) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveTopRight);
-			imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(1).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
 			if (numFaves == 2) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveBottomLeft);
-			imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(2).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
 			if (numFaves == 3) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveBottomRight);
-			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(3).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
 		}
 	}
 	
