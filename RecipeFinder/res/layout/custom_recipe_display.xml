@@ -49,8 +49,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/recipeRating"
-        android:layout_below="@+id/recipePicture"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/authorBox"
         android:text="Button" />
 
 </RelativeLayout>
