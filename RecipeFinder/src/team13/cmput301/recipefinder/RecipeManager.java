@@ -58,6 +58,8 @@ public class RecipeManager {
 			FileInputStream fis;
 			ObjectInputStream in;
 			
+			recipeManager.ownRecipes = new ArrayList<Recipe>();
+			recipeManager.faveRecipes = new ArrayList<Recipe>();
 			// read user recipes
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
@@ -67,10 +69,10 @@ public class RecipeManager {
 			// read favorite recipes
 			for (int i = 0; i < userRecipes.size(); i++) {
 				Recipe recipe = userRecipes.get(i);
-				if (recipe.isFave() && !faveRecipes.contains(recipe))
+				if (recipe.isFave())
 					faveRecipes.add(recipe);
 				if(recipe.getAuthor().trim().compareTo(User.getUser()
-						.getUsername().trim()) == 0 && !ownRecipes.contains(recipe)){
+						.getUsername().trim()) == 0){
 					ownRecipes.add(recipe);
 				}
 			}
