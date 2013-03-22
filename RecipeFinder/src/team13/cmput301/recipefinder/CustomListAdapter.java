@@ -120,14 +120,15 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			if(!recipe.isFave()){
 				// add the recipe to favorites
 				RecipeManager.getRecipeManager().addToFavList(recipe);
-//				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
+				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
 			}
 			else{
 				//remove recipe from fav if it is already favorited
 				RecipeManager.getRecipeManager().removeFromFavList(recipe);
-//				System.out.println("test");
-//				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
+				System.out.println("test");
+				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
 			}
+			// TODO find where in code is the fav recipe being added twice
 
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;

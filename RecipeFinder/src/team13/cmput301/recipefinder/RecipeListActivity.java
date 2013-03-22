@@ -59,10 +59,12 @@ public class RecipeListActivity extends Activity {
 		 */
 		favListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Recipe temp = favRecipes.get(position);
+				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", position);
+					("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
@@ -74,10 +76,12 @@ public class RecipeListActivity extends Activity {
 		 */
 		myListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+				Recipe temp = ownRecipes.get(position);
+				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", position);
+					("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
@@ -113,14 +117,17 @@ public class RecipeListActivity extends Activity {
 				if(id.equals("Favorite Recipe(s)")) {
 			        favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 			        favListAdapter.setRecipeList(favRecipes);
+			        favListView.setAdapter(favListAdapter);
 			    }
 				else if(id.equals("My Recipe(s)")) {
 			        ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 			        ownListAdapter.setRecipeList(ownRecipes);
+			        myListView.setAdapter(ownListAdapter);
 			    }
 				else {
 					allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-					ownListAdapter.setRecipeList(allRecipes);
+					allListAdapter.setRecipeList(allRecipes);
+					allListView.setAdapter(allListAdapter);
 				}
 			}
 			
@@ -135,4 +142,11 @@ public class RecipeListActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	protected void onPause() {
+		RecipeManager.getRecipeManager().AddToUserRecipe(
+				RecipeManager.getRecipeManager().getUserRecipes(), this);
+		super.onPause();
+	}
+	
 }
