@@ -83,6 +83,7 @@ public class MainActivity extends Activity {
 				 ((EditText) findViewById(R.id.search_bar)).getText().toString();
 		 intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 	}
+	
 	/**
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
@@ -94,19 +95,23 @@ public class MainActivity extends Activity {
 			ImageView imageView;
 			
 			imageView = (ImageView) findViewById(R.id.faveTopLeft);
-			imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(0).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
 			if (numFaves == 1) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveTopRight);
-			imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(1).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
 			if (numFaves == 2) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveBottomLeft);
-			imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(2).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
 			if (numFaves == 3) return;
 			
 			imageView = (ImageView) findViewById(R.id.faveBottomRight);
-			imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(3).getPhotos().size() > 0) 
+				imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
 		}
 	}
 	
