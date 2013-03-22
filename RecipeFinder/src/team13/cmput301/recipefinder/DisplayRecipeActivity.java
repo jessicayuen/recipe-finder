@@ -34,8 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
-public class DisplayRecipeActivity extends Activity {
+public class DisplayRecipeActivity extends Activity implements OnTaskCompletionListener {
 
 	private final int FILE_PATH_REQUEST = 1; // request code
 	private static final int CAMERA_REQUEST = 1888; 
@@ -259,13 +258,13 @@ public class DisplayRecipeActivity extends Activity {
 	 * @param view
 	 */
 	public void publishRecipe(View view) {
-		ElasticSearchHelper esh = ElasticSearchHelper.getElasticSearchHelper();
-		try {
-			esh.insertRecipe(recipe);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		InsertRecipeTask irt = new InsertRecipeTask(this);
+		irt.execute(recipe);
 	}
+	
+	@Override
+	public void onTaskCompletion(String message) {
+		Toast.makeText(DisplayRecipeActivity.this, message, Toast.LENGTH_LONG).show();
+	}
+
 }
