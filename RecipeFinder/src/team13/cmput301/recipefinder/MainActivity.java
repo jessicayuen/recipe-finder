@@ -83,6 +83,7 @@ public class MainActivity extends Activity {
 		 String simpleSearchQuery = 
 				 ((EditText) findViewById(R.id.search_bar)).getText().toString();
 		 intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
+		 startActivity(intent);
 	}
 	/**
 	 * Displays a random 4 recipes from the favorite recipe list.

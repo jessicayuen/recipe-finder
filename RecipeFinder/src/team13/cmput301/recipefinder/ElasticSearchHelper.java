@@ -12,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +33,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
 	private static final String BASEURL = 
-			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/";
+			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
 
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
@@ -58,129 +60,93 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * Inserts a recipe to elasticSearch service. Consumes the POST/Insert
-	 * operation of the service.
-	 * 
-	 * @throws IOException
-	 * @throws IllegalStateException
+	 * Inserts a recipe into ElasticSearch
+	 * @param recipe The recipe to add
 	 */
-	public void insertRecipe(Recipe recipe) throws IllegalStateException,
-			IOException {
+	public void insertRecipe(Recipe recipe) {
 		final Recipe r = recipe;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				HttpPost httpPost = new HttpPost(BASEURL + r.getId());
-				StringEntity stringentity = null;
-				try {
-					stringentity = new StringEntity(gson.toJson(r));
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				httpPost.setHeader("Accept", "application/json");
+		HttpPost httpPost = new HttpPost(BASEURL + r.getId() + "?op_type=create");
+		StringEntity stringentity = null;
+		try {
+			stringentity = new StringEntity(gson.toJson(r));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		httpPost.setHeader("Accept", "application/json");
 
-				httpPost.setEntity(stringentity);
-				HttpResponse response = null;
-				try {
-					response = httpclient.execute(httpPost);
-					String status = response.getStatusLine().toString();
-					System.out.println(status);
-					HttpEntity entity = response.getEntity();
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(entity.getContent()));
-					String output;
-					System.err.println("Output from Server -> ");
-					while ((output = br.readLine()) != null) {
-						System.err.println(output);
-					}
-					entity.consumeContent();
-				} catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
+		httpPost.setEntity(stringentity);
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(httpPost);
+			String status = response.getStatusLine().toString();
+			System.out.println(status);
+			HttpEntity entity = response.getEntity();
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					entity.getContent()));
+			String output;
+			System.err.println("Output from Server -> ");
+			while ((output = br.readLine()) != null) {
+				System.err.println(output);
 			}
-		}).start();
-
+			entity.consumeContent();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Retrieves a recipe object from its UUID from elasticSearch
+	 * Retrieves a recipe object from its UUID from ElasticSearch
+	 * @param uuid
+	 * @throws ClientProtocolException
+	 * @throws IOException
 	 */
-	public void getRecipe(String uuid) {
-		final String myUuid = uuid;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					HttpGet getRequest = new HttpGet(BASEURL + myUuid
-							+ "?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+	public void getRecipe(String uuid) throws ClientProtocolException, IOException {
+		HttpGet getRequest = new HttpGet(BASEURL + uuid + "?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
 
-					getRequest.addHeader("Accept", "application/json");
-					HttpResponse response = httpclient.execute(getRequest);
-					String status = response.getStatusLine().toString();
-					System.out.println(status);
-					String json = getEntityContent(response);
+		getRequest.addHeader("Accept", "application/json");
+		HttpResponse response = httpclient.execute(getRequest);
+		String status = response.getStatusLine().toString();
+		System.out.println(status);
+		String json = getEntityContent(response);
 
-					// We have to tell GSON what type we expect
-					Type elasticSearchResponseType = 
-							new TypeToken<ElasticSearchResponse<Recipe>>() {
-					}.getType();
-					// Now we expect to get a Recipe response
-					ElasticSearchResponse<Recipe> esResponse = gson.fromJson(
-							json, elasticSearchResponseType);
-					// We get the recipe from it!
-					Recipe recipe = esResponse.getSource();
-					System.out.println(recipe.toString());
+		// We have to tell GSON what type we expect
+		Type elasticSearchResponseType = new TypeToken<ElasticSearchResponse<Recipe>>() {
+		}.getType();
+		// Now we expect to get a Recipe response
+		ElasticSearchResponse<Recipe> esResponse = gson.fromJson(json,
+				elasticSearchResponseType);
+		// We get the recipe from it!
+		Recipe recipe = esResponse.getSource();
+		System.out.println(recipe.toString());
 
-				} catch (ClientProtocolException e) {
-
-					e.printStackTrace();
-
-				} catch (IOException e) {
-
-					e.printStackTrace();
-				}
-			}
-		}).start();
 	}
 
 	/**
 	 * search by keywords
 	 */
-	public void searchRecipes(String query) {
-		final String myQuery = query;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					HttpGet searchRequest = new HttpGet(BASEURL
-							+ "_search?pretty=1&q="
-							+ java.net.URLEncoder.encode(myQuery, "UTF-8"));
-					searchRequest.setHeader("Accept", "application/json");
-					HttpResponse response = httpclient.execute(searchRequest);
-					String status = response.getStatusLine().toString();
-					System.out.println(status);
-
-					String json = getEntityContent(response);
-
-					Type elasticSearchSearchResponseType = 
-							new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
-					}.getType();
-					ElasticSearchSearchResponse<Recipe> esResponse = gson
-							.fromJson(json, elasticSearchSearchResponseType);
-					System.err.println(esResponse);
-					for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
-						Recipe recipe = r.getSource();
-						System.err.println(recipe);
-						Log.wtf("recipe", recipe.toString());
-					}
-				} catch (IOException e) {
-					
-				}
+	public ArrayList<Recipe> searchRecipes(String query) {
+		ArrayList<Recipe> recipies = new ArrayList<Recipe>();
+		try {
+			HttpGet searchRequest = new HttpGet(BASEURL + "_search?pretty=1&q="
+					+ java.net.URLEncoder.encode(query, "UTF-8"));
+			searchRequest.setHeader("Accept", "application/json");
+			HttpResponse response = httpclient.execute(searchRequest);
+			String status = response.getStatusLine().toString();
+			String json = getEntityContent(response);
+			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+			}.getType();
+			ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(
+					json, elasticSearchSearchResponseType);
+			for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
+				Recipe recipe = r.getSource();
+				recipies.add(recipe);
 			}
-		}).start();
+		} catch (IOException e) {
+
+		}
+		return recipies;
 	}
 
 	/**
@@ -233,9 +199,6 @@ public class ElasticSearchHelper {
 		String status = response.getStatusLine().toString();
 		System.out.println(status);
 
-		// String json = getEntityContent(response);
-		// updateRequest.releaseConnection(); not available in android
-		// httpclient
 	}
 
 	/**
