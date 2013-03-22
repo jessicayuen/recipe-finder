@@ -22,19 +22,19 @@ import android.content.Context;
 public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
-	
+
 	private static final String PATH = "recipelog.sav";
 
 	private List<Recipe> faveRecipes;
 	private List<Recipe> userRecipes;
 	private List<Recipe> ownRecipes;
-	
+
 	/**
 	 * DO NOT USE
 	 * Constructor - exists only to defeat instantiation 
 	 */
 	protected RecipeManager() {}
-	
+
 	/**
 	 * Returns the singleton RecipeManager
 	 */
@@ -47,7 +47,7 @@ public class RecipeManager {
 		}
 		return recipeManager;
 	}
-	
+
 	/**
 	 * Loads the user and favorite recipes
 	 * @param ctx Context
@@ -57,13 +57,13 @@ public class RecipeManager {
 		try {
 			FileInputStream fis;
 			ObjectInputStream in;
-			
+
 			// read user recipes
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
 			userRecipes = (ArrayList<Recipe>) in.readObject();
 			in.close();
-			
+
 			// read favorite recipes
 			for (int i = 0; i < userRecipes.size(); i++) {
 				Recipe recipe = userRecipes.get(i);
@@ -74,7 +74,7 @@ public class RecipeManager {
 					ownRecipes.add(recipe);
 				}
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -83,7 +83,7 @@ public class RecipeManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Appends the recipe into the existing user recipe list 
 	 * and saves it onto file
@@ -103,7 +103,7 @@ public class RecipeManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Saves the provided list of user recipes onto file, overwriting previous
 	 * @param recipes List of user recipes
@@ -122,7 +122,7 @@ public class RecipeManager {
 			e.printStackTrace();
 		}
 	}
-	 
+
 	/**
 	 * Add recipe to the favorite list.
 	 * @param recipe
@@ -146,14 +146,14 @@ public class RecipeManager {
 	public List<Recipe> getUserRecipes() {
 		return userRecipes;
 	}
-	
+
 	/**
 	 * @return List of user's own recipes
 	 */
 	public List<Recipe> getOwnRecipes() {
 		return ownRecipes;
 	}
-	
+
 	/**
 	 * updates the all lists of recipes when called
 	 */
@@ -168,23 +168,27 @@ public class RecipeManager {
 			faveRecipes.remove(recipe);
 		}
 	}
-	
+
 	/**
 	 * add recipes from favorite list
 	 * @param recipe
 	 */
 	public void addToFavList(Recipe recipe) {
 		Recipe temp = recipe;
-		int index = userRecipes.indexOf(recipe);
+		int allIndex = userRecipes.indexOf(recipe);
 		if(!faveRecipes.contains(recipe)){
 			temp.setFave(true);
+			if(ownRecipes.contains(recipe)){
+				int ownIndex = ownRecipes.indexOf(recipe);
+				ownRecipes.set(ownIndex, temp);
+			}
 			faveRecipes.add(recipe);
-			userRecipes.set(index, temp);	
-			
+			userRecipes.set(allIndex, temp);	
+
 			// TODO change it so that own list gets updated too
 		}
 	}
-	
+
 	/**
 	 * remove recipes from favorite list
 	 * @param recipe
@@ -193,8 +197,12 @@ public class RecipeManager {
 		Recipe temp = recipe;
 		int index = userRecipes.indexOf(recipe);
 		if(faveRecipes.contains(recipe)){
-			faveRecipes.remove(recipe);
 			temp.setFave(false);
+			if(ownRecipes.contains(recipe)){
+				int ownIndex = ownRecipes.indexOf(recipe);
+				ownRecipes.set(ownIndex, temp);
+			}
+			faveRecipes.remove(recipe);
 			userRecipes.set(index, temp);			
 		}
 	}
