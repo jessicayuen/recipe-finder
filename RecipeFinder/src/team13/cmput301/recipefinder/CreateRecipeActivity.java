@@ -26,6 +26,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
@@ -42,13 +44,15 @@ public class CreateRecipeActivity extends Activity {
 
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
+	private AutoCompleteTextView addIngredients;
 	private Button exitButton, addPicButton, addIngredButton, 
 	addInsButton, ingredListButton, instrListButton;
-	private EditText addName, addIngredients, addInstructions, 
+	private EditText addName, addInstructions, 
 	addDescription, addAmount;
 	private Gallery gallery;
+	private ArrayAdapter<String> autoFillAdapter;
 
-	private List<String> ingredients, instructions;
+	private List<String> ingredientNames, ingredients, instructions;
 	private List<Integer> mSelectedItems;
 	private List<Photo> imageList;
 	private PicAdapter picAdapt;
@@ -70,15 +74,19 @@ public class CreateRecipeActivity extends Activity {
 		addIngredButton = (Button) findViewById(R.id.addIngredientsButn);
 		addInsButton = (Button) findViewById(R.id.addInstructionsButn);
 		addName = (EditText) findViewById(R.id.addName);
-		addIngredients = (EditText) findViewById(R.id.addIngredients);
+		addIngredients = (AutoCompleteTextView) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
 		addAmount = (EditText) findViewById(R.id.addAmount);
 
 		ingredients = new ArrayList<String>();
+		ingredientNames =  IngredientManager.getIngredientManager().getIngredientNamesList();
 		instructions = new ArrayList<String>();
 		imageList = new ArrayList<Photo>();
+		autoFillAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, ingredientNames);
 
+		addIngredients.setAdapter(autoFillAdapter);
 		gallery = (Gallery) findViewById(R.id.gallery);
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
