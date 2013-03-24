@@ -1,10 +1,4 @@
-/**
- * Activity that allows user to keep track of their ingredients,
- * including addition, deletion and searching with selected ingredients.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
+ // Activity that allows user to keep track of their ingredients,
 
 package team13.cmput301.recipefinder;
 
@@ -24,13 +18,16 @@ import android.widget.Toast;
 
 public class MyIngredientsActivity extends Activity {
 
-	private ArrayList<String> listItems = new ArrayList<String>();
+	private ArrayList<String> listofItems = new ArrayList<String>();
 	private ArrayAdapter<String> adapter;
-	private EditText ingredientsEditText;
+	private EditText ingredientsEditText, quantityEditText;
 	private Button addButton, searchButton, deleteButton, backButton;
 	private ListView myList;
 	private boolean checkedItem = false;
-	private String ingredient;
+	private Ingredient ingredient;
+	private String ingName, ingQuantity;
+	private float quantity;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,12 +39,15 @@ public class MyIngredientsActivity extends Activity {
 		backButton = (Button) findViewById(R.id.backButton);
 		searchButton = (Button) findViewById(R.id.searchPH);
 		myList = (ListView) findViewById(R.id.listOfIng);
+		
+		
 
 		adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_multiple_choice, listItems);
+				android.R.layout.simple_list_item_multiple_choice, listofItems);
 
 		ingredientsEditText = (EditText) findViewById(R.id.ingredientItem);
-
+		quantityEditText = (EditText) findViewById(R.id.quantityItem);
+	
 		/**
 		 * Initiates the addButton functionality
 		 */
@@ -55,23 +55,22 @@ public class MyIngredientsActivity extends Activity {
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				ingredient = ingredientsEditText.getText().toString();
-				if (ingredient.matches("")) {
+				
+				ingName = ingredientsEditText.getText().toString();
+				ingQuantity = quantityEditText.getText().toString();
+				
+				if (ingName.matches("")) {
 					/* show a message if fields not entered */
 					int duration = Toast.LENGTH_SHORT;
 					Context context = getApplicationContext();
 					Toast.makeText(context,"Enter a ingredient", duration).show();
 				}
-				if (checkItem(checkedItem) == true){
-					int duration = Toast.LENGTH_SHORT;
-					Context context = getApplicationContext();
-					Toast.makeText(context,"Ingredient already exists", duration).show();
+				if (!ingName.matches("")){
+					addItems();
+			    	ingredientsEditText.setText("");
+					quantityEditText.setText("");
 				}
-
-				if (!ingredient.matches("") && checkItem(checkedItem) == false){
-					addItem();
-					myList.setAdapter(adapter);
-				}
+				
 			}
 
 		});
@@ -114,13 +113,6 @@ public class MyIngredientsActivity extends Activity {
 
 		});
 	}
-
-	/**
-	 * Add a item to the list of ingredients
-	 */
-	public void addItem() {
-		listItems.add(ingredient);
-	}
 	
 	/**
 	 * Check if the current item already exists in the list of ingredients
@@ -128,14 +120,25 @@ public class MyIngredientsActivity extends Activity {
 	 * @return
 	 */
 	public boolean checkItem(boolean checkedItem){
-		for(int index = 0; index < listItems.size(); index++){
-			if(listItems.get(index).equals(ingredient)){
+		for(int index = 0; index < listofItems.size(); index++){
+			if(listofItems.get(index).equals(ingredient)){
 				checkedItem = true;
 			} else {
 				checkedItem = false;
 			}
 		}
 		return checkedItem;
+	}
+	
+	private void addItems(){
+		listofItems.add(ingName + " : " + ingQuantity);
+		myList.setAdapter(adapter);
+		
+		ingredient.setIngredient(ingName);
+		quantity = Float.parseFloat(ingQuantity);
+		ingredient.setQuantity(quantity);
+		
+		
 	}
 
 	/**
@@ -146,7 +149,7 @@ public class MyIngredientsActivity extends Activity {
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
-				listItems.remove(i);
+				listofItems.remove(i);
 				adapter.notifyDataSetChanged();
 			}
 		}

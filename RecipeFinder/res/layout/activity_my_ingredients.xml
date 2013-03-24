@@ -12,9 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="22dp"
-        android:ems="10" >
-
-        <requestFocus />
+        android:ems="10"
+        android:hint="Enter an ingredient" >
     </EditText>
 
     <Button
@@ -26,41 +25,54 @@
         android:layout_alignParentRight="true"
         android:text="add_PH" />
 
-    <ListView
-        android:id="@+id/listOfIng"
+    <Button
+        android:id="@+id/backButton"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="238dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/addPH"
-        android:choiceMode="multipleChoice" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="back_PH" />
 
     <Button
         android:id="@+id/searchPH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/backButton"
+        android:layout_alignBottom="@+id/backButton"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/listOfIng"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="27dp"
         android:text="search_PH" />
 
     <Button
         android:id="@+id/deletePH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/searchPH"
-        android:layout_alignBottom="@+id/searchPH"
-        android:layout_alignLeft="@+id/ingredientItem"
+        android:layout_above="@+id/searchPH"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30dp"
         android:text="delete_PH" />
 
-    <Button
-        android:id="@+id/backButton"
-        style="?android:attr/buttonStyleSmall"
+    <ListView
+        android:id="@+id/listOfIng"
+        android:layout_width="wrap_content"
+        android:layout_height="238dp"
+        android:layout_above="@+id/deletePH"
+        android:layout_alignParentLeft="true"
+        android:choiceMode="multipleChoice" >
+    </ListView>
+
+    <EditText
+        android:id="@+id/quantityItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/searchPH"
-        android:layout_centerHorizontal="true"
-        android:text="back_PH" />
+        android:layout_above="@+id/listOfIng"
+        android:layout_alignLeft="@+id/ingredientItem"
+        android:ems="10"
+        android:hint="Quantity"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+
+    </EditText>
 
 </RelativeLayout>
