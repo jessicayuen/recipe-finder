@@ -86,6 +86,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		descr.setTextSize(fontSize);
 		descr.setText(recipe.getDescription());
 
+		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
+		name.setTextSize(fontSize);
+		descr.setText(recipe.getName());
+		
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
 		if(recipe.getPhotos().size() > 0){
 			recipePic.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
