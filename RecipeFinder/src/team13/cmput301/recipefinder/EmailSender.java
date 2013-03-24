@@ -15,6 +15,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.activation.MailcapCommandMap;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
@@ -24,8 +25,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
-import android.util.Log;
 
 
 public class EmailSender extends javax.mail.Authenticator { 
@@ -44,9 +43,9 @@ public class EmailSender extends javax.mail.Authenticator {
 	 * in the user's settings.
 	 */
 	public EmailSender() { 
-		host = "smtp.gmail.com"; 
-		port = "465"; 
-		sport = "465"; 
+		host = User.getUser().getEmailHost();
+		port = User.getUser().getEmailPort();
+		sport = User.getUser().getEmailSocketPort();
 		user = User.getUser().getEmail(); 
 		pass = User.getUser().getEmailPassword(); 
 		
@@ -63,6 +62,16 @@ public class EmailSender extends javax.mail.Authenticator {
 		CommandMap.setDefaultCommandMap(mc); 
 	} 
 
+	public EmailSender(String user, String pass, String host, 
+			String port, String sport) {
+		super();
+		this.user = user;
+		this.pass = pass;
+		this.host = host;
+		this.port = port;
+		this.sport = sport;
+	}
+	
 	/**
 	 * Sends the email to the recipient
 	 * @param subject The subject of the email
@@ -72,45 +81,23 @@ public class EmailSender extends javax.mail.Authenticator {
 	 */
 	public boolean send(final String subject, final String body, final String[] to) {
 		final Properties props = setProperties(); 
-
+		SendEmail sendEmail = 
+				new SendEmail(props, EmailSender.this, user, subject, body, to, multipart);
+		
 		if(!to.equals("")) { 
-			new Thread(new Runnable(){
-
-				public void run() {
-					Session session = Session.getInstance(props, EmailSender.this); 
-
-					MimeMessage msg = new MimeMessage(session); 
-					
-					try {
-						InternetAddress[] addressesTo = new InternetAddress[to.length];
-						for (int i = 0; i < to.length; i++) {
-							addressesTo[i] = new InternetAddress(to[i]);
-						}
-						
-						msg.setFrom(new InternetAddress(user)); 
-						msg.setSubject(subject); 
-						msg.setSentDate(new Date()); 
-						msg.setRecipients(MimeMessage.RecipientType.TO, addressesTo);
-						
-						// setup message body 
-						BodyPart messageBodyPart = new MimeBodyPart(); 
-						messageBodyPart.setText(body); 
-						multipart.addBodyPart(messageBodyPart); 
-	
-						// Put parts in message 
-						msg.setContent(multipart); 
-	
-						// send email 
-						Transport.send(msg); 
-					} catch (Exception e) {
-						Log.e("Email Sender", "Problems sending email", e); 
-					}
- 				}	
-			}).start();
-			return true; 
-		} else { 
-			return false; 
-		} 
+			Thread thread = new Thread(sendEmail);
+			thread.start();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				return false;
+			}
+		}
+		
+		if (sendEmail.isSent())
+			return true;
+		else
+			return false;
 	} 
 
 	/**
@@ -152,4 +139,66 @@ public class EmailSender extends javax.mail.Authenticator {
 
 		return props; 
 	} 
+	
+	/**
+	 * Inner class that implements the Runnable interface for 
+	 * sending a email.
+	 */
+	private static class SendEmail implements Runnable {
+		
+		private Properties props;
+		private Authenticator auth;
+		private String user, subject, body;
+		private String[] to;
+		private Multipart multipart;
+		private boolean sent = false;
+		
+		public SendEmail(Properties props, Authenticator auth,
+				String user, String subject,
+				String body, String[] to, Multipart multipart) {
+			this.props = props;
+			this.auth = auth;
+			this.user = user;
+			this.subject = subject;
+			this.body = body;
+			this.to = to;
+			this.multipart = multipart;
+		}
+		
+		public void run() {
+			Session session = Session.getInstance(props, auth); 
+
+			MimeMessage msg = new MimeMessage(session); 
+			
+			try {
+				InternetAddress[] addressesTo = new InternetAddress[to.length];
+				for (int i = 0; i < to.length; i++) {
+					addressesTo[i] = new InternetAddress(to[i]);
+				}
+				
+				msg.setFrom(new InternetAddress(user)); 
+				msg.setSubject(subject); 
+				msg.setSentDate(new Date()); 
+				msg.setRecipients(MimeMessage.RecipientType.TO, addressesTo);
+				
+				// setup message body 
+				BodyPart messageBodyPart = new MimeBodyPart(); 
+				messageBodyPart.setText(body); 
+				multipart.addBodyPart(messageBodyPart); 
+
+				// Put parts in message 
+				msg.setContent(multipart); 
+
+				// send email 
+				Transport.send(msg); 
+				sent = true;
+			} catch (Exception e) {
+				return;
+			}
+		}
+		
+		public boolean isSent() {
+			return sent;
+		}
+	}
 } 
