@@ -167,7 +167,7 @@ public class RecipeListActivity extends Activity {
 	}
 
 	public void localRecipeSearch(View view){
-		EditText searchTextBox = (EditText)findViewById(R.id.localSearch);
+		EditText searchTextBox = (EditText)findViewById(R.id.searchBar);
 		String searchString = searchTextBox.getText().toString();
 		
 		if(!searchString.equals("")){
