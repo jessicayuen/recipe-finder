@@ -122,62 +122,6 @@ public class RecipeManager {
 		}
 	}
 
-	// TODO is this method even used...
-	/**
-	 * Add recipe to the favorite list.
-	 * @param recipe
-	 */
-	public void addRecipeToFave(Recipe recipe) {
-		if(userRecipes.contains(recipe)) {
-			faveRecipes.add(recipe);
-		}
-	}
-
-	/**
-	 * @return List of favorite recipes
-	 */
-	public List<Recipe> getFaveRecipes() {
-		return faveRecipes;
-	}
-
-	/**
-	 * @return List of user recipes
-	 */
-	public List<Recipe> getUserRecipes() {
-		return userRecipes;
-	}
-
-	/**
-	 * @return List of user's own recipes
-	 */
-	public List<Recipe> getOwnRecipes() {
-		return ownRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users own recipe list in search mode
-	 */
-	public List<Recipe> getSearchModeOwnRecipes() {
-		return searchModeOwnRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users favorite recipe list in searchMode
-	 */
-	public List<Recipe> getSearchModeFaveRecipes() {
-		return searchModeFaveRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users all recipe list in searchMode
-	 */
-	public List<Recipe> getSearchModeUserRecipes() {
-		return searchModeUserRecipes;
-	}
-
 	/**
 	 * updates the all lists of recipes when called
 	 */
@@ -296,5 +240,50 @@ public class RecipeManager {
 				searchModeOwnRecipes.add(recipe);
 			}
 		}
+	}
+	
+	/**
+	 * @return List of favorite recipes
+	 */
+	public List<Recipe> getFaveRecipes() {
+		return faveRecipes;
+	}
+
+	/**
+	 * @return List of user recipes
+	 */
+	public List<Recipe> getUserRecipes() {
+		return userRecipes;
+	}
+
+	/**
+	 * @return List of user's own recipes
+	 */
+	public List<Recipe> getOwnRecipes() {
+		return ownRecipes;
+	}
+	
+	/**
+	 * 
+	 * @return users own recipe list in search mode
+	 */
+	public List<Recipe> getSearchModeOwnRecipes() {
+		return searchModeOwnRecipes;
+	}
+	
+	/**
+	 * 
+	 * @return users favorite recipe list in searchMode
+	 */
+	public List<Recipe> getSearchModeFaveRecipes() {
+		return searchModeFaveRecipes;
+	}
+	
+	/**
+	 * 
+	 * @return users all recipe list in searchMode
+	 */
+	public List<Recipe> getSearchModeUserRecipes() {
+		return searchModeUserRecipes;
 	}
 }

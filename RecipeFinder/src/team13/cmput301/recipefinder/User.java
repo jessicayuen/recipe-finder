@@ -225,6 +225,4 @@ public class User {
 	public void setHasUsedApp(String hasUsedApp) {
 		this.hasUsedApp = hasUsedApp;
 	}
-
-
 }

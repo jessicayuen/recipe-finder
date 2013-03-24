@@ -52,7 +52,8 @@ class PicAdapter extends BaseAdapter {
 		final Dialog picDialog = new Dialog(galleryContext);
 		picDialog.setContentView(R.layout.custom_dialog_display);
 		picDialog.setCancelable(true);
-		ImageView imgView = (ImageView) picDialog.findViewById(R.id.enlargedImage);
+		ImageView imgView = 
+				(ImageView) picDialog.findViewById(R.id.enlargedImage);
 
 		/*
 		 * if we have image in the list then create a dialog to be
@@ -62,8 +63,10 @@ class PicAdapter extends BaseAdapter {
 		 */
 		if(imagePhotos.size() > 0){
 			imgView.setImageBitmap(imagePhotos.get(position).getPhoto());
-			Button imageDeleteButton = (Button) picDialog.findViewById(R.id.imgDeleteButton);
-			Button imageCancelButton = (Button) picDialog.findViewById(R.id.imgCancelButton);					
+			Button imageDeleteButton = 
+					(Button) picDialog.findViewById(R.id.imgDeleteButton);
+			Button imageCancelButton = 
+					(Button) picDialog.findViewById(R.id.imgCancelButton);					
 
 			imageDeleteButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {

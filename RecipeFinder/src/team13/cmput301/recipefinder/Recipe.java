@@ -128,6 +128,14 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
+	 * @return the String version of the recipe object
+	 */
+	public String toString() {
+		return "[ name: " + name + ", " + "author: " + 
+				author + ", " + "description: " + description + "]";
+	}
+	
+	/**
 	 * @return Recipe name
 	 */
 	public String getName() {
@@ -251,14 +259,6 @@ public class Recipe implements Serializable {
 	 */
 	public boolean isFave() {
 		return fave;
-	}
-
-	/**
-	 * @return the String version of the recipe object
-	 */
-	public String toString() {
-		return "[ name: " + name + ", " + "author: " + 
-				author + ", " + "description: " + description + "]";
 	}
 	
 	/**

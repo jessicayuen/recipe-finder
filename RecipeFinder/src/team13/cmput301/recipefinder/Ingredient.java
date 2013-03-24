@@ -1,3 +1,10 @@
+/**
+ * Holds the data for an Ingredient - the name and their quantity.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 public class Ingredient {

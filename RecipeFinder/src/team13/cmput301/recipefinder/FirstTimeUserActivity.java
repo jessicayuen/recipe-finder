@@ -63,7 +63,8 @@ public class FirstTimeUserActivity extends Activity {
 		}
 		
 		/* Try to connect to email server */
-		EmailSender emailSender = new EmailSender(email, password, host, port, sport);
+		EmailSender emailSender = new EmailSender(email, password, host,
+				port, sport);
 		String subject = "Confirmation for Recipe Finder";
 		String body = "Welcome to Recipe Finder! We hope you enjoy your " +
 				"experience.\n\n\n- The Recipe Finder team";

@@ -89,7 +89,8 @@ public class MainActivity extends Activity {
 	 */
 	public void searchRecipe(View view) {
 		Intent intent  = new Intent(this, SearchResultsActivity.class);
-		// Pass the search query string into the search activity as an intent extra.
+		// Pass the search query string into the 
+		// search activity as an intent extra.
 		String simpleSearchQuery = 
 				((EditText) findViewById(R.id.search_bar)).getText().toString();
 		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
@@ -107,23 +108,31 @@ public class MainActivity extends Activity {
 			ImageView imageView;
 
 			imageView = (ImageView) findViewById(R.id.faveTopLeft);
-			if (faveRecipes.get(0).getPhotos().size() > 0) 
-				imageView.setImageBitmap(faveRecipes.get(0).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(0).getPhotos().size() > 0)  {
+				imageView.setImageBitmap(faveRecipes.get(0).
+						getPhotos().get(0).getPhoto());
+			}
 			if (numFaves == 1) return;
 
 			imageView = (ImageView) findViewById(R.id.faveTopRight);
-			if (faveRecipes.get(1).getPhotos().size() > 0) 
-				imageView.setImageBitmap(faveRecipes.get(1).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(1).getPhotos().size() > 0) { 
+				imageView.setImageBitmap(faveRecipes.get(1).
+						getPhotos().get(0).getPhoto());
+			}
 			if (numFaves == 2) return;
 
 			imageView = (ImageView) findViewById(R.id.faveBottomLeft);
-			if (faveRecipes.get(2).getPhotos().size() > 0) 
-				imageView.setImageBitmap(faveRecipes.get(2).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(2).getPhotos().size() > 0) {
+				imageView.setImageBitmap(faveRecipes.get(2).
+						getPhotos().get(0).getPhoto());
+			}
 			if (numFaves == 3) return;
 
 			imageView = (ImageView) findViewById(R.id.faveBottomRight);
-			if (faveRecipes.get(3).getPhotos().size() > 0) 
-				imageView.setImageBitmap(faveRecipes.get(3).getPhotos().get(0).getPhoto());
+			if (faveRecipes.get(3).getPhotos().size() > 0) {
+				imageView.setImageBitmap(faveRecipes.get(3).
+						getPhotos().get(0).getPhoto());
+			}
 		}
 	}
 
@@ -131,7 +140,6 @@ public class MainActivity extends Activity {
 	 * Shows all recipe when user touches show all recipe text
 	 */
 	public void showAll(View view){
-
 		Intent displayRecipeIntent = new Intent(this, 
 				RecipeListActivity.class);
 		startActivity(displayRecipeIntent);

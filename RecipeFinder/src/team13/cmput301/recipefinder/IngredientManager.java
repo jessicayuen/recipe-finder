@@ -1,3 +1,11 @@
+/**
+ * Manages the list of ingredients including the saving and loading
+ * of them from disk.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder;
 
 import java.io.FileInputStream;
@@ -41,7 +49,7 @@ public class IngredientManager {
 	}
 
 	/**
-	 * Loads the user ingredients and storing the names into a list
+	 * Loads the user ingredients and stores the names into a list
 	 * to be used for autofilltextview
 	 * @param ctx Context
 	 */
@@ -73,8 +81,8 @@ public class IngredientManager {
 	}
 
 	/**
-	 * adds the ingredient into the list 
-	 * @param ingredient
+	 * Adds the ingredient into the list.
+	 * @param ingredient The ingredient to be added
 	 */
 	public void addNewIngredient(Ingredient ingredient) {
 		int index = getIngredientIndex(ingredient);
@@ -90,8 +98,8 @@ public class IngredientManager {
 	}
 	
 	/**
-	 * remove ingredients from the ingredient list
-	 * @param ingredient
+	 * Remove ingredients from the ingredient list.
+	 * @param ingredient The ingredient to remove
 	 */
 	public void removeIngredients(Ingredient ingredient) {
 		int index = getIngredientIndex(ingredient);
@@ -105,9 +113,14 @@ public class IngredientManager {
 		}
 	}
 	
+	/**
+	 * Save all ingredients into a file.
+	 * @param ctx Context
+	 */
 	public void saveAllIngredients(Context ctx) {
 		try {
-			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
+			FileOutputStream fos = 
+					ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(ingredients);
 			out.close();
@@ -116,27 +129,46 @@ public class IngredientManager {
 		}
 	}
 	
+	/**
+	 * @return The list of ingredients
+	 */
 	public List<Ingredient> getIngredientList() {
 		return ingredients;
 	}
 	
+	/**
+	 * @return The list of ingredients by name
+	 */
 	public List<String> getIngredientNamesList() {
 		return ingredientNames;
 	}
 	
+	/**
+	 * @param ingredList Set the list of ingredients
+	 */
 	public void setIngredientList(List<Ingredient> ingredList) {
 		this.ingredients = ingredList;
 	}
 	
+	/**
+	 * @param ingredNameList Set the list of ingredients by name
+	 */
 	public void setIngredNameList(List<String> ingredNameList) {
 		this.ingredientNames = ingredNameList;
 	}
 	
+	/**
+	 * Get the index of the ingredient in the list.
+	 * @param ingredient The ingredient to find the index of
+	 * @return The index
+	 */
 	public int getIngredientIndex(Ingredient ingredient) {
 		int index = 0;
 		for(Ingredient ingred : ingredients) {
-			if(ingredient.getIngredient().toLowerCase().startsWith(ingred.getIngredient().toLowerCase()) ||
-					ingred.getIngredient().toLowerCase().startsWith(ingredient.getIngredient().toLowerCase())){
+			if(ingredient.getIngredient().toLowerCase().
+					startsWith(ingred.getIngredient().toLowerCase()) ||
+					ingred.getIngredient().toLowerCase().
+					startsWith(ingredient.getIngredient().toLowerCase())){
 				return index;
 			}
 			index++;
