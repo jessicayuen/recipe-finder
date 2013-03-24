@@ -117,17 +117,17 @@ public class RecipeListActivity extends Activity {
 				if(id.equals("Favorite Recipe(s)")) {
 			        favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 			        favListAdapter.setRecipeList(favRecipes);
-			        favListView.setAdapter(favListAdapter);
+			       // favListView.setAdapter(favListAdapter);
 			    }
 				else if(id.equals("My Recipe(s)")) {
 			        ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
 			        ownListAdapter.setRecipeList(ownRecipes);
-			        myListView.setAdapter(ownListAdapter);
+			        //myListView.setAdapter(ownListAdapter);
 			    }
 				else {
 					allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 					allListAdapter.setRecipeList(allRecipes);
-					allListView.setAdapter(allListAdapter);
+					//allListView.setAdapter(allListAdapter);
 				}
 			}
 			

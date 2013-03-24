@@ -119,12 +119,13 @@ public class RecipeManager {
 		}
 	}
 
+	// TODO is this method even used...
 	/**
 	 * Add recipe to the favorite list.
 	 * @param recipe
 	 */
 	public void addRecipeToFave(Recipe recipe) {
-		if (userRecipes.contains(recipe)) {
+		if(userRecipes.contains(recipe)) {
 			faveRecipes.add(recipe);
 		}
 	}
@@ -170,36 +171,32 @@ public class RecipeManager {
 	 * @param recipe
 	 */
 	public void addToFavList(Recipe recipe) {
-		Recipe temp = recipe;
 		int allIndex = userRecipes.indexOf(recipe);
 		if(!faveRecipes.contains(recipe)){
-			temp.setFave(true);
+			recipe.setFave(true);
 			if(ownRecipes.contains(recipe)){
 				int ownIndex = ownRecipes.indexOf(recipe);
-				ownRecipes.set(ownIndex, temp);
+				ownRecipes.set(ownIndex, recipe);
 			}
-			faveRecipes.add(temp);
-			userRecipes.set(allIndex, temp);	
-
+			userRecipes.set(allIndex, recipe);
 			// TODO change it so that own list gets updated too
 		}
 	}
-
+	
 	/**
 	 * remove recipes from favorite list
 	 * @param recipe
 	 */
 	public void removeFromFavList(Recipe recipe) {
-		Recipe temp = recipe;
 		int index = userRecipes.indexOf(recipe);
 		if(faveRecipes.contains(recipe)){
-			temp.setFave(false);
+			faveRecipes.remove(recipe);
+			recipe.setFave(false);
 			if(ownRecipes.contains(recipe)){
 				int ownIndex = ownRecipes.indexOf(recipe);
-				ownRecipes.set(ownIndex, temp);
+				ownRecipes.set(ownIndex, recipe);
 			}
-			faveRecipes.remove(recipe);
-			userRecipes.set(index, temp);			
+			userRecipes.set(index, recipe);			
 		}
 	}
 }
