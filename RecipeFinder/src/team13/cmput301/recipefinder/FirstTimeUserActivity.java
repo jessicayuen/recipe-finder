@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,13 +24,6 @@ public class FirstTimeUserActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_first_time_user);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_first_time_user, menu);
-		return true;
 	}
 	
 	/**
@@ -71,11 +63,10 @@ public class FirstTimeUserActivity extends Activity {
 		}
 		
 		/* Try to connect to email server */
-		EmailSender emailSender = new EmailSender(email, password, host,
-				port, sport);
+		EmailSender emailSender = new EmailSender(email, password, host, port, sport);
 		String subject = "Confirmation for Recipe Finder";
-		String body = "Welcome to Recipe Finder! We hope you enjoy your experience.\n\n\n"
-				+ "- The Recipe Finder team";
+		String body = "Welcome to Recipe Finder! We hope you enjoy your " +
+				"experience.\n\n\n- The Recipe Finder team";
 		String to[] = new String[1];
 		to[0] = email;
 		if (!emailSender.send(subject, body, to)) {
@@ -90,6 +81,7 @@ public class FirstTimeUserActivity extends Activity {
         user.setEmailHost(host);
         user.setEmailPort(port);
         user.setEmailSocketPort(sport);
+        user.setHasUsedApp("1");
         user.saveUserSettings(this);
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -122,4 +114,10 @@ public class FirstTimeUserActivity extends Activity {
 				break;
 		}
 	}
+	
+	@Override
+	/**
+	 * Disable back button from being pressed.
+	 */
+	public void onBackPressed() {}
 }

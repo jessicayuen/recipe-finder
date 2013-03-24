@@ -1,5 +1,5 @@
 /**
- * Sends a email to the recipient using the User's email.
+ * Sends a email to the recipient using the email's email.
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
@@ -28,7 +28,7 @@ import javax.mail.internet.MimeMultipart;
 
 
 public class EmailSender extends javax.mail.Authenticator { 
-	private String user; 
+	private String email; 
 	private String pass; 
 	
 	private String port; 
@@ -40,32 +40,38 @@ public class EmailSender extends javax.mail.Authenticator {
 
 	/**
 	 * Constructor for creating a email sender. Uses the email
-	 * in the user's settings.
+	 * in the email's settings.
 	 */
 	public EmailSender() { 
 		host = User.getUser().getEmailHost();
 		port = User.getUser().getEmailPort();
 		sport = User.getUser().getEmailSocketPort();
-		user = User.getUser().getEmail(); 
+		email = User.getUser().getEmail(); 
 		pass = User.getUser().getEmailPassword(); 
 		
 		multipart = new MimeMultipart(); 
 
-		// There is something wrong with MailCap, javamail cannot find a handler 
-		// for the multipart/mixed part, so this bit needs to be added. 
-		MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap(); 
-		mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html"); 
-		mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml"); 
-		mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain"); 
-		mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed"); 
-		mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822"); 
+		// There is something wrong with MailCap, javamail cannot find a 
+		// handler for the multipart/mixed part, so this bit needs to be added.
+		MailcapCommandMap mc = 
+				(MailcapCommandMap) CommandMap.getDefaultCommandMap(); 
+		mc.addMailcap("text/html;; " +
+				"x-java-content-handler=com.sun.mail.handlers.text_html"); 
+		mc.addMailcap("text/xml;; " +
+				"x-java-content-handler=com.sun.mail.handlers.text_xml"); 
+		mc.addMailcap("text/plain;; " +
+				"x-java-content-handler=com.sun.mail.handlers.text_plain"); 
+		mc.addMailcap("multipart/*;; " +
+				"x-java-content-handler=com.sun.mail.handlers.multipart_mixed"); 
+		mc.addMailcap("message/rfc822;; " +
+				"x-java-content-handler=com.sun.mail.handlers.message_rfc822"); 
 		CommandMap.setDefaultCommandMap(mc); 
 	} 
 
-	public EmailSender(String user, String pass, String host, 
+	public EmailSender(String email, String pass, String host, 
 			String port, String sport) {
-		super();
-		this.user = user;
+		this();
+		this.email = email;
 		this.pass = pass;
 		this.host = host;
 		this.port = port;
@@ -79,10 +85,12 @@ public class EmailSender extends javax.mail.Authenticator {
 	 * @param to The recipient
 	 * @return true if successfully sent, false otherwise
 	 */
-	public boolean send(final String subject, final String body, final String[] to) {
+	public boolean send(final String subject, final String body, 
+			final String[] to) {
+		
 		final Properties props = setProperties(); 
-		SendEmail sendEmail = 
-				new SendEmail(props, EmailSender.this, user, subject, body, to, multipart);
+		SendEmail sendEmail = new SendEmail(props, EmailSender.this, email, 
+				subject, body, to, multipart);
 		
 		if(!to.equals("")) { 
 			Thread thread = new Thread(sendEmail);
@@ -116,10 +124,10 @@ public class EmailSender extends javax.mail.Authenticator {
 
 	@Override 
 	/**
-	 * Authenticate user email and user password
+	 * Authenticate email email and email password
 	 */
 	public PasswordAuthentication getPasswordAuthentication() { 
-		return new PasswordAuthentication(user, pass); 
+		return new PasswordAuthentication(email, pass); 
 	} 
 
 	/**
@@ -131,10 +139,11 @@ public class EmailSender extends javax.mail.Authenticator {
 
 		props.put("mail.smtp.host", host); 
 		props.put("mail.smtp.auth", "true"); 
-		
+
 		props.put("mail.smtp.port", port); 
 		props.put("mail.smtp.socketFactory.port", sport); 
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); 
+		props.put("mail.smtp.socketFactory.class", 
+				"javax.net.ssl.SSLSocketFactory"); 
 		props.put("mail.smtp.socketFactory.fallback", "false"); 
 
 		return props; 
@@ -148,23 +157,36 @@ public class EmailSender extends javax.mail.Authenticator {
 		
 		private Properties props;
 		private Authenticator auth;
-		private String user, subject, body;
+		private String email, subject, body;
 		private String[] to;
 		private Multipart multipart;
 		private boolean sent = false;
 		
+		/**
+		 * Constructor for SendEmail
+		 * @param props Properties for the email server
+		 * @param auth Authentication for the email and password
+		 * @param email Sender's email
+		 * @param subject Subject of the email
+		 * @param body Body of the email
+		 * @param to Recipients of the email
+		 * @param multipart Multipart for the body of the message
+		 */
 		public SendEmail(Properties props, Authenticator auth,
-				String user, String subject,
+				String email, String subject,
 				String body, String[] to, Multipart multipart) {
 			this.props = props;
 			this.auth = auth;
-			this.user = user;
+			this.email = email;
 			this.subject = subject;
 			this.body = body;
 			this.to = to;
 			this.multipart = multipart;
 		}
 		
+		/**
+		 * Run the thread - send the email
+		 */
 		public void run() {
 			Session session = Session.getInstance(props, auth); 
 
@@ -176,7 +198,7 @@ public class EmailSender extends javax.mail.Authenticator {
 					addressesTo[i] = new InternetAddress(to[i]);
 				}
 				
-				msg.setFrom(new InternetAddress(user)); 
+				msg.setFrom(new InternetAddress(email)); 
 				msg.setSubject(subject); 
 				msg.setSentDate(new Date()); 
 				msg.setRecipients(MimeMessage.RecipientType.TO, addressesTo);
@@ -197,6 +219,9 @@ public class EmailSender extends javax.mail.Authenticator {
 			}
 		}
 		
+		/**
+		 * @return Whether the email was sent.
+		 */
 		public boolean isSent() {
 			return sent;
 		}

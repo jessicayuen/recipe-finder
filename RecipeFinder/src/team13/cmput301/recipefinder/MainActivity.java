@@ -26,6 +26,9 @@ public class MainActivity extends Activity {
 	IngredientManager im;
 
 	@Override
+	/**
+	 * Load user settings and recipes from the previous session.
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -40,15 +43,6 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, FirstTimeUserActivity.class);
 			startActivity(intent);
 		}
-
-		// test start - remove in finished product
-		user.setUsername("Mr. Tomato Man");
-		user.setEmail("cmput301w13t13@gmail.com");
-		user.setEmailPassword("ualberta");
-		user.setEmailHost("smtp.gmail.com");
-		user.setEmailPort("465");
-		user.setEmailSocketPort("465");
-		// test end - remove in finished product
 
 		/* load ingredients*/
 		im = IngredientManager.getIngredientManager();
@@ -88,6 +82,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
+	/**
+	 * Listen for click on 'Search' perform a query based
+	 * on the user's input.
+	 * @param view The current activity view
+	 */
 	public void searchRecipe(View view) {
 		Intent intent  = new Intent(this, SearchResultsActivity.class);
 		// Pass the search query string into the search activity as an intent extra.
