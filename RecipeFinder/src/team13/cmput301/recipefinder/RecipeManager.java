@@ -154,14 +154,26 @@ public class RecipeManager {
 		return ownRecipes;
 	}
 	
+	/**
+	 * 
+	 * @return users own recipe list in search mode
+	 */
 	public List<Recipe> getSearchModeOwnRecipes() {
 		return searchModeOwnRecipes;
 	}
 	
+	/**
+	 * 
+	 * @return users favorite recipe list in searchMode
+	 */
 	public List<Recipe> getSearchModeFaveRecipes() {
 		return searchModeFaveRecipes;
 	}
 	
+	/**
+	 * 
+	 * @return users all recipe list in searchMode
+	 */
 	public List<Recipe> getSearchModeUserRecipes() {
 		return searchModeUserRecipes;
 	}
@@ -191,8 +203,10 @@ public class RecipeManager {
 	}
 
 	/**
-	 * add recipes to favorite list
+	 * add recipes to favorite list if searchMode is true then parse 
+	 * searchMode recipe lists for the recipe
 	 * @param recipe
+	 * @param searchMode
 	 */
 	public void addToFavList(Recipe recipe, boolean searchMode) {
 		
@@ -224,8 +238,10 @@ public class RecipeManager {
 	}
 	
 	/**
-	 * remove recipes from favorite list
+	 * remove recipes from favorite list, if searchMode is true then parse
+	 * the searchMode recipe list for the recipe
 	 * @param recipe
+	 * @param searchMode
 	 */
 	public void removeFromFavList(Recipe recipe, boolean searchMode) {
 		if(searchMode){
@@ -255,6 +271,11 @@ public class RecipeManager {
 		}
 	}
 	
+	/**
+	 * parse the lists of recipes and stores recipes with names containing
+	 * key param into the searchModeRecipe lists
+	 * @param key
+	 */
 	public void findRecipesWithKeyWord(String key) {
 		searchModeFaveRecipes = new ArrayList<Recipe>();
 		searchModeOwnRecipes = new ArrayList<Recipe>();

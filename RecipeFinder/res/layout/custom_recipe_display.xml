@@ -7,8 +7,8 @@
         android:id="@+id/favStarButton"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
         android:src="@android:drawable/star_big_off" />
 
     <ImageView
@@ -34,15 +34,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/authorBox"
+        android:layout_below="@+id/recipePicture"
         android:text="Button" />
+
+    <TextView
+        android:id="@+id/descriptionBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/recipePicture"
+        android:layout_below="@+id/recipePicture"
+        android:layout_toLeftOf="@+id/removeRecipe"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/recipeNameDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/favStarButton"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="15dp"
+        android:layout_toLeftOf="@+id/recipeRating"
         android:layout_toRightOf="@+id/recipePicture"
         android:text="TextView" />
 
@@ -50,19 +60,9 @@
         android:id="@+id/authorBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/recipeNameDisplay"
-        android:layout_alignBottom="@+id/recipeNameDisplay"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/recipeNameDisplay"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/descriptionBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/removeRecipe"
-        android:layout_alignBottom="@+id/removeRecipe"
-        android:layout_alignRight="@+id/recipePicture"
+        android:layout_alignLeft="@+id/recipeNameDisplay"
+        android:layout_alignRight="@+id/recipeNameDisplay"
+        android:layout_below="@+id/recipeNameDisplay"
         android:text="TextView" />
 
 </RelativeLayout>

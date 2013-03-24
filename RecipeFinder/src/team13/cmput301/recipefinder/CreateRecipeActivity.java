@@ -249,7 +249,7 @@ public class CreateRecipeActivity extends Activity {
 
 
 	/**
-	 * over ride the createdialog and make it custom to allow for list and multi
+	 * override the createdialog and make it customized to allow for list and multi
 	 * check mark display of either ingredients or instructions
 	 * @param choice the list that user chose to display
 	 */

@@ -88,7 +88,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
 		name.setTextSize(fontSize);
-		descr.setText(recipe.getName());
+		name.setText(recipe.getName());
 		
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
 		if(recipe.getPhotos().size() > 0){
@@ -119,6 +119,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		return convertView;
 	}
 
+	/**
+	 * listens to button clicks on a recipe be it the favorite button or
+	 * remove button
+	 */
 	@Override
 	public void onClick(View v) {
 		TempRecipe tRecipe = (TempRecipe)v.getTag();
@@ -132,7 +136,6 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 				//remove recipe from fav if it is already favorited
 				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
 			}
-			// TODO find where in code is the fav recipe being added twice
 
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;

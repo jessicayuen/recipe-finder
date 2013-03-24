@@ -166,6 +166,11 @@ public class RecipeListActivity extends Activity {
 		super.onPause();
 	}
 
+	/**
+	 * checks for user text input when called if user has entered a string
+	 * then refresh the list view to display result of the search
+	 * @param view
+	 */
 	public void localRecipeSearch(View view){
 		EditText searchTextBox = (EditText)findViewById(R.id.searchBar);
 		String searchString = searchTextBox.getText().toString();
@@ -191,6 +196,10 @@ public class RecipeListActivity extends Activity {
 		}
 	}
 
+	/**
+	 * refreshes the view of list of recipes to full list view when called
+	 * @param view
+	 */
 	public void viewAllRecipes(View view){
 		inSearchMode = false;
 		
