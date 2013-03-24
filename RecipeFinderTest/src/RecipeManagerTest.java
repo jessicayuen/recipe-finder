@@ -36,7 +36,7 @@ public class RecipeManagerTest
 				rm.getUserRecipes().size() - 1), recipe);
 		
 		// Adding to favorites recipe list
-		rm.addRecipeToFave(recipe);
+		rm.addToFavList(recipe, false);
 		assertEquals(rm.getFaveRecipes().get(
 				rm.getFaveRecipes().size() - 1), recipe);
 	}
