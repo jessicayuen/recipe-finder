@@ -166,7 +166,7 @@ public class RecipeListActivity extends Activity {
 		super.onPause();
 	}
 
-	public void localRecipeSearch(){
+	public void localRecipeSearch(View view){
 		EditText searchTextBox = (EditText)findViewById(R.id.localSearch);
 		String searchString = searchTextBox.getText().toString();
 		
@@ -191,7 +191,7 @@ public class RecipeListActivity extends Activity {
 		}
 	}
 
-	public void viewAllRecipes(){
+	public void viewAllRecipes(View view){
 		inSearchMode = false;
 		
 		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
