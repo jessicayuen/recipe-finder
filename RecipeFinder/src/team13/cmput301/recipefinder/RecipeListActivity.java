@@ -9,10 +9,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 
 public class RecipeListActivity extends Activity {
 
@@ -21,6 +23,7 @@ public class RecipeListActivity extends Activity {
 	private List<Recipe> ownRecipes;
 	private CustomListAdapter ownListAdapter, allListAdapter, favListAdapter;
 	private ListView myListView, allListView, favListView;
+	private boolean inSearchMode = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class RecipeListActivity extends Activity {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", position);
+				("recipe", position);
 				startActivity(displayIntent);
 				finish();
 			}
@@ -64,13 +67,13 @@ public class RecipeListActivity extends Activity {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", recipeIndex);
+				("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
 		});
 		favListView.setAdapter(favListAdapter);
-		
+
 		/*
 		 * set up view to display users recipes when under my recipes view
 		 */
@@ -81,7 +84,7 @@ public class RecipeListActivity extends Activity {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
 						DisplayRecipeActivity.class);
 				displayIntent.putExtra
-					("recipe", recipeIndex);
+				("recipe", recipeIndex);
 				startActivity(displayIntent);
 				finish();
 			}
@@ -106,7 +109,7 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(allTab);
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
-		
+
 		/*
 		 * handle change to a tab to refresh all the tabs 
 		 */
@@ -115,22 +118,36 @@ public class RecipeListActivity extends Activity {
 			@Override
 			public void onTabChanged(String id) {
 				if(id.equals("Favorite Recipe(s)")) {
-			        favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
-			        favListAdapter.setRecipeList(favRecipes);
-			       // favListView.setAdapter(favListAdapter);
-			    }
+					if(inSearchMode){
+						favRecipes = RecipeManager.getRecipeManager()
+								.getSearchModeFaveRecipes();
+						favListAdapter.setRecipeList(favRecipes, inSearchMode);
+					} else {
+						favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
+						favListAdapter.setRecipeList(favRecipes, inSearchMode);
+					}
+				}
 				else if(id.equals("My Recipe(s)")) {
-			        ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
-			        ownListAdapter.setRecipeList(ownRecipes);
-			        //myListView.setAdapter(ownListAdapter);
-			    }
-				else {
-					allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-					allListAdapter.setRecipeList(allRecipes);
-					//allListView.setAdapter(allListAdapter);
+					if(inSearchMode){
+						ownRecipes = RecipeManager.getRecipeManager()
+								.getSearchModeOwnRecipes();
+						ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+					} else {
+						ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
+						ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+					}
+				} else {
+					if(inSearchMode){
+						allRecipes = RecipeManager.getRecipeManager()
+								.getSearchModeUserRecipes();
+						allListAdapter.setRecipeList(allRecipes, inSearchMode);
+					} else {
+						allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
+						allListAdapter.setRecipeList(allRecipes, inSearchMode);
+					}
 				}
 			}
-			
+
 		});
 
 		recipeListTabs.setCurrentTab(0);
@@ -148,5 +165,42 @@ public class RecipeListActivity extends Activity {
 				RecipeManager.getRecipeManager().getUserRecipes(), this);
 		super.onPause();
 	}
-	
+
+	public void localRecipeSearch(){
+		EditText searchTextBox = (EditText)findViewById(R.id.localSearch);
+		String searchString = searchTextBox.getText().toString();
+		
+		if(!searchString.equals("")){
+			inSearchMode = true;
+			RecipeManager.getRecipeManager().findRecipesWithKeyWord(searchString);
+			
+			ownRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeOwnRecipes();
+			ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+			
+			favRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeFaveRecipes();
+			favListAdapter.setRecipeList(favRecipes, inSearchMode);
+			
+			allRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeUserRecipes();
+			allListAdapter.setRecipeList(allRecipes, inSearchMode);
+		} else {
+			Toast toast = Toast.makeText(this, "No Text Entered", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
+
+	public void viewAllRecipes(){
+		inSearchMode = false;
+		
+		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
+		ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+		
+		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
+		allListAdapter.setRecipeList(allRecipes, inSearchMode);
+		
+		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
+		favListAdapter.setRecipeList(favRecipes, inSearchMode);
+	}
 }

@@ -23,10 +23,12 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	private final int authorWidth = 10;
 	private static final int FAV_BUTTON_CLICK = 1;
 	private static final int REMOVE_BUTTON_CLICK = 2;
+	private boolean searchMode;
 
 	public CustomListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
 		this.recipeList = recipeList;
+		this.searchMode = false;
 	}
 	
 	public class TempRecipe {
@@ -39,7 +41,8 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		}
 	}
 	
-	public void setRecipeList(List<Recipe> list){
+	public void setRecipeList(List<Recipe> list, boolean searchMode){
+		this.searchMode = searchMode;
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
@@ -119,11 +122,11 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			Recipe recipe = tRecipe.recipe;
 			if(!recipe.isFave()){
 				// add the recipe to favorites
-				RecipeManager.getRecipeManager().addToFavList(recipe);
+				RecipeManager.getRecipeManager().addToFavList(recipe, searchMode);
 			}
 			else{
 				//remove recipe from fav if it is already favorited
-				RecipeManager.getRecipeManager().removeFromFavList(recipe);
+				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
 			}
 			// TODO find where in code is the fav recipe being added twice
 

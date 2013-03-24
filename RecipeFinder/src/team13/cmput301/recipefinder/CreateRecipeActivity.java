@@ -155,13 +155,9 @@ public class CreateRecipeActivity extends Activity {
 				if(tempStr.length() != 0) {
 					if(!ingredients.contains(tempStr)){
 						ingredients.add(tempStr);
-						addIngredients.setText("");
 						contentChanged = true;
-					} else {
-						toast = Toast.makeText(CreateRecipeActivity.this,
-								"Ingredient Already Exist", Toast.LENGTH_SHORT);
-						toast.show();
 					}
+					addIngredients.setText("");
 				} else {
 					toast = Toast.makeText(CreateRecipeActivity.this,
 							"No Text Entered", Toast.LENGTH_SHORT);
