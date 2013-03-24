@@ -9,11 +9,9 @@ package team13.cmput301.recipefinder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -63,7 +61,7 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 			instructions.add("Smash the apples and oranges together");
 			recipe = new Recipe("Hamburger", 
 					"This is some description. BlahBlah.",
-					"=)", ingredients, instructions, new ArrayList<Photo>());
+					User.getUser().getUsername(), ingredients, instructions, new ArrayList<Photo>());
 			displayRecipe();
 		}
 

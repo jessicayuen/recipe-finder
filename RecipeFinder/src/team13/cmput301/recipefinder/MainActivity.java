@@ -15,15 +15,10 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -50,6 +45,9 @@ public class MainActivity extends Activity {
 		user.setUsername("Mr. Tomato Man");
 		user.setEmail("cmput301w13t13@gmail.com");
 		user.setEmailPassword("ualberta");
+		user.setEmailHost("smtp.gmail.com");
+		user.setEmailPort("465");
+		user.setEmailSocketPort("465");
 		// test end - remove in finished product
 
 		/* load ingredients*/
