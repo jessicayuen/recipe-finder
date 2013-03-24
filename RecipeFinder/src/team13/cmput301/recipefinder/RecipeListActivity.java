@@ -24,6 +24,7 @@ public class RecipeListActivity extends Activity {
 	private CustomListAdapter ownListAdapter, allListAdapter, favListAdapter;
 	private ListView myListView, allListView, favListView;
 	private boolean inSearchMode = false;
+	private TabHost recipeListTabs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class RecipeListActivity extends Activity {
 		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
 		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
 
-		TabHost recipeListTabs = (TabHost)findViewById(R.id.tabView);
+		recipeListTabs = (TabHost)findViewById(R.id.tabView);
 		allListView = (ListView)findViewById(R.id.allRecipeList);
 		favListView = (ListView)findViewById(R.id.favRecipeList);
 		myListView = (ListView)findViewById(R.id.myRecipeList);
@@ -50,7 +51,6 @@ public class RecipeListActivity extends Activity {
 				displayIntent.putExtra
 				("recipe", position);
 				startActivity(displayIntent);
-				finish();
 			}
 		});
 
@@ -69,7 +69,6 @@ public class RecipeListActivity extends Activity {
 				displayIntent.putExtra
 				("recipe", recipeIndex);
 				startActivity(displayIntent);
-				finish();
 			}
 		});
 		favListView.setAdapter(favListAdapter);
@@ -86,11 +85,10 @@ public class RecipeListActivity extends Activity {
 				displayIntent.putExtra
 				("recipe", recipeIndex);
 				startActivity(displayIntent);
-				finish();
 			}
 		});
 		myListView.setAdapter(ownListAdapter);
-
+		
 		recipeListTabs.setup();
 
 		//Add the tabs to display
@@ -110,6 +108,76 @@ public class RecipeListActivity extends Activity {
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
 
+	}
+
+	@Override
+	protected void onResume(){
+		setUpTabs();
+		super.onResume();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.recipe_list, menu);
+		return true;
+	}
+
+	@Override
+	protected void onPause() {
+		RecipeManager.getRecipeManager().AddToUserRecipe(
+				RecipeManager.getRecipeManager().getUserRecipes(), this);
+		super.onPause();
+	}
+
+	/**
+	 * checks for user text input when called if user has entered a string
+	 * then refresh the list view to display result of the search
+	 * @param view
+	 */
+	public void localRecipeSearch(View view){
+		EditText searchTextBox = (EditText)findViewById(R.id.searchBar);
+		String searchString = searchTextBox.getText().toString();
+
+		if(!searchString.equals("")){
+			inSearchMode = true;
+			RecipeManager.getRecipeManager().findRecipesWithKeyWord(searchString);
+
+			ownRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeOwnRecipes();
+			ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+
+			favRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeFaveRecipes();
+			favListAdapter.setRecipeList(favRecipes, inSearchMode);
+
+			allRecipes = RecipeManager.getRecipeManager()
+					.getSearchModeUserRecipes();
+			allListAdapter.setRecipeList(allRecipes, inSearchMode);
+		} else {
+			Toast toast = Toast.makeText(this, "No Text Entered", Toast.LENGTH_SHORT);
+			toast.show();
+		}
+	}
+
+	/**
+	 * refreshes the view of list of recipes to full list view when called
+	 * @param view
+	 */
+	public void viewAllRecipes(View view){
+		inSearchMode = false;
+
+		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
+		ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
+
+		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
+		allListAdapter.setRecipeList(allRecipes, inSearchMode);
+
+		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
+		favListAdapter.setRecipeList(favRecipes, inSearchMode);
+	}
+
+	private void setUpTabs() {
 		/*
 		 * handle change to a tab to refresh all the tabs 
 		 */
@@ -151,65 +219,5 @@ public class RecipeListActivity extends Activity {
 		});
 
 		recipeListTabs.setCurrentTab(0);
-	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.recipe_list, menu);
-		return true;
-	}
-
-	@Override
-	protected void onPause() {
-		RecipeManager.getRecipeManager().AddToUserRecipe(
-				RecipeManager.getRecipeManager().getUserRecipes(), this);
-		super.onPause();
-	}
-
-	/**
-	 * checks for user text input when called if user has entered a string
-	 * then refresh the list view to display result of the search
-	 * @param view
-	 */
-	public void localRecipeSearch(View view){
-		EditText searchTextBox = (EditText)findViewById(R.id.searchBar);
-		String searchString = searchTextBox.getText().toString();
-		
-		if(!searchString.equals("")){
-			inSearchMode = true;
-			RecipeManager.getRecipeManager().findRecipesWithKeyWord(searchString);
-			
-			ownRecipes = RecipeManager.getRecipeManager()
-					.getSearchModeOwnRecipes();
-			ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
-			
-			favRecipes = RecipeManager.getRecipeManager()
-					.getSearchModeFaveRecipes();
-			favListAdapter.setRecipeList(favRecipes, inSearchMode);
-			
-			allRecipes = RecipeManager.getRecipeManager()
-					.getSearchModeUserRecipes();
-			allListAdapter.setRecipeList(allRecipes, inSearchMode);
-		} else {
-			Toast toast = Toast.makeText(this, "No Text Entered", Toast.LENGTH_SHORT);
-			toast.show();
-		}
-	}
-
-	/**
-	 * refreshes the view of list of recipes to full list view when called
-	 * @param view
-	 */
-	public void viewAllRecipes(View view){
-		inSearchMode = false;
-		
-		ownRecipes = RecipeManager.getRecipeManager().getOwnRecipes();
-		ownListAdapter.setRecipeList(ownRecipes, inSearchMode);
-		
-		allRecipes = RecipeManager.getRecipeManager().getUserRecipes();
-		allListAdapter.setRecipeList(allRecipes, inSearchMode);
-		
-		favRecipes = RecipeManager.getRecipeManager().getFaveRecipes();
-		favListAdapter.setRecipeList(favRecipes, inSearchMode);
 	}
 }
