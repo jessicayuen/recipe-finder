@@ -178,7 +178,7 @@ public class RecipeManager {
 				int ownIndex = ownRecipes.indexOf(recipe);
 				ownRecipes.set(ownIndex, temp);
 			}
-			faveRecipes.add(recipe);
+			faveRecipes.add(temp);
 			userRecipes.set(allIndex, temp);	
 
 			// TODO change it so that own list gets updated too
