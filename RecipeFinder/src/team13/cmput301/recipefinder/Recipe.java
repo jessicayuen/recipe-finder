@@ -266,6 +266,5 @@ public class Recipe implements Serializable {
 	 */
 	public void setFave(boolean fave) {
 		this.fave = fave;
-		RecipeManager.getRecipeManager().addRecipeToFave(this);
 	}
 }

@@ -167,17 +167,19 @@ public class RecipeManager {
 	}
 
 	/**
-	 * add recipes from favorite list
+	 * add recipes to favorite list
 	 * @param recipe
 	 */
 	public void addToFavList(Recipe recipe) {
 		int allIndex = userRecipes.indexOf(recipe);
 		if(!faveRecipes.contains(recipe)){
-			recipe.setFave(true);
 			if(ownRecipes.contains(recipe)){
 				int ownIndex = ownRecipes.indexOf(recipe);
+				recipe.setFave(true);
 				ownRecipes.set(ownIndex, recipe);
 			}
+			recipe.setFave(true);
+			faveRecipes.add(recipe);
 			userRecipes.set(allIndex, recipe);
 			// TODO change it so that own list gets updated too
 		}
