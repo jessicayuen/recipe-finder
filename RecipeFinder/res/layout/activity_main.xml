@@ -13,15 +13,15 @@
         android:text="@string/fave"
         android:textSize="20sp" />
 
-    <TextView
+    <Button
         android:id="@+id/view_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/fave"
         android:layout_toRightOf="@+id/fave"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:onClick="showAll"
+        android:text="View All" />
 
     <Button
         android:id="@+id/create_my_own"
