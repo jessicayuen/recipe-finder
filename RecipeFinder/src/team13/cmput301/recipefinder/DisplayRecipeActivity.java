@@ -267,6 +267,15 @@ public class DisplayRecipeActivity extends Activity
 		irt.execute(recipe);
 	}
 	
+	/**
+	 * Add recipe to the list of favorites on button click
+	 * @param view
+	 */
+	public void addToFave(View view) {
+		RecipeManager rm = RecipeManager.getRecipeManager();
+		rm.addToFavList(recipe, false);
+	}
+	
 	@Override
 	public void onTaskCompletion(String message) {
 		Toast.makeText(DisplayRecipeActivity.this, message, 
@@ -289,6 +298,7 @@ public class DisplayRecipeActivity extends Activity
 		((Button)findViewById(R.id.publish)).setTypeface(typeface);
 		((Button)findViewById(R.id.share)).setTypeface(typeface);
 		((Button)findViewById(R.id.addPhoto)).setTypeface(typeface);
+		((Button)findViewById(R.id.fave_button)).setTypeface(typeface);
 	}
 
 }
