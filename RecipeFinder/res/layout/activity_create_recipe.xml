@@ -70,8 +70,12 @@
                 android:layout_alignTop="@+id/descrText"
                 android:layout_toLeftOf="@+id/addIngredientsButn"
                 android:layout_toRightOf="@+id/instructionText"
-                android:ems="10"
-                android:minLines="5" />
+                android:ems="10" 
+                android:gravity="top|left"
+                android:singleLine="false"
+                android:lines="5"
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="false" />
 
             <AutoCompleteTextView
                 android:id="@+id/addIngredients"
