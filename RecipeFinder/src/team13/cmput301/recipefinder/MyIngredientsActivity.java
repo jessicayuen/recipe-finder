@@ -72,6 +72,10 @@ public class MyIngredientsActivity extends Activity {
 					int duration = Toast.LENGTH_SHORT;
 					Context context = getApplicationContext();
 					Toast.makeText(context,"ingredient Already exists", duration).show();
+					quantity = Float.parseFloat(ingQuantity);
+					ingredient = new Ingredient(ingName, quantity);
+					IngredientManager.getIngredientManager().addNewIngredient(ingredient);
+					
 				}
 				if (!ingName.matches("") && checkItem(checkedItem) == false){
 					
@@ -81,6 +85,11 @@ public class MyIngredientsActivity extends Activity {
 					
 					quantity = Float.parseFloat(ingQuantity);
 					ingredient = new Ingredient(ingName, quantity);
+					
+					if(quantity == 0){
+						quantity = quantity + 1;
+					}
+					
 					listofingredients.add(ingName);
 					listofquantity.add(quantity);
 					addItems();
@@ -171,7 +180,7 @@ public class MyIngredientsActivity extends Activity {
 	private void addItems(){
 		IngredientManager.getIngredientManager().addNewIngredient(ingredient);
 	
-		listofItems.add(ingName + " : " + ingQuantity);
+		listofItems.add(ingName + " : " + quantity);
 		myList.setAdapter(adapter);
 		
 	}
