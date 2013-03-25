@@ -75,4 +75,22 @@
 
     </EditText>
 
+    <Button
+        android:id="@+id/minusPH"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/listOfIng"
+        android:text="minus" />
+
+    <Button
+        android:id="@+id/plusPH"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listOfIng"
+        android:layout_toLeftOf="@+id/minusPH"
+        android:text="plus" />
+
 </RelativeLayout>
