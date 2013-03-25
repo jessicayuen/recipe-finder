@@ -44,5 +44,8 @@
     <string name="port">Port:</string>
     <string name="sport">sPort:</string>
     <string name="next">Next</string>
+    <color name="grey">#5b5b5b</color>
+    <color name="white">#FFFFFF</color>
+    <color name="button">#596155</color>
 
 </resources>
