@@ -78,11 +78,10 @@
         android:id="@+id/searchBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/viewAll"
         android:layout_alignParentBottom="true"
-        android:ems="7"
-        android:layout_marginLeft="20dp"
-        android:inputType="textMultiLine" >
+        android:layout_toRightOf="@+id/viewAll"
+        android:ems="9"
+        android:singleLine="true" >
 
         <requestFocus />
     </EditText>
@@ -92,9 +91,9 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/tabView"
         android:layout_alignRight="@+id/tabView"
+        android:layout_alignTop="@+id/searchBar"
+        android:layout_below="@+id/tabView"
         android:layout_toRightOf="@+id/searchBar"
         android:onClick="localRecipeSearch"
         android:text="Search" />
@@ -104,10 +103,10 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tabView"
-        android:layout_alignBottom="@+id/searchBar"
-        android:onClick="viewAllRecipes"
         android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/searchBar"
+        android:layout_below="@+id/tabView"
+        android:onClick="viewAllRecipes"
         android:text="All" />
 
 </RelativeLayout>
