@@ -267,6 +267,15 @@ public class DisplayRecipeActivity extends Activity
 		irt.execute(recipe);
 	}
 	
+	/**
+	 * Add recipe to the list of favorites on button click
+	 * @param view
+	 */
+	public void addToFave(View view) {
+		RecipeManager rm = RecipeManager.getRecipeManager();
+		rm.addToFavList(recipe, false);
+	}
+	
 	@Override
 	public void onTaskCompletion(String message) {
 		Toast.makeText(DisplayRecipeActivity.this, message, 

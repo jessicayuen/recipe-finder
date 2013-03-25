@@ -176,6 +176,18 @@
                 android:onClick="shareRecipe"
                 android:text="@string/share"
                 android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/fave_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/gallery"
+                android:layout_alignParentBottom="true"
+                android:minHeight="36dp"
+                android:onClick="addToFave"
+                android:text="Add to Fave"
+                android:textSize="15sp" />
+
         </RelativeLayout>
     </ScrollView>
 
