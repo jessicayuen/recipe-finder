@@ -136,12 +136,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			Recipe recipe = tRecipe.recipe;
 			if(!recipe.isFave()){
 				// add the recipe to favorites
-				fav.setBackgroundResource(R.drawable.star);
 				RecipeManager.getRecipeManager().addToFavList(recipe, searchMode);
 			}
 			else{
 				//remove recipe from fav if it is already favorited
-				fav.setBackgroundResource(R.drawable.staroff);
 				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
 			}
 
