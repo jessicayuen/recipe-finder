@@ -24,6 +24,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	private final int authorWidth = 10;
 	private static final int FAV_BUTTON_CLICK = 1;
 	private static final int REMOVE_BUTTON_CLICK = 2;
+	private ImageButton fav;
 	private boolean searchMode;
 
 	public CustomListAdapter(Context context, List<Recipe> recipeList) {
@@ -75,9 +76,13 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.custom_recipe_display, null);
 		}
-		ImageButton fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
+		fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
 		//add fav star clicked or not here
-		
+		if(recipe.isFave()){
+			fav.setBackgroundResource(R.drawable.star);
+		} else {
+			fav.setBackgroundResource(R.drawable.staroff);
+		}
 		fav.setFocusableInTouchMode(false);
 		fav.setFocusable(false);
 		fav.setOnClickListener(this);		
@@ -131,10 +136,12 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			Recipe recipe = tRecipe.recipe;
 			if(!recipe.isFave()){
 				// add the recipe to favorites
+				fav.setBackgroundResource(R.drawable.star);
 				RecipeManager.getRecipeManager().addToFavList(recipe, searchMode);
 			}
 			else{
 				//remove recipe from fav if it is already favorited
+				fav.setBackgroundResource(R.drawable.staroff);
 				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
 			}
 

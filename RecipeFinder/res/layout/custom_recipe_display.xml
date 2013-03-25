@@ -5,11 +5,11 @@
 
     <ImageButton
         android:id="@+id/favStarButton"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="10dp"
-        android:src="@android:drawable/star_big_off" />
+        android:src="@drawable/staroff" />
 
     <ImageView
         android:id="@+id/recipePicture"
@@ -47,22 +47,22 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/recipeNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_toLeftOf="@+id/recipeRating"
-        android:layout_toRightOf="@+id/recipePicture"
-        android:text="TextView" />
-
-    <TextView
         android:id="@+id/authorBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/recipeNameDisplay"
         android:layout_alignRight="@+id/recipeNameDisplay"
         android:layout_below="@+id/recipeNameDisplay"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/recipeNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recipeRating"
+        android:layout_toLeftOf="@+id/recipeRating"
+        android:layout_toRightOf="@+id/recipePicture"
         android:text="TextView" />
 
 </RelativeLayout>
