@@ -14,16 +14,6 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/fave"
-        android:layout_toRightOf="@+id/fave"
-        android:textSize="15sp"
-        android:onClick="showAll"
-        android:text="View All" />
-
-    <Button
         android:id="@+id/create_my_own"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -153,5 +143,16 @@
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:src="@drawable/directory_icon" />
+
+    <Button
+        android:id="@+id/view_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fave"
+        android:layout_alignBottom="@+id/fave"
+        android:layout_toRightOf="@+id/advanced"
+        android:onClick="showAll"
+        android:text="View All"
+        android:textSize="15sp" />
 
 </RelativeLayout>

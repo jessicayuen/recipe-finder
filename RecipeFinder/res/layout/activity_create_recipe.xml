@@ -10,7 +10,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent" >
 
             <TextView
                 android:id="@+id/nameText"
@@ -20,14 +20,15 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="10dp"
                 android:text="@string/name"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <EditText
                 android:id="@+id/addName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addDescription"
+                android:layout_alignRight="@+id/addDescription"
                 android:layout_alignTop="@+id/nameText"
+                android:layout_toRightOf="@+id/instructionText"
                 android:ems="10" >
 
                 <requestFocus />
@@ -42,40 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="5dp"
                 android:text="@string/descr"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/ingredientText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/descrText"
-                android:layout_below="@+id/addDescription"
-                android:layout_marginTop="30dp"
-                android:paddingLeft="5dp"
-                android:text="@string/ingredient"
-                android:textSize="15sp" />
-
-            <AutoCompleteTextView
-                android:id="@+id/addIngredients"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addDescription"
-                android:layout_alignRight="@+id/ingredientListButton"
-                android:layout_alignTop="@+id/ingredientText"
-                android:layout_below="@+id/addDescription"
-                android:ems="8" >
-
-            </AutoCompleteTextView>
-
-            <Button
-                android:id="@+id/addIngredientsButn"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/ingredientText"
-                android:layout_alignLeft="@+id/addInstructionsButn"
-                android:layout_below="@+id/addDescription"
-                android:text="Add_placeHolder" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/instructionText"
@@ -86,60 +54,7 @@
                 android:layout_marginTop="30dp"
                 android:paddingLeft="5dp"
                 android:text="@string/instruc"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/addInstructions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/instructionText"
-                android:layout_below="@+id/ingredientListButton"
-                android:layout_toRightOf="@+id/instructionText"
-                android:ems="8" />
-
-            <Button
-                android:id="@+id/addInstructionsButn"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/instructionText"
-                android:layout_below="@+id/ingredientListButton"
-                android:layout_toRightOf="@+id/addInstructions"
-                android:text="Add_placeHolder" />
-
-            <EditText
-                android:id="@+id/addDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addInstructions"
-                android:layout_alignTop="@+id/descrText"
-                android:layout_toRightOf="@+id/ingredientText"
-                android:ems="10" />
-
-            <Button
-                android:id="@+id/ingredientListButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/addIngredients"
-                android:layout_centerHorizontal="true"
-                android:text="View List ..." />
-
-            <Button
-                android:id="@+id/instructionListButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/addInstructions"
-                android:layout_centerHorizontal="true"
-                android:text="View List ..." />
-
-            <Button
-                android:id="@+id/addPicturesButn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/instructionListButton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="Button_add placeholder" />
+                android:textSize="13sp" />
 
             <Gallery
                 android:id="@+id/gallery"
@@ -149,14 +64,96 @@
                 android:layout_below="@+id/addPicturesButn" />
 
             <EditText
-                android:id="@+id/addAmount"
+                android:id="@+id/addDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/addIngredients"
+                android:layout_alignTop="@+id/descrText"
                 android:layout_toLeftOf="@+id/addIngredientsButn"
-                android:layout_toRightOf="@+id/addIngredients"
+                android:layout_toRightOf="@+id/instructionText"
                 android:ems="10"
-                android:inputType="numberDecimal" />
+                android:minLines="5" />
+
+            <AutoCompleteTextView
+                android:id="@+id/addIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ingredientText"
+                android:layout_alignBottom="@+id/ingredientText"
+                android:layout_alignLeft="@+id/addDescription"
+                android:layout_toLeftOf="@+id/addIngredientsButn"
+                android:ems="8" />
+
+            <Button
+                android:id="@+id/addIngredientsButn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignBaseline="@+id/addIngredients"
+                android:layout_alignBottom="@+id/addIngredients"
+                android:layout_alignParentRight="true"
+                android:text="+" />
+
+            <TextView
+                android:id="@+id/ingredientText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/addDescription"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="5dp"
+                android:text="@string/ingredient"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/addInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/instructionText"
+                android:layout_alignBottom="@+id/instructionText"
+                android:layout_alignLeft="@+id/addIngredients"
+                android:layout_alignRight="@+id/addIngredients"
+                android:ems="8" />
+
+            <Button
+                android:id="@+id/ingredientListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignRight="@+id/addPicturesButn"
+                android:layout_below="@+id/addIngredients"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:text="..." />
+
+            <Button
+                android:id="@+id/addInstructionsButn"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignBaseline="@+id/addInstructions"
+                android:layout_alignBottom="@+id/addInstructions"
+                android:layout_alignParentRight="true"
+                android:text="+" />
+
+            <Button
+                android:id="@+id/instructionListButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignRight="@+id/addPicturesButn"
+                android:layout_below="@+id/addInstructionsButn"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:text="..." />
+
+            <Button
+                android:id="@+id/addPicturesButn"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignRight="@+id/addInstructions"
+                android:layout_below="@+id/instructionListButton"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="24dp"
+                android:text="Add Photo"
+                android:textSize="13dp" />
 
         </RelativeLayout>
     </ScrollView>
@@ -164,18 +161,20 @@
     <Button
         android:id="@+id/createButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/exitButton"
         android:onClick="createButtonClicked"
+        android:textSize="13dp"
         android:text="Create" />
 
     <Button
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/createButton"
+        android:textSize="13dp"
         android:text="Exit" />
 
 </RelativeLayout>

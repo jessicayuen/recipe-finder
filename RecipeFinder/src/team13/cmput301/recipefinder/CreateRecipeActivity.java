@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -31,6 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateRecipeActivity extends Activity {
@@ -47,8 +49,7 @@ public class CreateRecipeActivity extends Activity {
 	private AutoCompleteTextView addIngredients;
 	private Button exitButton, addPicButton, addIngredButton, 
 	addInsButton, ingredListButton, instrListButton;
-	private EditText addName, addInstructions, 
-	addDescription, addAmount;
+	private EditText addName, addInstructions, addDescription;
 	private Gallery gallery;
 	private ArrayAdapter<String> autoFillAdapter;
 
@@ -67,6 +68,9 @@ public class CreateRecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_recipe);
 
+		/* Set custom fonts */
+		setCustomFonts();
+		
 		ingredListButton = (Button) findViewById(R.id.ingredientListButton);
 		instrListButton = (Button) findViewById(R.id.instructionListButton);
 		exitButton = (Button) findViewById(R.id.exitButton);
@@ -77,7 +81,6 @@ public class CreateRecipeActivity extends Activity {
 		addIngredients = (AutoCompleteTextView) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
-		addAmount = (EditText) findViewById(R.id.addAmount);
 
 		ingredients = new ArrayList<String>();
 		ingredientNames =  IngredientManager.getIngredientManager().getIngredientNamesList();
@@ -413,5 +416,27 @@ public class CreateRecipeActivity extends Activity {
 		} else {
 			textChanged = false;
 		}
+	}
+	
+	/**
+	 * Set the TextViews to a custom font
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+		
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+	    
+		((TextView)findViewById(R.id.nameText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.descrText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.instructionText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.ingredientText)).setTypeface(typeface);
+		((Button)findViewById(R.id.createButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.exitButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.addPicturesButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.addIngredientsButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.ingredientListButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.addInstructionsButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.instructionListButton)).setTypeface(typeface);
 	}
 }

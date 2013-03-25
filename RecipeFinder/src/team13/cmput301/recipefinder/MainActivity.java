@@ -14,11 +14,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -49,7 +52,12 @@ public class MainActivity extends Activity {
 		/* Load recipes */
 		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
+
+		/* Display 4 random favorite recipes */
 		displayFaves();
+		
+		/* Set custom fonts */
+		setCustomFonts();
 	}
 
 	@Override
@@ -136,6 +144,24 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Set the TextViews to a custom font
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+		
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+	    
+		((TextView)findViewById(R.id.fave)).setTypeface(typeface);
+		((TextView)findViewById(R.id.find_recipes)).setTypeface(typeface);
+		((TextView)findViewById(R.id.advanced)).setTypeface(typeface);
+		((Button)findViewById(R.id.search_button)).setTypeface(typeface);
+		((Button)findViewById(R.id.view_all)).setTypeface(typeface);
+		((Button)findViewById(R.id.create_my_own)).setTypeface(typeface);
+		((Button)findViewById(R.id.my_ingredients)).setTypeface(typeface);
+	}
+	
 	/**
 	 * Shows all recipe when user touches show all recipe text
 	 */
