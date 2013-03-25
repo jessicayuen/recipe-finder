@@ -14,7 +14,7 @@
     <string name="name">Name:</string>
     <string name="descr">Description:</string>
     <string name="ingredient">Ingredient(s):</string>
-    <string name="instruc">Instructions(s):</string>
+    <string name="instruc">Instruction(s):</string>
     <string name="title_activity_my_ingredients">My Ingredients</string>
     <string name="title_activity_recipes">Recipes</string>
     <string name="title_activity_search_results">Search Results</string>

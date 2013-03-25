@@ -23,7 +23,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -254,7 +253,7 @@ public class CreateRecipeActivity extends Activity {
 	/**
 	 * override the createdialog and make it customized to allow for list and multi
 	 * check mark display of either ingredients or instructions
-	 * @param choice the list that user chose to display
+	 * @param choice The list that user chose to display
 	 */
 	protected Dialog onCreateDialog(int choice) {
 		Dialog dialog = null;
@@ -352,18 +351,10 @@ public class CreateRecipeActivity extends Activity {
 		return dialog;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_create_recipe, menu);
-		return true;
-	}
-
 	/**
-	 * Saves the recipe and displays the recipe, when user clicks on the save
-	 * button and all the necessary fields are filled in.
-	 * 
-	 * @param view
+	 * Saves and displays the recipe when save button is clicked
+	 * and all necessary fields are filled out.
+	 * @param view Current activity view
 	 */
 	public void createButtonClicked(View view) {			
 		addedName();
@@ -395,7 +386,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * checks whether name of the recipe is filled out or not
+	 * Checks whether name of the recipe is filled out.
 	 */
 	private void addedName() {
 
@@ -407,7 +398,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * checks whether the description is filled out or not
+	 * Checks whether the description is filled out.
 	 */
 	private void addedDescription() {
 
@@ -419,7 +410,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 	
 	/**
-	 * Set the TextViews to a custom font
+	 * Set the TextViews and Buttons to a custom font.
 	 */
 	private void setCustomFonts() {
 		Typeface typeface;
