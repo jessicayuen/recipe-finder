@@ -298,6 +298,7 @@ public class DisplayRecipeActivity extends Activity
 		((Button)findViewById(R.id.publish)).setTypeface(typeface);
 		((Button)findViewById(R.id.share)).setTypeface(typeface);
 		((Button)findViewById(R.id.addPhoto)).setTypeface(typeface);
+		((Button)findViewById(R.id.fave_button)).setTypeface(typeface);
 	}
 
 }
