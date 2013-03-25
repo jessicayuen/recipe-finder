@@ -120,7 +120,7 @@ class PicAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView = new ImageView(galleryContext);
 		imageView.setImageBitmap(imagePhotos.get(position).getPhoto());
-		imageView.setLayoutParams(new Gallery.LayoutParams(120, 100));
+		imageView.setLayoutParams(new Gallery.LayoutParams(200, 180));
 		imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		imageView.setBackgroundResource(defaultItemBackground);
 		return imageView;

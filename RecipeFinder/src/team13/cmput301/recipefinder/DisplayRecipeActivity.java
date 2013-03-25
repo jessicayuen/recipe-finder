@@ -18,6 +18,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -45,6 +47,10 @@ public class DisplayRecipeActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_recipe);
 
+		/* Set the custom fonts */
+		setCustomFonts();
+		
+		/* Get the recipe to be displayed */
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			recipe = RecipeManager.getRecipeManager().
@@ -265,6 +271,24 @@ public class DisplayRecipeActivity extends Activity
 	public void onTaskCompletion(String message) {
 		Toast.makeText(DisplayRecipeActivity.this, message, 
 				Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Set the TextViews and Buttons to a custom font.
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+		
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+	    
+		((TextView)findViewById(R.id.author)).setTypeface(typeface);
+		((TextView)findViewById(R.id.description)).setTypeface(typeface);
+		((TextView)findViewById(R.id.ingredients)).setTypeface(typeface);
+		((TextView)findViewById(R.id.instructions)).setTypeface(typeface);
+		((Button)findViewById(R.id.publish)).setTypeface(typeface);
+		((Button)findViewById(R.id.share)).setTypeface(typeface);
+		((Button)findViewById(R.id.addPhoto)).setTypeface(typeface);
 	}
 
 }
