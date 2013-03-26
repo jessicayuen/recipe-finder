@@ -103,7 +103,7 @@ public class ElasticSearchHelper {
 	 * @throws IOException
 	 */
 	public void getRecipe(String uuid) throws ClientProtocolException, IOException {
-		HttpGet getRequest = new HttpGet(BASEURL + uuid + "?pretty=1");// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+		HttpGet getRequest = new HttpGet(BASEURL + uuid);// S4bRPFsuSwKUDSJImbCE2g?pretty=1
 
 		getRequest.addHeader("Accept", "application/json");
 		HttpResponse response = httpclient.execute(getRequest);
@@ -129,8 +129,8 @@ public class ElasticSearchHelper {
 	public ArrayList<Recipe> searchRecipes(String query) {
 		ArrayList<Recipe> recipies = new ArrayList<Recipe>();
 		try {
-			HttpGet searchRequest = new HttpGet(BASEURL + "_search?pretty=1&q="
-					+ java.net.URLEncoder.encode(query, "UTF-8"));
+			HttpGet searchRequest = new HttpGet(BASEURL + "_search?q=*"
+					+ java.net.URLEncoder.encode(query, "UTF-8") + "*");
 			searchRequest.setHeader("Accept", "application/json");
 			HttpResponse response = httpclient.execute(searchRequest);
 			String status = response.getStatusLine().toString();
@@ -154,7 +154,7 @@ public class ElasticSearchHelper {
 	 */
 	public void searchsearchRecipes(String str) throws ClientProtocolException,
 			IOException {
-		HttpPost searchRequest = new HttpPost(BASEURL + "_search?pretty=1");
+		HttpPost searchRequest = new HttpPost(BASEURL);
 		String query = "{\"query\" : {\"query_string\" : " +
 				"{\"default_field\" : \"ingredients\",\"query\" : \""
 				+ str + "\"}}}";
