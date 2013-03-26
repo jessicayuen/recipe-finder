@@ -120,11 +120,19 @@ public class Recipe implements Serializable {
 		for (int i = 0; i < ingredients.size(); i++)
 			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
 		
-		return new String("<html><body><bold><font size=\"6\">" + name + "\n</font></bold>" +
-				"<font size = \"5\">" + author + "\n\n\n" +
+		return new String(name + "\n" +
+				author + "\n\n\n" +
 				"Description:\n" + description + "\n\n" +
 				"Instructions:\n" + instr + "\n" +
-				"Ingredients:\n" + ingred + "\n</font></body></html>");
+				"Ingredients:\n" + ingred);
+	}
+	
+	/**
+	 * @return the String version of the recipe object
+	 */
+	public String toString() {
+		return "[ name: " + name + ", " + "author: " + 
+				author + ", " + "description: " + description + "]";
 	}
 	
 	/**
@@ -252,20 +260,11 @@ public class Recipe implements Serializable {
 	public boolean isFave() {
 		return fave;
 	}
-
-	/**
-	 * @return the String version of the recipe object
-	 */
-	public String toString() {
-		return "[ name: " + name + ", " + "author: " + 
-				author + ", " + "description: " + description + "]";
-	}
 	
 	/**
 	 * @param fave Sets whether the recipe is favorited
 	 */
 	public void setFave(boolean fave) {
 		this.fave = fave;
-		RecipeManager.getRecipeManager().addRecipeToFave(this);
 	}
 }

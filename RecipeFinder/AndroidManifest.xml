@@ -42,7 +42,8 @@
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.DisplayRecipeActivity"
-            android:label="@string/title_activity_display_recipe" >
+            android:label="@string/title_activity_display_recipe"
+            android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.SearchRecipeActivity"
@@ -51,6 +52,10 @@
         <activity
             android:name="team13.cmput301.recipefinder.RecipeListActivity"
             android:label="@string/title_activity_recipe_list" >
+        </activity>
+        <activity
+            android:name="team13.cmput301.recipefinder.FirstTimeUserActivity"
+            android:label="@string/title_activity_first_time_user" >
         </activity>
     </application>
 

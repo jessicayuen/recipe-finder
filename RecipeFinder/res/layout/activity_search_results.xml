@@ -5,7 +5,7 @@
     tools:context=".SearchResultsActivity" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/quantityItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,8 +20,8 @@
         android:id="@+id/searchfor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
+        android:layout_alignBottom="@+id/quantityItem"
+        android:layout_toRightOf="@+id/quantityItem"
         android:text="Search" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:paddingLeft="5dp"
         android:text="Rating"
         android:textSize="15sp" />
-
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"

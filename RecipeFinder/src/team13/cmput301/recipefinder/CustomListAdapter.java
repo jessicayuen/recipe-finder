@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CustomListAdapter extends BaseAdapter implements OnClickListener {
@@ -23,10 +24,13 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	private final int authorWidth = 10;
 	private static final int FAV_BUTTON_CLICK = 1;
 	private static final int REMOVE_BUTTON_CLICK = 2;
+	private ImageButton fav;
+	private boolean searchMode;
 
 	public CustomListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
 		this.recipeList = recipeList;
+		this.searchMode = false;
 	}
 	
 	public class TempRecipe {
@@ -39,7 +43,8 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		}
 	}
 	
-	public void setRecipeList(List<Recipe> list){
+	public void setRecipeList(List<Recipe> list, boolean searchMode){
+		this.searchMode = searchMode;
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
@@ -71,9 +76,15 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.custom_recipe_display, null);
 		}
-		ImageButton fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
+		fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
 		//add fav star clicked or not here
-		
+		if(recipe.isFave()){
+			fav.setImageResource(R.drawable.star);
+			fav.setBackgroundResource(R.drawable.star);
+		} else {
+			fav.setImageResource(R.drawable.staroff);
+			fav.setBackgroundResource(R.drawable.staroff);
+		}
 		fav.setFocusableInTouchMode(false);
 		fav.setFocusable(false);
 		fav.setOnClickListener(this);		
@@ -83,6 +94,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		descr.setTextSize(fontSize);
 		descr.setText(recipe.getDescription());
 
+		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
+		name.setTextSize(fontSize);
+		name.setText(recipe.getName());
+		
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
 		if(recipe.getPhotos().size() > 0){
 			recipePic.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
@@ -112,6 +127,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		return convertView;
 	}
 
+	/**
+	 * listens to button clicks on a recipe be it the favorite button or
+	 * remove button
+	 */
 	@Override
 	public void onClick(View v) {
 		TempRecipe tRecipe = (TempRecipe)v.getTag();
@@ -119,16 +138,12 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			Recipe recipe = tRecipe.recipe;
 			if(!recipe.isFave()){
 				// add the recipe to favorites
-				RecipeManager.getRecipeManager().addToFavList(recipe);
-				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
+				RecipeManager.getRecipeManager().addToFavList(recipe, searchMode);
 			}
 			else{
 				//remove recipe from fav if it is already favorited
-				RecipeManager.getRecipeManager().removeFromFavList(recipe);
-				System.out.println("test");
-				System.out.print(RecipeManager.getRecipeManager().getFaveRecipes().size());
+				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
 			}
-			// TODO find where in code is the fav recipe being added twice
 
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;

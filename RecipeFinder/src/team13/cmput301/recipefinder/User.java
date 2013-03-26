@@ -57,7 +57,7 @@ public class User {
 	public void saveUserSettings(Context ctx) {
 		try {
 			List<String> userSettings = new ArrayList<String>();
-			
+
 			userSettings.add(user.getUsername());
 			userSettings.add(user.getEmail());
 			userSettings.add(user.getEmailPassword());
@@ -65,18 +65,18 @@ public class User {
 			userSettings.add(user.getEmailSocketPort());
 			userSettings.add(user.getEmailPort());
 			userSettings.add(user.getHasUsedApp());
-			
+
 			FileOutputStream fos = ctx.openFileOutput(SETTINGS_PATH, 
 					Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
 			out.writeObject(userSettings);
 			out.close();
-			
+
 		} catch (Exception e) {
 			Log.e("User", "Problems saving user settings", e); 
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	/**
 	 * Retrieves the user settings on file.
@@ -87,20 +87,22 @@ public class User {
 			FileInputStream fis;
 			ObjectInputStream in;
 			List<String> userSettings;
-			
+
 			fis = ctx.openFileInput(SETTINGS_PATH);
 			in = new ObjectInputStream(fis);
 			userSettings = (ArrayList<String>) in.readObject();
 			in.close();
 
-			user.setUsername(userSettings.get(0));
-			user.setEmail(userSettings.get(1));
-			user.setEmailPassword(userSettings.get(2));
-			user.setEmailHost(userSettings.get(3));
-			user.setEmailSocketPort(userSettings.get(4));
-			user.setEmailPort(userSettings.get(5));
-			user.setHasUsedApp(userSettings.get(6));
-			
+			if (userSettings.size() > 5) {
+				user.setUsername(userSettings.get(0));
+				user.setEmail(userSettings.get(1));
+				user.setEmailPassword(userSettings.get(2));
+				user.setEmailHost(userSettings.get(3));
+				user.setEmailSocketPort(userSettings.get(4));
+				user.setEmailPort(userSettings.get(5));
+				user.setHasUsedApp(userSettings.get(6));
+			}
+
 		} catch (Exception e) {
 			Log.e("User", "Problems loading user settings", e); 
 		}
@@ -223,6 +225,4 @@ public class User {
 	public void setHasUsedApp(String hasUsedApp) {
 		this.hasUsedApp = hasUsedApp;
 	}
-	
-	
 }

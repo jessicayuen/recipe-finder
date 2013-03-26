@@ -4,154 +4,221 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/fave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/fave"
-        android:textSize="20sp" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
 
-    <TextView
-        android:id="@+id/view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/fave"
-        android:layout_toRightOf="@+id/fave"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:textSize="15sp" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/create_my_own"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/my_ingredients"
-        android:minHeight="36dp"
-        android:onClick="openCreateRecipe"
-        android:text="@string/create_my_own"
-        android:textSize="15sp" />
+            <RelativeLayout
+                android:id="@+id/faveLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
 
-    <Button
-        android:id="@+id/my_ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:minHeight="36dp"
-        android:onClick="openMyIngredients"
-        android:text="@string/my_ingredients"
-        android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/fave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/fave"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/find_recipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/create_my_own"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="117dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:text="@string/find_recipes"
-        android:textSize="20sp" />
+                <Button
+                    android:id="@+id/view_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_alignBottom="@+id/fave"
+                    android:layout_toRightOf="@+id/fave"
+                    android:onClick="showAll"
+                    android:text="View All"
+                    android:textSize="15sp" />
+            </RelativeLayout>
 
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/find_recipes"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="33dp"
-        android:layout_toLeftOf="@+id/search_button"
-        android:ems="10" />
+            <RelativeLayout
+                android:id="@+id/imagesLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/faveLayoutView"
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/search_bar"
-        android:layout_alignBottom="@+id/search_bar"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
-        android:minHeight="36dp"
-        android:onClick="searchRecipe"
-        android:text="@string/search"
-        android:textSize="15sp" />
+                <ImageView
+                    android:id="@+id/faveBottomLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/faveTopLeft"
+                    android:layout_below="@+id/faveTopLeft"
+                    android:maxHeight="120dp"
+                    android:maxWidth="120dp"
+                    android:minHeight="120dp"
+                    android:minWidth="120dp"
+                    android:src="@drawable/directory_icon" />
 
-    <TextView
-        android:id="@+id/advanced"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/search_bar"
-        android:layout_below="@+id/search_bar"
-        android:paddingLeft="5dp"
-        android:text="@string/advanced"
-        android:textSize="11sp" />
+                <ImageView
+                    android:id="@+id/faveBottomRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/faveTopRight"
+                    android:layout_alignTop="@+id/faveBottomLeft"
+                    android:maxHeight="120dp"
+                    android:maxWidth="120dp"
+                    android:minHeight="120dp"
+                    android:minWidth="120dp"
+                    android:src="@drawable/directory_icon" />
 
-    <ImageView
-        android:id="@+id/faveTopRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/faveTopLeft"
-        android:layout_marginLeft="17dp"
-        android:layout_toRightOf="@+id/faveTopLeft"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:src="@drawable/directory_icon" />
+                <ImageView
+                    android:id="@+id/faveTopLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="33dp"
+                    android:maxHeight="120dp"
+                    android:maxWidth="120dp"
+                    android:minHeight="120dp"
+                    android:minWidth="120dp"
+                    android:src="@drawable/directory_icon" />
 
-    <Button
-        android:id="@+id/TEST"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/advanced"
-        android:layout_below="@+id/advanced"
-        android:layout_marginTop="14dp"
-        android:minHeight="36dp"
-        android:onClick="TEST"
-        android:text="@string/shortbuff"
-        android:textSize="15sp" />
+                <ImageView
+                    android:id="@+id/faveTopRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/faveBottomRight"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toRightOf="@+id/faveBottomLeft"
+                    android:maxHeight="120dp"
+                    android:maxWidth="120dp"
+                    android:minHeight="120dp"
+                    android:minWidth="120dp"
+                    android:src="@drawable/directory_icon" />
+            </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/faveTopLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/search_bar"
-        android:layout_below="@+id/fave"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="16dp"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:src="@drawable/directory_icon" />
+            <RelativeLayout
+                android:id="@+id/findRecipesLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imagesLayoutView"
+                android:background="@color/green"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
 
-    <ImageView
-        android:id="@+id/faveBottomLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/faveBottomRight"
-        android:layout_toLeftOf="@+id/faveTopRight"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:src="@drawable/directory_icon" />
+                <TextView
+                    android:id="@+id/find_recipes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/faveBottomLeft"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/find_recipes"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/faveBottomRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/faveTopRight"
-        android:layout_below="@+id/faveTopRight"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:src="@drawable/directory_icon" />
+            <RelativeLayout
+                android:id="@+id/searchLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/findRecipesLayoutView"
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
+
+                <TextView
+                    android:id="@+id/advanced"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/search_bar"
+                    android:layout_below="@+id/search_bar"
+                    android:paddingLeft="5dp"
+                    android:text="@string/advanced"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/search_button"
+                    android:ems="10" >
+                </EditText>
+
+                <Button
+                    android:id="@+id/search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/advanced"
+                    android:layout_alignParentRight="true"
+                    android:minHeight="36dp"
+                    android:onClick="searchRecipe"
+                    android:text="@string/search"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/customizeLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/searchLayoutView"
+                android:background="@color/green"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
+
+                <TextView
+                    android:id="@+id/customize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Customize:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/buttonsLayoutView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/customizeLayoutView"
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
+
+                <Button
+                    android:id="@+id/create_my_own"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="24dp"
+                    android:layout_toLeftOf="@+id/my_ingredients"
+                    android:minHeight="36dp"
+                    android:onClick="openCreateRecipe"
+                    android:text="@string/create_my_own"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/my_ingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="24dp"
+                    android:minHeight="36dp"
+                    android:onClick="openMyIngredients"
+                    android:text="@string/my_ingredients"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

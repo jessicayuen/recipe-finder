@@ -9,34 +9,34 @@ package team13.cmput301.recipefinder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DisplayRecipeActivity extends Activity implements OnTaskCompletionListener {
+public class DisplayRecipeActivity extends Activity 
+	implements OnTaskCompletionListener {
 
-	private final int FILE_PATH_REQUEST = 1; // request code
+	private final int FILE_PATH_REQUEST = 1; 
 	private static final int CAMERA_REQUEST = 1888; 
 	private Gallery picGallery;
 	private PicAdapter imgAdapt;
@@ -47,6 +47,10 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_recipe);
 
+		/* Set the custom fonts */
+		setCustomFonts();
+		
+		/* Get the recipe to be displayed */
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			recipe = RecipeManager.getRecipeManager().
@@ -63,7 +67,8 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 			instructions.add("Smash the apples and oranges together");
 			recipe = new Recipe("Hamburger", 
 					"This is some description. BlahBlah.",
-					"=)", ingredients, instructions, new ArrayList<Photo>());
+					User.getUser().getUsername(), ingredients, 
+					instructions, new ArrayList<Photo>());
 			displayRecipe();
 		}
 
@@ -72,24 +77,17 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 		picGallery.setAdapter(imgAdapt);
 		
 		/* Listen for clicks to the image gallery */
-		picGallery.setOnItemClickListener(new OnItemClickListener() {
-		    //handle clicks
-		    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		picGallery.setOnItemClickListener(new OnItemClickListener()  {
+		    public void onItemClick(AdapterView<?> parent, View v, 
+		    		int position, long id) {
 		        imgAdapt.enlargePhoto(position);
 		        picGallery.setAdapter(imgAdapt);
 		    }
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_display_recipe, menu);
-		return true;
-	}
-
 	/**
-	 * Display the contents of the recipe
+	 * Display the contents of the recipe.
 	 */
 	private void displayRecipe() {
 		TextView textView;
@@ -128,24 +126,25 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 	}
 
 	/**
-	 * Allows the user to add a photo on 'Add Photo' button click
+	 * Allows the user to add a photo on 'Add Photo' button click.
 	 * @param view
 	 */
 	public void addPhoto(View view) {
-		/* show a message if fields not entered */
 		AlertDialog alertDialog = 
 				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
 		alertDialog.setTitle("Add a Picture");
+		
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
 				new DialogInterface.OnClickListener() {
 
 			/* Listen for Use Existing button click */
 			public void onClick(DialogInterface dialog, int which) {
-				Intent intent = new Intent(Intent.ACTION_PICK,
-						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				Intent intent = new Intent(Intent.ACTION_PICK, android.
+						provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				startActivityForResult(intent, FILE_PATH_REQUEST);
 			} 
 		});
+		
 		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
 				new DialogInterface.OnClickListener() {
 
@@ -160,8 +159,8 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 	}
 
 	/**
-	 * Takes the intent result and does something with it. In this case, watches
-	 * for Camera and File results.
+	 * Takes the intent result and does something with it. In this case, 
+	 * watches for Camera and File results.
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, 
 			Intent data) {
@@ -189,26 +188,28 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 	
 	/**
 	 * Allows the user to email a recipe on 'Share' button click
-	 * @param view
+	 * @param view The current activity view
 	 */
 	public void shareRecipe(View view) {
-		AlertDialog alertDialog =
-				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
-		alertDialog.setTitle("Email Recipe");
-		alertDialog.setMessage("Enter recipient(s): ");
-
 		/* Set an EditText view to get user input */
 		final EditText input = new EditText(this);
 		input.setHeight(200);
 		input.setHint("Seperate recipents by ,");
 		input.setGravity(0);
+		
+		/* Setup the alert dialog */
+		AlertDialog alertDialog =
+				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
+		alertDialog.setTitle("Email Recipe");
+		alertDialog.setMessage("Enter recipient(s): ");
 		alertDialog.setView(input);
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
 				new DialogInterface.OnClickListener() {
 
 			/* Listen for Send button click */
 			public void onClick(DialogInterface dialog, int which) {
-				String[] recipients = input.getText().toString().replaceAll("\\s", "").split(",");
+				String[] recipients = input.getText().toString().
+						replaceAll("\\s", "").split(",");
 				EmailSender sender = new EmailSender();
 				File cacheDir = getBaseContext().getCacheDir();
 				File f = new File(cacheDir, "temp_email_image.jpg");
@@ -225,7 +226,8 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 						sender.addAttachment(cacheDir.getAbsolutePath() + 
 								"/temp_email_image.jpg");
 					} catch (Exception e) {
-						Log.e("DisplayRecipeActivity", "Problems attaching photo", e); 
+						Log.e("DisplayRecipeActivity", 
+								"Problems attaching photo", e);
 					}
 				}
 				/* Try to send the email */
@@ -233,7 +235,8 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 						" wants to share a recipe with you!"), 
 						recipe.toEmailString(), recipients)) { 
 					Toast.makeText(DisplayRecipeActivity.this, 
-							"Email was sent successfully.", Toast.LENGTH_LONG).show(); 
+							"Email sent successfully.", 
+							Toast.LENGTH_LONG).show();
 				} else { 
 					Toast.makeText(DisplayRecipeActivity.this, 
 							"Email was not sent.", Toast.LENGTH_LONG).show(); 
@@ -242,6 +245,7 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 				return;
 			}
 		});
+		
 		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", 
 				new DialogInterface.OnClickListener() {
 
@@ -250,6 +254,7 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 				return;
 			}
 		});
+		
 		alertDialog.show();
 	}
 
@@ -262,9 +267,38 @@ public class DisplayRecipeActivity extends Activity implements OnTaskCompletionL
 		irt.execute(recipe);
 	}
 	
+	/**
+	 * Add recipe to the list of favorites on button click
+	 * @param view
+	 */
+	public void addToFave(View view) {
+		RecipeManager rm = RecipeManager.getRecipeManager();
+		rm.addToFavList(recipe, false);
+	}
+	
 	@Override
 	public void onTaskCompletion(String message) {
-		Toast.makeText(DisplayRecipeActivity.this, message, Toast.LENGTH_LONG).show();
+		Toast.makeText(DisplayRecipeActivity.this, message, 
+				Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Set the TextViews and Buttons to a custom font.
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+		
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+	    
+		((TextView)findViewById(R.id.author)).setTypeface(typeface);
+		((TextView)findViewById(R.id.description)).setTypeface(typeface);
+		((TextView)findViewById(R.id.ingredients)).setTypeface(typeface);
+		((TextView)findViewById(R.id.instructions)).setTypeface(typeface);
+		((Button)findViewById(R.id.publish)).setTypeface(typeface);
+		((Button)findViewById(R.id.share)).setTypeface(typeface);
+		((Button)findViewById(R.id.addPhoto)).setTypeface(typeface);
+		((Button)findViewById(R.id.fave_button)).setTypeface(typeface);
 	}
 
 }

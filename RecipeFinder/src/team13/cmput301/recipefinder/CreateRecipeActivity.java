@@ -19,16 +19,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CreateRecipeActivity extends Activity {
@@ -42,13 +45,14 @@ public class CreateRecipeActivity extends Activity {
 
 	// Activity UI buttons, text fields, and galleries
 	private boolean textChanged = false, contentChanged = false;
+	private AutoCompleteTextView addIngredients;
 	private Button exitButton, addPicButton, addIngredButton, 
 	addInsButton, ingredListButton, instrListButton;
-	private EditText addName, addIngredients, addInstructions, 
-	addDescription, addAmount;
+	private EditText addName, addInstructions, addDescription;
 	private Gallery gallery;
+	private ArrayAdapter<String> autoFillAdapter;
 
-	private List<String> ingredients, instructions;
+	private List<String> ingredientNames, ingredients, instructions;
 	private List<Integer> mSelectedItems;
 	private List<Photo> imageList;
 	private PicAdapter picAdapt;
@@ -63,6 +67,9 @@ public class CreateRecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_recipe);
 
+		/* Set custom fonts */
+		setCustomFonts();
+		
 		ingredListButton = (Button) findViewById(R.id.ingredientListButton);
 		instrListButton = (Button) findViewById(R.id.instructionListButton);
 		exitButton = (Button) findViewById(R.id.exitButton);
@@ -70,15 +77,18 @@ public class CreateRecipeActivity extends Activity {
 		addIngredButton = (Button) findViewById(R.id.addIngredientsButn);
 		addInsButton = (Button) findViewById(R.id.addInstructionsButn);
 		addName = (EditText) findViewById(R.id.addName);
-		addIngredients = (EditText) findViewById(R.id.addIngredients);
+		addIngredients = (AutoCompleteTextView) findViewById(R.id.addIngredients);
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
-		addAmount = (EditText) findViewById(R.id.addAmount);
 
 		ingredients = new ArrayList<String>();
+		ingredientNames =  IngredientManager.getIngredientManager().getIngredientNamesList();
 		instructions = new ArrayList<String>();
 		imageList = new ArrayList<Photo>();
+		autoFillAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, ingredientNames);
 
+		addIngredients.setAdapter(autoFillAdapter);
 		gallery = (Gallery) findViewById(R.id.gallery);
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
@@ -147,13 +157,9 @@ public class CreateRecipeActivity extends Activity {
 				if(tempStr.length() != 0) {
 					if(!ingredients.contains(tempStr)){
 						ingredients.add(tempStr);
-						addIngredients.setText("");
 						contentChanged = true;
-					} else {
-						toast = Toast.makeText(CreateRecipeActivity.this,
-								"Ingredient Already Exist", Toast.LENGTH_SHORT);
-						toast.show();
 					}
+					addIngredients.setText("");
 				} else {
 					toast = Toast.makeText(CreateRecipeActivity.this,
 							"No Text Entered", Toast.LENGTH_SHORT);
@@ -245,9 +251,9 @@ public class CreateRecipeActivity extends Activity {
 
 
 	/**
-	 * over ride the createdialog and make it custom to allow for list and multi
+	 * override the createdialog and make it customized to allow for list and multi
 	 * check mark display of either ingredients or instructions
-	 * @param choice the list that user chose to display
+	 * @param choice The list that user chose to display
 	 */
 	protected Dialog onCreateDialog(int choice) {
 		Dialog dialog = null;
@@ -345,18 +351,10 @@ public class CreateRecipeActivity extends Activity {
 		return dialog;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_create_recipe, menu);
-		return true;
-	}
-
 	/**
-	 * Saves the recipe and displays the recipe, when user clicks on the save
-	 * button and all the necessary fields are filled in.
-	 * 
-	 * @param view
+	 * Saves and displays the recipe when save button is clicked
+	 * and all necessary fields are filled out.
+	 * @param view Current activity view
 	 */
 	public void createButtonClicked(View view) {			
 		addedName();
@@ -388,7 +386,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * checks whether name of the recipe is filled out or not
+	 * Checks whether name of the recipe is filled out.
 	 */
 	private void addedName() {
 
@@ -400,7 +398,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * checks whether the description is filled out or not
+	 * Checks whether the description is filled out.
 	 */
 	private void addedDescription() {
 
@@ -409,5 +407,42 @@ public class CreateRecipeActivity extends Activity {
 		} else {
 			textChanged = false;
 		}
+	}
+	
+	/**
+	 * Set the TextViews and Buttons to a custom font.
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+		
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+	    
+		((TextView)findViewById(R.id.nameText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.descrText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.instructionText)).setTypeface(typeface);
+		((TextView)findViewById(R.id.ingredientText)).setTypeface(typeface);
+		((Button)findViewById(R.id.createButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.exitButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.addPicturesButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.addIngredientsButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.ingredientListButton)).setTypeface(typeface);
+		((Button)findViewById(R.id.addInstructionsButn)).setTypeface(typeface);
+		((Button)findViewById(R.id.instructionListButton)).setTypeface(typeface);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstance){
+		PhotoManager.getPhotoManager().addList(imageList);
+		savedInstance.putStringArrayList("ingredient", (ArrayList<String>) ingredients);
+		savedInstance.putStringArrayList("instruction", (ArrayList<String>) instructions);
+		
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstance){
+		imageList = PhotoManager.getPhotoManager().getPhotoList();
+		ingredients = savedInstance.getStringArrayList("ingredient");
+		instructions = savedInstance.getStringArrayList("instruction");
 	}
 }

@@ -10,18 +10,17 @@
     <string name="find_recipes">Find Recipes:</string>
     <string name="search">Search</string>
     <string name="advanced">advanced</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_create_recipe">Create Recipe</string>
     <string name="name">Name:</string>
     <string name="descr">Description:</string>
     <string name="ingredient">Ingredient(s):</string>
-    <string name="instruc">Instructions(s):</string>
+    <string name="instruc">Instruction(s):</string>
     <string name="title_activity_my_ingredients">My Ingredients</string>
     <string name="title_activity_recipes">Recipes</string>
     <string name="title_activity_search_results">Search Results</string>
     <string name="title_activity_file_explorer">File Explorer</string>
 
-    <color name="green">#6BE400</color>
+    <color name="green">#54D754</color>
 
     <string name="title_activity_display_recipe">Display Recipe</string>
     <string name="title_activity_search_recipe">Search Recipe</string>
@@ -35,5 +34,19 @@
     <string name="title_activity_take_photo">Take Photo</string>
     <string name="title_activity_recipe_list">Recipe List</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_first_time_user">Settings</string>
+    <string name="username">Username:</string>
+    <string name="welcome_msg">Hi! Thanks for trying Recipe Finder.</string>
+    <string name="fill_info">Please fill out the information below.</string>
+    <string name="email">Email:</string>
+    <string name="email_password">Email Password:</string>
+    <string name="host">Host:</string>
+    <string name="port">Port:</string>
+    <string name="sport">sPort:</string>
+    <string name="next">Next</string>
+    <color name="grey">#5b5b5b</color>
+    <color name="white">#FFFFFF</color>
+    <color name="button">#596155</color>
+    <color name="light_green">#D64FD6</color>
 
 </resources>
