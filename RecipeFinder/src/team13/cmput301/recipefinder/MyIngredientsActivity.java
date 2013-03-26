@@ -50,6 +50,17 @@ public class MyIngredientsActivity extends Activity {
 
 		ingredientsEditText = (EditText) findViewById(R.id.ingredientItem);
 		quantityEditText = (EditText) findViewById(R.id.quantityItem);
+		
+		IngredientManager.getIngredientManager().loadRecipes(getApplicationContext());
+		for(int index = 0; index < IngredientManager.getIngredientManager().getIngredientList().size(); index++){
+			String newIngredient = IngredientManager.getIngredientManager().getIngredientList().get(index).getIngredient();
+			Float newQuantity = IngredientManager.getIngredientManager().getIngredientList().get(index).getQuantity();
+			listofingredients.add(newIngredient);
+			listofquantity.add(newQuantity);
+			listofItems.add(newIngredient + " : " + newQuantity);
+			myList.setAdapter(adapter);
+			
+		}
 	
 		/**
 		 * Initiates the addButton functionality
@@ -69,32 +80,53 @@ public class MyIngredientsActivity extends Activity {
 					Toast.makeText(context,"Enter a ingredient", duration).show();
 				}
 				if (checkItem(checkedItem)){
-					int duration = Toast.LENGTH_SHORT;
-					Context context = getApplicationContext();
-					Toast.makeText(context,"ingredient Already exists", duration).show();
-					quantity = Float.parseFloat(ingQuantity);
-					ingredient = new Ingredient(ingName, quantity);
-					IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-					
+						Float newQuantity;
+						
+						for(int index = 0; index < listofingredients.size(); index++)
+							if(ingName.matches(listofingredients.get(index))){
+								quantity = listofquantity.get(index);
+								newQuantity = listofquantity.get(index) + 1;
+								listofquantity.set(index, newQuantity);
+								listofItems.set(index, ingName + " : " + newQuantity.toString());
+								adapter.notifyDataSetChanged();
+							}
+						
+						ingredient = new Ingredient(ingName, quantity);
+						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
+						
+						int duration = Toast.LENGTH_SHORT;
+						Context context = getApplicationContext();
+						Toast.makeText(context,"Ingredient Already Exists! Quantity increased!", duration).show();
+				
 				}
 				if (!ingName.matches("") && checkItem(checkedItem) == false){
-					
-					int duration = Toast.LENGTH_SHORT;
-					Context context = getApplicationContext();
-					Toast.makeText(context,"Ingredient Added!", duration).show();
-					
-					quantity = Float.parseFloat(ingQuantity);
-					ingredient = new Ingredient(ingName, quantity);
-					
-					if(quantity == 0){
-						quantity = quantity + 1;
+					if(ingQuantity.matches("")){
+						ingQuantity = "1";
+						quantity = Float.parseFloat(ingQuantity);
+						ingredient = new Ingredient(ingName, quantity);
+						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
+						int duration = Toast.LENGTH_SHORT;
+						Context context = getApplicationContext();
+						Toast.makeText(context,"Ingredient Added!", duration).show();
+						listofingredients.add(ingName);
+						listofquantity.add(quantity);
+						addItems();
+				    	ingredientsEditText.setText("");
+						quantityEditText.setText("");
 					}
-					
-					listofingredients.add(ingName);
-					listofquantity.add(quantity);
-					addItems();
-			    	ingredientsEditText.setText("");
-					quantityEditText.setText("");
+					else{
+						quantity = Float.parseFloat(ingQuantity);
+						ingredient = new Ingredient(ingName, quantity);
+						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
+						int duration = Toast.LENGTH_SHORT;
+						Context context = getApplicationContext();
+						Toast.makeText(context,"Ingredient Added!", duration).show();
+						listofingredients.add(ingName);
+						listofquantity.add(quantity);
+						addItems();
+						ingredientsEditText.setText("");
+						quantityEditText.setText("");
+					}
 				}
 				
 			}
@@ -120,6 +152,9 @@ public class MyIngredientsActivity extends Activity {
 		backButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
+				
+				IngredientManager.getIngredientManager().saveAllIngredients(getApplicationContext());
+				
 				finish();
 			}
 		});
@@ -178,8 +213,6 @@ public class MyIngredientsActivity extends Activity {
 	
 	
 	private void addItems(){
-		IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-	
 		listofItems.add(ingName + " : " + quantity);
 		myList.setAdapter(adapter);
 		
@@ -193,10 +226,14 @@ public class MyIngredientsActivity extends Activity {
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
+				String currentIng = listofingredients.get(i);
+				Float currentQuantity = listofquantity.get(i);
 				listofItems.remove(i);
 				listofingredients.remove(i);
 				listofquantity.remove(i);
 				adapter.notifyDataSetChanged();
+				ingredient = new Ingredient(currentIng, currentQuantity);
+				IngredientManager.getIngredientManager().removeAllIngredient(ingredient);
 			}
 		}
 
@@ -213,8 +250,10 @@ public class MyIngredientsActivity extends Activity {
 				currentIng = listofingredients.get(i);
 				newQuantity = listofquantity.get(i) + 1 ;
 				listofquantity.set(i, newQuantity);
-				
 				listofItems.set(i, currentIng + " : " + newQuantity.toString());
+				
+				ingredient = new Ingredient(currentIng, newQuantity - 1);
+				IngredientManager.getIngredientManager().addNewIngredient(ingredient);
 				
 				adapter.notifyDataSetChanged();
 			}
@@ -234,11 +273,13 @@ public class MyIngredientsActivity extends Activity {
 				currentIng = listofingredients.get(i);
 				newQuantity = listofquantity.get(i) - 1;
 				
-			if(newQuantity != 0){
+			if(!(newQuantity <= 0)){
 				listofquantity.set(i, newQuantity);
-				
 				listofItems.set(i, currentIng + " : " + newQuantity.toString());
 				
+				ingredient = new Ingredient(currentIng, newQuantity + 1);
+				IngredientManager.getIngredientManager().removeIngredient(ingredient);
+	
 				adapter.notifyDataSetChanged();
 				
 				}
@@ -247,6 +288,10 @@ public class MyIngredientsActivity extends Activity {
 					listofingredients.remove(i);
 					listofquantity.remove(i);
 					adapter.notifyDataSetChanged();
+					
+					ingredient = new Ingredient(currentIng, newQuantity + 1);
+					IngredientManager.getIngredientManager().removeAllIngredient(ingredient);
+					
 				}
 				
 			}
