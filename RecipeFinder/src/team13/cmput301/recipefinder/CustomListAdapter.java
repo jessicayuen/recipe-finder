@@ -80,8 +80,10 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		//add fav star clicked or not here
 		if(recipe.isFave()){
 			fav.setImageResource(R.drawable.star);
+			fav.setBackgroundResource(R.drawable.star);
 		} else {
 			fav.setImageResource(R.drawable.staroff);
+			fav.setBackgroundResource(R.drawable.staroff);
 		}
 		fav.setFocusableInTouchMode(false);
 		fav.setFocusable(false);
