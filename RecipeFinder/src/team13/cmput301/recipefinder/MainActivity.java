@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 
 	RecipeManager rm;
 	IngredientManager im;
+	PhotoManager pm;
 
 	@Override
 	/**
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 		}
 
+		pm = PhotoManager.getPhotoManager();
 		/* load ingredients*/
 		im = IngredientManager.getIngredientManager();
 		/* Load recipes */

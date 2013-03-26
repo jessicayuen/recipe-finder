@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="10dp"
+        android:background="@null"
         android:src="@drawable/staroff" />
 
     <ImageView
@@ -59,8 +60,9 @@
     <TextView
         android:id="@+id/recipeNameDisplay"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/recipeRating"
         android:layout_toLeftOf="@+id/recipeRating"
         android:layout_toRightOf="@+id/recipePicture"
         android:text="TextView" />

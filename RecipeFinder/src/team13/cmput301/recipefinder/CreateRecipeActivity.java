@@ -430,4 +430,19 @@ public class CreateRecipeActivity extends Activity {
 		((Button)findViewById(R.id.addInstructionsButn)).setTypeface(typeface);
 		((Button)findViewById(R.id.instructionListButton)).setTypeface(typeface);
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstance){
+		PhotoManager.getPhotoManager().addList(imageList);
+		savedInstance.putStringArrayList("ingredient", (ArrayList<String>) ingredients);
+		savedInstance.putStringArrayList("instruction", (ArrayList<String>) instructions);
+		
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstance){
+		imageList = PhotoManager.getPhotoManager().getPhotoList();
+		ingredients = savedInstance.getStringArrayList("ingredient");
+		instructions = savedInstance.getStringArrayList("instruction");
+	}
 }
