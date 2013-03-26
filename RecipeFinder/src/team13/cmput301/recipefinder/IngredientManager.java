@@ -98,10 +98,10 @@ public class IngredientManager {
 	}
 	
 	/**
-	 * Remove ingredients from the ingredient list.
-	 * @param ingredient The ingredient to remove
+	 * Decrease the ingredient by 1 from the ingredient list.
+	 * @param ingredient The quantity of the ingredient
 	 */
-	public void removeIngredients(Ingredient ingredient) {
+	public void removeIngredient(Ingredient ingredient) {
 		int index = getIngredientIndex(ingredient);
 		if(index >= 0) {
 			Ingredient ingred = ingredients.get(index);
@@ -110,6 +110,19 @@ public class IngredientManager {
 				ingredients.remove(ingred);
 				ingredientNames.remove(index);
 			}			
+		}
+	}
+	
+	/**
+	 * Remove the ingredient from the ingredient list.
+	 * @param ingredient The ingredient to remove
+	 */
+	
+	public void removeAllIngredient(Ingredient ingredient) {
+		int index = getIngredientIndex(ingredient);
+		if(index >= 0) {
+			ingredients.remove(ingredient);
+			ingredientNames.remove(index);		
 		}
 	}
 	
