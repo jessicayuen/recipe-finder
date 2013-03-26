@@ -20,7 +20,7 @@
     <string name="title_activity_search_results">Search Results</string>
     <string name="title_activity_file_explorer">File Explorer</string>
 
-    <color name="green">#6BE400</color>
+    <color name="green">#54D754</color>
 
     <string name="title_activity_display_recipe">Display Recipe</string>
     <string name="title_activity_search_recipe">Search Recipe</string>
@@ -47,5 +47,6 @@
     <color name="grey">#5b5b5b</color>
     <color name="white">#FFFFFF</color>
     <color name="button">#596155</color>
+    <color name="light_green">#D64FD6</color>
 
 </resources>
