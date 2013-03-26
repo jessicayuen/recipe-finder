@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <ImageButton
-        android:id="@+id/favStarButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="10dp"
-        android:background="@null"
-        android:src="@drawable/staroff" />
-
     <ImageView
         android:id="@+id/recipePicture"
         android:layout_width="100dp"
@@ -20,14 +11,6 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/favStarButton"
         android:src="@drawable/directory_up" />
-
-    <RatingBar
-        android:id="@+id/recipeRating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/favStarButton"
-        android:layout_alignParentRight="true" />
 
     <Button
         android:id="@+id/removeRecipe"
@@ -66,5 +49,22 @@
         android:layout_toLeftOf="@+id/recipeRating"
         android:layout_toRightOf="@+id/recipePicture"
         android:text="TextView" />
+
+    <ImageButton
+        android:id="@+id/favStarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/authorBox"
+        android:background="@null"
+        android:src="@drawable/staroff" />
+
+    <RatingBar
+        android:id="@+id/recipeRating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/authorBox" />
 
 </RelativeLayout>
