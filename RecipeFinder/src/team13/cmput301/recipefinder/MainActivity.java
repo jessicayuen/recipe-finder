@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	RecipeManager rm;
 	IngredientManager im;
 	PhotoManager pm;
+	ListManager lm;
 
 	@Override
 	/**
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 		}
 
+		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
 		/* load ingredients*/
 		im = IngredientManager.getIngredientManager();
@@ -67,6 +69,8 @@ public class MainActivity extends Activity {
 	 * @param view
 	 */
 	public void openCreateRecipe(View view) {
+		ListManager.getListManager().clearLists();
+		PhotoManager.getPhotoManager().clearList();
 		Intent intent = new Intent(this, CreateRecipeActivity.class);
 		startActivity(intent);
 	}

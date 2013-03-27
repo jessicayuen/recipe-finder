@@ -81,10 +81,10 @@ public class CreateRecipeActivity extends Activity {
 		addInstructions = (EditText) findViewById(R.id.addInstructions);
 		addDescription = (EditText) findViewById(R.id.addDescription);
 
-		ingredients = new ArrayList<String>();
+		ingredients = ListManager.getListManager().getIngredList();
 		ingredientNames =  IngredientManager.getIngredientManager().getIngredientNamesList();
-		instructions = new ArrayList<String>();
-		imageList = new ArrayList<Photo>();
+		instructions = ListManager.getListManager().getInstrList();
+		imageList = PhotoManager.getPhotoManager().getPhotoList();
 		autoFillAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, ingredientNames);
 
@@ -222,6 +222,14 @@ public class CreateRecipeActivity extends Activity {
 
 	}
 
+	protected void onPause(){
+		PhotoManager.getPhotoManager().addList(imageList);
+		ListManager.getListManager().addIngredList(ingredients);
+		ListManager.getListManager().addInstrList(instructions);
+		super.onPause();
+	}
+	
+	
 	@Override
 	/**
 	 * Takes the intent result and does something with it. In this case, watches
@@ -429,20 +437,5 @@ public class CreateRecipeActivity extends Activity {
 		((Button)findViewById(R.id.ingredientListButton)).setTypeface(typeface);
 		((Button)findViewById(R.id.addInstructionsButn)).setTypeface(typeface);
 		((Button)findViewById(R.id.instructionListButton)).setTypeface(typeface);
-	}
-	
-	@Override
-	protected void onSaveInstanceState(Bundle savedInstance){
-		PhotoManager.getPhotoManager().addList(imageList);
-		savedInstance.putStringArrayList("ingredient", (ArrayList<String>) ingredients);
-		savedInstance.putStringArrayList("instruction", (ArrayList<String>) instructions);
-		
-	}
-	
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstance){
-		imageList = PhotoManager.getPhotoManager().getPhotoList();
-		ingredients = savedInstance.getStringArrayList("ingredient");
-		instructions = savedInstance.getStringArrayList("instruction");
 	}
 }
