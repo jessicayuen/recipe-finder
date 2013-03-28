@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import team13.cmput301.recipefinder.R;
-import team13.cmput301.recipefinder.adapters.OnTaskCompletionListener;
 import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.InsertRecipeTask;
@@ -40,8 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DisplayRecipeActivity extends Activity 
-	implements OnTaskCompletionListener {
+public class DisplayRecipeActivity extends Activity  {
 
 	private final int FILE_PATH_REQUEST = 1; 
 	private static final int CAMERA_REQUEST = 1888; 
@@ -256,7 +254,7 @@ public class DisplayRecipeActivity extends Activity
 	 * @param view
 	 */
 	public void publishRecipe(View view) {
-		InsertRecipeTask irt = new InsertRecipeTask(this);
+		InsertRecipeTask irt = new InsertRecipeTask();
 		irt.execute(recipe);
 		Toast.makeText(DisplayRecipeActivity.this, 
 				"Your recipe has been published!", Toast.LENGTH_LONG).show();
@@ -271,12 +269,7 @@ public class DisplayRecipeActivity extends Activity
 		recipe.setFave(true);
 		rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe), this);
 	}
-	
-	@Override
-	public void onTaskCompletion(String message) {
-		Toast.makeText(DisplayRecipeActivity.this, message, 
-				Toast.LENGTH_LONG).show();
-	}
+
 
 	/**
 	 * Set the TextViews and Buttons to a custom font.
