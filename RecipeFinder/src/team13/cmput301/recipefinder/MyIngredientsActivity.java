@@ -1,242 +1,167 @@
- // Activity that allows user to keep track of their ingredients,
-
+/**
+ * Allows user to keep track of their ingredients and their quantity;
+ * including deleting ingredients, adding ingredients, and
+ * increasing/decreasing quantities.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 package team13.cmput301.recipefinder;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MyIngredientsActivity extends Activity {
 
-	private ArrayList<String> listofItems = new ArrayList<String>();
-	private ArrayList<String> listofingredients = new ArrayList<String>();
-	private ArrayList<Float> listofquantity = new ArrayList<Float>();
+	private IngredientManager ingredManager;
+	private ArrayList<String> displayList;
 	private ArrayAdapter<String> adapter;
 	private EditText ingredientsEditText, quantityEditText;
-	private Button addButton, searchButton, deleteButton, backButton, plusButton, minusButton;
 	private ListView myList;
-	private boolean checkedItem = false;
-	private Ingredient ingredient;
-	private String ingName, ingQuantity;
-	private float quantity;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_ingredients);
 
-		addButton = (Button) findViewById(R.id.addPH);
-		deleteButton = (Button) findViewById(R.id.deletePH);
-		backButton = (Button) findViewById(R.id.backButton);
-		searchButton = (Button) findViewById(R.id.searchPH);
-		plusButton = (Button) findViewById(R.id.plusPH);
-		minusButton = (Button) findViewById(R.id.minusPH);
-		myList = (ListView) findViewById(R.id.listOfIng);
-		
-		
-		adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_multiple_choice, listofItems);
+		/* load ingredients*/
+		ingredManager = IngredientManager.getIngredientManager();
+		ingredManager.loadIngredients(this);
 
+		displayList = new ArrayList<String>();
+		myList = (ListView) findViewById(R.id.listOfIng);
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_multiple_choice, displayList);
 		ingredientsEditText = (EditText) findViewById(R.id.ingredientItem);
 		quantityEditText = (EditText) findViewById(R.id.quantityItem);
-		
-		IngredientManager.getIngredientManager().loadRecipes(getApplicationContext());
-		for(int index = 0; index < IngredientManager.getIngredientManager().getIngredientList().size(); index++){
-			String newIngredient = IngredientManager.getIngredientManager().getIngredientList().get(index).getIngredient();
-			Float newQuantity = IngredientManager.getIngredientManager().getIngredientList().get(index).getQuantity();
-			listofingredients.add(newIngredient);
-			listofquantity.add(newQuantity);
-			listofItems.add(newIngredient + " : " + newQuantity);
+
+		List<Ingredient> ingredList = ingredManager.getIngredientList();
+		/* Display the ingredients in the list view */
+		for(int i = 0; i < ingredList.size(); i++){
+			displayList.add(ingredList.get(i).toString());
 			myList.setAdapter(adapter);
-			
 		}
-	
-		/**
-		 * Initiates the addButton functionality
-		 */
-		addButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-				
-				ingName = ingredientsEditText.getText().toString();
-				ingQuantity = quantityEditText.getText().toString();
-				
-				if (ingName.matches("")) {
-					/* show a message if fields not entered */
-					int duration = Toast.LENGTH_SHORT;
-					Context context = getApplicationContext();
-					Toast.makeText(context,"Enter a ingredient", duration).show();
-				}
-				if (checkItem(checkedItem)){
-						Float newQuantity;
-						
-						for(int index = 0; index < listofingredients.size(); index++)
-							if(ingName.matches(listofingredients.get(index))){
-								quantity = listofquantity.get(index);
-								newQuantity = listofquantity.get(index) + 1;
-								listofquantity.set(index, newQuantity);
-								listofItems.set(index, ingName + " : " + newQuantity.toString());
-								adapter.notifyDataSetChanged();
-							}
-						
-						ingredient = new Ingredient(ingName, quantity);
-						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-						
-						int duration = Toast.LENGTH_SHORT;
-						Context context = getApplicationContext();
-						Toast.makeText(context,"Ingredient Already Exists! Quantity increased!", duration).show();
-				
-				}
-				if (!ingName.matches("") && checkItem(checkedItem) == false){
-					if(ingQuantity.matches("")){
-						ingQuantity = "1";
-						quantity = Float.parseFloat(ingQuantity);
-						ingredient = new Ingredient(ingName, quantity);
-						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-						int duration = Toast.LENGTH_SHORT;
-						Context context = getApplicationContext();
-						Toast.makeText(context,"Ingredient Added!", duration).show();
-						listofingredients.add(ingName);
-						listofquantity.add(quantity);
-						addItems();
-				    	ingredientsEditText.setText("");
-						quantityEditText.setText("");
-					}
-					else{
-						quantity = Float.parseFloat(ingQuantity);
-						ingredient = new Ingredient(ingName, quantity);
-						IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-						int duration = Toast.LENGTH_SHORT;
-						Context context = getApplicationContext();
-						Toast.makeText(context,"Ingredient Added!", duration).show();
-						listofingredients.add(ingName);
-						listofquantity.add(quantity);
-						addItems();
-						ingredientsEditText.setText("");
-						quantityEditText.setText("");
-					}
-				}
-				
-			}
-
-		});
-
-		/**
-		 * Listens for delete button click
-		 */
-		deleteButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-				deleteCheckedItems();
-				myList.setAdapter(adapter);
-			}
-
-		});
-		
-		/**
-		 * Exits the activity on Back button click
-		 */
-		backButton.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				
-				IngredientManager.getIngredientManager().saveAllIngredients(getApplicationContext());
-				
-				finish();
-			}
-		});
-		
-		plusButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-				incrCheckedItems();
-				myList.setAdapter(adapter);
-			}
-
-		});
-		
-		minusButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-				decrCheckedItems();
-				myList.setAdapter(adapter);
-			}
-
-		});
-		
-		/**
-		 * Listens for search button click
-		 */
-		searchButton.setOnClickListener(new View.OnClickListener() {			
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(View v) {
-				searchCheckedItems();
-				Intent myIntent = new Intent(
-						MyIngredientsActivity.this, SearchResultsActivity.class);
-				MyIngredientsActivity.this.startActivity(myIntent);
-			}
-
-		});
 	}
-	
+
 	/**
-	 * Check if the current item already exists in the list of ingredients
-	 * @param checkedItem Item to be checked
-	 * @return
+	 * Saves the ingredients and displays it in the list view 
+	 * on add button click
+	 * @param view The view where the add button is
 	 */
-	public boolean checkItem(boolean checkedItem){
-		for(int index = 0; index < listofingredients.size(); index++){
-			if(listofingredients.get(index).equals(ingName)){
-				checkedItem = true;
-			} else {
-				checkedItem = false;
+	public void addClicked(View view) {
+		String name = ingredientsEditText.getText().toString();
+		float quantity = 1;
+
+		/* Parse quantity */
+		if (!quantityEditText.getText().toString().equals("")) 
+			quantity = Float.parseFloat(quantityEditText.getText().toString());
+
+		/* show a message if fields are not entered */
+		if (name.equals("")) {
+			Toast.makeText(this, "Enter a ingredient", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		/* Check if ingredient already exists */
+		List<Ingredient> ingredList = ingredManager.getIngredientList();
+		for (int i = 0; i < ingredList.size(); i++) {
+			Ingredient ingred = ingredList.get(i);
+
+			/* Ingredient already exists */
+			if (name.equals(ingred.getIngredient())) {
+				ingred.setQuantity(ingred.getQuantity() + 1);
+				displayList.set(i, ingred.toString());
+				adapter.notifyDataSetChanged();
+				ingredManager.setIngredient(ingred, i);
+				ingredManager.saveAllIngredients(this);
+				Toast.makeText(this, "Ingredient Already Exists! " +
+						"Quantity increased!", Toast.LENGTH_SHORT).show();
+				ingredientsEditText.setText("");
+				quantityEditText.setText("");
+				return;
 			}
 		}
-		return checkedItem;
-	}
-	
-	
-	private void addItems(){
-		listofItems.add(ingName + " : " + quantity);
+
+		/* Ingredient doesn't exist */
+		Ingredient ingredient = new Ingredient(name, quantity);
+		ingredManager.addNewIngredient(ingredient);
+		ingredManager.saveAllIngredients(this);
+		Toast.makeText(this,"Ingredient Added!", Toast.LENGTH_SHORT).show();
+		displayList.add(ingredient.toString());
 		myList.setAdapter(adapter);
-		
+		ingredientsEditText.setText("");
+		quantityEditText.setText("");
+	}
+
+	/**
+	 * Deletes the selected ingredient from the list view
+	 * @param view The view where the delete button is
+	 */
+	public void deleteClicked(View view) {
+		deleteCheckedItems();
+		myList.setAdapter(adapter);
+	}
+
+	/**
+	 * Listens for plus button click 
+	 * @param view The view where the plus button is
+	 */
+	public void plusClicked(View view) {
+		incrCheckedItems();
+		myList.setAdapter(adapter);
+	}
+
+	/**
+	 * Listens for minus button click
+	 * @param view The view where the minus button is
+	 */
+	public void minusClicked(View view) {
+		decrCheckedItems();
+		myList.setAdapter(adapter);
+	}
+
+	/**
+	 * Listens for search button being clicked
+	 * @param view The view where the search button is
+	 */
+	public void searchClicked(View view) {
+		searchCheckedItems();
+		Intent myIntent = new Intent(
+				MyIngredientsActivity.this, SearchResultsActivity.class);
+		MyIngredientsActivity.this.startActivity(myIntent);
+	}
+
+	/**
+	 * Returns to the previous activity on back button click
+	 * and saves the state of the current ingredients
+	 * @param view
+	 */
+	public void backClicked(View view) {
+		finish();
 	}
 
 	/**
 	 * Remove ingredients that were checked
 	 */
 	private void deleteCheckedItems() {
-
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
-				String currentIng = listofingredients.get(i);
-				Float currentQuantity = listofquantity.get(i);
-				listofItems.remove(i);
-				listofingredients.remove(i);
-				listofquantity.remove(i);
+				ingredManager.removeIngredient(i);
+				ingredManager.saveAllIngredients(this);
+				displayList.remove(i);
 				adapter.notifyDataSetChanged();
-				ingredient = new Ingredient(currentIng, currentQuantity);
-				IngredientManager.getIngredientManager().removeAllIngredient(ingredient);
 			}
 		}
-
 	}
 	/**
 	 * Increments the items that were checked by 1
@@ -245,55 +170,32 @@ public class MyIngredientsActivity extends Activity {
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
-				String currentIng;
-				Float newQuantity;
-				currentIng = listofingredients.get(i);
-				newQuantity = listofquantity.get(i) + 1 ;
-				listofquantity.set(i, newQuantity);
-				listofItems.set(i, currentIng + " : " + newQuantity.toString());
-				
-				ingredient = new Ingredient(currentIng, newQuantity - 1);
-				IngredientManager.getIngredientManager().addNewIngredient(ingredient);
-				
+				Ingredient ingred = ingredManager.getIngredientList().get(i);
+				ingred.setQuantity(ingred.getQuantity() + 1);
+				displayList.set(i, ingred.getIngredient() + 
+						" : " + ingred.getQuantity());
+				ingredManager.setIngredient(ingred, i);
+				ingredManager.saveAllIngredients(this);
 				adapter.notifyDataSetChanged();
 			}
 		}
 	}
-	
+
 	/**
 	 * Decrements the items that were checked by 1
 	 */
-	
 	private void decrCheckedItems(){
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
-				String currentIng;
-				Float newQuantity;
-				currentIng = listofingredients.get(i);
-				newQuantity = listofquantity.get(i) - 1;
-				
-			if(!(newQuantity <= 0)){
-				listofquantity.set(i, newQuantity);
-				listofItems.set(i, currentIng + " : " + newQuantity.toString());
-				
-				ingredient = new Ingredient(currentIng, newQuantity + 1);
-				IngredientManager.getIngredientManager().removeIngredient(ingredient);
-	
+				Ingredient ingred = ingredManager.getIngredientList().get(i);
+				if (ingred.getQuantity() > 0)
+					ingred.setQuantity(ingred.getQuantity() - 1);
+				displayList.set(i, ingred.getIngredient() + 
+						" : " + ingred.getQuantity());
+				ingredManager.setIngredient(ingred, i);
+				ingredManager.saveAllIngredients(this);
 				adapter.notifyDataSetChanged();
-				
-				}
-				else{
-					listofItems.remove(i);
-					listofingredients.remove(i);
-					listofquantity.remove(i);
-					adapter.notifyDataSetChanged();
-					
-					ingredient = new Ingredient(currentIng, newQuantity + 1);
-					IngredientManager.getIngredientManager().removeAllIngredient(ingredient);
-					
-				}
-				
 			}
 		}
 	}

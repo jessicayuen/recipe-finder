@@ -82,7 +82,6 @@ public class CreateRecipeActivity extends Activity {
 		addDescription = (EditText) findViewById(R.id.addDescription);
 
 		ingredients = ListManager.getListManager().getIngredList();
-		ingredientNames =  IngredientManager.getIngredientManager().getIngredientNamesList();
 		instructions = ListManager.getListManager().getInstrList();
 		imageList = PhotoManager.getPhotoManager().getPhotoList();
 		autoFillAdapter = new ArrayAdapter<String>(this,

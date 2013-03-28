@@ -9,9 +9,7 @@
 package team13.cmput301.recipefinder;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -24,11 +22,9 @@ public class IngredientManager {
 
 	// Singleton
 	transient private static IngredientManager ingredientManager = null;
-
 	private static final String PATH = "ingredientLog.sav";
 
 	private List<Ingredient> ingredients;
-	private List<String> ingredientNames;
 
 	/**
 	 * DO NOT USE
@@ -43,7 +39,6 @@ public class IngredientManager {
 		if (ingredientManager == null) {
 			ingredientManager = new IngredientManager();
 			ingredientManager.ingredients = new ArrayList<Ingredient>();
-			ingredientManager.ingredientNames = new ArrayList<String>();
 		}
 		return ingredientManager;
 	}
@@ -54,78 +49,61 @@ public class IngredientManager {
 	 * @param ctx Context
 	 */
 	@SuppressWarnings("unchecked")
-	public void loadRecipes(Context ctx) {
+	public void loadIngredients(Context ctx) {
 		try {
 			FileInputStream fis;
 			ObjectInputStream in;
 
-			ingredientNames = new ArrayList<String>();
-			// read user ingredients
+			getIngredientManager().ingredients = new ArrayList<Ingredient>();
+			// read ingredients
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
-			ingredients = (ArrayList<Ingredient>) in.readObject();
+			getIngredientManager().ingredients = (ArrayList<Ingredient>) in.readObject();
 			in.close();
-
-			// read favorite recipes
-			for (Ingredient ingredient : ingredients) {
-				ingredientNames.add(ingredient.getIngredient());
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("IngredientManager", "Problems loading ingredients: " + e);
 		}
 	}
 
 	/**
-	 * Adds the ingredient into the list.
+	 * Adds the ingredient into the end of the list.
 	 * @param ingredient The ingredient to be added
 	 */
 	public void addNewIngredient(Ingredient ingredient) {
-		int index = getIngredientIndex(ingredient);
-		if(index >= 0) {
-			ingredients.get(index).increaseQuantity(ingredient.getQuantity());
-		} else {
-			if(ingredient.getQuantity() == 0){
-				ingredient.setQuantity(1);
+		getIngredientManager().ingredients.add(ingredient);
+	}
+	
+	/** 
+	 * Replace the ingredient at location i with the provided ingredient
+	 * @param ingredient The ingredient to replace with
+	 * @param i The position to be replaced.
+	 */
+	public void setIngredient(Ingredient ingredient, int i) {
+		if (getIngredientManager().ingredients.size() < i) {
+			try {
+				throw new Exception("Setting ingredient at a invalid index");
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			ingredients.add(ingredient);
-			ingredientNames.add(ingredient.getIngredient());
-		}
+		} else 
+			getIngredientManager().ingredients.set(i, ingredient);
 	}
-	
+
 	/**
-	 * Decrease the ingredient by 1 from the ingredient list.
-	 * @param ingredient The quantity of the ingredient
+	 * Remove ingredient at index i
+	 * @param i The index where the ingredient is
 	 */
-	public void removeIngredient(Ingredient ingredient) {
-		int index = getIngredientIndex(ingredient);
-		if(index >= 0) {
-			Ingredient ingred = ingredients.get(index);
-			ingred.decreseQuantity(ingredient.getQuantity());
-			if(ingred.getQuantity() < 1){
-				ingredients.remove(ingred);
-				ingredientNames.remove(index);
-			}			
-		}
+	public void removeIngredient(int i) {
+		if (getIngredientManager().ingredients.size() < i) {
+			try {
+				throw new Exception("Removing ingredient at a invalid index");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else 
+			getIngredientManager().ingredients.remove(i);
 	}
-	
-	/**
-	 * Remove the ingredient from the ingredient list.
-	 * @param ingredient The ingredient to remove
-	 */
-	
-	public void removeAllIngredient(Ingredient ingredient) {
-		int index = getIngredientIndex(ingredient);
-		if(index >= 0) {
-			ingredients.remove(ingredient);
-			ingredientNames.remove(index);		
-		}
-	}
-	
+
 	/**
 	 * Save all ingredients into a file.
 	 * @param ctx Context
@@ -135,10 +113,10 @@ public class IngredientManager {
 			FileOutputStream fos = 
 					ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(ingredients);
+			out.writeObject(getIngredientManager().ingredients);
 			out.close();
 		} catch (Exception e) {
-			Log.e("User", "Problems saving user settings", e); 
+			Log.e("IngredientManager", "Problems saving ingredients", e); 
 		}
 	}
 	
@@ -146,28 +124,14 @@ public class IngredientManager {
 	 * @return The list of ingredients
 	 */
 	public List<Ingredient> getIngredientList() {
-		return ingredients;
-	}
-	
-	/**
-	 * @return The list of ingredients by name
-	 */
-	public List<String> getIngredientNamesList() {
-		return ingredientNames;
+		return getIngredientManager().ingredients;
 	}
 	
 	/**
 	 * @param ingredList Set the list of ingredients
 	 */
 	public void setIngredientList(List<Ingredient> ingredList) {
-		this.ingredients = ingredList;
-	}
-	
-	/**
-	 * @param ingredNameList Set the list of ingredients by name
-	 */
-	public void setIngredNameList(List<String> ingredNameList) {
-		this.ingredientNames = ingredNameList;
+		getIngredientManager().ingredients = ingredList;
 	}
 	
 	/**

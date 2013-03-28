@@ -7,8 +7,12 @@
 
 package team13.cmput301.recipefinder;
 
-public class Ingredient {
+import java.io.Serializable;
 
+public class Ingredient implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private String ingredientName;
 	private float quantity;
 	
@@ -57,5 +61,9 @@ public class Ingredient {
 		} else {
 			this.quantity += quantity;
 		}
+	}
+	
+	public String toString() {
+		return new String(ingredientName + " : " + Float.toString(quantity));
 	}
 }

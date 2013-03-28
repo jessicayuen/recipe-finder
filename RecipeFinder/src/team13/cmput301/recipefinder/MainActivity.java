@@ -50,8 +50,7 @@ public class MainActivity extends Activity {
 
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
-		/* load ingredients*/
-		im = IngredientManager.getIngredientManager();
+		
 		/* Load recipes */
 		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
