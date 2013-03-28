@@ -258,6 +258,8 @@ public class DisplayRecipeActivity extends Activity
 	public void publishRecipe(View view) {
 		InsertRecipeTask irt = new InsertRecipeTask(this);
 		irt.execute(recipe);
+		Toast.makeText(DisplayRecipeActivity.this, 
+				"Your recipe has been published!", Toast.LENGTH_LONG).show();
 	}
 	
 	/**
