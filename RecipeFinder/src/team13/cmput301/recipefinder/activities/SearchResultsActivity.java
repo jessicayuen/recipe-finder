@@ -6,11 +6,15 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.adapters.CustomListAdapter;
+import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;

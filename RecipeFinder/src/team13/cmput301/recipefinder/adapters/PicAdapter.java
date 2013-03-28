@@ -6,10 +6,12 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.model.Photo;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -23,7 +25,7 @@ import android.widget.ImageView;
 /**
  * Adapter for images in the gallery
  */
-class PicAdapter extends BaseAdapter {
+public class PicAdapter extends BaseAdapter {
 
 	private int defaultItemBackground;
 	private Context galleryContext;

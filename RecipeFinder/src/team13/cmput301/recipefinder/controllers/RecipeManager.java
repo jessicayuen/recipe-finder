@@ -6,7 +6,7 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.controllers;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import android.content.Context;
 import android.util.Log;

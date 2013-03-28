@@ -5,8 +5,9 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
+import team13.cmput301.recipefinder.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;

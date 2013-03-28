@@ -3,10 +3,12 @@
  * photos are removed
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import team13.cmput301.recipefinder.model.Photo;
 
 public class PhotoManager {
 	

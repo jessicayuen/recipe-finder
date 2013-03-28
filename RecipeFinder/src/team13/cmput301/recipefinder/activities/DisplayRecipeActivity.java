@@ -5,11 +5,20 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.adapters.OnTaskCompletionListener;
+import team13.cmput301.recipefinder.adapters.PicAdapter;
+import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.controllers.RecipeManager;
+import team13.cmput301.recipefinder.controllers.User;
+import team13.cmput301.recipefinder.elasticsearch.InsertRecipeTask;
+import team13.cmput301.recipefinder.email.EmailSender;
+import team13.cmput301.recipefinder.model.Photo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

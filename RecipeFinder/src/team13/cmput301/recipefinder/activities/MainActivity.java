@@ -7,11 +7,18 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.util.Collections;
 import java.util.List;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.controllers.IngredientManager;
+import team13.cmput301.recipefinder.controllers.ListManager;
+import team13.cmput301.recipefinder.controllers.PhotoManager;
+import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.controllers.RecipeManager;
+import team13.cmput301.recipefinder.controllers.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;

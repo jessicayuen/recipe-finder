@@ -1,5 +1,7 @@
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.elasticsearch;
 
+import team13.cmput301.recipefinder.adapters.OnTaskCompletionListener;
+import team13.cmput301.recipefinder.controllers.Recipe;
 import android.os.AsyncTask;
 
 public class InsertRecipeTask extends AsyncTask<Recipe, Void, Boolean> {

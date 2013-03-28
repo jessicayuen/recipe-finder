@@ -5,7 +5,7 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.email;
 
 import java.util.Date;
 import java.util.Properties;
@@ -25,6 +25,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
+import team13.cmput301.recipefinder.controllers.User;
 
 
 public class EmailSender extends javax.mail.Authenticator { 

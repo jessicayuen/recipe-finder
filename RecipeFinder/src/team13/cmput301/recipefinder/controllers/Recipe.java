@@ -5,12 +5,14 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.controllers;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import team13.cmput301.recipefinder.model.Photo;
 
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +27,7 @@ public class Recipe implements Serializable {
 	private float rating;
 	private Date date;
 	private UUID id;
+	private long sqlID;
 
 	/** 
 	 * Constructor for Recipe object
@@ -49,7 +52,7 @@ public class Recipe implements Serializable {
 		this.id = new UUID(name.hashCode(), author.hashCode());
 		this.fave = false;
 	}
-	
+
 	/** 
 	 * Constructor for Recipe object
 	 * @param name
@@ -266,5 +269,26 @@ public class Recipe implements Serializable {
 	 */
 	public void setFave(boolean fave) {
 		this.fave = fave;
+	}
+
+	/**
+	 * Set the uuid of the recipe
+	 */
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
+	/**
+	 * @return the SQL ID;
+	 */
+	public long getSqlID() {
+		return sqlID;
+	}
+
+	/**
+	 * @param sqlID Sets the sqlID to this
+	 */
+	public void setSqlID(long sqlID) {
+		this.sqlID = sqlID;
 	}
 }

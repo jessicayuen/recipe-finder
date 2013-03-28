@@ -6,10 +6,13 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.util.regex.Pattern;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.controllers.User;
+import team13.cmput301.recipefinder.email.EmailSender;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

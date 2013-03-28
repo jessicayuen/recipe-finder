@@ -1,4 +1,4 @@
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;
 import java.util.List;

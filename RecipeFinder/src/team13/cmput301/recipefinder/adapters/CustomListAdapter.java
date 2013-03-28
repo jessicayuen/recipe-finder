@@ -1,7 +1,10 @@
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.controllers.RecipeManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

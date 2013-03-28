@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="team13.cmput301.recipefinder.MainActivity"
+            android:name="team13.cmput301.recipefinder.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,36 +25,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.CreateRecipeActivity"
+            android:name="team13.cmput301.recipefinder.activities.CreateRecipeActivity"
             android:label="@string/title_activity_create_recipe" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.MyIngredientsActivity"
+            android:name="team13.cmput301.recipefinder.activities.MyIngredientsActivity"
             android:label="@string/title_activity_my_ingredients" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.RecipesActivity"
+            android:name="team13.cmput301.recipefinder.activities.RecipesActivity"
             android:label="@string/title_activity_recipes" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.SearchResultsActivity"
+            android:name="team13.cmput301.recipefinder.activities.SearchResultsActivity"
             android:label="@string/title_activity_search_results" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.DisplayRecipeActivity"
+            android:name="team13.cmput301.recipefinder.activities.DisplayRecipeActivity"
             android:label="@string/title_activity_display_recipe"
             android:configChanges="orientation|keyboardHidden" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.SearchRecipeActivity"
+            android:name="team13.cmput301.recipefinder.activities.SearchRecipeActivity"
             android:label="@string/title_activity_search_recipe" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.RecipeListActivity"
+            android:name="team13.cmput301.recipefinder.activities.RecipeListActivity"
             android:label="@string/title_activity_recipe_list" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.FirstTimeUserActivity"
+            android:name="team13.cmput301.recipefinder.activities.FirstTimeUserActivity"
             android:label="@string/title_activity_first_time_user" >
         </activity>
     </application>

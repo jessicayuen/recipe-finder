@@ -5,7 +5,7 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.model;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;

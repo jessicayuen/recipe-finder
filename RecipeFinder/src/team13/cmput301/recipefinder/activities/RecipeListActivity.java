@@ -5,10 +5,14 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.util.List;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.adapters.CustomListAdapter;
+import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.controllers.RecipeManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

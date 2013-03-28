@@ -6,11 +6,14 @@
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-package team13.cmput301.recipefinder;
+package team13.cmput301.recipefinder.activities;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.controllers.IngredientManager;
+import team13.cmput301.recipefinder.model.Ingredient;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
