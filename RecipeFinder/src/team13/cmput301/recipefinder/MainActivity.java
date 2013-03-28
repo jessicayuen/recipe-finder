@@ -38,21 +38,20 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		User user = User.getUser();
+		lm = ListManager.getListManager();
+		pm = PhotoManager.getPhotoManager();
+		rm = RecipeManager.getRecipeManager();
+
+		/* Run setup if user has never used app before */
+//		if (user.getHasUsedApp().equals("0")) {
+//			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+//			startActivity(intent);
+//		}
 
 		/* Load user settings */
 		user.loadUserSettings(this);
-
-		/* Run setup if user has never used app before */
-		if (user.getHasUsedApp().equals("0")) {
-			Intent intent = new Intent(this, FirstTimeUserActivity.class);
-			startActivity(intent);
-		}
-
-		lm = ListManager.getListManager();
-		pm = PhotoManager.getPhotoManager();
 		
 		/* Load recipes */
-		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
 
 		/* Display 4 random favorite recipes */
@@ -68,8 +67,8 @@ public class MainActivity extends Activity {
 	 * @param view
 	 */
 	public void openCreateRecipe(View view) {
-		ListManager.getListManager().clearLists();
-		PhotoManager.getPhotoManager().clearList();
+		lm.clearLists();
+		pm.clearList();
 		Intent intent = new Intent(this, CreateRecipeActivity.class);
 		startActivity(intent);
 	}
@@ -168,6 +167,5 @@ public class MainActivity extends Activity {
 		Intent displayRecipeIntent = new Intent(this, 
 				RecipeListActivity.class);
 		startActivity(displayRecipeIntent);
-
 	}
 }

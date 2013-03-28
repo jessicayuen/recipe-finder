@@ -9,8 +9,6 @@ package team13.cmput301.recipefinder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,21 +54,7 @@ public class DisplayRecipeActivity extends Activity
 			recipe = RecipeManager.getRecipeManager().
 					getUserRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
-		} else {
-			// TEST - CONVERT TO JUNIT LATER
-			List<String> ingredients = new ArrayList<String>();
-			ingredients.add("apples");
-			ingredients.add("oranges");
-			List<String> instructions = new ArrayList<String>();
-			instructions.add("Smash the apples");
-			instructions.add("Smash the oranges");
-			instructions.add("Smash the apples and oranges together");
-			recipe = new Recipe("Hamburger", 
-					"This is some description. BlahBlah.",
-					User.getUser().getUsername(), ingredients, 
-					instructions, new ArrayList<Photo>());
-			displayRecipe();
-		}
+		} 
 
 		picGallery = (Gallery) findViewById(R.id.gallery);
 		imgAdapt = new PicAdapter(this, recipe.getPhotos());
@@ -273,7 +257,8 @@ public class DisplayRecipeActivity extends Activity
 	 */
 	public void addToFave(View view) {
 		RecipeManager rm = RecipeManager.getRecipeManager();
-		rm.addToFavList(recipe, false);
+		recipe.setFave(true);
+		rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe), this);
 	}
 	
 	@Override
