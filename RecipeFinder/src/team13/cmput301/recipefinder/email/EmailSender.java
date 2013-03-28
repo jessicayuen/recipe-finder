@@ -26,7 +26,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import team13.cmput301.recipefinder.controllers.User;
+import team13.cmput301.recipefinder.model.User;
 
 
 public class EmailSender extends javax.mail.Authenticator { 

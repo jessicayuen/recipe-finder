@@ -25,7 +25,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import team13.cmput301.recipefinder.controllers.Recipe;
+import team13.cmput301.recipefinder.model.Recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

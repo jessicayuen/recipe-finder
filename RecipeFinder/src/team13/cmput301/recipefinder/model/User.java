@@ -5,7 +5,7 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder.controllers;
+package team13.cmput301.recipefinder.model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

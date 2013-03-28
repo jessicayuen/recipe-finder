@@ -5,14 +5,13 @@
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 
-package team13.cmput301.recipefinder.controllers;
+package team13.cmput301.recipefinder.model;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import team13.cmput301.recipefinder.model.Photo;
 
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;

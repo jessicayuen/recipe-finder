@@ -15,6 +15,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import team13.cmput301.recipefinder.model.Recipe;
+import team13.cmput301.recipefinder.model.User;
+
 
 import android.content.Context;
 import android.util.Log;

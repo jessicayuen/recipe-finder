@@ -11,8 +11,8 @@ package team13.cmput301.recipefinder.activities;
 import java.util.regex.Pattern;
 
 import team13.cmput301.recipefinder.R;
-import team13.cmput301.recipefinder.controllers.User;
 import team13.cmput301.recipefinder.email.EmailSender;
+import team13.cmput301.recipefinder.model.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

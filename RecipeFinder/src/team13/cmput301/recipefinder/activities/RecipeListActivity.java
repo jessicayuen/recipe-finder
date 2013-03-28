@@ -11,8 +11,8 @@ import java.util.List;
 
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.CustomListAdapter;
-import team13.cmput301.recipefinder.controllers.Recipe;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
+import team13.cmput301.recipefinder.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
