@@ -5,30 +5,33 @@
     tools:context=".MyIngredientsActivity" >
 
     <Button
-        android:id="@+id/minusPH"
+        android:id="@+id/minus"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/listOfIng"
+        android:onClick="minusClicked"
         android:text="minus" />
 
     <Button
-        android:id="@+id/plusPH"
+        android:id="@+id/plus"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listOfIng"
-        android:layout_toLeftOf="@+id/minusPH"
+        android:layout_toLeftOf="@+id/minus"
+        android:onClick="plusClicked"
         android:text="plus" />
 
     <Button
-        android:id="@+id/addPH"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/quantityItem"
         android:layout_alignBottom="@+id/quantityItem"
         android:layout_alignParentRight="true"
+        android:onClick="addClicked"
         android:text="add_PH" />
 
     <ListView
@@ -36,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="238dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/addPH"
+        android:layout_below="@+id/add"
         android:choiceMode="multipleChoice" >
     </ListView>
 
@@ -47,14 +50,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:onClick="backClicked"
         android:text="back_PH" />
 
     <Button
-        android:id="@+id/searchPH"
+        android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/minusPH"
+        android:layout_below="@+id/minus"
+        android:onClick="searchClicked"
         android:text="search_PH" />
 
     <EditText
@@ -80,11 +85,12 @@
         android:hint="Enter an ingredient" />
 
     <Button
-        android:id="@+id/deletePH"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/plusPH"
+        android:layout_below="@+id/plus"
+        android:onClick="deleteClicked"
         android:text="delete_PH" />
 
 </RelativeLayout>

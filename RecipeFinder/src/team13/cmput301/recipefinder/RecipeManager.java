@@ -24,9 +24,7 @@ public class RecipeManager {
 
 	private static final String PATH = "recipelog.sav";
 
-	private List<Recipe> faveRecipes, userRecipes, ownRecipes;
-	private List<Recipe> searchModeUserRecipes, searchModeFaveRecipes;
-	private List<Recipe> searchModeOwnRecipes;
+	private List<Recipe> allRecipes;
 
 	/**
 	 * DO NOT USE
@@ -40,12 +38,7 @@ public class RecipeManager {
 	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
-			recipeManager.faveRecipes = new ArrayList<Recipe>();
-			recipeManager.userRecipes = new ArrayList<Recipe>();
-			recipeManager.ownRecipes = new ArrayList<Recipe>();
-			recipeManager.searchModeFaveRecipes = new ArrayList<Recipe>();
-			recipeManager.searchModeOwnRecipes = new ArrayList<Recipe>();
-			recipeManager.searchModeUserRecipes = new ArrayList<Recipe>();
+			recipeManager.allRecipes = new ArrayList<Recipe>();
 		}
 		return recipeManager;
 	}
@@ -60,24 +53,12 @@ public class RecipeManager {
 			FileInputStream fis;
 			ObjectInputStream in;
 			
-			recipeManager.ownRecipes = new ArrayList<Recipe>();
-			recipeManager.faveRecipes = new ArrayList<Recipe>();
 			// read user recipes
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
-			userRecipes = (ArrayList<Recipe>) in.readObject();
+			getRecipeManager().allRecipes = 
+					(ArrayList<Recipe>) in.readObject();
 			in.close();
-
-			// read favorite recipes
-			for (int i = 0; i < userRecipes.size(); i++) {
-				Recipe recipe = userRecipes.get(i);
-				if (recipe.isFave())
-					faveRecipes.add(recipe);
-				if(recipe.getAuthor().trim().compareTo(User.getUser()
-						.getUsername().trim()) == 0){
-					ownRecipes.add(recipe);
-				}
-			}
 		} catch (Exception e) {
 			Log.e("RecipeManager", "Problems loading recipes", e); 
 		}
@@ -91,14 +72,10 @@ public class RecipeManager {
 	 */
 	public void AddToUserRecipe(Recipe recipe, Context ctx) {
 		try {
-			userRecipes.add(recipe);
-			if(recipe.getAuthor().trim().compareTo(User.getUser()
-					.getUsername().trim()) == 0){
-				ownRecipes.add(recipe);
-			}
+			getRecipeManager().allRecipes.add(recipe);
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(userRecipes);
+			out.writeObject(getRecipeManager().allRecipes);
 			out.close();
 		} catch (Exception e) {
 			Log.e("User", "Problems saving recipes to file", e); 
@@ -112,10 +89,27 @@ public class RecipeManager {
 	 */
 	public void AddToUserRecipe(List<Recipe> recipes, Context ctx) {
 		try {
-			userRecipes = recipes;
+			getRecipeManager().allRecipes = recipes;
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(userRecipes);
+			out.writeObject(getRecipeManager().allRecipes);
+			out.close();
+		} catch (Exception e) {
+			Log.e("User", "Problems saving user settings", e); 
+		}
+	}
+	
+	/**
+	 * Set the recipe at location i to the one provided.
+	 * @param recipe The new recipe
+	 * @param i The location in the list
+	 */
+	public void setRecipeAtLocation(Recipe recipe, int i, Context ctx) {
+		try {
+			getRecipeManager().allRecipes.set(i, recipe);
+			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
+			ObjectOutputStream out = new ObjectOutputStream(fos);
+			out.writeObject(getRecipeManager().allRecipes);
 			out.close();
 		} catch (Exception e) {
 			Log.e("User", "Problems saving user settings", e); 
@@ -123,167 +117,75 @@ public class RecipeManager {
 	}
 
 	/**
-	 * updates the all lists of recipes when called
+	 * Return the index of the recipe in the list
+	 * @param recipe The recipe to have the index returned
+	 * @return the index of the recipe
 	 */
-	public void removeFromAllLists(Recipe recipe) {
-		if(userRecipes.contains(recipe)){
-			userRecipes.remove(recipe);
+	public int getRecipeIndex(Recipe recipe) {
+		return getRecipeManager().allRecipes.indexOf(recipe);
+	}
+	
+	/**
+	 * Removes a recipe from the ones stored
+	 * @param recipe The recipe to be removed
+	 */
+	public void removeRecipe(Recipe recipe) {
+		if(getRecipeManager().allRecipes.contains(recipe)){
+			getRecipeManager().allRecipes.remove(recipe);
 		}
-		if(ownRecipes.contains(recipe)){
-			ownRecipes.remove(recipe);
+	}
+	
+	/**
+	 * Searches the list of recipes for the specified search term
+	 * @param searchString The search term
+	 * @param list The list to search within
+	 * @return The list of recipes with matching the search term
+	 */
+	public List<Recipe> searchForRecipe(String searchString, List<Recipe> list) {
+		List<Recipe> results = new ArrayList<Recipe>();
+		for (int i = 0; i < list.size(); i++) {
+			Recipe recipe = list.get(i);
+			if (recipe.getName().contains(searchString)) {
+				results.add(recipe);
+			}
 		}
-		if(faveRecipes.contains(recipe)){
-			faveRecipes.remove(recipe);
-		}
-		if(searchModeFaveRecipes.contains(recipe)){
-			searchModeFaveRecipes.remove(recipe);
-		}
-		if(searchModeUserRecipes.contains(recipe)){
-			searchModeUserRecipes.remove(recipe);
-		}
-		if(searchModeOwnRecipes.contains(recipe)){
-			searchModeOwnRecipes.remove(recipe);
-		}
+		return results;
 	}
 
-	/**
-	 * add recipes to favorite list if searchMode is true then parse 
-	 * searchMode recipe lists for the recipe
-	 * @param recipe
-	 * @param searchMode
-	 */
-	public void addToFavList(Recipe recipe, boolean searchMode) {
-		
-		if(searchMode){
-			int searchModeAllIndex = searchModeUserRecipes.indexOf(recipe);
-			if(!searchModeFaveRecipes.contains(recipe)){
-				if(searchModeOwnRecipes.contains(recipe)){
-					int searchModeOwnIndex = searchModeOwnRecipes.indexOf(recipe);
-					recipe.setFave(true);
-					searchModeOwnRecipes.set(searchModeOwnIndex, recipe);
-				}
-				recipe.setFave(true);
-				searchModeFaveRecipes.add(recipe);
-				searchModeUserRecipes.set(searchModeAllIndex, recipe);
-			}
-			recipe.setFave(false);
-		}
-		int allIndex = userRecipes.indexOf(recipe);
-		if(!faveRecipes.contains(recipe)){
-			if(ownRecipes.contains(recipe)){
-				int ownIndex = ownRecipes.indexOf(recipe);
-				recipe.setFave(true);
-				ownRecipes.set(ownIndex, recipe);
-			}
-			recipe.setFave(true);
-			faveRecipes.add(recipe);
-			userRecipes.set(allIndex, recipe);
-		}
-	}
-	
-	/**
-	 * remove recipes from favorite list, if searchMode is true then parse
-	 * the searchMode recipe list for the recipe
-	 * @param recipe
-	 * @param searchMode
-	 */
-	public void removeFromFavList(Recipe recipe, boolean searchMode) {
-		if(searchMode){
-			int searchModeAllIndex = searchModeUserRecipes.indexOf(recipe);
-			if(searchModeFaveRecipes.contains(recipe)){
-				searchModeFaveRecipes.remove(recipe);
-				if(searchModeOwnRecipes.contains(recipe)){
-					int searchModeOwnIndex = searchModeOwnRecipes.indexOf(recipe);
-					recipe.setFave(false);
-					searchModeOwnRecipes.set(searchModeOwnIndex, recipe);
-				}
-				recipe.setFave(false);
-				searchModeUserRecipes.set(searchModeAllIndex, recipe);
-			}
-			recipe.setFave(true);
-		}
-		int index = userRecipes.indexOf(recipe);
-		if(faveRecipes.contains(recipe)){
-			faveRecipes.remove(recipe);
-			if(ownRecipes.contains(recipe)){
-				int ownIndex = ownRecipes.indexOf(recipe);
-				recipe.setFave(false);
-				ownRecipes.set(ownIndex, recipe);
-			}
-			recipe.setFave(false);
-			userRecipes.set(index, recipe);			
-		}
-	}
-	
-	/**
-	 * parse the lists of recipes and stores recipes with names containing
-	 * key param into the searchModeRecipe lists
-	 * @param key
-	 */
-	public void findRecipesWithKeyWord(String key) {
-		searchModeFaveRecipes = new ArrayList<Recipe>();
-		searchModeOwnRecipes = new ArrayList<Recipe>();
-		searchModeUserRecipes = new ArrayList<Recipe>();
-		
-		for(Recipe recipe : userRecipes) {
-			if(recipe.getName().toUpperCase().contains(key.toUpperCase())){
-				searchModeUserRecipes.add(recipe);
-			}
-		}
-		for(Recipe recipe : faveRecipes) {
-			if(recipe.getName().toUpperCase().contains(key.toUpperCase())){
-				searchModeFaveRecipes.add(recipe);
-			}
-		}
-		for(Recipe recipe : ownRecipes) {
-			if(recipe.getName().toUpperCase().contains(key.toUpperCase())){
-				searchModeOwnRecipes.add(recipe);
-			}
-		}
-	}
-	
 	/**
 	 * @return List of favorite recipes
 	 */
 	public List<Recipe> getFaveRecipes() {
-		return faveRecipes;
+		List<Recipe> faves = new ArrayList<Recipe>();
+		
+		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
+			Recipe recipe = getRecipeManager().allRecipes.get(i);
+			if (recipe.isFave())
+				faves.add(recipe);
+		}
+		
+		return faves;
 	}
-
+	
+	/**
+	 * @return List of own recipes
+	 */
+	public List<Recipe> getOwnRecipes() {
+		List<Recipe> own = new ArrayList<Recipe>();
+		
+		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
+			Recipe recipe = getRecipeManager().allRecipes.get(i);
+			if (recipe.getAuthor().equals(User.getUser().getUsername()))
+				own.add(recipe);
+		}
+		
+		return own;
+	}
+	
 	/**
 	 * @return List of user recipes
 	 */
-	public List<Recipe> getUserRecipes() {
-		return userRecipes;
-	}
-
-	/**
-	 * @return List of user's own recipes
-	 */
-	public List<Recipe> getOwnRecipes() {
-		return ownRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users own recipe list in search mode
-	 */
-	public List<Recipe> getSearchModeOwnRecipes() {
-		return searchModeOwnRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users favorite recipe list in searchMode
-	 */
-	public List<Recipe> getSearchModeFaveRecipes() {
-		return searchModeFaveRecipes;
-	}
-	
-	/**
-	 * 
-	 * @return users all recipe list in searchMode
-	 */
-	public List<Recipe> getSearchModeUserRecipes() {
-		return searchModeUserRecipes;
+	public List<Recipe> getAllRecipes() {
+		return allRecipes;
 	}
 }

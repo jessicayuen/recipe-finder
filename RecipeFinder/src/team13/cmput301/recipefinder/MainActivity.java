@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	RecipeManager rm;
 	IngredientManager im;
 	PhotoManager pm;
+	ListManager lm;
 
 	@Override
 	/**
@@ -37,21 +38,20 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		User user = User.getUser();
+		lm = ListManager.getListManager();
+		pm = PhotoManager.getPhotoManager();
+		rm = RecipeManager.getRecipeManager();
+
+		/* Run setup if user has never used app before */
+//		if (user.getHasUsedApp().equals("0")) {
+//			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+//			startActivity(intent);
+//		}
 
 		/* Load user settings */
 		user.loadUserSettings(this);
-
-		/* Run setup if user has never used app before */
-		if (user.getHasUsedApp().equals("0")) {
-			Intent intent = new Intent(this, FirstTimeUserActivity.class);
-			startActivity(intent);
-		}
-
-		pm = PhotoManager.getPhotoManager();
-		/* load ingredients*/
-		im = IngredientManager.getIngredientManager();
+		
 		/* Load recipes */
-		rm = RecipeManager.getRecipeManager();
 		rm.loadRecipes(this);
 
 		/* Display 4 random favorite recipes */
@@ -61,12 +61,13 @@ public class MainActivity extends Activity {
 		setCustomFonts();
 	}
 	
-	
 	/** 
 	 * Starts the activity Create Recipe on 'Create My Own' button click
 	 * @param view
 	 */
 	public void openCreateRecipe(View view) {
+		lm.clearLists();
+		pm.clearList();
 		Intent intent = new Intent(this, CreateRecipeActivity.class);
 		startActivity(intent);
 	}
@@ -165,6 +166,5 @@ public class MainActivity extends Activity {
 		Intent displayRecipeIntent = new Intent(this, 
 				RecipeListActivity.class);
 		startActivity(displayRecipeIntent);
-
 	}
 }

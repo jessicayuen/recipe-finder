@@ -39,4 +39,8 @@ public class PhotoManager {
 	public List<Photo> getPhotoList() {
 		return photoList;
 	}
+	
+	public void clearList() {
+		photoList = new ArrayList<Photo>();
+	}
 }

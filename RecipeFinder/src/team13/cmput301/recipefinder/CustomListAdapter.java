@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class CustomListAdapter extends BaseAdapter implements OnClickListener {
@@ -20,64 +19,52 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	private Context context;
 	private List<Recipe> recipeList;
 	private final int fontSize = 10;
-	private final int descriptionWidth = 16;
-	private final int authorWidth = 10;
 	private static final int FAV_BUTTON_CLICK = 1;
 	private static final int REMOVE_BUTTON_CLICK = 2;
-	private ImageButton fav;
-	private boolean searchMode;
 
 	public CustomListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
 		this.recipeList = recipeList;
-		this.searchMode = false;
 	}
-	
-	public class TempRecipe {
-		private int id;
-		private Recipe recipe;
-		
-		public TempRecipe(int id, Recipe recipe){
-			this.id = id;
-			this.recipe = recipe;
-		}
-	}
-	
-	public void setRecipeList(List<Recipe> list, boolean searchMode){
-		this.searchMode = searchMode;
+
+	public void setRecipeList(List<Recipe> list){
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return this.recipeList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return this.recipeList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		Recipe recipe = recipeList.get(position);
-
+		
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.custom_recipe_display, null);
 		}
-		fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
-		//add fav star clicked or not here
+
+		Recipe recipe = recipeList.get(position);
+		ImageButton fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
+		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
+		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
+		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
+		TextView author = (TextView) convertView.findViewById(R.id.authorBox);
+		RatingBar recipeRating =  (RatingBar) convertView.findViewById(R.id.recipeRating);
+		Button btnRemove = (Button) convertView.findViewById(R.id.removeRecipe);
+
+		/* Draw a star for fave recipes */
 		if(recipe.isFave()){
 			fav.setImageResource(R.drawable.star);
 			fav.setBackgroundResource(R.drawable.star);
@@ -90,67 +77,74 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		fav.setOnClickListener(this);		
 		fav.setTag(new TempRecipe(FAV_BUTTON_CLICK,recipe));
 
-		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
+		/* Set description text format */
 		descr.setTextSize(fontSize);
 		descr.setText(recipe.getDescription());
 
-		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
+		/* Set name text format */
 		name.setTextSize(fontSize);
 		name.setText(recipe.getName());
+
+		/* Set up author text format */
+		author.setTextSize(fontSize);
+		author.setText(recipe.getAuthor());
 		
-		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
+		/* Set up display photo */
 		if(recipe.getPhotos().size() > 0){
 			recipePic.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
 		}
-		
-		RatingBar recipeRating =  (RatingBar) convertView.findViewById(R.id.recipeRating);
+
+		/* Set up rating display*/
 		recipeRating.setIsIndicator(true);
 		if(recipe.getRating() > 0){
 			recipeRating.setRating(recipe.getRating());
 		}
-		
-		
-		TextView author = (TextView) convertView.findViewById(R.id.authorBox);
-		author.setTextSize(fontSize);
-		author.setText(recipe.getAuthor());
 
-		// Set the onClick Listener on this button
-		Button btnRemove = (Button) convertView.findViewById(R.id.removeRecipe);
+		/* Set up the remove button */
 		btnRemove.setFocusableInTouchMode(false);
 		btnRemove.setFocusable(false);
 		btnRemove.setOnClickListener(this);
 
-		//keep track of which entry was removed so that it
-		// can be removed from the database
+		/* Keep track of which entry was removed */
 		btnRemove.setTag(new TempRecipe(REMOVE_BUTTON_CLICK,recipe));   
-		
+
 		return convertView;
 	}
 
 	/**
-	 * listens to button clicks on a recipe be it the favorite button or
-	 * remove button
+	 * Listens for favorite or remove button clicks
+	 * @param v The view where the button is
 	 */
 	@Override
 	public void onClick(View v) {
-		TempRecipe tRecipe = (TempRecipe)v.getTag();
-		if(tRecipe.id == FAV_BUTTON_CLICK){
+		TempRecipe tRecipe = (TempRecipe) v.getTag();
+		RecipeManager rm = RecipeManager.getRecipeManager();
+		
+		if (tRecipe.id == FAV_BUTTON_CLICK) {
 			Recipe recipe = tRecipe.recipe;
-			if(!recipe.isFave()){
-				// add the recipe to favorites
-				RecipeManager.getRecipeManager().addToFavList(recipe, searchMode);
+			if (!recipe.isFave()) {
+				recipe.setFave(true);
+			} else {
+				recipe.setFave(false);
 			}
-			else{
-				//remove recipe from fav if it is already favorited
-				RecipeManager.getRecipeManager().removeFromFavList(recipe, searchMode);
-			}
-
+			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe), context);
+			
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;
-	        recipeList.remove(recipe);
-	        RecipeManager.getRecipeManager().removeFromAllLists(recipe);
+			recipeList.remove(recipe);
+			RecipeManager.getRecipeManager().removeRecipe(recipe);
 		}
-        notifyDataSetChanged();
+		
+		notifyDataSetChanged();
 	}
+	
+	private class TempRecipe {
+		private int id;
+		private Recipe recipe;
 
+		public TempRecipe(int id, Recipe recipe){
+			this.id = id;
+			this.recipe = recipe;
+		}
+	}
 }
