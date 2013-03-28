@@ -40,7 +40,7 @@ public class RecipeListActivity extends Activity {
 		rm = RecipeManager.getRecipeManager();
 
 		ownRecipes = rm.getOwnRecipes();
-		allRecipes = rm.getUserRecipes();
+		allRecipes = rm.getAllRecipes();
 		favRecipes = rm.getFaveRecipes();
 
 		inSearchMode = false;
@@ -187,7 +187,7 @@ public class RecipeListActivity extends Activity {
 		favRecipes = rm.searchForRecipe(searchString, rm.getFaveRecipes());
 		favListAdapter.setRecipeList(favRecipes);
 
-		allRecipes = rm.searchForRecipe(searchString, rm.getUserRecipes());
+		allRecipes = rm.searchForRecipe(searchString, rm.getAllRecipes());
 		allListAdapter.setRecipeList(allRecipes);
 	}
 
@@ -198,7 +198,7 @@ public class RecipeListActivity extends Activity {
 		ownRecipes = rm.getOwnRecipes();
 		ownListAdapter.setRecipeList(ownRecipes);
 
-		allRecipes = rm.getUserRecipes();
+		allRecipes = rm.getAllRecipes();
 		allListAdapter.setRecipeList(allRecipes);
 
 		favRecipes = rm.getFaveRecipes();

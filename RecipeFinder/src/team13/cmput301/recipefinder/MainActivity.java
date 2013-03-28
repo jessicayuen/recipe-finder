@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
 		setCustomFonts();
 	}
 	
-	
 	/** 
 	 * Starts the activity Create Recipe on 'Create My Own' button click
 	 * @param view

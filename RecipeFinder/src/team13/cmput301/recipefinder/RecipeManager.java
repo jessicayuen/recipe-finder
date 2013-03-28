@@ -24,7 +24,7 @@ public class RecipeManager {
 
 	private static final String PATH = "recipelog.sav";
 
-	private List<Recipe> userRecipes;
+	private List<Recipe> allRecipes;
 
 	/**
 	 * DO NOT USE
@@ -38,7 +38,7 @@ public class RecipeManager {
 	public static RecipeManager getRecipeManager() {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
-			recipeManager.userRecipes = new ArrayList<Recipe>();
+			recipeManager.allRecipes = new ArrayList<Recipe>();
 		}
 		return recipeManager;
 	}
@@ -56,7 +56,7 @@ public class RecipeManager {
 			// read user recipes
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
-			getRecipeManager().userRecipes = 
+			getRecipeManager().allRecipes = 
 					(ArrayList<Recipe>) in.readObject();
 			in.close();
 		} catch (Exception e) {
@@ -72,10 +72,10 @@ public class RecipeManager {
 	 */
 	public void AddToUserRecipe(Recipe recipe, Context ctx) {
 		try {
-			getRecipeManager().userRecipes.add(recipe);
+			getRecipeManager().allRecipes.add(recipe);
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().userRecipes);
+			out.writeObject(getRecipeManager().allRecipes);
 			out.close();
 		} catch (Exception e) {
 			Log.e("User", "Problems saving recipes to file", e); 
@@ -89,10 +89,10 @@ public class RecipeManager {
 	 */
 	public void AddToUserRecipe(List<Recipe> recipes, Context ctx) {
 		try {
-			getRecipeManager().userRecipes = recipes;
+			getRecipeManager().allRecipes = recipes;
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().userRecipes);
+			out.writeObject(getRecipeManager().allRecipes);
 			out.close();
 		} catch (Exception e) {
 			Log.e("User", "Problems saving user settings", e); 
@@ -106,10 +106,10 @@ public class RecipeManager {
 	 */
 	public void setRecipeAtLocation(Recipe recipe, int i, Context ctx) {
 		try {
-			getRecipeManager().userRecipes.set(i, recipe);
+			getRecipeManager().allRecipes.set(i, recipe);
 			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().userRecipes);
+			out.writeObject(getRecipeManager().allRecipes);
 			out.close();
 		} catch (Exception e) {
 			Log.e("User", "Problems saving user settings", e); 
@@ -122,7 +122,7 @@ public class RecipeManager {
 	 * @return the index of the recipe
 	 */
 	public int getRecipeIndex(Recipe recipe) {
-		return getRecipeManager().userRecipes.indexOf(recipe);
+		return getRecipeManager().allRecipes.indexOf(recipe);
 	}
 	
 	/**
@@ -130,8 +130,8 @@ public class RecipeManager {
 	 * @param recipe The recipe to be removed
 	 */
 	public void removeRecipe(Recipe recipe) {
-		if(getRecipeManager().userRecipes.contains(recipe)){
-			getRecipeManager().userRecipes.remove(recipe);
+		if(getRecipeManager().allRecipes.contains(recipe)){
+			getRecipeManager().allRecipes.remove(recipe);
 		}
 	}
 	
@@ -158,8 +158,8 @@ public class RecipeManager {
 	public List<Recipe> getFaveRecipes() {
 		List<Recipe> faves = new ArrayList<Recipe>();
 		
-		for (int i = 0; i < getRecipeManager().userRecipes.size(); i++) {
-			Recipe recipe = getRecipeManager().userRecipes.get(i);
+		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
+			Recipe recipe = getRecipeManager().allRecipes.get(i);
 			if (recipe.isFave())
 				faves.add(recipe);
 		}
@@ -173,8 +173,8 @@ public class RecipeManager {
 	public List<Recipe> getOwnRecipes() {
 		List<Recipe> own = new ArrayList<Recipe>();
 		
-		for (int i = 0; i < getRecipeManager().userRecipes.size(); i++) {
-			Recipe recipe = getRecipeManager().userRecipes.get(i);
+		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
+			Recipe recipe = getRecipeManager().allRecipes.get(i);
 			if (recipe.getAuthor().equals(User.getUser().getUsername()))
 				own.add(recipe);
 		}
@@ -185,7 +185,7 @@ public class RecipeManager {
 	/**
 	 * @return List of user recipes
 	 */
-	public List<Recipe> getUserRecipes() {
-		return userRecipes;
+	public List<Recipe> getAllRecipes() {
+		return allRecipes;
 	}
 }

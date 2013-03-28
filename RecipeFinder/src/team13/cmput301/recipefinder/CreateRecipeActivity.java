@@ -375,7 +375,7 @@ public class CreateRecipeActivity extends Activity {
 			Intent displayIntent = new Intent(CreateRecipeActivity.this, 
 					DisplayRecipeActivity.class);
 			displayIntent.putExtra
-			("recipe", RecipeManager.getRecipeManager().getUserRecipes().size() - 1);
+			("recipe", RecipeManager.getRecipeManager().getAllRecipes().size() - 1);
 			startActivity(displayIntent);
 			finish();
 		} else {

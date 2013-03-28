@@ -52,7 +52,7 @@ public class DisplayRecipeActivity extends Activity
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			recipe = RecipeManager.getRecipeManager().
-					getUserRecipes().get(extras.getInt("recipe"));
+					getAllRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
 		} 
 
