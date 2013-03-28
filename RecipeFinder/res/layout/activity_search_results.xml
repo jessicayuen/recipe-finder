@@ -99,7 +99,7 @@
         android:layout_above="@+id/searchfor"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/discrip1" >
-
+
         <ListView
             android:id="@+id/searchResultListView"
             android:layout_width="match_parent"
