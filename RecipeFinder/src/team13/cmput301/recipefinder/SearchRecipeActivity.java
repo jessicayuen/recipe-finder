@@ -7,11 +7,8 @@
 
 package team13.cmput301.recipefinder;
 
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class SearchRecipeActivity extends Activity {
@@ -19,16 +16,8 @@ public class SearchRecipeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_recipe);
-		try {
-			ArrayList<Recipe> recipeList = new SearchRecipeTask().get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setContentView(R.layout.activity_search_form);
+		
 	}
 
 	@Override

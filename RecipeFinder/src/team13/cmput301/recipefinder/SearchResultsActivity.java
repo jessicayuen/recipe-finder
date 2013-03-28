@@ -26,7 +26,7 @@ public class SearchResultsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
 		String query = extras.getString("simpleSearchQuery");
-		setContentView(R.layout.activity_search_recipe);
+		setContentView(R.layout.activity_search_results);
 		SearchRecipeTask searchRecipeTask = new SearchRecipeTask();
 		searchRecipeTask.execute(query);
 		
