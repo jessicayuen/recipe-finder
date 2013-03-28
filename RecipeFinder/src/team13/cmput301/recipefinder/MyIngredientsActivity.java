@@ -189,13 +189,20 @@ public class MyIngredientsActivity extends Activity {
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
-				if (ingred.getQuantity() > 0)
+				if (ingred.getQuantity() > 0){
 					ingred.setQuantity(ingred.getQuantity() - 1);
 				displayList.set(i, ingred.getIngredient() + 
 						" : " + ingred.getQuantity());
 				ingredManager.setIngredient(ingred, i);
 				ingredManager.saveAllIngredients(this);
 				adapter.notifyDataSetChanged();
+				}
+				if (ingred.getQuantity() <= 0){
+					ingredManager.removeIngredient(i);
+					ingredManager.saveAllIngredients(this);
+					displayList.remove(i);
+					adapter.notifyDataSetChanged();
+				}
 			}
 		}
 	}
