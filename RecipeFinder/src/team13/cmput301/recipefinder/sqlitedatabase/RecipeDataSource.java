@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class RecipeDataSource {
 
@@ -52,8 +53,8 @@ public class RecipeDataSource {
 	private String[] photoColumns = { 
 			SQLiteHelper.PHOTO_COL_ID,
 			SQLiteHelper.PHOTO_COL_AUTHOR, 
-			SQLiteHelper.PHOTO_COL_DATE,
-			SQLiteHelper.PHOTO_COL_PHOTO };
+			SQLiteHelper.PHOTO_COL_PHOTO,
+			SQLiteHelper.PHOTO_COL_DATE,};
 
 	/**
 	 * Constructor - instantiates SQLiteHelper to retrieve table definitions
@@ -146,6 +147,12 @@ public class RecipeDataSource {
 	public void deleteRecipe(Recipe recipe) {
 		long id = recipe.getSqlID();
 		database.delete(SQLiteHelper.TABLE_RECIPE, SQLiteHelper.RECIPE_COL_ID
+				+ " = " + id, null);
+		database.delete(SQLiteHelper.TABLE_INGRED, SQLiteHelper.RECIPE_COL_ID
+				+ " = " + id, null);
+		database.delete(SQLiteHelper.TABLE_INSTR, SQLiteHelper.RECIPE_COL_ID
+				+ " = " + id, null);
+		database.delete(SQLiteHelper.TABLE_PHOTO, SQLiteHelper.RECIPE_COL_ID
 				+ " = " + id, null);
 	}
 
@@ -246,17 +253,19 @@ public class RecipeDataSource {
 	private List<Photo> getPhotos(Cursor cursor) {
 		List<Photo> photos = new ArrayList<Photo>();
 
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		
 		Cursor photoCursor = database.query(SQLiteHelper.TABLE_PHOTO,
 				photoColumns, new String(SQLiteHelper.PHOTO_COL_ID + " = " + 
 						cursor.getLong(0)), null, null, null, null);
 
 		photoCursor.moveToFirst();
 		while (!photoCursor.isAfterLast()) {
-			String imageString = photoCursor.getString(2);
-			Bitmap bitmap = Photo.decodeBase64(imageString);
-
-			Photo photo = new Photo(photoCursor.getString(1), 
-					bitmap, new Date(photoCursor.getString(3)));
+			Bitmap bitmap = Photo.decodeBase64(photoCursor.getString(2));
+			
+			Photo photo = new Photo(photoCursor.getString(1), bitmap, 
+					new Date(photoCursor.getString(3)));
 
 			photos.add(photo);
 			photoCursor.moveToNext();
@@ -299,7 +308,7 @@ public class RecipeDataSource {
 		ContentValues values = new ContentValues();
 
 		for (int i = 0; i < ingredients.size(); i++) {
-			values.put(SQLiteHelper.INSTR_COL_INSTR, ingredients.get(i));
+			values.put(SQLiteHelper.INGRED_COL_INGRED, ingredients.get(i));
 			values.put(SQLiteHelper.COL_USER_REFERENCE, row);
 		}
 
@@ -310,8 +319,9 @@ public class RecipeDataSource {
 		ContentValues values = new ContentValues();
 
 		for (int i = 0; i < photos.size(); i++) {
+			
 			String photo = photos.get(i).getEncodedPhoto();
-
+			
 			values.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
 					photos.get(i).getAuthor());
 			values.put(SQLiteHelper.PHOTO_COL_DATE, 

@@ -20,7 +20,7 @@ import android.util.Base64;
 public class Photo {
 
 	private String author;
-	private String photo;
+	private Bitmap photo;
 	private Date date;
 	
 	/**
@@ -30,7 +30,7 @@ public class Photo {
 	 */
 	public Photo(String author, Bitmap photo) {
 		this.author = author;
-		this.photo = encodeTobase64(photo);
+		this.photo = photo;
 		this.date = new Date();
 	}
 	
@@ -74,14 +74,14 @@ public class Photo {
 	 * @return photo bitmap
 	 */
 	public Bitmap getPhoto() {
-		return decodeBase64(this.photo);
+		return photo;
 	}
 	
 	/**
 	 * @return the encoded 64bit photo
 	 */
 	public String getEncodedPhoto() {
-		return photo;
+		return encodeTobase64(photo);
 	}
 	
 	/**
@@ -111,14 +111,14 @@ public class Photo {
 	 * @param photo
 	 */
 	public void setPhoto(Bitmap photo) {
-		this.photo = encodeTobase64(photo);
+		this.photo = photo;
 	}
 	
 	/**
 	 * @param encodedPhoto Set the photo to this
 	 */
 	public void setPhoto(String encodedPhoto) {
-		this.photo = encodedPhoto;
+		this.photo = decodeBase64(encodedPhoto);
 	}
 	
 	/**
