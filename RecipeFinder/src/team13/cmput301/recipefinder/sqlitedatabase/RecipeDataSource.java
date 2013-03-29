@@ -1,6 +1,5 @@
 package team13.cmput301.recipefinder.sqlitedatabase;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +13,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 
 public class RecipeDataSource {
 
@@ -80,7 +77,8 @@ public class RecipeDataSource {
 					instructionsList.get(i));
 			instructions.put(SQLiteHelper.COL_USER_REFERENCE, id);
 		}
-		database.insert(SQLiteHelper.TABLE_INSTR, null, instructions);
+		if (instructionsList.size() > 0)
+			database.insert(SQLiteHelper.TABLE_INSTR, null, instructions);
 
 		List<String> ingredientsList = recipe.getIngredients();
 		for (int i = 0; i < ingredientsList.size(); i++) {
@@ -88,12 +86,12 @@ public class RecipeDataSource {
 					ingredientsList.get(i));
 			ingredients.put(SQLiteHelper.COL_USER_REFERENCE, id);
 		}
-		database.insert(SQLiteHelper.TABLE_INGRED, null, ingredients);
+		if (ingredientsList.size() > 0)
+			database.insert(SQLiteHelper.TABLE_INGRED, null, ingredients);
 
 		List<Photo> photosList = recipe.getPhotos();
 		for (int i = 0; i < photosList.size(); i++) {
-			byte[] photo = 
-					getBitmapAsByteArray(photosList.get(i).getPhoto());
+			String photo = Photo.encodeTobase64(photosList.get(i).getPhoto());
 
 			photos.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
 					photosList.get(i).getAuthor());
@@ -102,7 +100,8 @@ public class RecipeDataSource {
 			photos.put(SQLiteHelper.PHOTO_COL_PHOTO, photo);
 			photos.put(SQLiteHelper.COL_USER_REFERENCE, id);
 		}
-		database.insert(SQLiteHelper.TABLE_PHOTO, null, photos);
+		if (photosList.size() > 0)
+			database.insert(SQLiteHelper.TABLE_PHOTO, null, photos);
 	}
 
 	public void replaceRecipe(Recipe recipe, int row) {
@@ -132,8 +131,9 @@ public class RecipeDataSource {
 			instructions.put(SQLiteHelper.COL_USER_REFERENCE, row);
 		}
 		
-		database.update(SQLiteHelper.TABLE_INSTR, instructions,
-				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+		if (instructionsList.size() > 0)
+			database.update(SQLiteHelper.TABLE_INSTR, instructions,
+					new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
 		
 		List<String> ingredientsList = recipe.getIngredients();
 		for (int i = 0; i < ingredientsList.size(); i++) {
@@ -142,13 +142,13 @@ public class RecipeDataSource {
 			ingredients.put(SQLiteHelper.COL_USER_REFERENCE, row);
 		}
 	
-		database.update(SQLiteHelper.TABLE_INGRED, ingredients,
-				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+		if (instructionsList.size() > 0)
+			database.update(SQLiteHelper.TABLE_INGRED, ingredients,
+					new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
 
 		List<Photo> photosList = recipe.getPhotos();
 		for (int i = 0; i < photosList.size(); i++) {
-			byte[] photo = 
-					getBitmapAsByteArray(photosList.get(i).getPhoto());
+			String photo = Photo.encodeTobase64(photosList.get(i).getPhoto());
 
 			photos.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
 					photosList.get(i).getAuthor());
@@ -158,8 +158,9 @@ public class RecipeDataSource {
 			photos.put(SQLiteHelper.COL_USER_REFERENCE, row);
 		}
 		
-		database.update(SQLiteHelper.TABLE_PHOTO, photos,
-				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+		if (photosList.size() > 0)
+			database.update(SQLiteHelper.TABLE_PHOTO, photos,
+					new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
 	}
 	
 	public void deleteRecipe(Recipe recipe) {
@@ -228,7 +229,7 @@ public class RecipeDataSource {
 		
 		instrCursor.moveToFirst();
 		while (!instrCursor.isAfterLast()) {
-			instructions.add(instrCursor.getString(0));
+			instructions.add(instrCursor.getString(1));
 			instrCursor.moveToNext();
 		}	
 		
@@ -245,7 +246,7 @@ public class RecipeDataSource {
 		
 		ingredCursor.moveToFirst();
 		while (!ingredCursor.isAfterLast()) {
-			ingredients.add(ingredCursor.getString(0));
+			ingredients.add(ingredCursor.getString(1));
 			ingredCursor.moveToNext();
 		}	
 		
@@ -262,9 +263,8 @@ public class RecipeDataSource {
 		
 		photoCursor.moveToFirst();
 		while (!photoCursor.isAfterLast()) {
-			byte[] imgByte = photoCursor.getBlob(2);
-			Bitmap bitmap = 
-					BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+			String imageString = photoCursor.getString(2);
+			Bitmap bitmap = Photo.decodeBase64(imageString);
 					
 			Photo photo = new Photo(photoCursor.getString(1), 
 					bitmap, new Date(photoCursor.getString(3)));
@@ -275,11 +275,5 @@ public class RecipeDataSource {
 		
 		photoCursor.close();
 		return photos;
-	}
-	
-	private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0, outputStream);       
-		return outputStream.toByteArray();
 	}
 }

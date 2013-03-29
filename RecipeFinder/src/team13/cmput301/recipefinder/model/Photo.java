@@ -50,7 +50,7 @@ public class Photo {
 	 * @param image image to encode
 	 * @return image Encoded a string containing the encoded image
 	 */
-	private static String encodeTobase64(Bitmap image)
+	public static String encodeTobase64(Bitmap image)
 	{
 	    Bitmap immagex=image;
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -64,7 +64,7 @@ public class Photo {
 	 * @param input an string containing encoded image
 	 * @return the bitmap version of the string
 	 */
-	private static Bitmap decodeBase64(String input) 
+	public static Bitmap decodeBase64(String input) 
 	{
 	    byte[] decodedByte = Base64.decode(input, 0);
 	    return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length); 

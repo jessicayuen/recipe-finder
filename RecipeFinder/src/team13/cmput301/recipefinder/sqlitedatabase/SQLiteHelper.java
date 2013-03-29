@@ -75,7 +75,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_PHOTO + "(" + PHOTO_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ PHOTO_COL_AUTHOR + " text not null, " 
-			+ PHOTO_COL_PHOTO + " blob not null, "
+			+ PHOTO_COL_PHOTO + " text not null, "
 			+ PHOTO_COL_DATE + " text not null, "
 			+ COL_USER_REFERENCE + " integer not null, " 
 			+ " FOREIGN KEY (" + COL_USER_REFERENCE + ") REFERENCES "
