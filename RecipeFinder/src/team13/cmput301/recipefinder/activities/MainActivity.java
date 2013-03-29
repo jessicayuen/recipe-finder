@@ -53,10 +53,11 @@ public class MainActivity extends Activity {
 		user.loadUserSettings(this);
 		
 		/* Run setup if user has never used app before */
-		if (user.getHasUsedApp().equals("0")) {
-			Intent intent = new Intent(this, FirstTimeUserActivity.class);
-			startActivity(intent);
-		}
+//		if (user.getHasUsedApp().equals("0")) {
+//			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+//			startActivity(intent);
+//		}
+		user.setUsername("test");
 		
 		/* Display 4 random favorite recipes */
 		displayFaves();

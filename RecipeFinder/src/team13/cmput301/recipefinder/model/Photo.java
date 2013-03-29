@@ -78,6 +78,13 @@ public class Photo {
 	}
 	
 	/**
+	 * @return the encoded 64bit photo
+	 */
+	public String getEncodedPhoto() {
+		return photo;
+	}
+	
+	/**
 	 * @return photo creation date
 	 */
 	public Date getDate() {
@@ -105,6 +112,13 @@ public class Photo {
 	 */
 	public void setPhoto(Bitmap photo) {
 		this.photo = encodeTobase64(photo);
+	}
+	
+	/**
+	 * @param encodedPhoto Set the photo to this
+	 */
+	public void setPhoto(String encodedPhoto) {
+		this.photo = encodedPhoto;
 	}
 	
 	/**

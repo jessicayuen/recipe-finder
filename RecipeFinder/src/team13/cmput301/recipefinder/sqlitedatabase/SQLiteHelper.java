@@ -1,3 +1,11 @@
+/**
+ * Responsible for SQL database definitions.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
+
 package team13.cmput301.recipefinder.sqlitedatabase;
 
 import android.content.Context;
@@ -81,11 +89,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ " FOREIGN KEY (" + COL_USER_REFERENCE + ") REFERENCES "
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 	
+	/**
+	 * Constructor
+	 * @param context The activity context
+	 */
 	public SQLiteHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
+	/**
+	 * Creates table definitions
+	 */
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_RECIPE_TABLE);
 		db.execSQL(CREATE_INSTR_TABLE);
@@ -94,6 +109,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
+	/**
+	 * Upgrades database versions, dropping existing tables.
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(SQLiteHelper.class.getName(), 
 				"Upgrading database from version " + oldVersion + " to "
