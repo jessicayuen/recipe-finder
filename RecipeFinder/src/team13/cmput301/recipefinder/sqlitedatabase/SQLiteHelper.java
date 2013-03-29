@@ -37,7 +37,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_USER_REFERENCE = "userID";
 	
 	/* SQL statement for creating recipes table */
-	private static final String CREATE_RECIPE_TABLE = "create table if not exists " 
+	private static final String CREATE_RECIPE_TABLE = 
+			"create table if not exists " 
 			+ TABLE_RECIPE + "(" + RECIPE_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ RECIPE_COL_NAME + " text not null, " 
@@ -49,7 +50,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ RECIPE_COL_UUID + " text not null);";
 	
 	/* SQL statement for creating instructions table */
-	private static final String CREATE_INSTR_TABLE = "create table if not exists " 
+	private static final String CREATE_INSTR_TABLE = 
+			"create table if not exists " 
 			+ TABLE_INSTR + "(" + INSTR_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ INSTR_COL_INSTR + " text not null, " 
@@ -58,7 +60,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 	
 	/* SQL statement for creating ingredients table */
-	private static final String CREATE_INGRED_TABLE = "create table if not exists " 
+	private static final String CREATE_INGRED_TABLE = 
+			"create table if not exists " 
 			+ TABLE_INGRED + "(" + INGRED_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ INGRED_COL_INGRED + " text not null, " 
@@ -67,7 +70,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 			
 	/* SQL statement for creating photos table */
-	private static final String CREATE_PHOTO_TABLE = "create table if not exists " 
+	private static final String CREATE_PHOTO_TABLE = 
+			"create table if not exists " 
 			+ TABLE_PHOTO + "(" + PHOTO_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ PHOTO_COL_AUTHOR + " text not null, " 

@@ -43,7 +43,9 @@ public class RecipeManager {
 	 * @param recipe The recipe to be stored
 	 */
 	public void AddToUserRecipe(Recipe recipe) {
+		this.dataSource.open();
 		this.dataSource.insertRecipe(recipe);
+		this.dataSource.close();
 	}
 
 	/**
@@ -62,7 +64,9 @@ public class RecipeManager {
 	 * @param i The location in the list
 	 */
 	public void setRecipeAtLocation(Recipe recipe, int i) {
+		this.dataSource.open();
 		this.dataSource.replaceRecipe(recipe, i);
+		this.dataSource.close();
 	}
 
 	/**
@@ -79,7 +83,9 @@ public class RecipeManager {
 	 * @param recipe The recipe to be removed
 	 */
 	public void removeRecipe(Recipe recipe) {
+		this.dataSource.open();
 		this.dataSource.deleteRecipe(recipe);
+		this.dataSource.close();
 	}
 	
 	/**
@@ -135,6 +141,10 @@ public class RecipeManager {
 	 * @return List of user recipes
 	 */
 	public List<Recipe> getAllRecipes() {
-		return this.dataSource.getAllRecipes();
+		List<Recipe> recipes;
+		this.dataSource.open();
+		recipes = this.dataSource.getAllRecipes();
+		this.dataSource.close();
+		return recipes;
 	}
 }

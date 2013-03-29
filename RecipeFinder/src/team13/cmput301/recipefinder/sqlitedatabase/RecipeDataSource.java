@@ -14,8 +14,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 
 public class RecipeDataSource {
 
@@ -69,6 +69,7 @@ public class RecipeDataSource {
 			values.put(SQLiteHelper.RECIPE_COL_FAVE, 0);
 		values.put(SQLiteHelper.RECIPE_COL_NAME, recipe.getName());
 		values.put(SQLiteHelper.RECIPE_COL_RATING, recipe.getRating());
+		values.put(SQLiteHelper.RECIPE_COL_UUID, recipe.getId());
 
 		long id = database.insert(SQLiteHelper.TABLE_RECIPE, null, values);
 		recipe.setSqlID(id);
@@ -119,6 +120,7 @@ public class RecipeDataSource {
 			values.put(SQLiteHelper.RECIPE_COL_FAVE, 0);
 		values.put(SQLiteHelper.RECIPE_COL_NAME, recipe.getName());
 		values.put(SQLiteHelper.RECIPE_COL_RATING, recipe.getRating());
+		values.put(SQLiteHelper.RECIPE_COL_UUID, recipe.getId());
 		
 		database.update(SQLiteHelper.TABLE_RECIPE, values,
 				new String(SQLiteHelper.RECIPE_COL_ID + " = " + row), null);
