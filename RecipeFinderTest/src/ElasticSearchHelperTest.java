@@ -1,19 +1,13 @@
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import team13.cmput301.recipefinder.ElasticSearchHelper;
-import team13.cmput301.recipefinder.Recipe;
-import team13.cmput301.recipefinder.Photo;
+import team13.cmput301.recipefinder.model.*;
+import team13.cmput301.recipefinder.elasticsearch.*;
 
 public class ElasticSearchHelperTest {
 
-	Recipe recipe;
+	team13.cmput301.recipefinder.model.Recipe recipe;
 	ElasticSearchHelper esh;
 
 	@BeforeClass

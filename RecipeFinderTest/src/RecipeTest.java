@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import team13.cmput301.recipefinder.Photo;
-import team13.cmput301.recipefinder.Recipe;
+import team13.cmput301.recipefinder.model.*;
+
 
 public class RecipeTest {
 

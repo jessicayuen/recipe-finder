@@ -6,7 +6,7 @@ import javax.mail.internet.NewsAddress;
 
 import org.junit.Test;
 
-import team13.cmput301.recipefinder.Photo;
+import team13.cmput301.recipefinder.model.*;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
