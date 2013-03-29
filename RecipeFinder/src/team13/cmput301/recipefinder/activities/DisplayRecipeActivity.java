@@ -30,12 +30,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,10 @@ public class DisplayRecipeActivity extends Activity  {
 	private Gallery picGallery;
 	private PicAdapter imgAdapt;
 	private Recipe recipe;
+	private RatingBar recipeRating, dialogRatingBar;
+	private float userRating = 0;
+	private Button ratingClose, ratingAccept;
+	private Dialog ratingDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +68,43 @@ public class DisplayRecipeActivity extends Activity  {
 					getAllRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
 		} 
+	
+		recipeRating = (RatingBar) findViewById(R.id.recipeRating);
+		recipeRating.setIsIndicator(true);
+		recipeRating.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View arg0) {
+				ratingDialog = new Dialog(DisplayRecipeActivity.this);
+				ratingDialog.setContentView(R.layout.custom_rating_display);
+				ratingDialog.setTitle("Recipe Rating");
+				
+				dialogRatingBar.findViewById(R.id.custRatingBar);
+				ratingClose.findViewById(R.id.ratingClose);
+				ratingAccept.findViewById(R.id.ratingAccept);
+				
+				ratingClose.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						ratingDialog.dismiss();						
+					}					
+				});
+				
+				ratingAccept.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						userRating = dialogRatingBar.getRating();
+						recipe.setRating(userRating);
+						ratingDialog.dismiss();						
+					}					
+				});
+			}			
+		});
+		
+		recipeRating.setRating(recipe.getRating());
+		
 		picGallery = (Gallery) findViewById(R.id.gallery);
 		imgAdapt = new PicAdapter(this, recipe.getPhotos());
 		picGallery.setAdapter(imgAdapt);
@@ -103,6 +145,8 @@ public class DisplayRecipeActivity extends Activity  {
 			imageView.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
 		}
 
+		recipeRating.setRating(recipe.getRating());
+		
 		textView = (TextView) this.findViewById(R.id.authorInfo);
 		textView.setText(recipe.getAuthor());
 

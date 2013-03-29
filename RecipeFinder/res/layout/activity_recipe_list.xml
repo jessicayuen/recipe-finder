@@ -79,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/localSearch"
         android:layout_toRightOf="@+id/viewAll"
         android:ems="9"
         android:singleLine="true" >
@@ -94,7 +95,6 @@
         android:layout_alignRight="@+id/tabView"
         android:layout_alignTop="@+id/searchBar"
         android:layout_below="@+id/tabView"
-        android:layout_toRightOf="@+id/searchBar"
         android:onClick="localRecipeSearch"
         android:text="Search" />
 
@@ -103,9 +103,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/tabView"
         android:layout_alignTop="@+id/searchBar"
-        android:layout_below="@+id/tabView"
         android:onClick="viewAllRecipes"
         android:text="All" />
 

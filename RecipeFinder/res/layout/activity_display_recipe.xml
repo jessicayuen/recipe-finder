@@ -14,56 +14,15 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/displayPic"
-                android:layout_toRightOf="@+id/displayPic"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/author"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/descriptionInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/description"
-                android:layout_below="@+id/description"
-                android:maxWidth="180dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/buffer"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
-                android:typeface="serif" />
-
             <ImageView
                 android:id="@+id/displayPic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:maxHeight="150dp"
-                android:maxWidth="150dp"
-                android:minHeight="150dp"
-                android:minWidth="150dp"
+                android:layout_toLeftOf="@+id/descriptionInfo"
                 android:src="@drawable/directory_icon" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/author"
-                android:layout_below="@+id/author"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/descr"
-                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/authorInfo"
@@ -187,6 +146,53 @@
                 android:onClick="addToFave"
                 android:text="Add to Fave"
                 android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/descriptionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/displayPic"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:maxWidth="180dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/buffer"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/descriptionInfo"
+                android:layout_alignLeft="@+id/descriptionInfo"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/descr"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/authorInfo"
+                android:layout_alignLeft="@+id/description"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/author"
+                android:textSize="15sp" />
+
+            <RatingBar
+                android:id="@+id/recipeRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/displayPic"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@+id/author" />
 
         </RelativeLayout>
     </ScrollView>

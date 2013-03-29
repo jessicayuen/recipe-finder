@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String name;
 	private String description;
 	private String author;
@@ -24,6 +24,8 @@ public class Recipe implements Serializable {
 	private List<Photo> photos;
 	private boolean fave;
 	private float rating;
+	private int numOfRatings;
+	private float totalRating;
 	private Date date;
 	private UUID id;
 	private long sqlID;
@@ -47,6 +49,8 @@ public class Recipe implements Serializable {
 		this.ingredients = ingredients;
 		this.photos = photos;
 		this.rating = 0;
+		this.numOfRatings = 0;
+		this.totalRating = 0;
 		this.date = new Date();
 		this.id = new UUID(name.hashCode(), author.hashCode());
 		this.fave = false;
@@ -69,6 +73,49 @@ public class Recipe implements Serializable {
 				photos);
 		this.rating = rating;
 	}
+
+	/** 
+	 * Constructor for Recipe object
+	 * @param name
+	 * @param description
+	 * @param author
+	 * @param ingredients 
+	 * @param instructions
+	 * @param photos
+	 * @param rating
+	 */
+	public Recipe(String name, String description, String author,
+			List<String> ingredients, List<String> instructions, 
+			List<Photo> photos, float rating, int numOfRatings,
+			int totalRating) {
+		this(name, description, author, ingredients, instructions,
+				photos, rating);
+		this.numOfRatings = numOfRatings;
+		this.totalRating = totalRating;
+	}
+
+	/** 
+	 * Constructor for Recipe object
+	 * @param name
+	 * @param description
+	 * @param author
+	 * @param ingredients 
+	 * @param instructions
+	 * @param photos
+	 * @param rating
+	 * @param date
+	 */
+	public Recipe(String name, String description, String author,
+			List<String> ingredients, List<String> instructions, 
+			List<Photo> photos, float rating, Date date, boolean fave,
+			UUID id, long sqlID) {
+		this(name, description, author, ingredients, instructions,
+				photos, rating);
+		this.date = date;
+		this.fave = fave;
+		this.id = id;
+		this.sqlID = sqlID;
+	}
 	
 	/** 
 	 * Add a photo to the recipe
@@ -77,7 +124,7 @@ public class Recipe implements Serializable {
 	public void addPhoto(Photo photo) {
 		photos.add(photo);
 	}
-	
+
 	/**
 	 * Add a ingredient to the recipe
 	 * @param ingredient
@@ -85,7 +132,7 @@ public class Recipe implements Serializable {
 	public void addIngredient(String ingredient) {
 		ingredients.add(ingredient);
 	}
-	
+
 	/**
 	 * Add an instruction to the end of the recipe
 	 * @param instruction
@@ -93,7 +140,7 @@ public class Recipe implements Serializable {
 	public void addInstruction(String instruction) {
 		instructions.add(instruction);
 	}
-	
+
 	/**
 	 * Add an instruction to the recipe at location i
 	 * @param instruction
@@ -108,7 +155,7 @@ public class Recipe implements Serializable {
 		}
 		return true;
 	}
-	
+
 	/** 
 	 * Converts Recipe to a string that is suitable for email
 	 * @return a string describing the Recipe in a email-able format.
@@ -116,19 +163,19 @@ public class Recipe implements Serializable {
 	public String toEmailString() {
 		String instr = "";
 		String ingred = "";
-		
+
 		for (int i = 0; i < instructions.size(); i++)
 			instr = instr.concat(i + 1 + ". " + instructions.get(i) + "\n");
 		for (int i = 0; i < ingredients.size(); i++)
 			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
-		
+
 		return new String(name + "\n" +
 				author + "\n\n\n" +
 				"Description:\n" + description + "\n\n" +
 				"Instructions:\n" + instr + "\n" +
 				"Ingredients:\n" + ingred);
 	}
-	
+
 	/**
 	 * @return the String version of the recipe object
 	 */
@@ -136,7 +183,7 @@ public class Recipe implements Serializable {
 		return "[ name: " + name + ", " + "author: " + 
 				author + ", " + "description: " + description + "]";
 	}
-	
+
 	/**
 	 * @return Recipe name
 	 */
@@ -225,6 +272,9 @@ public class Recipe implements Serializable {
 	 * @return The recipe rating
 	 */
 	public float getRating() {
+		if(numOfRatings > 0){
+			calculateAvgRating();
+		}
 		return rating;
 	}
 
@@ -232,7 +282,9 @@ public class Recipe implements Serializable {
 	 * @param rating Set the recipe rating to this
 	 */
 	public void setRating(float rating) {
-		this.rating = rating;
+		this.totalRating += rating;
+		this.numOfRatings++;
+		calculateAvgRating();
 	}
 
 	/**
@@ -262,7 +314,7 @@ public class Recipe implements Serializable {
 	public boolean isFave() {
 		return fave;
 	}
-	
+
 	/**
 	 * @param fave Sets whether the recipe is favorited
 	 */
@@ -276,7 +328,7 @@ public class Recipe implements Serializable {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * @return the SQL ID;
 	 */
@@ -289,5 +341,41 @@ public class Recipe implements Serializable {
 	 */
 	public void setSqlID(long sqlID) {
 		this.sqlID = sqlID;
+	}
+
+	private void calculateAvgRating() {
+		rating = totalRating / numOfRatings;
+	}
+	
+	/**
+	 * return the total sum rating of this recipe
+	 * @return
+	 */
+	public float getTotalRating() {
+		return totalRating;
+	}
+	
+	/**
+	 * return the number of rating son this recipe
+	 * @return
+	 */
+	public int getNumOfRatings() {
+		return numOfRatings;
+	}
+	
+	/**
+	 * set the total rating sum of this recipe as totalRating
+	 * @param totalRating
+	 */
+	public void setTotalRating(int totalRating) {
+		this.totalRating = totalRating;
+	}
+	
+	/**
+	 * set the totalnumber of ratings of this recipe as provided
+	 * @param numOfRating
+	 */
+	public void setNumOfRatings(int numOfRating) {
+		this.numOfRatings = numOfRating;
 	}
 }
