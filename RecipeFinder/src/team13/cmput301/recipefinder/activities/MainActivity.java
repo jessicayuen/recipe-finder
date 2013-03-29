@@ -19,6 +19,7 @@ import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
+import team13.cmput301.recipefinder.sqlitedatabase.RecipeDataSource;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
 	IngredientManager im;
 	PhotoManager pm;
 	ListManager lm;
+	public static RecipeDataSource manager;
 
 	@Override
 	/**
@@ -47,6 +49,8 @@ public class MainActivity extends Activity {
 		User user = User.getUser();
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
+		manager = new RecipeDataSource(this);
+		manager.open();
 		rm = RecipeManager.getRecipeManager(this);
 
 		/* Run setup if user has never used app before */
