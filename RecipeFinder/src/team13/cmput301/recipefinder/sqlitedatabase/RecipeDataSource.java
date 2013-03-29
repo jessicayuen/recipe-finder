@@ -23,12 +23,13 @@ public class RecipeDataSource {
 	private SQLiteHelper dbHelper;
 
 	private String[] allColumns = { SQLiteHelper.RECIPE_COL_ID,
-			SQLiteHelper.RECIPE_COL_AUTHOR, 
-			SQLiteHelper.RECIPE_COL_DATE,
-			SQLiteHelper.RECIPE_COL_DESC,
-			SQLiteHelper.RECIPE_COL_FAVE,
 			SQLiteHelper.RECIPE_COL_NAME,
-			SQLiteHelper.RECIPE_COL_RATING };
+			SQLiteHelper.RECIPE_COL_DESC,
+			SQLiteHelper.RECIPE_COL_AUTHOR, 		
+			SQLiteHelper.RECIPE_COL_FAVE,		
+			SQLiteHelper.RECIPE_COL_RATING,
+			SQLiteHelper.RECIPE_COL_DATE,
+			SQLiteHelper.RECIPE_COL_UUID };
 	
 	private String[] instrColumns = { SQLiteHelper.INSTR_COL_ID,
 			SQLiteHelper.INSTR_COL_INSTR };
@@ -178,7 +179,7 @@ public class RecipeDataSource {
 	
 	public List<Recipe> getAllRecipes() {
 		List<Recipe> recipes = new ArrayList<Recipe>();
-
+		
 		Cursor cursor = database.query(SQLiteHelper.TABLE_RECIPE,
 				allColumns, null, null, null, null, null);
 

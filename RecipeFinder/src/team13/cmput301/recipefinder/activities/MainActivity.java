@@ -45,12 +45,12 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		manager = new RecipeDataSource(this);
+		manager.open();
 		User user = User.getUser();
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
-		manager = new RecipeDataSource(this);
-		manager.open();
+	
 		rm = RecipeManager.getRecipeManager(this);
 
 		/* Run setup if user has never used app before */
