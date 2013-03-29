@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.CustomListAdapter;
+import team13.cmput301.recipefinder.adapters.SearchListAdapter;
 import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.app.Activity;
@@ -45,7 +46,7 @@ public class SearchResultsActivity extends Activity {
 		ListView searchResultListView = 
 				(ListView) findViewById(R.id.searchResultListView);
 		searchResultListView.setAdapter(
-				new CustomListAdapter(this, recipeList));
+				new SearchListAdapter(this, recipeList));
 	}
 
 	@Override

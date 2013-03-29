@@ -25,18 +25,6 @@
         android:text="Search" />
 
     <TextView
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="5dp"
-        android:text="Displaying results for:"
-        android:textSize="11sp" />
-
-    <TextView
         android:id="@+id/advanced"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +63,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/display"
         android:layout_marginTop="16dp"
         android:paddingLeft="5dp"
         android:text="Visual"
