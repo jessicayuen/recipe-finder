@@ -211,13 +211,13 @@ public class CreateRecipeActivity extends Activity {
 					User.getUser().getUsername(),
 					ingredients, instructions, imageList);
 
-			RecipeManager.getRecipeManager().AddToUserRecipe(recipe, this);
+			RecipeManager.getRecipeManager(this).AddToUserRecipe(recipe);
 
 			Intent displayIntent = new Intent(CreateRecipeActivity.this, 
 					DisplayRecipeActivity.class);
 
 			displayIntent.putExtra("recipe", 
-					RecipeManager.getRecipeManager().getAllRecipes().size() - 1);
+					RecipeManager.getRecipeManager(this).getAllRecipes().size() - 1);
 
 			startActivity(displayIntent);
 			finish();

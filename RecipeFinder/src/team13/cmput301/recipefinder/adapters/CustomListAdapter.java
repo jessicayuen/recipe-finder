@@ -121,7 +121,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		TempRecipe tRecipe = (TempRecipe) v.getTag();
-		RecipeManager rm = RecipeManager.getRecipeManager();
+		RecipeManager rm = RecipeManager.getRecipeManager(context);
 		
 		if (tRecipe.id == FAV_BUTTON_CLICK) {
 			Recipe recipe = tRecipe.recipe;
@@ -130,12 +130,12 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 			} else {
 				recipe.setFave(false);
 			}
-			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe), context);
+			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
 			
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;
 			recipeList.remove(recipe);
-			RecipeManager.getRecipeManager().removeRecipe(recipe);
+			RecipeManager.getRecipeManager(context).removeRecipe(recipe);
 		}
 		
 		notifyDataSetChanged();

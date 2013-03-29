@@ -8,27 +8,18 @@
 
 package team13.cmput301.recipefinder.controllers;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
-
-
+import team13.cmput301.recipefinder.sqlitedatabase.RecipeDataSource;
 import android.content.Context;
-import android.util.Log;
 
 public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
-
-	private static final String PATH = "recipelog.sav";
-
-	private List<Recipe> allRecipes;
+	private RecipeDataSource dataSource;
 
 	/**
 	 * DO NOT USE
@@ -39,67 +30,29 @@ public class RecipeManager {
 	/**
 	 * Returns the singleton RecipeManager
 	 */
-	public static RecipeManager getRecipeManager() {
+	public static RecipeManager getRecipeManager(Context context) {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
-			recipeManager.allRecipes = new ArrayList<Recipe>();
+			recipeManager.dataSource = new RecipeDataSource(context);
 		}
 		return recipeManager;
 	}
 
 	/**
-	 * Loads the user and favorite recipes
-	 * @param ctx Context
+	 * Stores the recipe into the database
+	 * @param recipe The recipe to be stored
 	 */
-	@SuppressWarnings("unchecked")
-	public void loadRecipes(Context ctx) {
-		try {
-			FileInputStream fis;
-			ObjectInputStream in;
-			
-			// read user recipes
-			fis = ctx.openFileInput(PATH);
-			in = new ObjectInputStream(fis);
-			getRecipeManager().allRecipes = 
-					(ArrayList<Recipe>) in.readObject();
-			in.close();
-		} catch (Exception e) {
-			Log.e("RecipeManager", "Problems loading recipes", e); 
-		}
+	public void AddToUserRecipe(Recipe recipe) {
+		this.dataSource.insertRecipe(recipe);
 	}
 
 	/**
-	 * Appends the recipe into the existing user recipe list 
-	 * and saves it onto file
-	 * @param recipe Recipe to be appended
-	 * @param ctx Context
+	 * Stores the list of recipes into the database
+	 * @param recipes The list of recipes to be stored
 	 */
-	public void AddToUserRecipe(Recipe recipe, Context ctx) {
-		try {
-			getRecipeManager().allRecipes.add(recipe);
-			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().allRecipes);
-			out.close();
-		} catch (Exception e) {
-			Log.e("User", "Problems saving recipes to file", e); 
-		}
-	}
-
-	/**
-	 * Saves the provided list of user recipes onto file, overwriting previous
-	 * @param recipes List of user recipes
-	 * @param ctx Context
-	 */
-	public void AddToUserRecipe(List<Recipe> recipes, Context ctx) {
-		try {
-			getRecipeManager().allRecipes = recipes;
-			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().allRecipes);
-			out.close();
-		} catch (Exception e) {
-			Log.e("User", "Problems saving user settings", e); 
+	public void AddToUserRecipe(List<Recipe> recipes) {
+		for (int i = 0; i < recipes.size(); i++) {
+			AddToUserRecipe(recipes.get(i));
 		}
 	}
 	
@@ -108,16 +61,8 @@ public class RecipeManager {
 	 * @param recipe The new recipe
 	 * @param i The location in the list
 	 */
-	public void setRecipeAtLocation(Recipe recipe, int i, Context ctx) {
-		try {
-			getRecipeManager().allRecipes.set(i, recipe);
-			FileOutputStream fos = ctx.openFileOutput(PATH, Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fos);
-			out.writeObject(getRecipeManager().allRecipes);
-			out.close();
-		} catch (Exception e) {
-			Log.e("User", "Problems saving user settings", e); 
-		}
+	public void setRecipeAtLocation(Recipe recipe, int i) {
+		this.dataSource.replaceRecipe(recipe, i);
 	}
 
 	/**
@@ -126,7 +71,7 @@ public class RecipeManager {
 	 * @return the index of the recipe
 	 */
 	public int getRecipeIndex(Recipe recipe) {
-		return getRecipeManager().allRecipes.indexOf(recipe);
+		return (int) recipe.getSqlID();
 	}
 	
 	/**
@@ -134,9 +79,7 @@ public class RecipeManager {
 	 * @param recipe The recipe to be removed
 	 */
 	public void removeRecipe(Recipe recipe) {
-		if(getRecipeManager().allRecipes.contains(recipe)){
-			getRecipeManager().allRecipes.remove(recipe);
-		}
+		this.dataSource.deleteRecipe(recipe);
 	}
 	
 	/**
@@ -161,9 +104,10 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getFaveRecipes() {
 		List<Recipe> faves = new ArrayList<Recipe>();
+		List<Recipe> all = getAllRecipes();
 		
-		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
-			Recipe recipe = getRecipeManager().allRecipes.get(i);
+		for (int i = 0; i < all.size(); i++) {
+			Recipe recipe = all.get(i);
 			if (recipe.isFave())
 				faves.add(recipe);
 		}
@@ -176,9 +120,10 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getOwnRecipes() {
 		List<Recipe> own = new ArrayList<Recipe>();
+		List<Recipe> all = getAllRecipes();
 		
-		for (int i = 0; i < getRecipeManager().allRecipes.size(); i++) {
-			Recipe recipe = getRecipeManager().allRecipes.get(i);
+		for (int i = 0; i < all.size(); i++) {
+			Recipe recipe = all.get(i);
 			if (recipe.getAuthor().equals(User.getUser().getUsername()))
 				own.add(recipe);
 		}
@@ -190,6 +135,6 @@ public class RecipeManager {
 	 * @return List of user recipes
 	 */
 	public List<Recipe> getAllRecipes() {
-		return allRecipes;
+		return this.dataSource.getAllRecipes();
 	}
 }

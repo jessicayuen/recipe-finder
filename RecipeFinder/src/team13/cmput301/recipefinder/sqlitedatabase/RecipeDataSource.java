@@ -53,7 +53,7 @@ public class RecipeDataSource {
 		dbHelper.close();
 	}
 
-	public long createRecipe(Recipe recipe) {
+	public void insertRecipe(Recipe recipe) {
 		ContentValues values = new ContentValues();
 		ContentValues instructions = new ContentValues();
 		ContentValues ingredients = new ContentValues();
@@ -70,10 +70,7 @@ public class RecipeDataSource {
 		values.put(SQLiteHelper.RECIPE_COL_RATING, recipe.getRating());
 
 		long id = database.insert(SQLiteHelper.TABLE_RECIPE, null, values);
-
-		/* error inserting into database */
-		if (id == -1) 
-			return id;
+		recipe.setSqlID(id);
 
 		List<String> instructionsList = recipe.getInstructions();
 		for (int i = 0; i < instructionsList.size(); i++) {
@@ -104,16 +101,81 @@ public class RecipeDataSource {
 			photos.put(SQLiteHelper.COL_USER_REFERENCE, id);
 		}
 		database.insert(SQLiteHelper.TABLE_PHOTO, null, photos);
-
-		return id;
 	}
 
+	public void replaceRecipe(Recipe recipe, int row) {
+		ContentValues values = new ContentValues();
+		ContentValues instructions = new ContentValues();
+		ContentValues ingredients = new ContentValues();
+		ContentValues photos = new ContentValues();
+
+		values.put(SQLiteHelper.RECIPE_COL_AUTHOR, recipe.getAuthor());
+		values.put(SQLiteHelper.RECIPE_COL_DATE, recipe.getDate().toString());
+		values.put(SQLiteHelper.RECIPE_COL_DESC, recipe.getDescription());
+		if (recipe.isFave())
+			values.put(SQLiteHelper.RECIPE_COL_FAVE, 1);
+		else
+			values.put(SQLiteHelper.RECIPE_COL_FAVE, 0);
+		values.put(SQLiteHelper.RECIPE_COL_NAME, recipe.getName());
+		values.put(SQLiteHelper.RECIPE_COL_RATING, recipe.getRating());
+		
+		database.update(SQLiteHelper.TABLE_RECIPE, values,
+				new String(SQLiteHelper.RECIPE_COL_ID + " = " + row), null);
+		
+		List<String> instructionsList = recipe.getInstructions();
+		for (int i = 0; i < instructionsList.size(); i++) {
+			instructions.put(SQLiteHelper.INSTR_COL_INSTR, 
+					instructionsList.get(i));
+			instructions.put(SQLiteHelper.COL_USER_REFERENCE, row);
+		}
+		
+		database.update(SQLiteHelper.TABLE_INSTR, instructions,
+				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+		
+		List<String> ingredientsList = recipe.getIngredients();
+		for (int i = 0; i < ingredientsList.size(); i++) {
+			ingredients.put(SQLiteHelper.INGRED_COL_INGRED, 
+					ingredientsList.get(i));
+			ingredients.put(SQLiteHelper.COL_USER_REFERENCE, row);
+		}
+	
+		database.update(SQLiteHelper.TABLE_INGRED, ingredients,
+				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+
+		List<Photo> photosList = recipe.getPhotos();
+		for (int i = 0; i < photosList.size(); i++) {
+			byte[] photo = 
+					getBitmapAsByteArray(photosList.get(i).getPhoto());
+
+			photos.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
+					photosList.get(i).getAuthor());
+			photos.put(SQLiteHelper.PHOTO_COL_DATE, 
+					photosList.get(i).getDate().toString());
+			photos.put(SQLiteHelper.PHOTO_COL_PHOTO, photo);
+			photos.put(SQLiteHelper.COL_USER_REFERENCE, row);
+		}
+		
+		database.update(SQLiteHelper.TABLE_PHOTO, photos,
+				new String(SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+	}
+	
 	public void deleteRecipe(Recipe recipe) {
 		long id = recipe.getSqlID();
 		database.delete(SQLiteHelper.TABLE_RECIPE, SQLiteHelper.RECIPE_COL_ID
 				+ " = " + id, null);
 	}
 
+	public Recipe getRecipe(long sqlID) {
+		Cursor cursor = database.query(SQLiteHelper.TABLE_RECIPE,
+				allColumns, new String(SQLiteHelper.RECIPE_COL_ID + " = " 
+				+ sqlID), null, null, null, null);
+		
+		cursor.moveToFirst();
+		Recipe recipe = cursorToRecipe(cursor);
+		cursor.close();
+		return recipe;
+	}
+	
 	public List<Recipe> getAllRecipes() {
 		List<Recipe> recipes = new ArrayList<Recipe>();
 
@@ -131,17 +193,6 @@ public class RecipeDataSource {
 		return recipes;
 	}
 	
-	public Recipe getRecipe(long sqlID) {
-		Cursor cursor = database.query(SQLiteHelper.TABLE_RECIPE,
-				allColumns, new String(SQLiteHelper.RECIPE_COL_ID + " = " 
-				+ sqlID), null, null, null, null);
-		
-		cursor.moveToFirst();
-		Recipe recipe = cursorToRecipe(cursor);
-		cursor.close();
-		return recipe;
-	}
-
 	private Recipe cursorToRecipe(Cursor cursor) {	
 		long sqlID = cursor.getLong(0);
 		String name = cursor.getString(1);

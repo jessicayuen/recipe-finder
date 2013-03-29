@@ -47,20 +47,17 @@ public class MainActivity extends Activity {
 		User user = User.getUser();
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
-		rm = RecipeManager.getRecipeManager();
+		rm = RecipeManager.getRecipeManager(this);
 
 		/* Run setup if user has never used app before */
-//		if (user.getHasUsedApp().equals("0")) {
-//			Intent intent = new Intent(this, FirstTimeUserActivity.class);
-//			startActivity(intent);
-//		}
+		if (user.getHasUsedApp().equals("0")) {
+			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+			startActivity(intent);
+		}
 
 		/* Load user settings */
 		user.loadUserSettings(this);
 		
-		/* Load recipes */
-		rm.loadRecipes(this);
-
 		/* Display 4 random favorite recipes */
 		displayFaves();
 		
