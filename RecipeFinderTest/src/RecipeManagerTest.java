@@ -3,10 +3,9 @@ import java.util.ArrayList;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import team13.cmput301.recipefinder.MainActivity;
-import team13.cmput301.recipefinder.Photo;
-import team13.cmput301.recipefinder.Recipe;
-import team13.cmput301.recipefinder.RecipeManager;
+import team13.cmput301.recipefinder.activities.*;
+import team13.cmput301.recipefinder.model.*;
+import team13.cmput301.recipefinder.controllers.*;
 import android.test.ActivityInstrumentationTestCase2;
 
 
@@ -32,11 +31,10 @@ public class RecipeManagerTest
 	public void testAddRecipe(){
 		// Adding to user recipe list
 		rm.AddToUserRecipe(recipe, getActivity());
-		assertEquals(rm.getUserRecipes().get(
-				rm.getUserRecipes().size() - 1), recipe);
+		assertEquals(rm.getAllRecipes().get(
+				rm.getAllRecipes().size() - 1), recipe);
 		
 		// Adding to favorites recipe list
-		rm.addToFavList(recipe, false);
 		assertEquals(rm.getFaveRecipes().get(
 				rm.getFaveRecipes().size() - 1), recipe);
 	}
@@ -44,7 +42,7 @@ public class RecipeManagerTest
 	@Test
 	public void loadRecipeList() {
 		rm.loadRecipes(getActivity());
-		assertEquals(rm.getUserRecipes().get(
-				rm.getUserRecipes().size() - 1), recipe);
+		assertEquals(rm.getAllRecipes().get(
+				rm.getAllRecipes().size() - 1), recipe);
 	}
 }

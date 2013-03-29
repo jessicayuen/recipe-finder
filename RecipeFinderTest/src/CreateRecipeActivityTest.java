@@ -1,15 +1,9 @@
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import team13.cmput301.recipefinder.CreateRecipeActivity;
-import team13.cmput301.recipefinder.Photo;
-import team13.cmput301.recipefinder.Recipe;
-import android.content.Intent;
+import team13.cmput301.recipefinder.activities.*;
+import team13.cmput301.recipefinder.model.*;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.Button;
