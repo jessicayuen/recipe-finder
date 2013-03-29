@@ -33,6 +33,18 @@ public class Photo {
 		this.photo = encodeTobase64(photo);
 		this.date = new Date();
 	}
+	
+	/**
+	 * photo class constructor
+	 * @param author
+	 * @param photo
+	 * @param date
+	 */
+	public Photo(String author, Bitmap photo, Date date) {
+		this(author, photo);
+		this.date = date;
+	}
+	
 	/** 
 	 * Encodes a bitmap image to a base64 representation.
 	 * @param image image to encode

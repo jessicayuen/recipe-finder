@@ -95,6 +95,29 @@ public class Recipe implements Serializable {
 	}
 
 	/** 
+	 * Constructor for Recipe object
+	 * @param name
+	 * @param description
+	 * @param author
+	 * @param ingredients 
+	 * @param instructions
+	 * @param photos
+	 * @param rating
+	 * @param date
+	 */
+	public Recipe(String name, String description, String author,
+			List<String> ingredients, List<String> instructions, 
+			List<Photo> photos, float rating, Date date, boolean fave,
+			UUID id, long sqlID) {
+		this(name, description, author, ingredients, instructions,
+				photos, rating);
+		this.date = date;
+		this.fave = fave;
+		this.id = id;
+		this.sqlID = sqlID;
+	}
+	
+	/** 
 	 * Add a photo to the recipe
 	 * @param photo
 	 */
