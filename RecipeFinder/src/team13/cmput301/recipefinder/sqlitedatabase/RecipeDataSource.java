@@ -119,21 +119,24 @@ public class RecipeDataSource {
 
 		List<String> instructionsList = recipe.getInstructions();
 		values = insertInstructionValues(instructionsList, row);
+		database.delete(SQLiteHelper.TABLE_INSTR, 
+				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
 		if (instructionsList.size() > 0)
-			database.update(SQLiteHelper.TABLE_INSTR, values, new String(
-					SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
-
+			database.insert(SQLiteHelper.TABLE_INSTR, null, values);
+		
 		List<String> ingredientsList = recipe.getIngredients();
 		values = insertIngredientValues(ingredientsList, row);
-		if (instructionsList.size() > 0)
-			database.update(SQLiteHelper.TABLE_INGRED, values, new String(
-					SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+		database.delete(SQLiteHelper.TABLE_INGRED, 
+				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
+		if (ingredientsList.size() > 0)
+			database.insert(SQLiteHelper.TABLE_INGRED, null, values);
 
 		List<Photo> photosList = recipe.getPhotos();
 		values = insertPhotoValues(photosList, row);
+		database.delete(SQLiteHelper.TABLE_PHOTO, 
+				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
 		if (photosList.size() > 0)
-			database.update(SQLiteHelper.TABLE_PHOTO, values, new String(
-					SQLiteHelper.COL_USER_REFERENCE + " = " + row), null);
+			database.insert(SQLiteHelper.TABLE_PHOTO, null, values);
 	}
 
 	/**
