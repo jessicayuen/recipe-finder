@@ -14,16 +14,6 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent" >
 
-            <ImageView
-                android:id="@+id/displayPic"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
-                android:layout_toLeftOf="@+id/descriptionInfo"
-                android:src="@drawable/directory_icon" />
-
             <TextView
                 android:id="@+id/authorInfo"
                 android:layout_width="wrap_content"
@@ -151,8 +141,8 @@
                 android:id="@+id/descriptionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/displayPic"
                 android:layout_alignBottom="@+id/displayPic"
-                android:layout_alignParentRight="true"
                 android:layout_marginBottom="20dp"
                 android:maxWidth="180dp"
                 android:paddingLeft="5dp"
@@ -185,14 +175,22 @@
                 android:text="@string/author"
                 android:textSize="15sp" />
 
+            <ImageView
+                android:id="@+id/displayPic"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="17dp"
+                android:src="@drawable/directory_icon" />
+
             <RatingBar
-                android:id="@+id/recipeRating"
+                android:id="@+id/displayRecipeRating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/displayPic"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@+id/author" />
+                android:layout_above="@+id/author"
+                android:layout_alignLeft="@+id/authorInfo" />
 
         </RelativeLayout>
     </ScrollView>
