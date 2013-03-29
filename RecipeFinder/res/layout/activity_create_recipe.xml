@@ -60,7 +60,7 @@
                 android:id="@+id/gallery"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/addName"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@+id/addPicturesButn" />
 
             <EditText
@@ -95,6 +95,7 @@
                 android:layout_alignBaseline="@+id/addIngredients"
                 android:layout_alignBottom="@+id/addIngredients"
                 android:layout_alignParentRight="true"
+                android:onClick="addIngredientsClicked"
                 android:text="+" />
 
             <TextView
@@ -126,6 +127,7 @@
                 android:layout_alignBaseline="@+id/addInstructions"
                 android:layout_alignBottom="@+id/addInstructions"
                 android:layout_alignParentRight="true"
+                android:onClick="addInstructionsClicked"
                 android:text="+" />
 
             <Button
@@ -137,6 +139,7 @@
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:onClick="ingredientListClicked"
                 android:text="..." />
 
             <Button
@@ -148,6 +151,7 @@
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:onClick="instructionListClicked"
                 android:text="..." />
 
             <Button
@@ -159,6 +163,7 @@
                 android:text="Add Photo"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="54dp"
+                android:onClick="addPicturesClicked"
                 android:textSize="13dp" />
 
         </RelativeLayout>
@@ -170,8 +175,8 @@
         android:layout_height="36dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/exitButton"
-        android:onClick="createButtonClicked"
         android:text="Create"
+        android:onClick="createClicked"
         android:textSize="13dp" />
 
     <Button
@@ -181,6 +186,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/createButton"
         android:text="Exit"
+        android:onClick="exitClicked"
         android:textSize="13dp" />
 
 </RelativeLayout>
