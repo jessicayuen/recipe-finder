@@ -124,7 +124,7 @@ public class MyIngredientsActivity extends Activity {
 	 * @param view The view where the plus button is
 	 */
 	public void plusClicked(View view) {
-		incrCheckedItems();
+		incrCheckedItems(1);
 		myList.setAdapter(adapter);
 	}
 
@@ -133,7 +133,7 @@ public class MyIngredientsActivity extends Activity {
 	 * @param view The view where the minus button is
 	 */
 	public void minusClicked(View view) {
-		decrCheckedItems();
+		decrCheckedItems(1);
 		myList.setAdapter(adapter);
 	}
 
@@ -150,29 +150,14 @@ public class MyIngredientsActivity extends Activity {
 		/* Setup the alert dialog */
 		AlertDialog alertDialog =
 				new AlertDialog.Builder(MyIngredientsActivity.this).create();
-		alertDialog.setTitle("Change Quantity");
-		alertDialog.setMessage("Enter quantity to be " +
-				"incremented or decremented: ");
+		alertDialog.setTitle("Enter quantity: ");
 		alertDialog.setView(input);
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "+", 
 				new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
 				int quantity = Integer.parseInt(input.getText().toString());
-				int count = myList.getAdapter().getCount();
-				for (int i = count - 1; i >= 0; i--) {
-					if (myList.isItemChecked(i)) {
-						Ingredient ingred = 
-								ingredManager.getIngredientList().get(i);
-						ingred.setQuantity(ingred.getQuantity() + quantity);
-						displayList.set(i, ingred.getIngredient() + 
-								" : " + ingred.getQuantity());
-						ingredManager.setIngredient(ingred, i);
-						ingredManager.saveAllIngredients(
-								MyIngredientsActivity.this);
-						adapter.notifyDataSetChanged();
-					}
-				}
+				MyIngredientsActivity.this.incrCheckedItems(quantity);
 			}
 		});
 		
@@ -181,27 +166,7 @@ public class MyIngredientsActivity extends Activity {
 
 			public void onClick(DialogInterface dialog, int which) {
 				int quantity = Integer.parseInt(input.getText().toString());
-				int count = myList.getAdapter().getCount();
-				for (int i = count - 1; i >= 0; i--) {
-					if (myList.isItemChecked(i)) {
-						Ingredient ingred = 
-								ingredManager.getIngredientList().get(i);
-						if (ingred.getQuantity() - quantity > 0) {
-							ingred.setQuantity(ingred.getQuantity() - quantity);
-							displayList.set(i, ingred.getIngredient() + 
-									" : " + ingred.getQuantity());
-							ingredManager.setIngredient(ingred, i);
-							ingredManager.saveAllIngredients(
-									MyIngredientsActivity.this);
-						} else {
-							ingredManager.removeIngredient(i);
-							ingredManager.saveAllIngredients(
-									MyIngredientsActivity.this);
-							displayList.remove(i);
-						}
-						adapter.notifyDataSetChanged();	
-					}
-				}
+				MyIngredientsActivity.this.decrCheckedItems(quantity);
 			}
 		});
 		
@@ -232,14 +197,15 @@ public class MyIngredientsActivity extends Activity {
 		}
 	}
 	/**
-	 * Increments the items that were checked by 1
+	 * Increments the items that were checked
+	 * @param quantity The amount to increase the quantity by
 	 */
-	private void incrCheckedItems(){
+	private void incrCheckedItems(int quantity){
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
-				ingred.setQuantity(ingred.getQuantity() + 1);
+				ingred.setQuantity(ingred.getQuantity() + quantity);
 				displayList.set(i, ingred.getIngredient() + 
 						" : " + ingred.getQuantity());
 				ingredManager.setIngredient(ingred, i);
@@ -250,27 +216,26 @@ public class MyIngredientsActivity extends Activity {
 	}
 
 	/**
-	 * Decrements the items that were checked by 1
+	 * Decrements the items that were checked
+	 * @param quantity The amount to decrease the quantity by
 	 */
-	private void decrCheckedItems(){
+	private void decrCheckedItems(int quantity){
 		int count = this.myList.getAdapter().getCount();
 		for (int i = count - 1; i >= 0; i--) {
 			if (this.myList.isItemChecked(i)) {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
-				if (ingred.getQuantity() > 0){
-					ingred.setQuantity(ingred.getQuantity() - 1);
+				if (ingred.getQuantity() - quantity > 0){
+					ingred.setQuantity(ingred.getQuantity() - quantity);
 					displayList.set(i, ingred.getIngredient() + 
 							" : " + ingred.getQuantity());
 					ingredManager.setIngredient(ingred, i);
 					ingredManager.saveAllIngredients(this);
-					adapter.notifyDataSetChanged();
-				}
-				if (ingred.getQuantity() <= 0){
+				} else {
 					ingredManager.removeIngredient(i);
 					ingredManager.saveAllIngredients(this);
 					displayList.remove(i);
-					adapter.notifyDataSetChanged();
 				}
+				adapter.notifyDataSetChanged();
 			}
 		}
 	}
