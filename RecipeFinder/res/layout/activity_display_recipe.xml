@@ -6,35 +6,22 @@
     tools:context=".DisplayRecipeActivity" >
 
     <ScrollView
-        android:layout_above="@+id/buttonLayout"
-        android:layout_alignParentTop="true"
+        android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLayout"
+        android:layout_alignParentTop="true" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/authorInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/description"
-                android:layout_toRightOf="@+id/author"
-                android:maxWidth="180dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/shortbuff"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
-                android:typeface="serif" />
-
-            <TextView
                 android:id="@+id/ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/displayPic"
-                android:layout_below="@+id/displayPic"
+                android:layout_below="@+id/descriptionInfo"
                 android:paddingLeft="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/ingredient"
@@ -47,7 +34,6 @@
                 android:layout_alignLeft="@+id/ingredients"
                 android:layout_alignRight="@+id/descriptionInfo"
                 android:layout_below="@+id/ingredients"
-                android:maxWidth="180dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
@@ -63,7 +49,6 @@
                 android:layout_alignLeft="@+id/instructions"
                 android:layout_alignRight="@+id/ingredientsInfo"
                 android:layout_below="@+id/instructions"
-                android:maxWidth="180dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
@@ -103,28 +88,6 @@
                 android:text="@string/instruc"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/descriptionInfo"
-                android:layout_alignLeft="@+id/descriptionInfo"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/descr"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/authorInfo"
-                android:layout_alignLeft="@+id/description"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/author"
-                android:textSize="15sp" />
-
             <ImageView
                 android:id="@+id/displayPic"
                 android:layout_width="140dp"
@@ -135,12 +98,36 @@
                 android:src="@drawable/directory_icon" />
 
             <TextView
+                android:id="@+id/authorInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/author"
+                android:layout_toRightOf="@+id/author"
+                android:maxWidth="180dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/shortbuff"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/displayPic"
+                android:layout_below="@+id/displayPic"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/descr"
+                android:textSize="15sp" />
+
+            <TextView
                 android:id="@+id/descriptionInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/displayPic"
-                android:layout_toRightOf="@+id/displayPic"
-                android:maxWidth="180dp"
+                android:layout_alignLeft="@+id/description"
+                android:layout_below="@+id/description"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
@@ -154,30 +141,43 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/dateInfo"
-                android:layout_alignRight="@+id/description" />
+                android:layout_alignLeft="@+id/dateInfo"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/displayPic" />
 
             <TextView
                 android:id="@+id/dateInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/author"
-                android:layout_alignLeft="@+id/author"
-                android:maxWidth="180dp"
-                android:paddingLeft="7dp"
+                android:maxLines="1"
+                android:layout_below="@+id/displayRecipeRating"
+                android:layout_toRightOf="@+id/displayPic"
                 android:paddingTop="5dp"
                 android:text="@string/shortbuff"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/dateInfo"
+                android:layout_below="@+id/dateInfo"
+                android:layout_marginTop="17dp"
+                android:layout_toRightOf="@+id/displayPic"
+                android:paddingTop="5dp"
+                android:text="@string/author"
+                android:textSize="15sp" />
         </RelativeLayout>
     </ScrollView>
 
     <RelativeLayout
         android:id="@+id/buttonLayout"
-        android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
-        android:layout_height="40dp" >
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true" >
 
         <Button
             android:id="@+id/share"
