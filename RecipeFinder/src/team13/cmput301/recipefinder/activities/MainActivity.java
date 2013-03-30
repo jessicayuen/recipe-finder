@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
 	IngredientManager im;
 	PhotoManager pm;
 	ListManager lm;
+	private List<Recipe> faveRecipes;
 
 	@Override
 	/**
@@ -70,6 +72,7 @@ public class MainActivity extends Activity {
 	}
 	
 	protected void onResume() {
+		clearFavesDisplayed();
 		displayFaves();
 		super.onResume();
 	}
@@ -117,7 +120,7 @@ public class MainActivity extends Activity {
 	 * Displays a random 4 recipes from the favorite recipe list.
 	 */
 	private void displayFaves() {
-		List<Recipe> faveRecipes = rm.getFaveRecipes();
+		faveRecipes = rm.getFaveRecipes();
 		Collections.shuffle(faveRecipes);
 		int numFaves = faveRecipes.size();
 		if (numFaves > 0) {
@@ -127,6 +130,7 @@ public class MainActivity extends Activity {
 			if (faveRecipes.get(0).getPhotos().size() > 0)  {
 				imageView.setImageBitmap(faveRecipes.get(0).
 						getPhotos().get(0).getPhoto());
+				displayClickedRecipe(imageView, faveRecipes.get(0));
 			}
 			if (numFaves == 1) return;
 
@@ -134,6 +138,7 @@ public class MainActivity extends Activity {
 			if (faveRecipes.get(1).getPhotos().size() > 0) { 
 				imageView.setImageBitmap(faveRecipes.get(1).
 						getPhotos().get(0).getPhoto());
+				displayClickedRecipe(imageView, faveRecipes.get(1));
 			}
 			if (numFaves == 2) return;
 
@@ -141,6 +146,7 @@ public class MainActivity extends Activity {
 			if (faveRecipes.get(2).getPhotos().size() > 0) {
 				imageView.setImageBitmap(faveRecipes.get(2).
 						getPhotos().get(0).getPhoto());
+				displayClickedRecipe(imageView, faveRecipes.get(2));
 			}
 			if (numFaves == 3) return;
 
@@ -148,6 +154,7 @@ public class MainActivity extends Activity {
 			if (faveRecipes.get(3).getPhotos().size() > 0) {
 				imageView.setImageBitmap(faveRecipes.get(3).
 						getPhotos().get(0).getPhoto());
+				displayClickedRecipe(imageView, faveRecipes.get(3));
 			}
 		}
 	}
@@ -178,5 +185,47 @@ public class MainActivity extends Activity {
 		Intent displayRecipeIntent = new Intent(this, 
 				RecipeListActivity.class);
 		startActivity(displayRecipeIntent);
+	}
+	
+	/**
+	 * displays the recipe clicked on the main page
+	 * @param image imageview that listens to user clicks
+	 * @param recipe recipe to be displayed
+	 */
+	private void displayClickedRecipe(ImageView image, final Recipe recipe) {
+		image.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				int index = RecipeManager.getRecipeManager(MainActivity
+						.this).getAllRecipes().indexOf(recipe);
+				Intent displayIntent = new Intent(MainActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra("recipe", index);
+				startActivity(displayIntent);
+			}					
+		});
+	}
+	
+	/**
+	 * clears the display of faves on the main activity
+	 */
+	private void clearFavesDisplayed(){
+		ImageView imageView;
+		
+		imageView = (ImageView) findViewById(R.id.faveTopLeft);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		
+		imageView = (ImageView) findViewById(R.id.faveTopRight);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		
+		imageView = (ImageView) findViewById(R.id.faveBottomLeft);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		
+		imageView = (ImageView) findViewById(R.id.faveBottomRight);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
 	}
 }
