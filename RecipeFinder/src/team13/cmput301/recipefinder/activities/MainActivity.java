@@ -59,6 +59,9 @@ public class MainActivity extends Activity {
 //		}
 		user.setUsername("test");
 		
+		/* Load recipes */
+		rm.loadRecipes();
+		
 		/* Display 4 random favorite recipes */
 		displayFaves();
 		

@@ -20,6 +20,7 @@ public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
 	private RecipeDataSource dataSource;
+	private List<Recipe> allRecipes;
 
 	/**
 	 * DO NOT USE
@@ -34,28 +35,29 @@ public class RecipeManager {
 		if (recipeManager == null) {
 			recipeManager = new RecipeManager();
 			recipeManager.dataSource = new RecipeDataSource(context);
+			recipeManager.allRecipes = new ArrayList<Recipe>();
 		}
 		return recipeManager;
 	}
 
+	/** 
+	 * Loads the recipes from the database
+	 */
+	public void loadRecipes() {
+		this.dataSource.open();
+		this.allRecipes = this.dataSource.getAllRecipes();
+		this.dataSource.close();
+	}
+	
 	/**
 	 * Stores the recipe into the database
 	 * @param recipe The recipe to be stored
 	 */
-	public void AddToUserRecipe(Recipe recipe) {
+	public void addToUserRecipe(Recipe recipe) {
 		this.dataSource.open();
 		this.dataSource.insertRecipe(recipe);
+		this.allRecipes.add(recipe);
 		this.dataSource.close();
-	}
-
-	/**
-	 * Stores the list of recipes into the database
-	 * @param recipes The list of recipes to be stored
-	 */
-	public void AddToUserRecipe(List<Recipe> recipes) {
-		for (int i = 0; i < recipes.size(); i++) {
-			AddToUserRecipe(recipes.get(i));
-		}
 	}
 	
 	/**
@@ -65,7 +67,9 @@ public class RecipeManager {
 	 */
 	public void setRecipeAtLocation(Recipe recipe, int i) {
 		this.dataSource.open();
-		this.dataSource.replaceRecipe(recipe, i);
+		this.dataSource.deleteRecipe(this.allRecipes.get(i));
+		this.dataSource.insertRecipe(recipe);
+		this.allRecipes.set(i, recipe);
 		this.dataSource.close();
 	}
 
@@ -75,7 +79,7 @@ public class RecipeManager {
 	 * @return the index of the recipe
 	 */
 	public int getRecipeIndex(Recipe recipe) {
-		return (int) recipe.getSqlID();
+		return this.allRecipes.indexOf(recipe);
 	}
 	
 	/**
@@ -85,6 +89,7 @@ public class RecipeManager {
 	public void removeRecipe(Recipe recipe) {
 		this.dataSource.open();
 		this.dataSource.deleteRecipe(recipe);
+		this.allRecipes.remove(recipe);
 		this.dataSource.close();
 	}
 	
@@ -110,10 +115,9 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getFaveRecipes() {
 		List<Recipe> faves = new ArrayList<Recipe>();
-		List<Recipe> all = getAllRecipes();
 		
-		for (int i = 0; i < all.size(); i++) {
-			Recipe recipe = all.get(i);
+		for (int i = 0; i < this.allRecipes.size(); i++) {
+			Recipe recipe = this.allRecipes.get(i);
 			if (recipe.isFave())
 				faves.add(recipe);
 		}
@@ -126,10 +130,9 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getOwnRecipes() {
 		List<Recipe> own = new ArrayList<Recipe>();
-		List<Recipe> all = getAllRecipes();
 		
-		for (int i = 0; i < all.size(); i++) {
-			Recipe recipe = all.get(i);
+		for (int i = 0; i < this.allRecipes.size(); i++) {
+			Recipe recipe = this.allRecipes.get(i);
 			if (recipe.getAuthor().equals(User.getUser().getUsername()))
 				own.add(recipe);
 		}
@@ -141,10 +144,6 @@ public class RecipeManager {
 	 * @return List of user recipes
 	 */
 	public List<Recipe> getAllRecipes() {
-		List<Recipe> recipes;
-		this.dataSource.open();
-		recipes = this.dataSource.getAllRecipes();
-		this.dataSource.close();
-		return recipes;
+		return this.allRecipes;
 	}
 }

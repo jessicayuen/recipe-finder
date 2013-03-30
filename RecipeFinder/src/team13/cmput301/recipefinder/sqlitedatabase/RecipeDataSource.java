@@ -107,40 +107,6 @@ public class RecipeDataSource {
 	}
 
 	/**
-	 * Replaces a existing row with the new Recipe
-	 * @param recipe The recipe to replace with
-	 * @param row The row containing the recipe to replace
-	 */
-	public void replaceRecipe(Recipe recipe, int row) {
-		ContentValues values; 
-
-		values = insertRecipeValues(recipe);
-		database.update(SQLiteHelper.TABLE_RECIPE, values, new String(
-				SQLiteHelper.RECIPE_COL_ID + " = " + row), null);
-
-		List<String> instructionsList = recipe.getInstructions();
-		values = insertInstructionValues(instructionsList, row);
-		database.delete(SQLiteHelper.TABLE_INSTR, 
-				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
-		if (instructionsList.size() > 0)
-			database.insert(SQLiteHelper.TABLE_INSTR, null, values);
-		
-		List<String> ingredientsList = recipe.getIngredients();
-		values = insertIngredientValues(ingredientsList, row);
-		database.delete(SQLiteHelper.TABLE_INGRED, 
-				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
-		if (ingredientsList.size() > 0)
-			database.insert(SQLiteHelper.TABLE_INGRED, null, values);
-
-		List<Photo> photosList = recipe.getPhotos();
-		values = insertPhotoValues(photosList, row);
-		database.delete(SQLiteHelper.TABLE_PHOTO, 
-				SQLiteHelper.COL_USER_REFERENCE + " = " + row, null);
-		if (photosList.size() > 0)
-			database.insert(SQLiteHelper.TABLE_PHOTO, null, values);
-	}
-
-	/**
 	 * Delete a recipe from the database
 	 * @param recipe The recipe to be removed
 	 */
@@ -317,9 +283,8 @@ public class RecipeDataSource {
 
 	private ContentValues insertPhotoValues(List<Photo> photos, int row) {
 		ContentValues values = new ContentValues();
-
+		
 		for (int i = 0; i < photos.size(); i++) {
-			
 			String photo = photos.get(i).getEncodedPhoto();
 			
 			values.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
