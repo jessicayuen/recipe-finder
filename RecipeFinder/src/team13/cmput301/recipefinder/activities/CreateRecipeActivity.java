@@ -106,7 +106,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * Listens for add picture button click - prompts user to 
+	 * Called on add picture button click - prompts user to 
 	 * take a new picture or choose from existing
 	 * @param view The view where the add picture button is
 	 */
@@ -141,7 +141,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * Listens for add instructions button click - adds the
+	 * Called on add instructions button click - adds the
 	 * instruction to the list of instructions
 	 * @param view The view where the add instructions button is
 	 */
@@ -157,7 +157,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * Listens for add ingredients button click - adds the ingredient
+	 * Called on add ingredients button click - adds the ingredient
 	 * to the list of ingredients
 	 * @param view The view where the add ingredients button is
 	 */
@@ -175,7 +175,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/** 
-	 * Listens for listing ingredients button click.
+	 * Called on listing ingredients button click.
 	 * Expands the list of ingredients the user added.
 	 * @param view The view where the button is
 	 */
@@ -186,7 +186,7 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/** 
-	 * Listens for listing instructions button click.
+	 * Called on listing instructions button click.
 	 * Expands the list of instructions the user added.
 	 * @param view The view where the button is
 	 */
