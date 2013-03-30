@@ -35,30 +35,6 @@
         android:textSize="11sp" />
 
     <TextView
-        android:id="@+id/discrip1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/VisualCol"
-        android:layout_alignBottom="@+id/VisualCol"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/advanced"
-        android:paddingLeft="5dp"
-        android:text="Discription"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/author1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/discrip1"
-        android:layout_alignBottom="@+id/discrip1"
-        android:layout_marginLeft="21dp"
-        android:layout_toRightOf="@+id/discrip1"
-        android:paddingLeft="5dp"
-        android:text="Author"
-        android:textSize="15sp" />
-
-    <TextView
         android:id="@+id/VisualCol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,8 +48,8 @@
         android:id="@+id/rating1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/author1"
-        android:layout_alignBottom="@+id/author1"
+        android:layout_alignBaseline="@+id/discrip1"
+        android:layout_alignBottom="@+id/discrip1"
         android:layout_alignRight="@+id/searchfor"
         android:paddingLeft="5dp"
         android:text="Rating"
@@ -87,5 +63,16 @@
         android:layout_below="@+id/discrip1" >
 
     </ListView>
+
+    <TextView
+        android:id="@+id/discrip1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/VisualCol"
+        android:layout_alignBottom="@+id/VisualCol"
+        android:layout_toLeftOf="@+id/searchfor"
+        android:paddingLeft="5dp"
+        android:text="Discription"
+        android:textSize="15sp" />
 
 </RelativeLayout>

@@ -56,30 +56,16 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.custom_recipe_display, null);
+			convertView = inflater.inflate(R.layout.custom_search_recipe, null);
 		}
 
 		Recipe recipe = recipeList.get(position);
-		ImageButton fav = (ImageButton) convertView.findViewById(R.id.favStarButton);
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
 		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
 		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);
 		TextView author = (TextView) convertView.findViewById(R.id.authorBox);
 		RatingBar recipeRating =  (RatingBar) convertView.findViewById(R.id.recipeRating);
 		Button btnDownload = (Button) convertView.findViewById(R.id.removeRecipe);
-		
-		/* Draw a star for fave recipes */
-		if(recipe.isFave()){
-			fav.setImageResource(R.drawable.star);
-			fav.setBackgroundResource(R.drawable.star);
-		} else {
-			fav.setImageResource(R.drawable.staroff);
-			fav.setBackgroundResource(R.drawable.staroff);
-		}
-		fav.setFocusableInTouchMode(false);
-		fav.setFocusable(false);
-		fav.setOnClickListener(this);		
-		fav.setTag(new TempRecipe(FAV_BUTTON_CLICK,recipe));
 
 		/* Set description text format */
 		descr.setTextSize(fontSize);

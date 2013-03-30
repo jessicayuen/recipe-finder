@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/recipeNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/recipeRating"
+        android:layout_toRightOf="@+id/recipePicture"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/descriptionBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recipePicture"
+        android:layout_alignLeft="@+id/authorBox"
+        android:layout_alignRight="@+id/recipeNameDisplay"
+        android:layout_below="@+id/authorBox"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/authorBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/recipeNameDisplay"
+        android:layout_alignRight="@+id/recipeNameDisplay"
+        android:layout_below="@+id/recipeNameDisplay"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/recipePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/favStarButton"
+        android:src="@drawable/directory_up" />
+
+
+    <RatingBar
+        android:id="@+id/recipeRating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/recipeNameDisplay" />
+
+    <Button
+        android:id="@+id/removeRecipe"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/authorBox"
+        android:text="X" />
+
+</RelativeLayout>
