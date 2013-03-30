@@ -37,7 +37,9 @@ public class RecipeDataSource {
 			SQLiteHelper.RECIPE_COL_FAVE,		
 			SQLiteHelper.RECIPE_COL_RATING,
 			SQLiteHelper.RECIPE_COL_DATE,
-			SQLiteHelper.RECIPE_COL_UUID };
+			SQLiteHelper.RECIPE_COL_UUID,
+			SQLiteHelper.RECIPE_COL_NUM_RATINGS,
+			SQLiteHelper.RECIPE_COL_TOTAL_RATING };
 
 	/* Instruction table columns */
 	private String[] instrColumns = { 
@@ -171,15 +173,19 @@ public class RecipeDataSource {
 		else
 			fave = false;
 		float rating = cursor.getFloat(5);
+		@SuppressWarnings("deprecation")
 		Date date = new Date(cursor.getString(6));
 		UUID uuid = new UUID(name.hashCode(), author.hashCode());
+		int num_ratings = cursor.getInt(8);
+		float total_rating = cursor.getFloat(9);
 
 		List<String> instructions = getInstructions(cursor);
 		List<String> ingredients = getIngredients(cursor);
 		List<Photo> photos = getPhotos(cursor);
 
 		return new Recipe(name, description, author, ingredients,
-				instructions, photos, rating, date, fave, uuid, sqlID);
+				instructions, photos, rating, num_ratings,
+				total_rating, date, fave, uuid, sqlID);
 	}
 
 	private List<String> getInstructions(Cursor cursor) {
@@ -230,6 +236,7 @@ public class RecipeDataSource {
 		while (!photoCursor.isAfterLast()) {
 			Bitmap bitmap = Photo.decodeBase64(photoCursor.getString(2));
 			
+			@SuppressWarnings("deprecation")
 			Photo photo = new Photo(photoCursor.getString(1), bitmap, 
 					new Date(photoCursor.getString(3)));
 
@@ -253,6 +260,8 @@ public class RecipeDataSource {
 		values.put(SQLiteHelper.RECIPE_COL_NAME, recipe.getName());
 		values.put(SQLiteHelper.RECIPE_COL_RATING, recipe.getRating());
 		values.put(SQLiteHelper.RECIPE_COL_UUID, recipe.getId());
+		values.put(SQLiteHelper.RECIPE_COL_NUM_RATINGS, recipe.getNumOfRatings());
+		values.put(SQLiteHelper.RECIPE_COL_TOTAL_RATING, recipe.getTotalRating());
 
 		return values;
 	}

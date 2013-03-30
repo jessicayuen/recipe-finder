@@ -27,6 +27,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String RECIPE_COL_RATING = "rating";
 	public static final String RECIPE_COL_DATE = "date";
 	public static final String RECIPE_COL_UUID = "uuid";
+	public static final String RECIPE_COL_NUM_RATINGS = "num_ratings";
+	public static final String RECIPE_COL_TOTAL_RATING = "total_ratings";
 	
 	public static final String TABLE_INSTR = "instructions";
 	public static final String INSTR_COL_ID = "_id";
@@ -55,7 +57,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ RECIPE_COL_FAVE + " integer not null, "
 			+ RECIPE_COL_RATING + " real not null, "
 			+ RECIPE_COL_DATE + " text not null, "
-			+ RECIPE_COL_UUID + " text not null);";
+			+ RECIPE_COL_UUID + " text not null, " 
+			+ RECIPE_COL_NUM_RATINGS + " integer not null,"
+			+ RECIPE_COL_TOTAL_RATING + " real not null);";
 	
 	/* SQL statement for creating instructions table */
 	private static final String CREATE_INSTR_TABLE = 

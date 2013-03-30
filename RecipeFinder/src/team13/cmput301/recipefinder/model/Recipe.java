@@ -87,7 +87,7 @@ public class Recipe implements Serializable {
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 
 			List<Photo> photos, float rating, int numOfRatings,
-			int totalRating) {
+			float totalRating) {
 		this(name, description, author, ingredients, instructions,
 				photos, rating);
 		this.numOfRatings = numOfRatings;
@@ -107,10 +107,11 @@ public class Recipe implements Serializable {
 	 */
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 
-			List<Photo> photos, float rating, Date date, boolean fave,
+			List<Photo> photos, float rating, int numOfRatings,
+			float totalRating, Date date, boolean fave,
 			UUID id, long sqlID) {
 		this(name, description, author, ingredients, instructions,
-				photos, rating);
+				photos, rating, numOfRatings, totalRating);
 		this.date = date;
 		this.fave = fave;
 		this.id = id;
@@ -372,7 +373,7 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
-	 * set the totalnumber of ratings of this recipe as provided
+	 * set the total number of ratings of this recipe as provided
 	 * @param numOfRating
 	 */
 	public void setNumOfRatings(int numOfRating) {
