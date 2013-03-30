@@ -23,8 +23,6 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 	private Context context;
 	private List<Recipe> recipeList;
 	private final int fontSize = 10;
-	private static final int FAV_BUTTON_CLICK = 1;
-	private static final int DOWNLOAD_BUTTON_CLICK = 2;
 
 	public SearchListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
@@ -35,6 +33,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
+	
 	@Override
 	public int getCount() {
 		return this.recipeList.size();
@@ -52,7 +51,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,7 +77,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		/* Set up author text format */
 		author.setTextSize(fontSize);
 		author.setText(recipe.getAuthor());
-		
+
 		/* Set up display photo */
 		if(recipe.getPhotos().size() > 0){
 			recipePic.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
@@ -96,7 +95,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		btnDownload.setOnClickListener(this);
 
 		/* Keep track of which entry was removed */
-		btnDownload.setTag(new TempRecipe(DOWNLOAD_BUTTON_CLICK,recipe));   
+		btnDownload.setTag(recipe);   
 
 		return convertView;
 	}
@@ -107,37 +106,16 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View v) {
-		TempRecipe tRecipe = (TempRecipe) v.getTag();
+		Recipe recipe = (Recipe)v.getTag();
 		RecipeManager rm = RecipeManager.getRecipeManager(context);
-		
-		if (tRecipe.id == FAV_BUTTON_CLICK) {
-			Recipe recipe = tRecipe.recipe;
-			if (!recipe.isFave()) {
-				recipe.setFave(true);
-			} else {
-				recipe.setFave(false);
-			}
-			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
 
-		} else if (tRecipe.id == DOWNLOAD_BUTTON_CLICK) {
-			Recipe recipe = tRecipe.recipe;
-			if (rm.getOwnRecipes().contains(recipe)) {
-				Toast.makeText(context, "Recipe already downloaded", Toast.LENGTH_SHORT).show();
-			} else {
-				rm.addToUserRecipe(recipe);
-				Toast.makeText(context, "Recipe successfully downloaded", Toast.LENGTH_SHORT).show();
-			}
+		if (!rm.checkForExistingRecipe(recipe)) {
+			Toast.makeText(context, "Recipe already downloaded", Toast.LENGTH_SHORT).show();
+		} else {
+			rm.addToUserRecipe(recipe);
+			Toast.makeText(context, "Recipe successfully downloaded", Toast.LENGTH_SHORT).show();
 		}
-		notifyDataSetChanged();
+		notifyDataSetChanged();	
 	}
-	
-	private class TempRecipe {
-		private int id;
-		private Recipe recipe;
 
-		public TempRecipe(int id, Recipe recipe){
-			this.id = id;
-			this.recipe = recipe;
-		}
-	}
 }

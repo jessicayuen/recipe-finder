@@ -21,6 +21,7 @@ public class RecipeManager {
 	transient private static RecipeManager recipeManager = null;
 	private RecipeDataSource dataSource;
 	private List<Recipe> allRecipes;
+	private List<Recipe> searchResultRecipes;
 
 	/**
 	 * DO NOT USE
@@ -36,6 +37,7 @@ public class RecipeManager {
 			recipeManager = new RecipeManager();
 			recipeManager.dataSource = new RecipeDataSource(context);
 			recipeManager.allRecipes = new ArrayList<Recipe>();
+			recipeManager.searchResultRecipes =  new ArrayList<Recipe>();
 		}
 		return recipeManager;
 	}
@@ -145,5 +147,23 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getAllRecipes() {
 		return this.allRecipes;
+	}
+	
+	public void setSearchResultRecipes(List<Recipe> result) {
+		searchResultRecipes = new ArrayList<Recipe>();
+		searchResultRecipes = result;
+	}
+	
+	public List<Recipe> getSearchResultRecipes() {
+		return searchResultRecipes;
+	}
+	
+	public boolean checkForExistingRecipe(Recipe recipe) {
+		for(Recipe r : allRecipes) {
+			if(r.getId() == recipe.getId()){
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -14,12 +14,17 @@ import java.util.concurrent.ExecutionException;
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.CustomListAdapter;
 import team13.cmput301.recipefinder.adapters.SearchListAdapter;
+import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class SearchResultsActivity extends Activity {
@@ -47,6 +52,20 @@ public class SearchResultsActivity extends Activity {
 				(ListView) findViewById(R.id.searchResultListView);
 		searchResultListView.setAdapter(
 				new SearchListAdapter(this, recipeList));
+		
+		RecipeManager.getRecipeManager(this).setSearchResultRecipes(recipeList);
+		
+		searchResultListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long arg3) {
+				Intent displayIntent = new Intent(SearchResultsActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra("recipe", pos);
+				startActivity(displayIntent);	
+			}
+			
+		});
 	}
 
 	@Override
