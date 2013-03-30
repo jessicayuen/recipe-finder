@@ -69,6 +69,10 @@ public class MainActivity extends Activity {
 		setCustomFonts();
 	}
 	
+	protected void onResume() {
+		displayFaves();
+		super.onResume();
+	}
 	/** 
 	 * Starts the activity Create Recipe on 'Create My Own' button click
 	 * @param view
