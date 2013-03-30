@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 
@@ -131,13 +132,16 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 				recipe.setFave(false);
 			}
 			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
-			
-		} else if(tRecipe.id == DOWNLOAD_BUTTON_CLICK){
+
+		} else if (tRecipe.id == DOWNLOAD_BUTTON_CLICK) {
 			Recipe recipe = tRecipe.recipe;
-			recipeList.remove(recipe);
-			rm.addToUserRecipe(recipe);
+			if (rm.getOwnRecipes().contains(recipe)) {
+				Toast.makeText(context, "Recipe already downloaded", Toast.LENGTH_SHORT).show();
+			} else {
+				rm.addToUserRecipe(recipe);
+				Toast.makeText(context, "Recipe successfully downloaded", Toast.LENGTH_SHORT).show();
+			}
 		}
-		
 		notifyDataSetChanged();
 	}
 	
