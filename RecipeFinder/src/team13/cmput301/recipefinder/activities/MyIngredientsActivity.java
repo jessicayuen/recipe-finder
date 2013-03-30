@@ -191,7 +191,9 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
-		new Intent(this, SearchResultsActivity.class);
+		Intent searchIntent = new Intent(this, SearchResultsActivity.class);
+		searchIntent.putStringArrayListExtra("Ingredients", searchList);
+		startActivity(searchIntent);
 	}
 
 	/**

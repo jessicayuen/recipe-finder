@@ -70,7 +70,7 @@
                 android:ems="10"
                 android:gravity="top|left"
                 android:inputType="textMultiLine"
-                android:lines="5"
+                android:lines="1"
                 android:scrollHorizontally="false"
                 android:singleLine="false" />
 
@@ -156,7 +156,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/exitButton"
         android:onClick="createButtonClicked"
-        android:text="Create"
+        android:text="Search"
         android:textSize="13dp" />
 
     <Button

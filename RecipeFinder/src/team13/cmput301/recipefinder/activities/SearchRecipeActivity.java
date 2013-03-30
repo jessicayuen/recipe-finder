@@ -18,6 +18,13 @@ public class SearchRecipeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_form);
+		// Unpack possible extra, from ingredients activity, and get the ListView
+		Bundle extras = getIntent().getExtras();
+		
+		// Add in that ListView
+		// Code for add/remove to lists of ingred
+		// onClick Search behavior
+		// 
 		
 	}
 

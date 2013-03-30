@@ -38,9 +38,9 @@ public class SearchResultsActivity extends Activity {
 		try {
 			recipeList = searchRecipeTask.get();
 		} catch (InterruptedException e) {
-			Log.e("SearchResultsActivity", "search interrupted");
+			Log.e("SearchResultsActivity", "Search interrupted");
 		} catch (ExecutionException e) {
-			Log.e("SearchResultsActivity", "search interrupted");
+			Log.e("SearchResultsActivity", "Error occurred, please try again");
 		}
 		
 		ListView searchResultListView = 

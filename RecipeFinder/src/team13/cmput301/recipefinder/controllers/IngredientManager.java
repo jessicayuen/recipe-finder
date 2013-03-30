@@ -26,8 +26,8 @@ public class IngredientManager {
 	transient private static IngredientManager ingredientManager = null;
 	private static final String PATH = "ingredientLog.sav";
 
-	private List<Ingredient> ingredients;
 	private List<String> ingredientAutoFillList;
+	private ArrayList<Ingredient> ingredients;
 
 	/**
 	 * DO NOT USE
@@ -149,7 +149,7 @@ public class IngredientManager {
 	/**
 	 * @param ingredList Set the list of ingredients
 	 */
-	public void setIngredientList(List<Ingredient> ingredList) {
+	public void setIngredientList(ArrayList<Ingredient> ingredList) {
 		getIngredientManager().ingredients = ingredList;
 		getIngredientManager().ingredientAutoFillList = new ArrayList<String>();
 		for(Ingredient i : ingredients) {
