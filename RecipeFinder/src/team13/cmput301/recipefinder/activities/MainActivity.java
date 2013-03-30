@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 import team13.cmput301.recipefinder.R;
-import team13.cmput301.recipefinder.controllers.IngredientManager;
 import team13.cmput301.recipefinder.controllers.ListManager;
 import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
@@ -32,10 +31,9 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	RecipeManager rm;
-	IngredientManager im;
-	PhotoManager pm;
-	ListManager lm;
+	private RecipeManager rm;
+	private PhotoManager pm;
+	private ListManager lm;
 	private List<Recipe> faveRecipes;
 
 	@Override
@@ -55,11 +53,10 @@ public class MainActivity extends Activity {
 		user.loadUserSettings(this);
 		
 		/* Run setup if user has never used app before */
-//		if (user.getHasUsedApp().equals("0")) {
-//			Intent intent = new Intent(this, FirstTimeUserActivity.class);
-//			startActivity(intent);
-//		}
-		user.setUsername("test");
+		if (user.getHasUsedApp().equals("0")) {
+			Intent intent = new Intent(this, FirstTimeUserActivity.class);
+			startActivity(intent);
+		}
 		
 		/* Load recipes */
 		rm.loadRecipes();
@@ -96,11 +93,6 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
-	public void TEST(View view) {
-		Intent intent = new Intent(this, DisplayRecipeActivity.class);
-		startActivity(intent);
-	}
-
 	/**
 	 * Listen for click on 'Search' perform a query based
 	 * on the user's input.
@@ -114,6 +106,15 @@ public class MainActivity extends Activity {
 				((EditText) findViewById(R.id.search_bar)).getText().toString();
 		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 		startActivity(intent);
+	}
+	
+	/**
+	 * Shows all recipe when user touches show all recipe text
+	 */
+	public void showAll(View view){
+		Intent displayRecipeIntent = new Intent(this, 
+				RecipeListActivity.class);
+		startActivity(displayRecipeIntent);
 	}
 
 	/**
@@ -176,15 +177,6 @@ public class MainActivity extends Activity {
 		((Button)findViewById(R.id.view_all)).setTypeface(typeface);
 		((Button)findViewById(R.id.create_my_own)).setTypeface(typeface);
 		((Button)findViewById(R.id.my_ingredients)).setTypeface(typeface);
-	}
-	
-	/**
-	 * Shows all recipe when user touches show all recipe text
-	 */
-	public void showAll(View view){
-		Intent displayRecipeIntent = new Intent(this, 
-				RecipeListActivity.class);
-		startActivity(displayRecipeIntent);
 	}
 	
 	/**
