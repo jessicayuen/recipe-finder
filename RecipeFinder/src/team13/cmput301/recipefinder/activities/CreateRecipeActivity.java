@@ -14,6 +14,7 @@ import java.util.List;
 
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.PicAdapter;
+import team13.cmput301.recipefinder.controllers.IngredientManager;
 import team13.cmput301.recipefinder.controllers.ListManager;
 import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
@@ -53,7 +54,7 @@ public class CreateRecipeActivity extends Activity {
 	private EditText addName, addInstructions, addDescription;
 	private Gallery gallery;
 
-	private List<String> ingredients, instructions;
+	private List<String> ingredients, instructions, ingredientAutoFillList;
 	private List<Photo> imageList;
 	private PicAdapter picAdapt;
 	private Recipe recipe;
@@ -76,13 +77,17 @@ public class CreateRecipeActivity extends Activity {
 		addDescription = (EditText) findViewById(R.id.addDescription);
 
 		ingredients = ListManager.getListManager().getIngredList();
+		ingredientAutoFillList = IngredientManager.getIngredientManager()
+				.getIngredientAutoFillList();
 		instructions = ListManager.getListManager().getInstrList();
 		imageList = PhotoManager.getPhotoManager().getPhotoList();
 		autoFillAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, ingredients);
-
+				android.R.layout.simple_dropdown_item_1line, 
+				ingredientAutoFillList);
+		/* number of letters required to have drop list shown is set to 1*/
+		addIngredients.setThreshold(1);
 		addIngredients.setAdapter(autoFillAdapter);
-		
+
 		gallery = (Gallery) findViewById(R.id.gallery);
 		picAdapt = new PicAdapter(this, imageList);
 		gallery.setAdapter(picAdapt);
@@ -287,7 +292,7 @@ public class CreateRecipeActivity extends Activity {
 			gallery.setAdapter(picAdapt);
 		}
 	}
-	
+
 	/**
 	 * Set the TextViews and Buttons to a custom font.
 	 */

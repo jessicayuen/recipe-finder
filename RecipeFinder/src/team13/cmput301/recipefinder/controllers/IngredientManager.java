@@ -27,6 +27,7 @@ public class IngredientManager {
 	private static final String PATH = "ingredientLog.sav";
 
 	private List<Ingredient> ingredients;
+	private List<String> ingredientAutoFillList;
 
 	/**
 	 * DO NOT USE
@@ -41,6 +42,7 @@ public class IngredientManager {
 		if (ingredientManager == null) {
 			ingredientManager = new IngredientManager();
 			ingredientManager.ingredients = new ArrayList<Ingredient>();
+			ingredientManager.ingredientAutoFillList = new ArrayList<String>();
 		}
 		return ingredientManager;
 	}
@@ -61,6 +63,10 @@ public class IngredientManager {
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
 			getIngredientManager().ingredients = (ArrayList<Ingredient>) in.readObject();
+			
+			for(Ingredient i : ingredients) {
+				getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
+			}
 			in.close();
 		} catch (Exception e) {
 			Log.e("IngredientManager", "Problems loading ingredients: " + e);
@@ -73,6 +79,7 @@ public class IngredientManager {
 	 */
 	public void addNewIngredient(Ingredient ingredient) {
 		getIngredientManager().ingredients.add(ingredient);
+		getIngredientManager().ingredientAutoFillList.add(ingredient.getIngredient());
 	}
 	
 	/** 
@@ -87,8 +94,12 @@ public class IngredientManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else 
+		} else {
 			getIngredientManager().ingredients.set(i, ingredient);
+			getIngredientManager().ingredientAutoFillList.set(i, 
+					ingredient.getIngredient());
+		}
+			
 	}
 
 	/**
@@ -102,8 +113,10 @@ public class IngredientManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else 
+		} else {
 			getIngredientManager().ingredients.remove(i);
+			getIngredientManager().ingredientAutoFillList.remove(i);
+		}
 	}
 
 	/**
@@ -129,11 +142,19 @@ public class IngredientManager {
 		return getIngredientManager().ingredients;
 	}
 	
+	public List<String> getIngredientAutoFillList() {
+		return getIngredientManager().ingredientAutoFillList;
+	}
+	
 	/**
 	 * @param ingredList Set the list of ingredients
 	 */
 	public void setIngredientList(List<Ingredient> ingredList) {
 		getIngredientManager().ingredients = ingredList;
+		getIngredientManager().ingredientAutoFillList = new ArrayList<String>();
+		for(Ingredient i : ingredients) {
+			getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
+		}
 	}
 	
 	/**

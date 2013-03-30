@@ -61,15 +61,14 @@ public class MainActivity extends Activity {
 		/* Load recipes */
 		rm.loadRecipes();
 		
-		/* Display 4 random favorite recipes */
-		displayFaves();
-		
 		/* Set custom fonts */
 		setCustomFonts();
 	}
 	
 	protected void onResume() {
 		clearFavesDisplayed();
+		
+		/* Display 4 random favorite recipes */
 		displayFaves();
 		super.onResume();
 	}
