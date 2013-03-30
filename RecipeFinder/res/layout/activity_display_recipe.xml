@@ -6,9 +6,8 @@
     tools:context=".DisplayRecipeActivity" >
 
     <ScrollView
-        android:id="@+id/scrollView3"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="wrap_content" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -54,18 +53,6 @@
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 android:typeface="serif" />
-
-            <Button
-                android:id="@+id/publish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/gallery"
-                android:minHeight="36dp"
-                android:onClick="publishRecipe"
-                android:text="@string/publish"
-                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/instructionsInfo"
@@ -114,45 +101,6 @@
                 android:text="@string/instruc"
                 android:textSize="15sp" />
 
-            <Button
-                android:id="@+id/share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/gallery"
-                android:layout_toLeftOf="@+id/publish"
-                android:minHeight="36dp"
-                android:onClick="shareRecipe"
-                android:text="@string/share"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/fave_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/gallery"
-                android:layout_alignParentBottom="true"
-                android:minHeight="36dp"
-                android:onClick="addToFave"
-                android:text="Add to Fave"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/descriptionInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/displayPic"
-                android:layout_alignBottom="@+id/displayPic"
-                android:layout_marginBottom="20dp"
-                android:maxWidth="180dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/buffer"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
-                android:typeface="serif" />
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
@@ -181,18 +129,80 @@
                 android:layout_height="130dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="17dp"
                 android:src="@drawable/directory_icon" />
+
+            <TextView
+                android:id="@+id/descriptionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/displayPic"
+                android:layout_toRightOf="@+id/displayPic"
+                android:maxWidth="180dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/buffer"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:typeface="serif" />
 
             <RatingBar
                 android:id="@+id/displayRecipeRating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/dateInfo"
+                android:layout_alignRight="@+id/description" />
+
+            <TextView
+                android:id="@+id/dateInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/author"
-                android:layout_alignLeft="@+id/authorInfo" />
+                android:layout_alignLeft="@+id/author"
+                android:maxWidth="180dp"
+                android:paddingLeft="7dp"
+                android:paddingTop="5dp"
+                android:text="@string/shortbuff"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:typeface="serif" />
 
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/publish"
+        android:minHeight="36dp"
+        android:onClick="shareRecipe"
+        android:text="@string/share"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/fave_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gallery"
+        android:layout_alignParentBottom="true"
+        android:minHeight="36dp"
+        android:onClick="addToFave"
+        android:text="Favorite"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gallery"
+        android:minHeight="36dp"
+        android:onClick="publishRecipe"
+        android:text="@string/publish"
+        android:textSize="15sp" />
 
 </RelativeLayout>

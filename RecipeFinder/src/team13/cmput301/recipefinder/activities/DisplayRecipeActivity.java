@@ -89,6 +89,15 @@ public class DisplayRecipeActivity extends Activity  {
 				picGallery.setAdapter(imgAdapt);
 			}
 		});
+		
+		/* Display 'Favorite' for the button if recipe is not favorited
+		 * and 'Unfavorite' if it is favorited
+		 */
+		Button fave = (Button) this.findViewById(R.id.fave_button);
+		if (!recipe.isFave()) 
+			fave.setText("Favorite");
+		else 
+			fave.setText("Unfavorite");
 	}
 
 	/**
@@ -130,6 +139,9 @@ public class DisplayRecipeActivity extends Activity  {
 
 		textView = (TextView) this.findViewById(R.id.instructionsInfo);
 		textView.setText(instructions);
+		
+		textView = (TextView) this.findViewById(R.id.dateInfo);
+		textView.setText(recipe.getDate().toString());
 	}
 
 	/**
@@ -284,7 +296,15 @@ public class DisplayRecipeActivity extends Activity  {
 	 */
 	public void addToFave(View view) {
 		RecipeManager rm = RecipeManager.getRecipeManager(this);
-		recipe.setFave(true);
+		Button fave = (Button) findViewById(R.id.fave_button);
+		if (!recipe.isFave()) {
+			recipe.setFave(true);
+			fave.setText("Unfavorite");
+		} else {
+			recipe.setFave(false);
+			fave.setText("Favorite");
+		}
+
 		rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
 	}
 
