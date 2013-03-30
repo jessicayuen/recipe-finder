@@ -41,7 +41,7 @@ public class RecipeListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_list);
 
-		rm = RecipeManager.getRecipeManager();
+		rm = RecipeManager.getRecipeManager(this);
 
 		ownRecipes = rm.getOwnRecipes();
 		allRecipes = rm.getAllRecipes();

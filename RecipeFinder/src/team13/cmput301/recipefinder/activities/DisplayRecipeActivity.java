@@ -69,7 +69,7 @@ public class DisplayRecipeActivity extends Activity  {
 		/* Get the recipe to be displayed */
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			recipe = RecipeManager.getRecipeManager().
+			recipe = RecipeManager.getRecipeManager(this).
 					getAllRecipes().get(extras.getInt("recipe"));
 			displayRecipe();
 		} 
@@ -189,6 +189,8 @@ public class DisplayRecipeActivity extends Activity  {
 			}
 
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
+			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, 
+					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe));
 			picGallery.setAdapter(imgAdapt);
 		}
 	} 	
@@ -281,9 +283,9 @@ public class DisplayRecipeActivity extends Activity  {
 	 * @param view
 	 */
 	public void addToFave(View view) {
-		RecipeManager rm = RecipeManager.getRecipeManager();
+		RecipeManager rm = RecipeManager.getRecipeManager(this);
 		recipe.setFave(true);
-		rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe), this);
+		rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
 	}
 
 

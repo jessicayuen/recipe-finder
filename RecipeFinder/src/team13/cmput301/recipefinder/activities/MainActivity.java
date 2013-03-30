@@ -43,24 +43,25 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		User user = User.getUser();
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
-		rm = RecipeManager.getRecipeManager();
+		rm = RecipeManager.getRecipeManager(this);
 
+		/* Load user settings */
+		user.loadUserSettings(this);
+		
 		/* Run setup if user has never used app before */
 //		if (user.getHasUsedApp().equals("0")) {
 //			Intent intent = new Intent(this, FirstTimeUserActivity.class);
 //			startActivity(intent);
 //		}
-
-		/* Load user settings */
-		user.loadUserSettings(this);
+		user.setUsername("test");
 		
 		/* Load recipes */
-		rm.loadRecipes(this);
-
+		rm.loadRecipes();
+		
 		/* Display 4 random favorite recipes */
 		displayFaves();
 		

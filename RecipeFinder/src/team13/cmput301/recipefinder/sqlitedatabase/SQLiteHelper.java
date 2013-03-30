@@ -1,3 +1,11 @@
+/**
+ * Responsible for SQL database definitions.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
+
 package team13.cmput301.recipefinder.sqlitedatabase;
 
 import android.content.Context;
@@ -37,19 +45,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_USER_REFERENCE = "userID";
 	
 	/* SQL statement for creating recipes table */
-	private static final String CREATE_RECIPE_TABLE = "create table " 
+	private static final String CREATE_RECIPE_TABLE = 
+			"create table if not exists " 
 			+ TABLE_RECIPE + "(" + RECIPE_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ RECIPE_COL_NAME + " text not null, " 
 			+ RECIPE_COL_DESC + " text not null, "
 			+ RECIPE_COL_AUTHOR + " text not null, "
-			+ RECIPE_COL_NAME + " text not null, " 
 			+ RECIPE_COL_FAVE + " integer not null, "
 			+ RECIPE_COL_RATING + " real not null, "
-			+ RECIPE_COL_DATE + " text not null);";
+			+ RECIPE_COL_DATE + " text not null, "
+			+ RECIPE_COL_UUID + " text not null);";
 	
 	/* SQL statement for creating instructions table */
-	private static final String CREATE_INSTR_TABLE = "create table " 
+	private static final String CREATE_INSTR_TABLE = 
+			"create table if not exists " 
 			+ TABLE_INSTR + "(" + INSTR_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ INSTR_COL_INSTR + " text not null, " 
@@ -58,7 +68,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 	
 	/* SQL statement for creating ingredients table */
-	private static final String CREATE_INGRED_TABLE = "create table " 
+	private static final String CREATE_INGRED_TABLE = 
+			"create table if not exists " 
 			+ TABLE_INGRED + "(" + INGRED_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ INGRED_COL_INGRED + " text not null, " 
@@ -67,21 +78,29 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 			
 	/* SQL statement for creating photos table */
-	private static final String CREATE_PHOTO_TABLE = "create table " 
+	private static final String CREATE_PHOTO_TABLE = 
+			"create table if not exists " 
 			+ TABLE_PHOTO + "(" + PHOTO_COL_ID 
 			+ " integer primary key autoincrement, "
 			+ PHOTO_COL_AUTHOR + " text not null, " 
-			+ PHOTO_COL_PHOTO + " blob not null, "
+			+ PHOTO_COL_PHOTO + " text not null, "
 			+ PHOTO_COL_DATE + " text not null, "
 			+ COL_USER_REFERENCE + " integer not null, " 
 			+ " FOREIGN KEY (" + COL_USER_REFERENCE + ") REFERENCES "
 			+ TABLE_RECIPE + " (" + RECIPE_COL_ID + ") ON DELETE CASCADE);";
 	
+	/**
+	 * Constructor
+	 * @param context The activity context
+	 */
 	public SQLiteHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
+	/**
+	 * Creates table definitions
+	 */
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_RECIPE_TABLE);
 		db.execSQL(CREATE_INSTR_TABLE);
@@ -90,6 +109,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
+	/**
+	 * Upgrades database versions, dropping existing tables.
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(SQLiteHelper.class.getName(), 
 				"Upgrading database from version " + oldVersion + " to "

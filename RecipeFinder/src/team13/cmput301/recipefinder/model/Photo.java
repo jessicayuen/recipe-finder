@@ -20,7 +20,7 @@ import android.util.Base64;
 public class Photo {
 
 	private String author;
-	private String photo;
+	private Bitmap photo;
 	private Date date;
 	
 	/**
@@ -30,7 +30,7 @@ public class Photo {
 	 */
 	public Photo(String author, Bitmap photo) {
 		this.author = author;
-		this.photo = encodeTobase64(photo);
+		this.photo = photo;
 		this.date = new Date();
 	}
 	
@@ -50,7 +50,7 @@ public class Photo {
 	 * @param image image to encode
 	 * @return image Encoded a string containing the encoded image
 	 */
-	private static String encodeTobase64(Bitmap image)
+	public static String encodeTobase64(Bitmap image)
 	{
 	    Bitmap immagex=image;
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -64,7 +64,7 @@ public class Photo {
 	 * @param input an string containing encoded image
 	 * @return the bitmap version of the string
 	 */
-	private static Bitmap decodeBase64(String input) 
+	public static Bitmap decodeBase64(String input) 
 	{
 	    byte[] decodedByte = Base64.decode(input, 0);
 	    return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length); 
@@ -74,7 +74,14 @@ public class Photo {
 	 * @return photo bitmap
 	 */
 	public Bitmap getPhoto() {
-		return decodeBase64(this.photo);
+		return photo;
+	}
+	
+	/**
+	 * @return the encoded 64bit photo
+	 */
+	public String getEncodedPhoto() {
+		return encodeTobase64(photo);
 	}
 	
 	/**
@@ -104,7 +111,14 @@ public class Photo {
 	 * @param photo
 	 */
 	public void setPhoto(Bitmap photo) {
-		this.photo = encodeTobase64(photo);
+		this.photo = photo;
+	}
+	
+	/**
+	 * @param encodedPhoto Set the photo to this
+	 */
+	public void setPhoto(String encodedPhoto) {
+		this.photo = decodeBase64(encodedPhoto);
 	}
 	
 	/**
