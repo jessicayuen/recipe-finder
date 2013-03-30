@@ -72,6 +72,7 @@ public class MainActivity extends Activity {
 	}
 	
 	protected void onResume() {
+		clearFavesDisplayed();
 		displayFaves();
 		super.onResume();
 	}
@@ -203,5 +204,25 @@ public class MainActivity extends Activity {
 				startActivity(displayIntent);
 			}					
 		});
+	}
+	
+	/**
+	 * clears the display of faves on the main activity
+	 */
+	private void clearFavesDisplayed(){
+		ImageView imageView;
+		
+		imageView = (ImageView) findViewById(R.id.faveTopLeft);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		imageView = (ImageView) findViewById(R.id.faveTopRight);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		imageView = (ImageView) findViewById(R.id.faveBottomLeft);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
+		imageView = (ImageView) findViewById(R.id.faveBottomRight);
+		imageView.setClickable(false);
+		imageView.setImageResource(R.drawable.ic_launcher);
 	}
 }
