@@ -24,13 +24,13 @@ public class RecipeManagerTest
 		recipe = new Recipe("Name", "Description", "Author",
 				new ArrayList<String>(), new ArrayList<String>(), 
 				new ArrayList<Photo>());
-		rm = RecipeManager.getRecipeManager();
+		rm = RecipeManager.getRecipeManager(getActivity());
 	}
 	
 	@Test
 	public void testAddRecipe(){
 		// Adding to user recipe list
-		rm.AddToUserRecipe(recipe, getActivity());
+		rm.addToUserRecipe(recipe);
 		assertEquals(rm.getAllRecipes().get(
 				rm.getAllRecipes().size() - 1), recipe);
 		
@@ -41,7 +41,7 @@ public class RecipeManagerTest
 	
 	@Test
 	public void loadRecipeList() {
-		rm.loadRecipes(getActivity());
+		rm.loadRecipes();
 		assertEquals(rm.getAllRecipes().get(
 				rm.getAllRecipes().size() - 1), recipe);
 	}
