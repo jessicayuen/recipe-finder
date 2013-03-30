@@ -192,8 +192,8 @@ public class RecipeDataSource {
 		List<String> instructions = new ArrayList<String>();
 
 		Cursor instrCursor = database.query(SQLiteHelper.TABLE_INSTR,
-				instrColumns, new String(SQLiteHelper.INSTR_COL_ID + " = " + 
-						cursor.getLong(0)), null, null, null, null);
+				instrColumns, new String(SQLiteHelper.COL_USER_REFERENCE 
+				+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		instrCursor.moveToFirst();
 		while (!instrCursor.isAfterLast()) {
@@ -209,8 +209,8 @@ public class RecipeDataSource {
 		List<String> ingredients = new ArrayList<String>();
 
 		Cursor ingredCursor = database.query(SQLiteHelper.TABLE_INGRED,
-				ingredColumns, new String(SQLiteHelper.INGRED_COL_ID + " = " + 
-						cursor.getLong(0)), null, null, null, null);
+				ingredColumns, new String(SQLiteHelper.COL_USER_REFERENCE 
+				+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		ingredCursor.moveToFirst();
 		while (!ingredCursor.isAfterLast()) {
@@ -229,8 +229,8 @@ public class RecipeDataSource {
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		
 		Cursor photoCursor = database.query(SQLiteHelper.TABLE_PHOTO,
-				photoColumns, new String(SQLiteHelper.PHOTO_COL_ID + " = " + 
-						cursor.getLong(0)), null, null, null, null);
+				photoColumns, new String(SQLiteHelper.COL_USER_REFERENCE
+				+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		photoCursor.moveToFirst();
 		while (!photoCursor.isAfterLast()) {
