@@ -30,8 +30,6 @@
                 android:layout_alignTop="@+id/nameText"
                 android:layout_toRightOf="@+id/instructionText"
                 android:ems="10" >
-
-                <requestFocus />
             </EditText>
 
             <TextView
@@ -55,7 +53,7 @@
                 android:paddingLeft="5dp"
                 android:text="@string/instruc"
                 android:textSize="13sp" />
-
+
             <Gallery
                 android:id="@+id/gallery"
                 android:layout_width="fill_parent"
@@ -148,7 +146,6 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="..." />
-
         </RelativeLayout>
     </ScrollView>
 
