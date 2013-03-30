@@ -143,6 +143,18 @@ public class MyIngredientsActivity extends Activity {
 	 * @param view The view where the changeQuantity button is
 	 */
 	public void changeQuantity(View view) {
+		boolean itemChecked = false;
+		
+		/* Check if there is any items selected - if not don't show dialog */
+		for (int i = 0; i < this.myList.getAdapter().getCount(); i++) {
+			if (this.myList.isItemChecked(i))  {
+				itemChecked = true;
+				break;
+			}
+		}
+		if (itemChecked == false)
+			return;
+
 		/* Set an EditText view to get user input */
 		final EditText input = new EditText(this);
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -160,7 +172,7 @@ public class MyIngredientsActivity extends Activity {
 				MyIngredientsActivity.this.incrCheckedItems(quantity);
 			}
 		});
-		
+
 		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "-", 
 				new DialogInterface.OnClickListener() {
 
@@ -169,7 +181,7 @@ public class MyIngredientsActivity extends Activity {
 				MyIngredientsActivity.this.decrCheckedItems(quantity);
 			}
 		});
-		
+
 		alertDialog.show();
 	}
 
@@ -202,7 +214,7 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	private void incrCheckedItems(int quantity){
 		int count = this.myList.getAdapter().getCount();
-		for (int i = count - 1; i >= 0; i--) {
+		for (int i = 0; i < count; i++) {
 			if (this.myList.isItemChecked(i)) {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
 				ingred.setQuantity(ingred.getQuantity() + quantity);
@@ -221,7 +233,7 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	private void decrCheckedItems(int quantity){
 		int count = this.myList.getAdapter().getCount();
-		for (int i = count - 1; i >= 0; i--) {
+		for (int i = 0; i < count; i++) {
 			if (this.myList.isItemChecked(i)) {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
 				if (ingred.getQuantity() - quantity > 0){
@@ -245,9 +257,10 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	private void searchCheckedItems() {
 		int count = this.myList.getAdapter().getCount();
-		for (int i = count - 1; i >= 0; i--) {
+		for (int i = 0; i < count; i++) {
 			if (this.myList.isItemChecked(i)) {
-				searchList.add(ingredManager.getIngredientList().get(i).getIngredient());
+				searchList.add(ingredManager.getIngredientList().
+						get(i).getIngredient());
 				adapter.notifyDataSetChanged();
 			}
 		}
