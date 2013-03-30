@@ -215,12 +215,15 @@ public class MainActivity extends Activity {
 		imageView = (ImageView) findViewById(R.id.faveTopLeft);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
+		
 		imageView = (ImageView) findViewById(R.id.faveTopRight);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
+		
 		imageView = (ImageView) findViewById(R.id.faveBottomLeft);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
+		
 		imageView = (ImageView) findViewById(R.id.faveBottomRight);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
