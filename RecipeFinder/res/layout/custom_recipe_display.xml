@@ -7,10 +7,11 @@
         android:id="@+id/recipeNameDisplay"
         android:layout_width="wrap_content"
         android:layout_marginLeft="7dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/recipeRating"
         android:layout_toRightOf="@+id/recipePicture"
+        android:maxLines="1"
         android:text="TextView" />
 
     <TextView
@@ -20,7 +21,10 @@
         android:layout_alignBottom="@+id/recipePicture"
         android:layout_alignLeft="@+id/authorBox"
         android:layout_alignRight="@+id/recipeNameDisplay"
+        android:layout_toLeftOf="@+id/recipeRating"
+        android:layout_toRightOf="@+id/recipePicture"
         android:layout_below="@+id/authorBox"
+        android:maxLines="3"
         android:text="TextView" />
 
     <TextView
@@ -30,6 +34,9 @@
         android:layout_alignLeft="@+id/recipeNameDisplay"
         android:layout_alignRight="@+id/recipeNameDisplay"
         android:layout_below="@+id/recipeNameDisplay"
+        android:layout_toLeftOf="@+id/recipeRating"
+        android:layout_toRightOf="@+id/recipePicture"
+        android:maxLines="1"
         android:text="TextView" />
 
     <ImageView
@@ -47,6 +54,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/recipeNameDisplay"
         android:background="@null"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/staroff" />
 
     <RatingBar
@@ -55,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/recipeNameDisplay" />
+        android:layout_below="@+id/recipeNameDisplay" />
 
     <Button
         android:id="@+id/removeRecipe"
@@ -63,7 +71,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/authorBox"
+        android:layout_alignTop="@+id/descriptionBox"
         android:text="X" />
 
 </RelativeLayout>
