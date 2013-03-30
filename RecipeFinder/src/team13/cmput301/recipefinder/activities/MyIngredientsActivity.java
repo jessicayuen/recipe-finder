@@ -15,8 +15,12 @@ import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.controllers.IngredientManager;
 import team13.cmput301.recipefinder.model.Ingredient;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -133,6 +137,77 @@ public class MyIngredientsActivity extends Activity {
 	}
 
 	/**
+	 * Shows a message dialog to allow the user to change 
+	 * the quantity of the items selected
+	 * @param view The view where the changeQuantity button is
+	 */
+	public void changeQuantity(View view) {
+		/* Set an EditText view to get user input */
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+		/* Setup the alert dialog */
+		AlertDialog alertDialog =
+				new AlertDialog.Builder(MyIngredientsActivity.this).create();
+		alertDialog.setTitle("Change Quantity");
+		alertDialog.setMessage("Enter quantity to be " +
+				"incremented or decremented: ");
+		alertDialog.setView(input);
+		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "+", 
+				new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				int quantity = Integer.parseInt(input.getText().toString());
+				int count = myList.getAdapter().getCount();
+				for (int i = count - 1; i >= 0; i--) {
+					if (myList.isItemChecked(i)) {
+						Ingredient ingred = 
+								ingredManager.getIngredientList().get(i);
+						ingred.setQuantity(ingred.getQuantity() + quantity);
+						displayList.set(i, ingred.getIngredient() + 
+								" : " + ingred.getQuantity());
+						ingredManager.setIngredient(ingred, i);
+						ingredManager.saveAllIngredients(
+								MyIngredientsActivity.this);
+						adapter.notifyDataSetChanged();
+					}
+				}
+			}
+		});
+		
+		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "-", 
+				new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				int quantity = Integer.parseInt(input.getText().toString());
+				int count = myList.getAdapter().getCount();
+				for (int i = count - 1; i >= 0; i--) {
+					if (myList.isItemChecked(i)) {
+						Ingredient ingred = 
+								ingredManager.getIngredientList().get(i);
+						if (ingred.getQuantity() - quantity > 0) {
+							ingred.setQuantity(ingred.getQuantity() - quantity);
+							displayList.set(i, ingred.getIngredient() + 
+									" : " + ingred.getQuantity());
+							ingredManager.setIngredient(ingred, i);
+							ingredManager.saveAllIngredients(
+									MyIngredientsActivity.this);
+						} else {
+							ingredManager.removeIngredient(i);
+							ingredManager.saveAllIngredients(
+									MyIngredientsActivity.this);
+							displayList.remove(i);
+						}
+						adapter.notifyDataSetChanged();	
+					}
+				}
+			}
+		});
+		
+		alertDialog.show();
+	}
+
+	/**
 	 * Listens for search button being clicked
 	 * @param view The view where the search button is
 	 */
@@ -194,11 +269,11 @@ public class MyIngredientsActivity extends Activity {
 				Ingredient ingred = ingredManager.getIngredientList().get(i);
 				if (ingred.getQuantity() > 0){
 					ingred.setQuantity(ingred.getQuantity() - 1);
-				displayList.set(i, ingred.getIngredient() + 
-						" : " + ingred.getQuantity());
-				ingredManager.setIngredient(ingred, i);
-				ingredManager.saveAllIngredients(this);
-				adapter.notifyDataSetChanged();
+					displayList.set(i, ingred.getIngredient() + 
+							" : " + ingred.getQuantity());
+					ingredManager.setIngredient(ingred, i);
+					ingredManager.saveAllIngredients(this);
+					adapter.notifyDataSetChanged();
 				}
 				if (ingred.getQuantity() <= 0){
 					ingredManager.removeIngredient(i);

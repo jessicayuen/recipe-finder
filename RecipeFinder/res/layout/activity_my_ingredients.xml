@@ -12,17 +12,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/listOfIng"
         android:onClick="minusClicked"
-        android:text="minus" />
-
-    <Button
-        android:id="@+id/plus"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listOfIng"
-        android:layout_toLeftOf="@+id/minus"
-        android:onClick="plusClicked"
-        android:text="plus" />
+        android:text="-" />
 
     <Button
         android:id="@+id/add"
@@ -92,5 +82,27 @@
         android:layout_below="@+id/plus"
         android:onClick="deleteClicked"
         android:text="delete_PH" />
+
+    <Button
+        android:id="@+id/changeQuantity"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/search"
+        android:layout_toLeftOf="@+id/minus"
+        android:layout_toRightOf="@+id/plus"
+        android:onClick="changeQuantity"
+        android:textSize="13sp"
+        android:text="change quantity" />
+
+    <Button
+        android:id="@+id/plus"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listOfIng"
+        android:layout_centerHorizontal="true"
+        android:onClick="plusClicked"
+        android:text="+" />
 
 </RelativeLayout>
