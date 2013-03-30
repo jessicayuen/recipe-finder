@@ -27,12 +27,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import team13.cmput301.recipefinder.model.Recipe;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ElasticSearchHelper {
-	private static final String BASEURL = 
-			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
+	private static final String BASEURL = "http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
 
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
@@ -45,8 +48,9 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * Retrieves the singleton ElasticSearchHelper. Initializes
-	 * it if first call.
+	 * Retrieves the singleton ElasticSearchHelper. Initializes it if first
+	 * call.
+	 * 
 	 * @return elasticSearchHelper
 	 */
 	public static ElasticSearchHelper getElasticSearchHelper() {
@@ -60,11 +64,14 @@ public class ElasticSearchHelper {
 
 	/**
 	 * Inserts a recipe into ElasticSearch
-	 * @param recipe The recipe to add
+	 * 
+	 * @param recipe
+	 *            The recipe to add
 	 */
 	public void insertRecipe(Recipe recipe) {
 		final Recipe r = recipe;
-		HttpPost httpPost = new HttpPost(BASEURL + r.getId() + "?op_type=create");
+		HttpPost httpPost = new HttpPost(BASEURL + r.getId()
+				+ "?op_type=create");
 		StringEntity stringentity = null;
 		try {
 			stringentity = new StringEntity(gson.toJson(r));
@@ -97,12 +104,14 @@ public class ElasticSearchHelper {
 
 	/**
 	 * Retrieves a recipe object from its UUID from ElasticSearch
+	 * 
 	 * @param uuid
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public void getRecipe(String uuid) throws ClientProtocolException, IOException {
-		HttpGet getRequest = new HttpGet(BASEURL + uuid);// S4bRPFsuSwKUDSJImbCE2g?pretty=1
+	public void getRecipe(String uuid) throws ClientProtocolException,
+			IOException {
+		HttpGet getRequest = new HttpGet(BASEURL + uuid);
 
 		getRequest.addHeader("Accept", "application/json");
 		HttpResponse response = httpclient.execute(getRequest);
@@ -123,10 +132,12 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * search by keywords
+	 * Aearch by keywords
+	 * 
+	 * @return recipes A list of result recipes
 	 */
 	public ArrayList<Recipe> searchRecipes(String query) {
-		ArrayList<Recipe> recipies = new ArrayList<Recipe>();
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		try {
 			HttpGet searchRequest = new HttpGet(BASEURL + "_search?q=*"
 					+ java.net.URLEncoder.encode(query, "UTF-8") + "*");
@@ -140,23 +151,34 @@ public class ElasticSearchHelper {
 					json, elasticSearchSearchResponseType);
 			for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
 				Recipe recipe = r.getSource();
-				recipies.add(recipe);
+				recipes.add(recipe);
 			}
 		} catch (IOException e) {
 
 		}
-		return recipies;
+		return recipes;
 	}
 
 	/**
-	 * advanced search (logical operators)
+	 * Advanced search (logical operators)
+	 * 
+	 * @return recipes A list of result recipes
 	 */
-	public void searchsearchRecipes(String str) throws ClientProtocolException,
+	public ArrayList<Recipe> advancedSearchRecipes(String searchTerm,
+			ArrayList<String> ingredients) throws ClientProtocolException,
 			IOException {
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		HttpPost searchRequest = new HttpPost(BASEURL);
-		String query = "{\"query\" : {\"query_string\" : " +
-				"{\"default_field\" : \"ingredients\",\"query\" : \""
-				+ str + "\"}}}";
+		// String query = "{\"query\" : {\"query_string\" : " +
+		// "{\"default_field\" : \"ingredients\",\"query\" : \""
+		// + str + "\"}}}";
+		String ingredientsString = gson.toJson(ingredients);
+
+		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"
+				+ "{\"query\":\"" + searchTerm
+				+ "\"}},\"filter\":{\"term\":{\"ingredients\":\""
+				+ ingredientsString + "\"}}}}}";
+
 		StringEntity stringentity = new StringEntity(query);
 
 		searchRequest.setHeader("Accept", "application/json");
@@ -168,22 +190,20 @@ public class ElasticSearchHelper {
 
 		String json = getEntityContent(response);
 
-		Type elasticSearchSearchResponseType = 
-				new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
 		}.getType();
 		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
 				elasticSearchSearchResponseType);
 		System.err.println(esResponse);
 		for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
 			Recipe recipe = r.getSource();
-			System.err.println(recipe);
+			recipes.add(recipe);
 		}
-		// searchRequest.releaseConnection(); not available in android
-		// httpclient
+		return recipes;
 	}
 
 	/**
-	 * update a field in a recipe
+	 * Update a field in a recipe
 	 */
 	public void updateRecipes(String str) throws ClientProtocolException,
 			IOException {
@@ -201,7 +221,7 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * delete an entry specified by the id
+	 * Delete an entry specified by the id
 	 */
 	public void deleteRecipe() throws IOException {
 		HttpDelete httpDelete = new HttpDelete(BASEURL + "1");
@@ -226,7 +246,9 @@ public class ElasticSearchHelper {
 	}
 
 	/**
-	 * get the http response and return json string
+	 * Parses the HttpResponse and gets the result json string
+	 * 
+	 * @return json A json string
 	 */
 	String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
