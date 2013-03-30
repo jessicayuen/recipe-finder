@@ -214,16 +214,7 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
-		Intent intent  = new Intent(this, SearchResultsActivity.class);
-	}
-
-	/**
-	 * Returns to the previous activity on back button click
-	 * and saves the state of the current ingredients
-	 * @param view
-	 */
-	public void backClicked(View view) {
-		finish();
+		new Intent(this, SearchResultsActivity.class);
 	}
 
 	/**

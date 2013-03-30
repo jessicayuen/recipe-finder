@@ -4,105 +4,112 @@
     android:layout_height="match_parent"
     tools:context=".MyIngredientsActivity" >
 
-    <Button
-        android:id="@+id/minus"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/listOfIng"
-        android:onClick="minusClicked"
-        android:text="-" />
+    <RelativeLayout
+        android:id="@+id/addBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/quantityItem"
-        android:layout_alignBottom="@+id/quantityItem"
-        android:layout_alignParentRight="true"
-        android:onClick="addClicked"
-        android:text="add_PH" />
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/quantityItem"
+            android:layout_alignBottom="@+id/quantityItem"
+            android:layout_alignParentRight="true"
+            android:onClick="addClicked"
+            android:text="Add" />
+
+        <EditText
+            android:id="@+id/quantityItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ingredientItem"
+            android:layout_toLeftOf="@+id/add"
+            android:ems="10"
+            android:hint="Quantity"
+            android:inputType="numberDecimal" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/ingredientItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/quantityItem"
+            android:ems="10"
+            android:hint="Enter an ingredient" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listOfIng"
         android:layout_width="wrap_content"
-        android:layout_height="238dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/add"
+        android:layout_above="@+id/changesBar"
+        android:layout_below="@+id/addBar"
         android:choiceMode="multipleChoice" >
     </ListView>
 
-    <Button
-        android:id="@+id/backButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/changesBar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="backClicked"
-        android:text="back_PH" />
+        android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/minus"
-        android:onClick="searchClicked"
-        android:text="search_PH" />
+        <Button
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="searchClicked"
+            android:text="Search"
+            android:textSize="13sp" />
 
-    <EditText
-        android:id="@+id/quantityItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ingredientItem"
-        android:ems="10"
-        android:hint="Quantity"
-        android:inputType="numberDecimal" >
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/search"
+            android:layout_toLeftOf="@+id/search"
+            android:onClick="deleteClicked"
+            android:text="Delete"
+            android:textSize="13sp" />
 
-        <requestFocus />
-    </EditText>
+        <Button
+            android:id="@+id/minus"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:onClick="minusClicked"
+            android:text="-" />
 
-    <EditText
-        android:id="@+id/ingredientItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="Enter an ingredient" />
+        <Button
+            android:id="@+id/changeQuantity"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/minus"
+            android:onClick="changeQuantity"
+            android:text="change quantity"
+            android:textSize="13sp" />
 
-    <Button
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/plus"
-        android:onClick="deleteClicked"
-        android:text="delete_PH" />
-
-    <Button
-        android:id="@+id/changeQuantity"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/search"
-        android:layout_toLeftOf="@+id/minus"
-        android:layout_toRightOf="@+id/plus"
-        android:onClick="changeQuantity"
-        android:textSize="13sp"
-        android:text="change quantity" />
-
-    <Button
-        android:id="@+id/plus"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listOfIng"
-        android:layout_centerHorizontal="true"
-        android:onClick="plusClicked"
-        android:text="+" />
+        <Button
+            android:id="@+id/plus"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/changeQuantity"
+            android:onClick="plusClicked"
+            android:text="+" />
+    </RelativeLayout>
 
 </RelativeLayout>
