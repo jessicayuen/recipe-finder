@@ -116,11 +116,11 @@ public class RecipeDataSource {
 		long id = recipe.getSqlID();
 		database.delete(SQLiteHelper.TABLE_RECIPE, SQLiteHelper.RECIPE_COL_ID
 				+ " = " + id, null);
-		database.delete(SQLiteHelper.TABLE_INGRED, SQLiteHelper.RECIPE_COL_ID
+		database.delete(SQLiteHelper.TABLE_INGRED, SQLiteHelper.COL_USER_REFERENCE
 				+ " = " + id, null);
-		database.delete(SQLiteHelper.TABLE_INSTR, SQLiteHelper.RECIPE_COL_ID
+		database.delete(SQLiteHelper.TABLE_INSTR, SQLiteHelper.COL_USER_REFERENCE
 				+ " = " + id, null);
-		database.delete(SQLiteHelper.TABLE_PHOTO, SQLiteHelper.RECIPE_COL_ID
+		database.delete(SQLiteHelper.TABLE_PHOTO, SQLiteHelper.COL_USER_REFERENCE
 				+ " = " + id, null);
 	}
 
