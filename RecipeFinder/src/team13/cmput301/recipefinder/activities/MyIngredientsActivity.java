@@ -27,6 +27,7 @@ public class MyIngredientsActivity extends Activity {
 
 	private IngredientManager ingredManager;
 	private ArrayList<String> displayList;
+	private ArrayList<String> searchList;
 	private ArrayAdapter<String> adapter;
 	private EditText ingredientsEditText, quantityEditText;
 	private ListView myList;
@@ -138,9 +139,7 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
-		Intent myIntent = new Intent(
-				MyIngredientsActivity.this, SearchResultsActivity.class);
-		MyIngredientsActivity.this.startActivity(myIntent);
+		Intent intent  = new Intent(this, SearchResultsActivity.class);
 	}
 
 	/**
@@ -214,6 +213,12 @@ public class MyIngredientsActivity extends Activity {
 	 * Search the items that were checked
 	 */
 	private void searchCheckedItems() {
-		// TO BE IMPLEMENTED
+		int count = this.myList.getAdapter().getCount();
+		for (int i = count - 1; i >= 0; i--) {
+			if (this.myList.isItemChecked(i)) {
+				searchList.add(ingredManager.getIngredientList().get(i).getIngredient());
+				adapter.notifyDataSetChanged();
+			}
+		}
 	}
 }
