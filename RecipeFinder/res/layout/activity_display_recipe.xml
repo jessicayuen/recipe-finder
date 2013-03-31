@@ -68,14 +68,13 @@
 
             <Button
                 android:id="@+id/addPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignLeft="@+id/instructionsInfo"
                 android:layout_below="@+id/instructionsInfo"
+                android:background="@drawable/photobutton"
                 android:minHeight="36dp"
-                android:onClick="addPhoto"
-                android:text="@string/addPhoto"
-                android:textSize="15sp" />
+                android:onClick="addPhoto" />
 
             <TextView
                 android:id="@+id/instructions"
@@ -92,10 +91,10 @@
                 android:id="@+id/displayPic"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_marginTop="10dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/directory_icon" />
 
             <TextView
@@ -152,9 +151,9 @@
                 android:id="@+id/dateInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:layout_below="@+id/displayRecipeRating"
                 android:layout_toRightOf="@+id/displayPic"
+                android:maxLines="1"
                 android:paddingTop="5dp"
                 android:text="@string/shortbuff"
                 android:textColor="@color/grey"
