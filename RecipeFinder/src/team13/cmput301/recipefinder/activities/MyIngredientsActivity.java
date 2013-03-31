@@ -168,8 +168,14 @@ public class MyIngredientsActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
+				if(input.getText().toString().equals("")){
+				Toast.makeText(getApplicationContext(), "You must specify a quantity!"
+						, Toast.LENGTH_SHORT).show();
+				}
+				else{
 				int quantity = Integer.parseInt(input.getText().toString());
 				MyIngredientsActivity.this.incrCheckedItems(quantity);
+				}
 			}
 		});
 
@@ -177,8 +183,14 @@ public class MyIngredientsActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
+				if(input.getText().toString().equals("")){
+				Toast.makeText(getApplicationContext(), "You must specify a quantity!"
+						, Toast.LENGTH_SHORT).show();
+				}
+				else{
 				int quantity = Integer.parseInt(input.getText().toString());
 				MyIngredientsActivity.this.decrCheckedItems(quantity);
+				}
 			}
 		});
 
