@@ -84,6 +84,7 @@ public class CreateRecipeActivity extends Activity {
 		autoFillAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, 
 				ingredientAutoFillList);
+		
 		/* number of letters required to have drop list shown is set to 1*/
 		addIngredients.setThreshold(1);
 		addIngredients.setAdapter(autoFillAdapter);

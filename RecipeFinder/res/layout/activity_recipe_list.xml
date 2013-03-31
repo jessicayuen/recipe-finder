@@ -101,17 +101,6 @@
     </EditText>
 
     <Button
-        android:id="@+id/localSearch"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tabView"
-        android:layout_alignTop="@+id/searchBar"
-        android:layout_below="@+id/tabView"
-        android:onClick="localRecipeSearch"
-        android:text="Search" />
-
-    <Button
         android:id="@+id/viewAll"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -120,5 +109,14 @@
         android:layout_alignTop="@+id/searchBar"
         android:onClick="viewAllRecipes"
         android:text="All" />
+
+    <Button
+        android:id="@+id/localSearch"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/tabView"
+        android:background="@drawable/search"
+        android:onClick="localRecipeSearch" />
 
 </RelativeLayout>
