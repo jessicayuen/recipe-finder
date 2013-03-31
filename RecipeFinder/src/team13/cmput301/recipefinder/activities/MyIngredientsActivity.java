@@ -222,6 +222,10 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
+		if(searchList.isEmpty()){
+		Toast.makeText(getApplicationContext(), "You must select an ingredient!"
+				, Toast.LENGTH_SHORT).show();
+		}
 		Intent searchIntent = new Intent(this, SearchResultsActivity.class);
 		searchIntent.putStringArrayListExtra("Ingredients", searchList);
 		startActivity(searchIntent);
