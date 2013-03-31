@@ -65,7 +65,6 @@ public class IngredientManager {
 			getIngredientManager().ingredients = (ArrayList<Ingredient>) in.readObject();
 			
 			for(Ingredient i : ingredients) {
-				if(!ingredientAutoFillList.contains(i.getIngredient()))
 				getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
 			}
 			in.close();
