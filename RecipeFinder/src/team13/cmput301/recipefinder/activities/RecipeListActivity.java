@@ -144,19 +144,19 @@ public class RecipeListActivity extends Activity {
 
 		TabSpec allTab = recipeListTabs.newTabSpec("All Recipe(s)");
 		allTab.setContent(R.id.allRecipesTab);
-		allTab.setIndicator("All Recipe(s)");
+		allTab.setIndicator("All");
 
 		TabSpec favTab = recipeListTabs.newTabSpec("Favorite Recipe(s)");
 		favTab.setContent(R.id.favRecipesTab);
-		favTab.setIndicator("Favorite Recipe(s)");
+		favTab.setIndicator("Faves");
 
 		TabSpec ownTab = recipeListTabs.newTabSpec("My Recipe(s)");
 		ownTab.setContent(R.id.myRecipesTab);
-		ownTab.setIndicator("My Recipe(s)");
+		ownTab.setIndicator("My Own");
 		
 		TabSpec downloadedTab = recipeListTabs.newTabSpec("Downloaded Recipe(s)");
 		downloadedTab.setContent(R.id.downloadedTab);
-		downloadedTab.setIndicator("Downloaded Recipe(s)");
+		downloadedTab.setIndicator("Down-\nloaded");
 
 		recipeListTabs.addTab(allTab);
 		recipeListTabs.addTab(favTab);
