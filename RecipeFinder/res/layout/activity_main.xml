@@ -16,8 +16,8 @@
             <RelativeLayout
                 android:id="@+id/faveLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/green"
+                android:layout_height="50dp"
+                android:background="@drawable/carbonfiber"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -37,9 +37,9 @@
                     android:layout_height="46dp"
                     android:layout_alignBottom="@+id/fave"
                     android:layout_toRightOf="@+id/fave"
+                    android:background="@drawable/regbutton"
                     android:onClick="showAll"
                     android:text="View All"
-                    android:background="@drawable/regbutton"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp" />
             </RelativeLayout>
@@ -47,9 +47,9 @@
             <RelativeLayout
                 android:id="@+id/imagesLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="260dp"
                 android:layout_below="@+id/faveLayoutView"
-                android:background="@color/white"
+                android:background="@drawable/linenbg"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -91,9 +91,9 @@
             <RelativeLayout
                 android:id="@+id/findRecipesLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/imagesLayoutView"
-                android:background="@color/green"
+                android:background="@drawable/carbonfiber"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -113,26 +113,18 @@
             <RelativeLayout
                 android:id="@+id/searchLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_below="@+id/findRecipesLayoutView"
-                android:background="@color/white"
+                android:background="@drawable/linenbg"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
-
-                <TextView
-                    android:id="@+id/advanced"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/search_bar"
-                    android:layout_below="@+id/search_bar"
-                    android:paddingLeft="5dp"
-                    android:text="@string/advanced"
-                    android:textSize="11sp" />
 
                 <EditText
                     android:id="@+id/search_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/search_button"
@@ -148,15 +140,14 @@
                     android:background="@drawable/search"
                     android:onClick="searchRecipe"
                     android:textSize="15sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/customizeLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/searchLayoutView"
-                android:background="@color/green"
+                android:background="@drawable/carbonfiber"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -174,9 +165,9 @@
             <RelativeLayout
                 android:id="@+id/buttonsLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="87dp"
                 android:layout_below="@+id/customizeLayoutView"
-                android:background="@color/white"
+                android:background="@drawable/linenbg"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -187,10 +178,10 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="24dp"
                     android:layout_toLeftOf="@+id/my_ingredients"
-                    android:onClick="openCreateRecipe"
-                    android:textColor="#FFFFFF"
                     android:background="@drawable/regbutton"
+                    android:onClick="openCreateRecipe"
                     android:text="@string/create_my_own"
+                    android:textColor="#FFFFFF"
                     android:textSize="15sp" />
 
                 <Button
@@ -201,9 +192,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/regbutton"
-                    android:textColor="@color/white"
                     android:onClick="openMyIngredients"
                     android:text="@string/my_ingredients"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </RelativeLayout>
         </RelativeLayout>
