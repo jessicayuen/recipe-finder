@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.UI.CustomTitleBar;
 import team13.cmput301.recipefinder.controllers.ListManager;
 import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
@@ -24,6 +25,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,7 +44,14 @@ public class MainActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		
+		setContentView(R.layout.activity_main);		
+		
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_bar);
+		//CustomTitleBar cBar = new CustomTitleBar(this);
+		//cBar.setUpTitleBar();
 		
 		User user = User.getUser();
 		lm = ListManager.getListManager();
