@@ -32,14 +32,14 @@ public class SearchResultsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-		
+
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
 		String query = extras.getString("simpleSearchQuery");
 		setContentView(R.layout.activity_search_results);
 		SearchRecipeTask searchRecipeTask = new SearchRecipeTask();
 		searchRecipeTask.execute(query);
-		
+
 		try {
 			recipeList = searchRecipeTask.get();
 		} catch (InterruptedException e) {
@@ -47,24 +47,25 @@ public class SearchResultsActivity extends Activity {
 		} catch (ExecutionException e) {
 			Log.e("SearchResultsActivity", "Error occurred, please try again");
 		}
-		
+		RecipeManager.getRecipeManager(this).setSearchResultRecipes(recipeList);
+
 		ListView searchResultListView = 
 				(ListView) findViewById(R.id.searchResultListView);
 		searchResultListView.setAdapter(
-				new SearchListAdapter(this, recipeList));
-		
-		RecipeManager.getRecipeManager(this).setSearchResultRecipes(recipeList);
-		
+				new SearchListAdapter(this, RecipeManager.getRecipeManager(this)
+						.getSearchResultRecipes()));
+
+
 		searchResultListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
-					long arg3) {
+					long arg3) {			
 				Intent displayIntent = new Intent(SearchResultsActivity.this, 
-						DisplayRecipeActivity.class);
+						SearchRecipeActivity.class);
 				displayIntent.putExtra("recipe", pos);
 				startActivity(displayIntent);	
 			}
-			
+
 		});
 	}
 

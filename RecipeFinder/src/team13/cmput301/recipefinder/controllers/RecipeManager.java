@@ -151,16 +151,16 @@ public class RecipeManager {
 	}
 	
 	public void setSearchResultRecipes(List<Recipe> result) {
-		searchResultRecipes = new ArrayList<Recipe>();
-		searchResultRecipes = result;
+		this.searchResultRecipes = new ArrayList<Recipe>();
+		this.searchResultRecipes = result;
 	}
 	
 	public List<Recipe> getSearchResultRecipes() {
-		return searchResultRecipes;
+		return this.searchResultRecipes;
 	}
 	
 	public boolean checkForExistingRecipe(Recipe recipe) {
-		for(Recipe r : allRecipes) {
+		for(Recipe r : this.allRecipes) {
 			if(r.getId().equals(recipe.getId())){
 				return false;
 			}
