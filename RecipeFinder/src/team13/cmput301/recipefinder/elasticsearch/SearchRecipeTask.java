@@ -1,11 +1,7 @@
 package team13.cmput301.recipefinder.elasticsearch;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
-
-import team13.cmput301.recipefinder.model.Ingredient;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.os.AsyncTask;
 

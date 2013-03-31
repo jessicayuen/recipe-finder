@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 
 		/* Load user settings */
 		user.loadUserSettings(this);
-
+		
 		/* Run setup if user has never used app before */
 		if (user.getHasUsedApp().equals("0")) {
 			Intent intent = new Intent(this, FirstTimeUserActivity.class);

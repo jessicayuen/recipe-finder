@@ -11,24 +11,22 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
 
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	//Singleton
 	transient private static User user = null;
 
 	private static final String SETTINGS_PATH = "usersettings.sav";
 
 	private String username = "";
-	private String email = "";
-	private String emailPassword = "";
-	private String emailHost = "";
-	private String emailSocketPort = "";
-	private String emailPort = "";
 	private String hasUsedApp = "0";
 
 	/**
@@ -59,11 +57,6 @@ public class User {
 			List<String> userSettings = new ArrayList<String>();
 
 			userSettings.add(user.getUsername());
-			userSettings.add(user.getEmail());
-			userSettings.add(user.getEmailPassword());
-			userSettings.add(user.getEmailHost());
-			userSettings.add(user.getEmailSocketPort());
-			userSettings.add(user.getEmailPort());
 			userSettings.add(user.getHasUsedApp());
 
 			FileOutputStream fos = ctx.openFileOutput(SETTINGS_PATH, 
@@ -95,12 +88,7 @@ public class User {
 
 			if (userSettings.size() > 5) {
 				user.setUsername(userSettings.get(0));
-				user.setEmail(userSettings.get(1));
-				user.setEmailPassword(userSettings.get(2));
-				user.setEmailHost(userSettings.get(3));
-				user.setEmailSocketPort(userSettings.get(4));
-				user.setEmailPort(userSettings.get(5));
-				user.setHasUsedApp(userSettings.get(6));
+				user.setHasUsedApp(userSettings.get(1));
 			}
 
 		} catch (Exception e) {
@@ -125,92 +113,6 @@ public class User {
 	}
 
 	/**
-	 * 
-	 * @return users email password
-	 */
-	public String getEmailPassword() {
-		return emailPassword;
-	}
-
-	/**
-	 * sets the users email password as given parameter
-	 * @param emailPassword
-	 */
-	public void setEmailPassword(String emailPassword) {
-		this.emailPassword = emailPassword;
-	}
-
-	/**
-	 * 
-	 * @return users email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * sets users email as provided parameter
-	 * @param email
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	/**
-	 * Get the host of the user's email server
-	 * @return host of the user's email server
-	 */
-	public String getEmailHost() {
-		return emailHost;
-	}
-
-	/**
-	 * Set the host of the user's email server
-	 * @param emailHost host of the user's email server
-	 */
-
-	public void setEmailHost(String emailHost) {
-		this.emailHost = emailHost;
-	}
-
-	/**
-	 * Get the socket port of the user's email server
-	 * @return the socket port of the user's email server
-	 */
-
-	public String getEmailSocketPort() {
-		return emailSocketPort;
-	}
-
-	/**
-	 * Set the socket port of the user's email server
-	 * @param emailSocketPort the socket port of the user's email server
-	 */
-
-	public void setEmailSocketPort(String emailSocketPort) {
-		this.emailSocketPort = emailSocketPort;
-	}
-
-	/**
-	 * Get the port of the user's email server
-	 * @return the port of the user's email server
-	 */
-
-	public String getEmailPort() {
-		return emailPort;
-	}
-
-	/**
-	 * Set the port of the user's email server
-	 * @param emailPort the port of the user's email server
-	 */
-
-	public void setEmailPort(String emailPort) {
-		this.emailPort = emailPort;
-	}
-
-	/**
 	 * Checks whether the user has used Recipe Finder before
 	 * @return > 0 if user has used app before, 0 otherwise
 	 */
@@ -224,5 +126,9 @@ public class User {
 	 */
 	public void setHasUsedApp(String hasUsedApp) {
 		this.hasUsedApp = hasUsedApp;
+	}
+	
+	public String toString() {
+		return "Username: " + username + " Has used app: " + hasUsedApp;
 	}
 }

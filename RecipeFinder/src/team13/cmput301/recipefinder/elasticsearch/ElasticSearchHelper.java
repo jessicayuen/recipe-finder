@@ -26,10 +26,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import team13.cmput301.recipefinder.model.Recipe;
-
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -147,7 +143,6 @@ public class ElasticSearchHelper {
 
 			searchRequest.setHeader("Accept", "application/json");
 			HttpResponse response = httpclient.execute(searchRequest);
-			String status = response.getStatusLine().toString();
 			String json = getEntityContent(response);
 			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
 			}.getType();
