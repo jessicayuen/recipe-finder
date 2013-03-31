@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="team13.cmput301.recipefinder.activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,36 +27,44 @@
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.CreateRecipeActivity"
-            android:label="@string/title_activity_create_recipe" >
+            android:label="@string/title_activity_create_recipe"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.MyIngredientsActivity"
-            android:label="@string/title_activity_my_ingredients" >
+            android:label="@string/title_activity_my_ingredients"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.RecipesActivity"
-            android:label="@string/title_activity_recipes" >
+            android:label="@string/title_activity_recipes"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.SearchResultsActivity"
-            android:label="@string/title_activity_search_results" >
+            android:label="@string/title_activity_search_results"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.DisplayRecipeActivity"
             android:label="@string/title_activity_display_recipe"
-            android:configChanges="orientation|keyboardHidden" >
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.SearchRecipeActivity"
-            android:label="@string/title_activity_search_recipe" >
+            android:label="@string/title_activity_search_recipe"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.RecipeListActivity"
-            android:label="@string/title_activity_recipe_list" >
+            android:label="@string/title_activity_recipe_list"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="team13.cmput301.recipefinder.activities.FirstTimeUserActivity"
-            android:label="@string/title_activity_first_time_user" >
+            android:label="@string/title_activity_first_time_user"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 
