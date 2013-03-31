@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,10 +31,11 @@ import android.widget.Toast;
 public class MyIngredientsActivity extends Activity {
 
 	private IngredientManager ingredManager;
-	private ArrayList<String> displayList;
+	private ArrayList<String> displayList, autoFillDisplay;
 	private ArrayList<String> searchList;
-	private ArrayAdapter<String> adapter;
-	private EditText ingredientsEditText, quantityEditText;
+	private AutoCompleteTextView addIngredients;;
+	private ArrayAdapter<String> adapter, autoFillAdapter;
+	private EditText quantityEditText;
 	private ListView myList;
 
 	@Override
@@ -46,18 +48,29 @@ public class MyIngredientsActivity extends Activity {
 		ingredManager.loadIngredients(this);
 
 		displayList = new ArrayList<String>();
+		autoFillDisplay = new ArrayList<String>();
 		myList = (ListView) findViewById(R.id.listOfIng);
 		adapter = new ArrayAdapter<String>(this, 
 				android.R.layout.simple_list_item_multiple_choice, displayList);
-		ingredientsEditText = (EditText) findViewById(R.id.ingredientItem);
+		addIngredients = (AutoCompleteTextView) findViewById(R.id.autoFillAddIng);
 		quantityEditText = (EditText) findViewById(R.id.quantityItem);
+		autoFillAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, 
+				autoFillDisplay);
 
 		List<Ingredient> ingredList = ingredManager.getIngredientList();
 		/* Display the ingredients in the list view */
 		for(int i = 0; i < ingredList.size(); i++){
 			displayList.add(ingredList.get(i).toString());
 			myList.setAdapter(adapter);
+			autoFillDisplay.add(ingredList.get(i).getIngredient());
+
 		}
+		
+		/* number of letters required to have drop list shown is set to 1*/
+		addIngredients.setThreshold(1);
+		addIngredients.setAdapter(autoFillAdapter);
+		
 	}
 
 	/**
@@ -66,7 +79,7 @@ public class MyIngredientsActivity extends Activity {
 	 * @param view The view where the add button is
 	 */
 	public void addClicked(View view) {
-		String name = ingredientsEditText.getText().toString();
+		String name = addIngredients.getText().toString();
 		float quantity = 1;
 
 		/* Parse quantity */
@@ -93,7 +106,7 @@ public class MyIngredientsActivity extends Activity {
 				ingredManager.saveAllIngredients(this);
 				Toast.makeText(this, "Ingredient Already Exists! " +
 						"Quantity increased!", Toast.LENGTH_SHORT).show();
-				ingredientsEditText.setText("");
+				addIngredients.setText("");
 				quantityEditText.setText("");
 				return;
 			}
@@ -102,11 +115,15 @@ public class MyIngredientsActivity extends Activity {
 		/* Ingredient doesn't exist */
 		Ingredient ingredient = new Ingredient(name, quantity);
 		ingredManager.addNewIngredient(ingredient);
+		addIngredients.setAdapter(autoFillAdapter);
 		ingredManager.saveAllIngredients(this);
 		Toast.makeText(this,"Ingredient Added!", Toast.LENGTH_SHORT).show();
 		displayList.add(ingredient.toString());
 		myList.setAdapter(adapter);
-		ingredientsEditText.setText("");
+		autoFillDisplay.add(ingredient.getIngredient());
+		autoFillAdapter.notifyDataSetChanged();
+		addIngredients.setAdapter(autoFillAdapter);
+		addIngredients.setText("");
 		quantityEditText.setText("");
 	}
 
@@ -117,6 +134,7 @@ public class MyIngredientsActivity extends Activity {
 	public void deleteClicked(View view) {
 		deleteCheckedItems();
 		myList.setAdapter(adapter);
+		addIngredients.setAdapter(autoFillAdapter);
 	}
 
 	/**
@@ -135,6 +153,7 @@ public class MyIngredientsActivity extends Activity {
 	public void minusClicked(View view) {
 		decrCheckedItems(1);
 		myList.setAdapter(adapter);
+		addIngredients.setAdapter(autoFillAdapter);
 	}
 
 	/**
@@ -218,7 +237,9 @@ public class MyIngredientsActivity extends Activity {
 				ingredManager.removeIngredient(i);
 				ingredManager.saveAllIngredients(this);
 				displayList.remove(i);
+				autoFillDisplay.remove(i);
 				adapter.notifyDataSetChanged();
+				autoFillAdapter.notifyDataSetChanged();
 			}
 		}
 	}
@@ -260,8 +281,10 @@ public class MyIngredientsActivity extends Activity {
 					ingredManager.removeIngredient(i);
 					ingredManager.saveAllIngredients(this);
 					displayList.remove(i);
+					autoFillDisplay.remove(i);
 				}
 				adapter.notifyDataSetChanged();
+				autoFillAdapter.notifyDataSetChanged();
 			}
 		}
 	}
