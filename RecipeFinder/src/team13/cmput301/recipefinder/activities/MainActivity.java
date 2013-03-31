@@ -190,7 +190,6 @@ public class MainActivity extends Activity {
 
 		((TextView)findViewById(R.id.fave)).setTypeface(typeface);
 		((TextView)findViewById(R.id.find_recipes)).setTypeface(typeface);
-		((TextView)findViewById(R.id.advanced)).setTypeface(typeface);
 		((TextView)findViewById(R.id.customize)).setTypeface(typeface);
 		((Button)findViewById(R.id.search_button)).setTypeface(typeface);
 		((Button)findViewById(R.id.view_all)).setTypeface(typeface);
