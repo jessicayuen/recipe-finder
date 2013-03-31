@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.controllers.IngredientManager;
 import team13.cmput301.recipefinder.controllers.ListManager;
 import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
 	private RecipeManager rm;
 	private PhotoManager pm;
 	private ListManager lm;
+	private IngredientManager im;
 	private List<Recipe> faveRecipes;
 
 	@Override
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
 		rm = RecipeManager.getRecipeManager(this);
+		im = IngredientManager.getIngredientManager();
 
 		/* Load user settings */
 		user.loadUserSettings(this);
@@ -60,10 +63,14 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, FirstTimeUserActivity.class);
 			startActivity(intent);
 		}
-
+		
 		/* Load recipes */
 		rm.loadRecipes();
+		
+		/*load ingredients*/
+		im.loadIngredients(this);
 
+		
 		/* Set custom fonts */
 		setCustomFonts();
 	}

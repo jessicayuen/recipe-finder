@@ -45,7 +45,6 @@ public class MyIngredientsActivity extends Activity {
 
 		/* load ingredients*/
 		ingredManager = IngredientManager.getIngredientManager();
-		ingredManager.loadIngredients(this);
 
 		displayList = new ArrayList<String>();
 		autoFillDisplay = new ArrayList<String>();
@@ -66,11 +65,11 @@ public class MyIngredientsActivity extends Activity {
 			autoFillDisplay.add(ingredList.get(i).getIngredient());
 
 		}
-		
+
 		/* number of letters required to have drop list shown is set to 1*/
 		addIngredients.setThreshold(1);
 		addIngredients.setAdapter(autoFillAdapter);
-		
+
 	}
 
 	/**
@@ -163,7 +162,7 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void changeQuantity(View view) {
 		boolean itemChecked = false;
-		
+
 		/* Check if there is any items selected - if not don't show dialog */
 		for (int i = 0; i < this.myList.getAdapter().getCount(); i++) {
 			if (this.myList.isItemChecked(i))  {
@@ -188,12 +187,12 @@ public class MyIngredientsActivity extends Activity {
 
 			public void onClick(DialogInterface dialog, int which) {
 				if(input.getText().toString().equals("")){
-				Toast.makeText(getApplicationContext(), "You must specify a quantity!"
-						, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "You must specify a quantity!"
+							, Toast.LENGTH_SHORT).show();
 				}
 				else{
-				int quantity = Integer.parseInt(input.getText().toString());
-				MyIngredientsActivity.this.incrCheckedItems(quantity);
+					int quantity = Integer.parseInt(input.getText().toString());
+					MyIngredientsActivity.this.incrCheckedItems(quantity);
 				}
 			}
 		});
@@ -203,12 +202,12 @@ public class MyIngredientsActivity extends Activity {
 
 			public void onClick(DialogInterface dialog, int which) {
 				if(input.getText().toString().equals("")){
-				Toast.makeText(getApplicationContext(), "You must specify a quantity!"
-						, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "You must specify a quantity!"
+							, Toast.LENGTH_SHORT).show();
 				}
 				else{
-				int quantity = Integer.parseInt(input.getText().toString());
-				MyIngredientsActivity.this.decrCheckedItems(quantity);
+					int quantity = Integer.parseInt(input.getText().toString());
+					MyIngredientsActivity.this.decrCheckedItems(quantity);
 				}
 			}
 		});
@@ -222,9 +221,15 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
+		if(searchList.isEmpty()){
+		Toast.makeText(getApplicationContext(), "You must select an ingredient!"
+				, Toast.LENGTH_SHORT).show();
+		}
+		else{
 		Intent searchIntent = new Intent(this, SearchResultsActivity.class);
 		searchIntent.putStringArrayListExtra("Ingredients", searchList);
 		startActivity(searchIntent);
+		}
 	}
 
 	/**
@@ -295,11 +300,17 @@ public class MyIngredientsActivity extends Activity {
 	private void searchCheckedItems() {
 		int count = this.myList.getAdapter().getCount();
 		searchList = new ArrayList<String>();
+		if(ingredManager.getIngredientList().isEmpty()){
+			Toast.makeText(getApplicationContext(), "You have no ingredients!"
+					, Toast.LENGTH_SHORT).show();
+			}
+		else{
 		for (int i = 0; i < count; i++) {
 			if (this.myList.isItemChecked(i)) {
 				searchList.add(ingredManager.getIngredientList().
 						get(i).getIngredient());
 			}
+		}
 		}
 	}
 }

@@ -96,8 +96,6 @@ public class IngredientManager {
 			}
 		} else {
 			getIngredientManager().ingredients.set(i, ingredient);
-			getIngredientManager().ingredientAutoFillList.set(i, 
-					ingredient.getIngredient());
 		}
 			
 	}
@@ -152,7 +150,7 @@ public class IngredientManager {
 	public void setIngredientList(ArrayList<Ingredient> ingredList) {
 		getIngredientManager().ingredients = ingredList;
 		getIngredientManager().ingredientAutoFillList = new ArrayList<String>();
-		for(Ingredient i : ingredients) {
+		for(Ingredient i : this.ingredients) {
 			getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
 		}
 	}
