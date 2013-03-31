@@ -222,15 +222,13 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	public void searchClicked(View view) {
 		searchCheckedItems();
-		if(searchList.size() < 1) {
-			Toast.makeText(this, "No ingredients selected", Toast.LENGTH_SHORT)
-			.show();
+		if(searchList.isEmpty()){
+		Toast.makeText(getApplicationContext(), "You must select an ingredient!"
+				, Toast.LENGTH_SHORT).show();
 		}
-		else {
-			Intent searchIntent = new Intent(this, SearchResultsActivity.class);
-			searchIntent.putStringArrayListExtra("Ingredients", searchList);
-			startActivity(searchIntent);
-		}
+		Intent searchIntent = new Intent(this, SearchResultsActivity.class);
+		searchIntent.putStringArrayListExtra("Ingredients", searchList);
+		startActivity(searchIntent);
 	}
 
 	/**
