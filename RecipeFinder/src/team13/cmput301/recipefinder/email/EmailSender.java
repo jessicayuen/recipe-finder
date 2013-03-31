@@ -1,5 +1,5 @@
 /**
- * Sends a email to the recipient using the email's email.
+ * Sends a email to the recipient using the admin's email.
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
@@ -26,8 +26,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import team13.cmput301.recipefinder.model.User;
-
 
 public class EmailSender extends javax.mail.Authenticator { 
 	private String email; 
@@ -45,11 +43,11 @@ public class EmailSender extends javax.mail.Authenticator {
 	 * in the email's settings.
 	 */
 	public EmailSender() { 
-		host = User.getUser().getEmailHost();
-		port = User.getUser().getEmailPort();
-		sport = User.getUser().getEmailSocketPort();
-		email = User.getUser().getEmail(); 
-		pass = User.getUser().getEmailPassword(); 
+		host = "smtp.gmail.com";
+		port = "465";
+		sport = "465";
+		email = "cmput301w13t13@gmail.com"; 
+		pass = "ualberta"; 
 		
 		multipart = new MimeMultipart(); 
 
