@@ -45,7 +45,6 @@ public class MyIngredientsActivity extends Activity {
 
 		/* load ingredients*/
 		ingredManager = IngredientManager.getIngredientManager();
-		ingredManager.loadIngredients(this);
 
 		displayList = new ArrayList<String>();
 		autoFillDisplay = new ArrayList<String>();
