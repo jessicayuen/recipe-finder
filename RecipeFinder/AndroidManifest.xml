@@ -18,8 +18,7 @@
         <activity
             android:name="team13.cmput301.recipefinder.activities.MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/CustomTheme" >
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
