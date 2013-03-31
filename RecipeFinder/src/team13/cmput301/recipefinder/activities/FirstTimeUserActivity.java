@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.email.EmailSender;
 import team13.cmput301.recipefinder.model.User;
+import team13.cmput301.recipefinder.resources.InternetConnectivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +66,12 @@ public class FirstTimeUserActivity extends Activity {
 			return;
 		}
 		
+		/* Check for internet connection */
+		if (!InternetConnectivity.checkInternetConnection(this)) {
+			handleSetupErrors(2);
+			return;
+		}
+		
 		/* Try to connect to email server */
 		EmailSender emailSender = new EmailSender(email, password, host,
 				port, sport);
@@ -74,7 +81,7 @@ public class FirstTimeUserActivity extends Activity {
 		String to[] = new String[1];
 		to[0] = email;
 		if (!emailSender.send(subject, body, to)) {
-			handleSetupErrors(2);
+			handleSetupErrors(3);
 			return;
 		}
 		
@@ -110,6 +117,9 @@ public class FirstTimeUserActivity extends Activity {
 				errorField.setText("Invalid email.\n");
 				break;
 			case 2:
+				errorField.setText("No internet connection.\n");
+				break;
+			case 3:
 				errorField.setText("Could not connect " +
 						"to email server. Please check SMTP configurations " +
 						"and email/password combinations.\n");

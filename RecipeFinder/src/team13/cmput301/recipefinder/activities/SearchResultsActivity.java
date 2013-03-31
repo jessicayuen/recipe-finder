@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import team13.cmput301.recipefinder.R;
-import team13.cmput301.recipefinder.adapters.CustomListAdapter;
 import team13.cmput301.recipefinder.adapters.SearchListAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import team13.cmput301.recipefinder.model.Recipe;
+import team13.cmput301.recipefinder.resources.InternetConnectivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -75,5 +77,28 @@ public class SearchResultsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_search_results, menu);
 		return true;
 	}
+	
+	/**
+	 * Listen for click on 'Search' 
+	 * perform a query based on the user's input.
+	 * @param view The current activity view
+	 */
+	public void searchFor(View view) {
+		Intent intent  = new Intent(this, SearchResultsActivity.class);
 
+		/* Check if Internet connection exists */
+		if (!InternetConnectivity.checkInternetConnection(this)) {
+			Toast.makeText(this, "You have no internet connection. Try" +
+					" again later.", Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		// Pass the search query string into the 
+		// search activity as an intent extra.
+		String simpleSearchQuery = 
+				((EditText) findViewById(R.id.searchBar)).getText().toString();
+		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
+		finish();
+		startActivity(intent);
+	}
 }

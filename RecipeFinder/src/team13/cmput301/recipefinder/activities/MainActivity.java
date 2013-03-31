@@ -18,6 +18,7 @@ import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
+import team13.cmput301.recipefinder.resources.InternetConnectivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -42,9 +44,9 @@ public class MainActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_main);		
-		
+
 		User user = User.getUser();
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
@@ -52,23 +54,23 @@ public class MainActivity extends Activity {
 
 		/* Load user settings */
 		user.loadUserSettings(this);
-		
+
 		/* Run setup if user has never used app before */
 		if (user.getHasUsedApp().equals("0")) {
 			Intent intent = new Intent(this, FirstTimeUserActivity.class);
 			startActivity(intent);
 		}
-		
+
 		/* Load recipes */
 		rm.loadRecipes();
-		
+
 		/* Set custom fonts */
 		setCustomFonts();
 	}
-	
+
 	protected void onResume() {
 		clearFavesDisplayed();
-		
+
 		/* Display 4 random favorite recipes */
 		displayFaves();
 		super.onResume();
@@ -100,6 +102,14 @@ public class MainActivity extends Activity {
 	 */
 	public void searchRecipe(View view) {
 		Intent intent  = new Intent(this, SearchResultsActivity.class);
+
+		/* Check if Internet connection exists */
+		if (!InternetConnectivity.checkInternetConnection(this)) {
+			Toast.makeText(this, "You have no internet connection. Try" +
+					" again later.", Toast.LENGTH_LONG).show();
+			return;
+		}
+
 		// Pass the search query string into the 
 		// search activity as an intent extra.
 		String simpleSearchQuery = 
@@ -107,7 +117,9 @@ public class MainActivity extends Activity {
 		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 		startActivity(intent);
 	}
-	
+
+
+
 	/**
 	 * Shows all recipe when user touches show all recipe text
 	 */
@@ -165,10 +177,10 @@ public class MainActivity extends Activity {
 	 */
 	private void setCustomFonts() {
 		Typeface typeface;
-		
+
 		typeface = Typeface.createFromAsset(getAssets(), 
 				"fonts/Comfortaa-Bold.ttf");
-	    
+
 		((TextView)findViewById(R.id.fave)).setTypeface(typeface);
 		((TextView)findViewById(R.id.find_recipes)).setTypeface(typeface);
 		((TextView)findViewById(R.id.advanced)).setTypeface(typeface);
@@ -178,7 +190,7 @@ public class MainActivity extends Activity {
 		((Button)findViewById(R.id.create_my_own)).setTypeface(typeface);
 		((Button)findViewById(R.id.my_ingredients)).setTypeface(typeface);
 	}
-	
+
 	/**
 	 * displays the recipe clicked on the main page
 	 * @param image imageview that listens to user clicks
@@ -197,25 +209,25 @@ public class MainActivity extends Activity {
 			}					
 		});
 	}
-	
+
 	/**
 	 * clears the display of faves on the main activity
 	 */
 	private void clearFavesDisplayed(){
 		ImageView imageView;
-		
+
 		imageView = (ImageView) findViewById(R.id.faveTopLeft);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
-		
+
 		imageView = (ImageView) findViewById(R.id.faveTopRight);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
-		
+
 		imageView = (ImageView) findViewById(R.id.faveBottomLeft);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
-		
+
 		imageView = (ImageView) findViewById(R.id.faveBottomRight);
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".DisplayRecipeActivity" >
 
     <ScrollView
@@ -152,6 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/displayRecipeRating"
+                android:layout_marginLeft="14dp"
                 android:layout_toRightOf="@+id/displayPic"
                 android:maxLines="1"
                 android:paddingTop="5dp"
@@ -166,11 +166,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/dateInfo"
                 android:layout_below="@+id/dateInfo"
-                android:layout_marginTop="17dp"
-                android:layout_toRightOf="@+id/displayPic"
+                android:layout_marginTop="20dp"
                 android:paddingTop="5dp"
                 android:text="@string/author"
                 android:textSize="15sp" />
+
         </RelativeLayout>
     </ScrollView>
 

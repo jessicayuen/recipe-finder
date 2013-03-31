@@ -5,7 +5,7 @@
     tools:context=".SearchResultsActivity" >
 
     <EditText
-        android:id="@+id/quantityItem"
+        android:id="@+id/searchBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -72,9 +72,10 @@
         android:id="@+id/searchfor"
         android:layout_width="46dp"
         android:layout_height="46dp"
-        android:layout_alignBottom="@+id/quantityItem"
+        android:layout_alignBottom="@+id/searchBar"
         android:layout_alignParentRight="true"
         android:layout_marginRight="14dp"
+        android:onClick="searchFor"
         android:background="@drawable/search" />
 
 </RelativeLayout>
