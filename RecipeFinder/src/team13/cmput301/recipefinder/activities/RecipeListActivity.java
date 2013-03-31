@@ -155,8 +155,8 @@ public class RecipeListActivity extends Activity {
 		ownTab.setIndicator("My Recipe(s)");
 		
 		TabSpec downloadedTab = recipeListTabs.newTabSpec("Downloaded Recipe(s)");
-		ownTab.setContent(R.id.downloadedTab);
-		ownTab.setIndicator("Downloaded Recipe(s)");
+		downloadedTab.setContent(R.id.downloadedTab);
+		downloadedTab.setIndicator("Downloaded Recipe(s)");
 
 		recipeListTabs.addTab(allTab);
 		recipeListTabs.addTab(favTab);
