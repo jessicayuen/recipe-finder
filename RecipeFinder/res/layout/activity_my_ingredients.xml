@@ -13,53 +13,36 @@
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/quantityItem"
-            android:layout_alignBottom="@+id/quantityItem"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:onClick="addClicked"
             android:text="Add" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoFillAddIng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:hint="Add Your Ingredient" />
 
         <EditText
             android:id="@+id/quantityItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/ingredientItem"
-            android:layout_toLeftOf="@+id/add"
+            android:layout_marginTop="29dp"
             android:ems="10"
             android:hint="Quantity"
-            android:inputType="numberDecimal" >
-
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/ingredientItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/quantityItem"
-            android:ems="10"
-            android:hint="Enter an ingredient" />
+            android:inputType="numberDecimal" />
 
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listOfIng"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@+id/changesBar"
-        android:layout_below="@+id/addBar"
-        android:choiceMode="multipleChoice" >
-    </ListView>
 
     <RelativeLayout
         android:id="@+id/changesBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true" >
 
         <Button
             android:id="@+id/search"
@@ -111,5 +94,16 @@
             android:onClick="plusClicked"
             android:text="+" />
     </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listOfIng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/changesBar"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/addBar"
+        android:choiceMode="multipleChoice" >
+
+    </ListView>
 
 </RelativeLayout>
