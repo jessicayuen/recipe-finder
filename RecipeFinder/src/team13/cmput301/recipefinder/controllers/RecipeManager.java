@@ -144,6 +144,22 @@ public class RecipeManager {
 	}
 	
 	/**
+	 * @return List of downloaded recipes
+	 */
+	public List<Recipe> getDownloadedRecipes() {
+		List<Recipe> downloaded = new ArrayList<Recipe>();
+		
+		for (int i = 0; i < this.allRecipes.size(); i++) {
+			Recipe recipe = this.allRecipes.get(i);
+			if (!recipe.getAuthor().toLowerCase().
+					equals(User.getUser().getUsername().toLowerCase()))
+				downloaded.add(recipe);
+		}
+		
+		return downloaded;
+	}
+	
+	/**
 	 * @return List of user recipes
 	 */
 	public List<Recipe> getAllRecipes() {

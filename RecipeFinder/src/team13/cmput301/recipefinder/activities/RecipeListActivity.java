@@ -29,9 +29,10 @@ import android.widget.Toast;
 public class RecipeListActivity extends Activity {
 
 	private RecipeManager rm;
-	private List<Recipe> allRecipes, favRecipes, ownRecipes;
-	private CustomListAdapter ownListAdapter, allListAdapter, favListAdapter;
-	private ListView myListView, allListView, favListView;
+	private List<Recipe> allRecipes, favRecipes, ownRecipes, downloadedRecipes;
+	private CustomListAdapter ownListAdapter, allListAdapter, 
+		favListAdapter, downloadedListAdapter;
+	private ListView myListView, allListView, favListView, downloadedListView;
 	private TabHost recipeListTabs;
 	private boolean inSearchMode;
 	private String searchString;
@@ -46,23 +47,28 @@ public class RecipeListActivity extends Activity {
 		ownRecipes = rm.getOwnRecipes();
 		allRecipes = rm.getAllRecipes();
 		favRecipes = rm.getFaveRecipes();
+		downloadedRecipes = rm.getDownloadedRecipes();
 
 		inSearchMode = false;
 		searchString = "";
 
 		recipeListTabs = (TabHost)findViewById(R.id.tabView);
+		
 		allListView = (ListView)findViewById(R.id.allRecipeList);
 		favListView = (ListView)findViewById(R.id.favRecipeList);
 		myListView = (ListView)findViewById(R.id.myRecipeList);
+		downloadedListView = (ListView)findViewById(R.id.downloadedList);
 
 		allListAdapter = new CustomListAdapter(this, allRecipes);
 		favListAdapter = new CustomListAdapter(this, favRecipes);
 		ownListAdapter = new CustomListAdapter(this, ownRecipes);
-
+		downloadedListAdapter = new CustomListAdapter(this, downloadedRecipes);
+		
 		allListView.setAdapter(allListAdapter);
 		favListView.setAdapter(favListAdapter);
 		myListView.setAdapter(ownListAdapter);
-
+		downloadedListView.setAdapter(downloadedListAdapter);
+		
 		/* Set up list listeners */
 		setupListListeners();
 
@@ -116,6 +122,18 @@ public class RecipeListActivity extends Activity {
 				startActivity(displayIntent);
 			}
 		});
+		
+		downloadedListView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> av, View view, 
+					int position, long i) {
+				Recipe temp = downloadedRecipes.get(position);
+				int recipeIndex = allRecipes.indexOf(temp);
+				Intent displayIntent = new Intent(RecipeListActivity.this, 
+						DisplayRecipeActivity.class);
+				displayIntent.putExtra("recipe", recipeIndex);
+				startActivity(displayIntent);
+			}
+		});
 	}
 
 	/**
@@ -135,10 +153,15 @@ public class RecipeListActivity extends Activity {
 		TabSpec ownTab = recipeListTabs.newTabSpec("My Recipe(s)");
 		ownTab.setContent(R.id.myRecipesTab);
 		ownTab.setIndicator("My Recipe(s)");
+		
+		TabSpec downloadedTab = recipeListTabs.newTabSpec("Downloaded Recipe(s)");
+		ownTab.setContent(R.id.downloadedTab);
+		ownTab.setIndicator("Downloaded Recipe(s)");
 
 		recipeListTabs.addTab(allTab);
 		recipeListTabs.addTab(favTab);
 		recipeListTabs.addTab(ownTab);
+		recipeListTabs.addTab(downloadedTab);
 
 		recipeListTabs.setCurrentTab(0);
 
@@ -167,8 +190,7 @@ public class RecipeListActivity extends Activity {
 		if(!searchString.equals("")){
 			setAdaptersToSearch();
 		} else {
-			Toast toast = Toast.makeText(this, "No Text Entered", Toast.LENGTH_SHORT);
-			toast.show();
+			Toast.makeText(this, "No Text Entered", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -191,6 +213,9 @@ public class RecipeListActivity extends Activity {
 		favRecipes = rm.searchForRecipe(searchString, rm.getFaveRecipes());
 		favListAdapter.setRecipeList(favRecipes);
 
+		downloadedRecipes = rm.searchForRecipe(searchString, rm.getDownloadedRecipes());
+		downloadedListAdapter.setRecipeList(downloadedRecipes);
+		
 		allRecipes = rm.searchForRecipe(searchString, rm.getAllRecipes());
 		allListAdapter.setRecipeList(allRecipes);
 	}
@@ -207,5 +232,8 @@ public class RecipeListActivity extends Activity {
 
 		favRecipes = rm.getFaveRecipes();
 		favListAdapter.setRecipeList(favRecipes);
+		
+		downloadedRecipes = rm.getDownloadedRecipes();
+		downloadedListAdapter.setRecipeList(downloadedRecipes);
 	}
 }
