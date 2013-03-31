@@ -9,15 +9,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:onClick="addClicked"
-            android:text="Add" />
-
         <AutoCompleteTextView
             android:id="@+id/autoFillAddIng"
             android:layout_width="wrap_content"
@@ -36,6 +27,15 @@
             android:hint="Quantity"
             android:inputType="numberDecimal" />
 
+        <Button
+            android:id="@+id/add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/addbutton"
+            android:onClick="addClicked" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -46,53 +46,63 @@
 
         <Button
             android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
+            android:background="@drawable/regbutton"
             android:onClick="searchClicked"
             android:text="Search"
+            android:textColor="@color/white"
             android:textSize="13sp" />
 
         <Button
             android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
             android:layout_alignTop="@+id/search"
             android:layout_toLeftOf="@+id/search"
+            android:background="@drawable/regbutton"
             android:onClick="deleteClicked"
             android:text="Delete"
+            android:textColor="@color/white"
             android:textSize="13sp" />
 
         <Button
             android:id="@+id/minus"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:background="@drawable/regbutton"
             android:onClick="minusClicked"
-            android:text="-" />
+            android:text="-"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/changeQuantity"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/minus"
+            android:background="@drawable/regbutton"
             android:onClick="changeQuantity"
             android:text="change quantity"
+            android:textColor="@color/white"
             android:textSize="13sp" />
 
         <Button
             android:id="@+id/plus"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/changeQuantity"
+            android:background="@drawable/regbutton"
             android:onClick="plusClicked"
-            android:text="+" />
+            android:text="+"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ListView
@@ -103,7 +113,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/addBar"
         android:choiceMode="multipleChoice" >
-
     </ListView>
 
 </RelativeLayout>

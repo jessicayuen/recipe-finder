@@ -33,12 +33,14 @@
 
                 <Button
                     android:id="@+id/view_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
+                    android:layout_width="85dp"
+                    android:layout_height="46dp"
                     android:layout_alignBottom="@+id/fave"
                     android:layout_toRightOf="@+id/fave"
                     android:onClick="showAll"
                     android:text="View All"
+                    android:background="@drawable/regbutton"
+                    android:textColor="#FFFFFF"
                     android:textSize="15sp" />
             </RelativeLayout>
 
@@ -180,24 +182,26 @@
 
                 <Button
                     android:id="@+id/create_my_own"
-                    android:layout_width="wrap_content"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="24dp"
                     android:layout_toLeftOf="@+id/my_ingredients"
-                    android:minHeight="36dp"
                     android:onClick="openCreateRecipe"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/regbutton"
                     android:text="@string/create_my_own"
                     android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/my_ingredients"
-                    android:layout_width="wrap_content"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="24dp"
-                    android:minHeight="36dp"
+                    android:background="@drawable/regbutton"
+                    android:textColor="@color/white"
                     android:onClick="openMyIngredients"
                     android:text="@string/my_ingredients"
                     android:textSize="15sp" />

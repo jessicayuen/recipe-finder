@@ -6,21 +6,25 @@
 
     <Button
         android:id="@+id/imgDeleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
         android:layout_alignBottom="@+id/imgCancelButton"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="66dp"
-        android:text="Delete" />
+        android:layout_marginRight="60dp"
+        android:background="@drawable/regbutton"
+        android:text="Delete"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/imgCancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/enlargedImage"
-        android:layout_marginRight="44dp"
-        android:layout_toLeftOf="@+id/imgDeleteButton"
-        android:text="Cancel" />
+        android:layout_marginLeft="60dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/regbutton"
+        android:text="Cancel"
+        android:textColor="@color/white" />
 
     <ImageView
         android:id="@+id/enlargedImage"
