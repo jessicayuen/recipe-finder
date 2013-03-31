@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 		lm = ListManager.getListManager();
 		pm = PhotoManager.getPhotoManager();
 		rm = RecipeManager.getRecipeManager(this);
+		im = IngredientManager.getIngredientManager();
 
 		/* Load user settings */
 		user.loadUserSettings(this);
