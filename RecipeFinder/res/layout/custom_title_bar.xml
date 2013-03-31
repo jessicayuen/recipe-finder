@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:background="#323331" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/customTitleLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="19dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/customTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/customTitleHomeButton"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/customTitleHomeButton"
+            android:layout_toRightOf="@+id/customTitleLogo"
+            android:text="TextView"
+            android:textSize="27sp" />
+
+        <ImageButton
+            android:id="@+id/customTitleHomeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:src="@drawable/directory_up" />
+    </RelativeLayout>
+</LinearLayout>

@@ -79,7 +79,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		fav.setFocusable(false);
 		fav.setOnClickListener(this);		
 		fav.setTag(new TempRecipe(FAV_BUTTON_CLICK,recipe));
-
+		
 		/* Set description text format */
 		descr.setTextSize(fontSize);
 		descr.setText(recipe.getDescription());
@@ -104,6 +104,7 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		}
 
 		/* Set up the remove button */
+		btnRemove.setBackgroundResource(R.drawable.deletebutton);
 		btnRemove.setFocusableInTouchMode(false);
 		btnRemove.setFocusable(false);
 		btnRemove.setOnClickListener(this);
