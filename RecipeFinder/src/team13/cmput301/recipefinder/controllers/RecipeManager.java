@@ -160,7 +160,7 @@ public class RecipeManager {
 	
 	public boolean checkForExistingRecipe(Recipe recipe) {
 		for(Recipe r : allRecipes) {
-			if(r.getId() == recipe.getId()){
+			if(r.getId().equals(recipe.getId())){
 				return false;
 			}
 		}

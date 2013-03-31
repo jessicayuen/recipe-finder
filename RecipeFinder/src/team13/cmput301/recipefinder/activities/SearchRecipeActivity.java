@@ -7,36 +7,20 @@
 
 package team13.cmput301.recipefinder.activities;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
-import team13.cmput301.recipefinder.elasticsearch.InsertRecipeTask;
-import team13.cmput301.recipefinder.email.EmailSender;
-import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
-import team13.cmput301.recipefinder.model.User;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -94,16 +78,13 @@ public class SearchRecipeActivity extends Activity {
 		 * and 'Unfavorite' if it is favorited
 		 */
 		Button fave = (Button) this.findViewById(R.id.fave_button);
-		fave.setVisibility(View.INVISIBLE);
-		fave.setClickable(false);
+		fave.setVisibility(View.GONE);
 
 		Button addPhoto = (Button) this.findViewById(R.id.addPhoto);
-		addPhoto.setVisibility(View.INVISIBLE);
-		addPhoto.setClickable(false);
+		addPhoto.setVisibility(View.GONE);
 
 		Button share = (Button) this.findViewById(R.id.share);
-		share.setVisibility(View.INVISIBLE);
-		share.setClickable(false);
+		share.setVisibility(View.GONE);
 
 		Button publish = (Button) this.findViewById(R.id.publish);
 		publish.setText("Download");
@@ -112,6 +93,7 @@ public class SearchRecipeActivity extends Activity {
 			public void onClick(View arg0) {
 				if(RecipeManager.getRecipeManager(SearchRecipeActivity.this)
 						.checkForExistingRecipe(recipe)){
+					recipe.setFave(false);
 					RecipeManager.getRecipeManager(SearchRecipeActivity.this)
 					.addToUserRecipe(recipe);
 					Toast.makeText(SearchRecipeActivity.this, 
@@ -187,9 +169,6 @@ public class SearchRecipeActivity extends Activity {
 		((TextView)findViewById(R.id.ingredients)).setTypeface(typeface);
 		((TextView)findViewById(R.id.instructions)).setTypeface(typeface);
 		((Button)findViewById(R.id.publish)).setTypeface(typeface);
-		((Button)findViewById(R.id.share)).setTypeface(typeface);
-		((Button)findViewById(R.id.addPhoto)).setTypeface(typeface);
-		((Button)findViewById(R.id.fave_button)).setTypeface(typeface);
 	}
 
 	/**

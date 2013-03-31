@@ -36,6 +36,7 @@
         android:id="@+id/recipePicture"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/favStarButton"
         android:src="@drawable/directory_up" />

@@ -112,6 +112,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		if (!rm.checkForExistingRecipe(recipe)) {
 			Toast.makeText(context, "Recipe already downloaded", Toast.LENGTH_SHORT).show();
 		} else {
+			recipe.setFave(false);
 			rm.addToUserRecipe(recipe);
 			Toast.makeText(context, "Recipe successfully downloaded", Toast.LENGTH_SHORT).show();
 		}
