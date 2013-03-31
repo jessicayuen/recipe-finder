@@ -30,6 +30,7 @@ import team13.cmput301.recipefinder.model.Recipe;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -135,12 +136,15 @@ public class ElasticSearchHelper {
 	 * Aearch by keywords
 	 * 
 	 * @return recipes A list of result recipes
+	 * @throws IOException
 	 */
 	public ArrayList<Recipe> searchRecipes(String query) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		HttpGet searchRequest;
 		try {
-			HttpGet searchRequest = new HttpGet(BASEURL + "_search?q=*"
+			searchRequest = new HttpGet(BASEURL + "_search?q=*"
 					+ java.net.URLEncoder.encode(query, "UTF-8") + "*");
+
 			searchRequest.setHeader("Accept", "application/json");
 			HttpResponse response = httpclient.execute(searchRequest);
 			String status = response.getStatusLine().toString();
@@ -154,7 +158,8 @@ public class ElasticSearchHelper {
 				recipes.add(recipe);
 			}
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return recipes;
 	}
@@ -165,10 +170,9 @@ public class ElasticSearchHelper {
 	 * @return recipes A list of result recipes
 	 */
 	public ArrayList<Recipe> advancedSearchRecipes(String searchTerm,
-			ArrayList<String> ingredients) throws ClientProtocolException,
-			IOException {
+			ArrayList<String> ingredients) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		HttpPost searchRequest = new HttpPost(BASEURL);
+		HttpPost searchRequest = new HttpPost(BASEURL + "_search");
 		// String query = "{\"query\" : {\"query_string\" : " +
 		// "{\"default_field\" : \"ingredients\",\"query\" : \""
 		// + str + "\"}}}";
@@ -176,28 +180,34 @@ public class ElasticSearchHelper {
 
 		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"
 				+ "{\"query\":\"" + searchTerm
-				+ "\"}},\"filter\":{\"term\":{\"ingredients\":\""
-				+ ingredientsString + "\"}}}}}";
+				+ "\"}},\"filter\":{\"term\":{\"ingredients\":"
+				+ ingredientsString + "}}}}}";
 
-		StringEntity stringentity = new StringEntity(query);
+		Log.wtf("query", query);
+		StringEntity stringentity;
+		try {
+			stringentity = new StringEntity(query);
 
-		searchRequest.setHeader("Accept", "application/json");
-		searchRequest.setEntity(stringentity);
+			searchRequest.setHeader("Accept", "application/json");
+			searchRequest.setEntity(stringentity);
 
-		HttpResponse response = httpclient.execute(searchRequest);
-		String status = response.getStatusLine().toString();
-		System.out.println(status);
+			HttpResponse response = httpclient.execute(searchRequest);
+			String status = response.getStatusLine().toString();
+			System.out.println(status);
 
-		String json = getEntityContent(response);
+			String json = getEntityContent(response);
 
-		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
-		}.getType();
-		ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(json,
-				elasticSearchSearchResponseType);
-		System.err.println(esResponse);
-		for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
-			Recipe recipe = r.getSource();
-			recipes.add(recipe);
+			Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<Recipe>>() {
+			}.getType();
+			ElasticSearchSearchResponse<Recipe> esResponse = gson.fromJson(
+					json, elasticSearchSearchResponseType);
+			System.err.println(esResponse);
+			for (ElasticSearchResponse<Recipe> r : esResponse.getHits()) {
+				Recipe recipe = r.getSource();
+				recipes.add(recipe);
+			}
+		} catch (IOException e) {
+
 		}
 		return recipes;
 	}

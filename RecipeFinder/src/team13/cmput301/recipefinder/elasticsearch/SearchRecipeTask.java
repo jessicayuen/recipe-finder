@@ -1,15 +1,40 @@
 package team13.cmput301.recipefinder.elasticsearch;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.http.client.ClientProtocolException;
+
+import team13.cmput301.recipefinder.model.Ingredient;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.os.AsyncTask;
 
 public class SearchRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
 
+	private final ArrayList<String> ingredients;
+	
+	public SearchRecipeTask() {
+		ingredients = null;
+	}
+
+	public SearchRecipeTask(ArrayList<String> ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	@Override
 	protected ArrayList<Recipe> doInBackground(String... queries) {
-		return ElasticSearchHelper.getElasticSearchHelper().searchRecipes(queries[0]);
+
+		if (ingredients != null) {
+			return ElasticSearchHelper.getElasticSearchHelper()
+					.advancedSearchRecipes("*", ingredients);
+		} else {
+			if (queries[0] != null) {
+				return ElasticSearchHelper.getElasticSearchHelper()
+						.searchRecipes(queries[0]);
+			} else {
+				return new ArrayList<Recipe>();
+			}
+		}
 	}
 
 }

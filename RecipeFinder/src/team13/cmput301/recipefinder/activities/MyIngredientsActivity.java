@@ -294,11 +294,11 @@ public class MyIngredientsActivity extends Activity {
 	 */
 	private void searchCheckedItems() {
 		int count = this.myList.getAdapter().getCount();
+		searchList = new ArrayList<String>();
 		for (int i = 0; i < count; i++) {
 			if (this.myList.isItemChecked(i)) {
 				searchList.add(ingredManager.getIngredientList().
 						get(i).getIngredient());
-				adapter.notifyDataSetChanged();
 			}
 		}
 	}
