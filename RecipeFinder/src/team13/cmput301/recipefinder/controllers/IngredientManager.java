@@ -63,9 +63,10 @@ public class IngredientManager {
 			fis = ctx.openFileInput(PATH);
 			in = new ObjectInputStream(fis);
 			getIngredientManager().ingredients = (ArrayList<Ingredient>) in.readObject();
-			
+
 			for(Ingredient i : ingredients) {
-				getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
+				if(!ingredientAutoFillList.contains(i.getIngredient()))
+					getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
 			}
 			in.close();
 		} catch (Exception e) {
@@ -81,7 +82,7 @@ public class IngredientManager {
 		getIngredientManager().ingredients.add(ingredient);
 		getIngredientManager().ingredientAutoFillList.add(ingredient.getIngredient());
 	}
-	
+
 	/** 
 	 * Replace the ingredient at location i with the provided ingredient
 	 * @param ingredient The ingredient to replace with
@@ -97,7 +98,7 @@ public class IngredientManager {
 		} else {
 			getIngredientManager().ingredients.set(i, ingredient);
 		}
-			
+
 	}
 
 	/**
@@ -132,18 +133,18 @@ public class IngredientManager {
 			Log.e("IngredientManager", "Problems saving ingredients", e); 
 		}
 	}
-	
+
 	/**
 	 * @return The list of ingredients
 	 */
 	public List<Ingredient> getIngredientList() {
 		return getIngredientManager().ingredients;
 	}
-	
+
 	public List<String> getIngredientAutoFillList() {
 		return getIngredientManager().ingredientAutoFillList;
 	}
-	
+
 	/**
 	 * @param ingredList Set the list of ingredients
 	 */
@@ -154,7 +155,7 @@ public class IngredientManager {
 			getIngredientManager().ingredientAutoFillList.add(i.getIngredient());
 		}
 	}
-	
+
 	/**
 	 * Get the index of the ingredient in the list.
 	 * @param ingredient The ingredient to find the index of
