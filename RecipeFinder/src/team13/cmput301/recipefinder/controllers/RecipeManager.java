@@ -135,7 +135,8 @@ public class RecipeManager {
 		
 		for (int i = 0; i < this.allRecipes.size(); i++) {
 			Recipe recipe = this.allRecipes.get(i);
-			if (recipe.getAuthor().equals(User.getUser().getUsername()))
+			if (recipe.getAuthor().toLowerCase().
+					equals(User.getUser().getUsername().toLowerCase()))
 				own.add(recipe);
 		}
 		
