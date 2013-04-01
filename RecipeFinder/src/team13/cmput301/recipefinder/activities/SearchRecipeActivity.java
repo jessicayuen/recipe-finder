@@ -236,8 +236,9 @@ public class SearchRecipeActivity extends Activity {
 			}
 
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, 
-					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe));
+			RecipeManager.getRecipeManager(this).getSearchResultRecipes().set( 
+					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe),
+					recipe);
 			picGallery.setAdapter(imgAdapt);
 		}
 	}

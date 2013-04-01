@@ -85,6 +85,15 @@ public class RecipeManager {
 	public int getRecipeIndex(Recipe recipe) {
 		return this.allRecipes.indexOf(recipe);
 	}
+	
+	/**
+	 * return the index of the recipes in the search recipe list
+	 * @param recipe the recipe to be found
+	 * @return index of the recipe
+	 */
+	public int getRecipeIndexOfSearchRecipe(Recipe recipe) {
+		return this.searchResultRecipes.indexOf(recipe);
+	}
 
 	/**
 	 * Removes a recipe from the ones stored
