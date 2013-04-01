@@ -86,7 +86,7 @@ public class User implements Serializable {
 			userSettings = (ArrayList<String>) in.readObject();
 			in.close();
 
-			if (userSettings.size() > 5) {
+			if (userSettings.size() > 1) {
 				user.setUsername(userSettings.get(0));
 				user.setHasUsedApp(userSettings.get(1));
 			}
