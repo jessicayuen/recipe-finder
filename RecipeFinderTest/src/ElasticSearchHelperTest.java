@@ -1,5 +1,9 @@
 import static org.junit.Assert.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.apache.http.client.ClientProtocolException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import team13.cmput301.recipefinder.model.*;
@@ -30,18 +34,33 @@ public class ElasticSearchHelperTest {
 
 	@Test
 	public void testInsertRecipe() {
-		//esh.insertRecipe(recipe)
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetRecipe() {
-		fail("Not yet implemented"); // TODO
+		esh.insertRecipe(recipe);
+		try {
+			assertEquals(esh.getRecipe(recipe.getId()), recipe);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
 	}
 
 	@Test
 	public void testSearchRecipes() {
-		fail("Not yet implemented"); // TODO
+		// 
+		ArrayList<Recipe> searchList = esh.searchRecipes(recipe.getAuthor());
+		assertTrue("Search by author", searchList.contains(recipe));
+		
+		searchList = esh.searchRecipes(recipe.getDescription());
+		assertTrue("Search by description", searchList.contains(recipe));
+		
+		searchList = esh.searchRecipes(recipe.getName());
+		assertTrue("Search by name", searchList.contains(recipe));
+		
+		searchList = esh.searchRecipes("*");
+		assertTrue("Wildcard query", searchList.contains(recipe));
 	}
 
 	@Test
