@@ -1,3 +1,11 @@
+/**
+ * Adapter used to display the user recipe infromation when list of recipes are
+ * displayed
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
@@ -50,6 +58,9 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	@Override
+	/**
+	 * set up the custom layout with custom buttons
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		if (convertView == null) {

@@ -1,3 +1,11 @@
+/**
+ * Temporarily holds lists of ingredient strings and instruction strings
+ * to aid the recover of data when user switches the orientation of the phone
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;

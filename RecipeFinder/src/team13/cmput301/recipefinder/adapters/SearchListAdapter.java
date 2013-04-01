@@ -1,3 +1,11 @@
+/**
+ * 
+ * Adapter used to display search results of recipes in a list view
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
+
 package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
