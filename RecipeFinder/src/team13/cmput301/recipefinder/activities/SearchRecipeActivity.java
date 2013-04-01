@@ -358,6 +358,7 @@ public class SearchRecipeActivity extends Activity {
 						recipe.setRating(userRating);
 						UpdateRatingTask uTask = new UpdateRatingTask(
 								recipe.getId(), userRating);
+						uTask.execute();
 						recipeRating.setRating(recipe.getRating());
 						RecipeManager.getRecipeManager(SearchRecipeActivity
 								.this).getSearchResultRecipes().set( 
