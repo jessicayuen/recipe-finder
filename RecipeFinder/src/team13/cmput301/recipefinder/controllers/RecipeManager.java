@@ -71,6 +71,7 @@ public class RecipeManager {
 	 */
 	public void setRecipeAtLocation(Recipe recipe, int i) {
 		this.dataSource.open();
+		System.out.println(i);
 		this.dataSource.deleteRecipe(this.allRecipes.get(i));
 		this.dataSource.insertRecipe(recipe);
 		this.allRecipes.set(i, recipe);

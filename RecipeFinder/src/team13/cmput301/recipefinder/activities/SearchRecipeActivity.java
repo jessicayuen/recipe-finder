@@ -237,12 +237,12 @@ public class SearchRecipeActivity extends Activity {
 					e.printStackTrace();
 				}
 			}
-			
+			int index = RecipeManager.getRecipeManager(this)
+					.getSearchResultRecipes().indexOf(recipe);
 			final Photo pho = new Photo(User.getUser().getUsername(), photo);
 			recipe.addPhoto(pho);
 			RecipeManager.getRecipeManager(this).getSearchResultRecipes().set( 
-					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe),
-					recipe);
+					index, recipe);
 			AddPhotoTask update = new AddPhotoTask(recipe.getId());
 			update.execute(pho);
 			picGallery.setAdapter(imgAdapt);
@@ -355,15 +355,15 @@ public class SearchRecipeActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						userRating = dialogRatingBar.getRating();
+						int index = RecipeManager.getRecipeManager(SearchRecipeActivity
+								.this).getSearchResultRecipes().indexOf(recipe);
 						recipe.setRating(userRating);
 						UpdateRatingTask uTask = new UpdateRatingTask(
 								recipe.getId(), userRating);
 						uTask.execute();
 						recipeRating.setRating(recipe.getRating());
 						RecipeManager.getRecipeManager(SearchRecipeActivity
-								.this).getSearchResultRecipes().set( 
-								RecipeManager.getRecipeManager(
-										SearchRecipeActivity.this).getRecipeIndex(recipe),
+								.this).getSearchResultRecipes().set(index,
 								recipe);
 						ratingDialog.dismiss();						
 					}					

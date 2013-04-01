@@ -66,6 +66,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		}
 
 		Recipe recipe = recipeList.get(position);
+		System.out.println(recipe);
 		ImageView recipePic = (ImageView) convertView.findViewById(R.id.recipePicture);
 		TextView descr = (TextView) convertView.findViewById(R.id.descriptionBox);
 		TextView name = (TextView) convertView.findViewById(R.id.recipeNameDisplay);

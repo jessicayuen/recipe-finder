@@ -199,10 +199,10 @@ public class DisplayRecipeActivity extends Activity  {
 					e.printStackTrace();
 				}
 			}
-
+			int index = RecipeManager.getRecipeManager(this).getAllRecipes().indexOf(recipe);
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
-			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, 
-					RecipeManager.getRecipeManager(this).getRecipeIndexOfSearchRecipe(recipe));
+			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, index
+					);
 			picGallery.setAdapter(imgAdapt);
 		}
 	} 	
