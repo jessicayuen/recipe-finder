@@ -178,7 +178,6 @@ public class ElasticSearchHelper {
 				+ "\"}},\"filter\":{\"term\":{\"ingredients\":"
 				+ ingredientsString + "}}}}}";
 
-		Log.wtf("query", query);
 		StringEntity stringentity;
 		try {
 			stringentity = new StringEntity(query);
@@ -207,13 +206,39 @@ public class ElasticSearchHelper {
 		return recipes;
 	}
 
+	public void replaceRecipe(String id, Recipe recipe) throws IOException {
+           HttpPost httpPost = new HttpPost(BASEURL + id);
+           StringEntity stringentity = null;
+           try {
+                   stringentity = new StringEntity(gson.toJson(recipe));
+           } catch (UnsupportedEncodingException e) {
+                   e.printStackTrace();
+           }
+           httpPost.setHeader("Accept", "application/json");
+
+           httpPost.setEntity(stringentity);
+           HttpResponse response = null;
+                   response = httpclient.execute(httpPost);
+                   String status = response.getStatusLine().toString();
+                   System.out.println(status);
+                   HttpEntity entity = response.getEntity();
+                   BufferedReader br = new BufferedReader(new InputStreamReader(
+                                   entity.getContent()));
+                   String output;
+                   System.err.println("Output from Server -> ");
+                   while ((output = br.readLine()) != null) {
+                           System.err.println(output);
+                   }
+                   entity.consumeContent();
+	}
 	/**
-	 * Update a field in a recipe
+	 * Update a recipes with a new rating
 	 */
-	public void updateRecipes(String str) throws ClientProtocolException,
+	public void updateRecipeRating(String id, float newRating) throws ClientProtocolException,
 			IOException {
-		HttpPost updateRequest = new HttpPost(BASEURL + "1/_update");
-		String query = "{\"script\" : \"ctx._source." + str + "}";
+		// Add newRating to totalRating field
+		HttpPost updateRequest = new HttpPost(BASEURL + id + "_update");
+		String query = "{\"script\" : \"ctx._source.totalRating += " + newRating +"\"}";
 		StringEntity stringentity = new StringEntity(query);
 
 		updateRequest.setHeader("Accept", "application/json");
@@ -221,6 +246,18 @@ public class ElasticSearchHelper {
 
 		HttpResponse response = httpclient.execute(updateRequest);
 		String status = response.getStatusLine().toString();
+		System.out.println(status);
+		
+		// Add 1 to numOfRatings
+		updateRequest = new HttpPost(BASEURL + id + "_update");
+		query = "{\"script\" : \"ctx._source.numOfRatings += 1 \"}";
+		stringentity = new StringEntity(query);
+
+		updateRequest.setHeader("Accept", "application/json");
+		updateRequest.setEntity(stringentity);
+
+		response = httpclient.execute(updateRequest);
+		status = response.getStatusLine().toString();
 		System.out.println(status);
 
 	}
