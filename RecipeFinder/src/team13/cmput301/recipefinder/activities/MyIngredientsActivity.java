@@ -19,11 +19,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,9 +45,6 @@ public class MyIngredientsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_ingredients);
 
-		/* load ingredients*/
-		ingredManager = IngredientManager.getIngredientManager();
-
 		displayList = new ArrayList<String>();
 		autoFillDisplay = new ArrayList<String>();
 		myList = (ListView) findViewById(R.id.listOfIng);
@@ -57,19 +56,24 @@ public class MyIngredientsActivity extends Activity {
 				android.R.layout.simple_dropdown_item_1line, 
 				autoFillDisplay);
 
+		/* Set fonts */
+		setCustomFonts();
+		
+		/* Load ingredients*/
+		ingredManager = IngredientManager.getIngredientManager();
+		
 		List<Ingredient> ingredList = ingredManager.getIngredientList();
+		
 		/* Display the ingredients in the list view */
 		for(int i = 0; i < ingredList.size(); i++){
 			displayList.add(ingredList.get(i).toString());
 			myList.setAdapter(adapter);
 			autoFillDisplay.add(ingredList.get(i).getIngredient());
-
 		}
 
-		/* number of letters required to have drop list shown is set to 1*/
+		/* Allows ingredient prediction when user types */
 		addIngredients.setThreshold(1);
 		addIngredients.setAdapter(autoFillAdapter);
-
 	}
 
 	/**
@@ -312,5 +316,22 @@ public class MyIngredientsActivity extends Activity {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Set the TextViews and Buttons to a custom font.
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+
+		((AutoCompleteTextView)findViewById(R.id.autoFillAddIng)).setTypeface(typeface);
+		((Button)findViewById(R.id.minus)).setTypeface(typeface);
+		((Button)findViewById(R.id.changeQuantity)).setTypeface(typeface);
+		((Button)findViewById(R.id.plus)).setTypeface(typeface);
+		((Button)findViewById(R.id.delete)).setTypeface(typeface);
+		((Button)findViewById(R.id.search)).setTypeface(typeface);
 	}
 }
