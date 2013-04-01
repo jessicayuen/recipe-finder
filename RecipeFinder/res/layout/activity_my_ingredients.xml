@@ -88,7 +88,7 @@
             android:layout_toRightOf="@+id/minus"
             android:background="@drawable/regbutton"
             android:onClick="changeQuantity"
-            android:text="change quantity"
+            android:text="Change Quantity"
             android:textColor="@color/white"
             android:textSize="13sp" />
 
