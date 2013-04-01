@@ -218,7 +218,7 @@ public class RecipeManager {
 	 */
 	public void sortSearchResultByName(boolean sorted) {
 		if(!sorted)
-		Collections.sort(searchResultRecipes, new NameCompare());
+			Collections.sort(searchResultRecipes, new NameCompare());
 		else
 			Collections.reverse(searchResultRecipes);
 	}
@@ -229,7 +229,7 @@ public class RecipeManager {
 	 */
 	public void sortSearchResultByAuthor(boolean sorted) {
 		if(!sorted)
-		Collections.sort(searchResultRecipes, new AuthorCompare());
+			Collections.sort(searchResultRecipes, new AuthorCompare());
 		else
 			Collections.reverse(searchResultRecipes);
 	}
