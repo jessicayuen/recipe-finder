@@ -4,20 +4,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.test.ActivityInstrumentationTestCase2;
+
+import team13.cmput301.recipefinder.R;
+import team13.cmput301.recipefinder.activities.MainActivity;
+import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.resources.*;
 
 
-public class SortingRecipeTest {
+public class SortingRecipeTest  
+extends ActivityInstrumentationTestCase2<MainActivity> {
 
 	private List<Recipe> testList;
 	private Recipe recipe, recipe2;
+	
+	public SortingRecipeTest(Class<MainActivity> activityClass) {
+		super(activityClass);
+	}
 
-	@Test
-	public void sortByRatingTest() {
+	@BeforeClass
+	public void setUp() throws Exception {
+		super.setUp();
 		recipe = new Recipe("test1", "this is tests", "tester1",
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<Photo>(), 4);
@@ -26,6 +40,14 @@ public class SortingRecipeTest {
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<Photo>(), 2);
 		testList.add(recipe2);
+	}
+	
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	
+	@Test
+	public void sortByRatingTest() {
 
 		Collections.sort(testList, new RatingCompare());
 
