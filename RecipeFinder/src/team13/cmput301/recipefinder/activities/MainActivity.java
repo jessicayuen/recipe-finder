@@ -238,4 +238,10 @@ public class MainActivity extends Activity {
 		imageView.setClickable(false);
 		imageView.setImageResource(R.drawable.ic_launcher);
 	}
+	
+	@Override
+	/**
+	 * Disable back button from being pressed.
+	 */
+	public void onBackPressed() {}
 }
