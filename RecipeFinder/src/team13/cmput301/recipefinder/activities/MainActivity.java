@@ -9,6 +9,7 @@
 
 package team13.cmput301.recipefinder.activities;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -76,6 +77,8 @@ public class MainActivity extends Activity {
 	}
 
 	protected void onResume() {
+		
+		rm.setSearchResultRecipes(new ArrayList<Recipe>());
 		clearFavesDisplayed();
 
 		/* Display 4 random favorite recipes */

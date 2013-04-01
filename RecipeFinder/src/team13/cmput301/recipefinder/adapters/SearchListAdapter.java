@@ -40,7 +40,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public int getCount() {
 		return this.recipeList.size();
@@ -95,9 +95,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 
 		/* Set up rating display*/
 		recipeRating.setIsIndicator(true);
-		if(recipe.getRating() > 0){
-			recipeRating.setRating(recipe.getRating());
-		}
+		recipeRating.setRating(recipe.getRating());
 
 		/* Set up the remove button */
 		btnDownload.setFocusableInTouchMode(false);
