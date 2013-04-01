@@ -77,8 +77,7 @@ public class MainActivity extends Activity {
 	}
 
 	protected void onResume() {
-		
-		rm.setSearchResultRecipes(new ArrayList<Recipe>());
+	
 		clearFavesDisplayed();
 
 		/* Display 4 random favorite recipes */
