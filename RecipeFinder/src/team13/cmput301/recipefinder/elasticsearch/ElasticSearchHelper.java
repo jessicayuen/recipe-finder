@@ -239,7 +239,7 @@ public class ElasticSearchHelper {
 	public void updateRecipeRating(String id, float newRating) throws ClientProtocolException,
 			IOException {
 		// Add newRating to totalRating field
-		HttpPost updateRequest = new HttpPost(BASEURL + id + "_update");
+		HttpPost updateRequest = new HttpPost(BASEURL + id + "/_update");
 		String query = "{\"script\" : \"ctx._source.totalRating += " + newRating +"\"}";
 		StringEntity stringentity = new StringEntity(query);
 
@@ -251,8 +251,8 @@ public class ElasticSearchHelper {
 		System.out.println(status);
 		
 		// Add 1 to numOfRatings
-		updateRequest = new HttpPost(BASEURL + id + "_update");
-		query = "{\"script\" : \"ctx._source.numOfRatings += 1 \"}";
+		updateRequest = new HttpPost(BASEURL + id + "/_update");
+		query = "{\"script\" : \"ctx._source.numOfRatings += 1\"}";
 		stringentity = new StringEntity(query);
 
 		updateRequest.setHeader("Accept", "application/json");
