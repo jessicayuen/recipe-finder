@@ -202,7 +202,7 @@ public class DisplayRecipeActivity extends Activity  {
 
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
 			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, 
-					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe));
+					RecipeManager.getRecipeManager(this).getRecipeIndexOfSearchRecipe(recipe));
 			picGallery.setAdapter(imgAdapt);
 		}
 	} 	

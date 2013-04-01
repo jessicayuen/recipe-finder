@@ -25,6 +25,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.util.Log;
 
@@ -231,6 +232,7 @@ public class ElasticSearchHelper {
                    }
                    entity.consumeContent();
 	}
+	
 	/**
 	 * Update a recipes with a new rating
 	 */
@@ -260,6 +262,20 @@ public class ElasticSearchHelper {
 		status = response.getStatusLine().toString();
 		System.out.println(status);
 
+	}
+	
+	public void addRecipePhoto(String id, Photo... photos) throws IOException {
+		HttpPost updateRequest = new HttpPost(BASEURL + id + "_update");
+		final String photoString = gson.toJson(photos);
+		String query = "{\"script\" : \"ctx._source.photos += " + photoString +"\"}";
+		StringEntity stringentity = new StringEntity(query);
+
+		updateRequest.setHeader("Accept", "application/json");
+		updateRequest.setEntity(stringentity);
+
+		HttpResponse response = httpclient.execute(updateRequest);
+		String status = response.getStatusLine().toString();
+		System.out.println(status);
 	}
 
 	/**

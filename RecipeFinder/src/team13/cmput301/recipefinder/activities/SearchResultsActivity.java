@@ -24,15 +24,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 public class SearchResultsActivity extends Activity {
 
@@ -98,13 +97,6 @@ public class SearchResultsActivity extends Activity {
 				startActivity(displayIntent);	
 			}
 		});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search_results, menu);
-		return true;
 	}
 
 	/**
