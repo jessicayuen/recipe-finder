@@ -9,10 +9,12 @@
 package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
+import team13.cmput301.recipefinder.resources.*;
 import team13.cmput301.recipefinder.sqlitedatabase.RecipeDataSource;
 import android.content.Context;
 
@@ -50,7 +52,7 @@ public class RecipeManager {
 		this.allRecipes = this.dataSource.getAllRecipes();
 		this.dataSource.close();
 	}
-	
+
 	/**
 	 * Stores the recipe into the database
 	 * @param recipe The recipe to be stored
@@ -61,7 +63,7 @@ public class RecipeManager {
 		this.allRecipes.add(recipe);
 		this.dataSource.close();
 	}
-	
+
 	/**
 	 * Set the recipe at location i to the one provided.
 	 * @param recipe The new recipe
@@ -83,7 +85,7 @@ public class RecipeManager {
 	public int getRecipeIndex(Recipe recipe) {
 		return this.allRecipes.indexOf(recipe);
 	}
-	
+
 	/**
 	 * Removes a recipe from the ones stored
 	 * @param recipe The recipe to be removed
@@ -94,7 +96,7 @@ public class RecipeManager {
 		this.allRecipes.remove(recipe);
 		this.dataSource.close();
 	}
-	
+
 	/**
 	 * Searches the list of recipes for the specified search term
 	 * @param searchString The search term
@@ -117,64 +119,77 @@ public class RecipeManager {
 	 */
 	public List<Recipe> getFaveRecipes() {
 		List<Recipe> faves = new ArrayList<Recipe>();
-		
+
 		for (int i = 0; i < this.allRecipes.size(); i++) {
 			Recipe recipe = this.allRecipes.get(i);
 			if (recipe.isFave())
 				faves.add(recipe);
 		}
-		
+
 		return faves;
 	}
-	
+
 	/**
 	 * @return List of own recipes
 	 */
 	public List<Recipe> getOwnRecipes() {
 		List<Recipe> own = new ArrayList<Recipe>();
-		
+
 		for (int i = 0; i < this.allRecipes.size(); i++) {
 			Recipe recipe = this.allRecipes.get(i);
 			if (recipe.getAuthor().toLowerCase().
 					equals(User.getUser().getUsername().toLowerCase()))
 				own.add(recipe);
 		}
-		
+
 		return own;
 	}
-	
+
 	/**
 	 * @return List of downloaded recipes
 	 */
 	public List<Recipe> getDownloadedRecipes() {
 		List<Recipe> downloaded = new ArrayList<Recipe>();
-		
+
 		for (int i = 0; i < this.allRecipes.size(); i++) {
 			Recipe recipe = this.allRecipes.get(i);
 			if (!recipe.getAuthor().toLowerCase().
 					equals(User.getUser().getUsername().toLowerCase()))
 				downloaded.add(recipe);
 		}
-		
+
 		return downloaded;
 	}
-	
+
 	/**
 	 * @return List of user recipes
 	 */
 	public List<Recipe> getAllRecipes() {
 		return this.allRecipes;
 	}
-	
+
+	/**
+	 * set the recipe search result as provided by parameter
+	 * @param result
+	 */
 	public void setSearchResultRecipes(List<Recipe> result) {
 		this.searchResultRecipes = new ArrayList<Recipe>();
 		this.searchResultRecipes = result;
 	}
-	
+
+	/**
+	 * returns the search result set stored in recipe manager
+	 * @return
+	 */
 	public List<Recipe> getSearchResultRecipes() {
 		return this.searchResultRecipes;
 	}
-	
+
+	/**
+	 * checks whether provided recipe is in the recipe list
+	 * @param recipe
+	 * @return
+	 */
 	public boolean checkForExistingRecipe(Recipe recipe) {
 		for(Recipe r : this.allRecipes) {
 			if(r.getId().equals(recipe.getId())){
@@ -182,5 +197,40 @@ public class RecipeManager {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * sorts the search result recipe list by rating based on provided boolean, 
+	 * if it is already sorted then it reverses the list
+	 * @param sorted
+	 */
+	public void sortSearchResultByRating(boolean sorted) {
+		if(!sorted)
+			Collections.sort(searchResultRecipes, new RatingCompare());
+		else
+			Collections.reverse(searchResultRecipes);
+	}
+
+	/**
+	 * sorts the search result recipes list by name based on provided boolean
+	 * if already sorted then reverse the list
+	 * @param sorted
+	 */
+	public void sortSearchResultByName(boolean sorted) {
+		if(!sorted)
+		Collections.sort(searchResultRecipes, new NameCompare());
+		else
+			Collections.reverse(searchResultRecipes);
+	}
+
+	/**
+	 * sorts the search result recipes by author
+	 * @param sorted
+	 */
+	public void sortSearchResultByAuthor(boolean sorted) {
+		if(!sorted)
+		Collections.sort(searchResultRecipes, new AuthorCompare());
+		else
+			Collections.reverse(searchResultRecipes);
 	}
 }

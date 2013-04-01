@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/VisualCol"
         android:layout_alignBottom="@+id/VisualCol"
-        android:layout_marginLeft="41dp"
+        android:layout_marginLeft="34dp"
         android:layout_toRightOf="@+id/VisualCol"
         android:paddingLeft="5dp"
         android:text="Description"
