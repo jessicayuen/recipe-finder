@@ -99,6 +99,13 @@ public class SearchResultsActivity extends Activity {
 		});
 	}
 
+	@Override 
+	protected void onResume() {
+		search.setRecipeList(RecipeManager.getRecipeManager(this)
+				.getSearchResultRecipes());	
+		super.onResume();
+	}
+
 	/**
 	 * Listen for click on 'Search' 
 	 * perform a query based on the user's input.
