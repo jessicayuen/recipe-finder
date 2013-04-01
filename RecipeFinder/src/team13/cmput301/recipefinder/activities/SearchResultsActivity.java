@@ -18,7 +18,6 @@ import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.resources.InternetConnectivity;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -37,8 +36,11 @@ import android.widget.ListView;
 
 public class SearchResultsActivity extends Activity {
 
-
+	private boolean sortedByRating = false;
+	private boolean sortedByName = false;
+	private boolean sortedByAuthor = false;
 	private SearchListAdapter search;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
@@ -68,16 +70,16 @@ public class SearchResultsActivity extends Activity {
 		ListView searchResultListView = 
 				(ListView) findViewById(R.id.searchResultListView);
 		searchResultListView.setAdapter(search);
-		
+
 		ratingText.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				sortResultByRating();				
 			}
-			
+
 		});
-		
+
 		sortOption.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -94,7 +96,7 @@ public class SearchResultsActivity extends Activity {
 						SearchRecipeActivity.class);
 				displayIntent.putExtra("recipe", pos);
 				startActivity(displayIntent);	
-				}
+			}
 		});
 	}
 
@@ -129,6 +131,10 @@ public class SearchResultsActivity extends Activity {
 		startActivity(intent);
 	}
 
+	/**
+	 * pop up a dialog when user presses the description text to allow user
+	 * to choose whether to sort by name or author
+	 */
 	public void showSortOptions() {
 		List<String> options = new ArrayList<String>();
 		options.add("Name");
@@ -141,29 +147,49 @@ public class SearchResultsActivity extends Activity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				dialog.dismiss();
 				int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
-				if(selectedPosition == 0)                	
+				if(selectedPosition == 0) {              	
 					sortResultByName();
-				else
+					sortedByName = true;
+					sortedByRating = false;
+					sortedByAuthor = false;
+				}
+				else {
 					sortResultByAuthor();
+					sortedByAuthor = true;
+					sortedByName = false;
+					sortedByRating = false;
+				}
 			}
 		})
 		.show();
 	}
 
+	/**
+	 * sorts the recipes by rating when called
+	 */
 	public void sortResultByRating() {
-		RecipeManager.getRecipeManager(this).sortSearchResultByRating();
+		RecipeManager.getRecipeManager(this).sortSearchResultByRating(sortedByRating);
 		search.setRecipeList(RecipeManager.getRecipeManager(this)
 				.getSearchResultRecipes());
+		sortedByRating = true;
+		sortedByName = false;
+		sortedByAuthor = false;
 	}
 
+	/**
+	 * sorts the results by name when called
+	 */
 	public void sortResultByName() {
-		RecipeManager.getRecipeManager(this).sortSearchResultByName();
+		RecipeManager.getRecipeManager(this).sortSearchResultByName(sortedByName);
 		search.setRecipeList(RecipeManager.getRecipeManager(this)
 				.getSearchResultRecipes());
 	}
 
+	/**
+	 * sorts the results by author when called
+	 */
 	public void sortResultByAuthor() {
-		RecipeManager.getRecipeManager(this).sortSearchResultByAuthor();
+		RecipeManager.getRecipeManager(this).sortSearchResultByAuthor(sortedByAuthor);
 		search.setRecipeList(RecipeManager.getRecipeManager(this)
 				.getSearchResultRecipes());
 	}

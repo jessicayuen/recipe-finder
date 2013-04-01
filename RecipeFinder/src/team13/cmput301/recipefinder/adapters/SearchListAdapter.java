@@ -88,6 +88,8 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 		/* Set up display photo */
 		if(recipe.getPhotos().size() > 0){
 			recipePic.setImageBitmap(recipe.getPhotos().get(0).getPhoto());
+		} else {
+			recipePic.setImageResource(R.drawable.ic_launcher);
 		}
 
 		/* Set up rating display*/
