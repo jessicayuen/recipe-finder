@@ -92,7 +92,7 @@
 
             <Button
                 android:id="@+id/ingredientListButton"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="36dp"
                 android:layout_alignLeft="@+id/addIngredients"
                 android:layout_below="@+id/addIngredients"
@@ -100,6 +100,8 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:onClick="ingredientListClicked"
+                android:background="@drawable/regbutton"
+                android:textColor="@color/white"
                 android:text="..." />
 
             <Button
@@ -135,12 +137,14 @@
 
             <Button
                 android:id="@+id/instructionListButton"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="36dp"
                 android:layout_alignLeft="@+id/ingredientListButton"
                 android:layout_below="@+id/addInstructions"
                 android:gravity="center"
                 android:onClick="instructionListClicked"
+                android:background="@drawable/regbutton"
+                android:textColor="@color/white"
                 android:text="..." />
 
             <Button
