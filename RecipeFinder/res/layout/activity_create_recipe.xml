@@ -56,12 +56,6 @@
                 android:text="@string/instruc"
                 android:textSize="13sp" />
 
-            <Gallery
-                android:id="@+id/gallery"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
-
             <EditText
                 android:id="@+id/addDescription"
                 android:layout_width="wrap_content"
@@ -154,10 +148,16 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignLeft="@+id/instructionListButton"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:layout_below="@+id/instructionListButton"
                 android:background="@drawable/photobutton"
                 android:onClick="addPicturesClicked" />
+
+            <Gallery
+                android:id="@+id/gallery"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addPicturesButn" />
 
         </RelativeLayout>
 
