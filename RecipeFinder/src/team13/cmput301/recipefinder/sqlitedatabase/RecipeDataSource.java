@@ -93,19 +93,22 @@ public class RecipeDataSource {
 		recipe.setSqlID(id);
 
 		List<String> instructionsList = recipe.getInstructions();
-		values = insertInstructionValues(instructionsList, (int) id);
-		if (instructionsList.size() > 0)
+		for (int i = 0; i < instructionsList.size(); i++) {
+			values = insertInstructionValues(instructionsList.get(i), (int) id);
 			database.insert(SQLiteHelper.TABLE_INSTR, null, values);
+		}
 
 		List<String> ingredientsList = recipe.getIngredients();
-		values = insertIngredientValues(ingredientsList, (int) id);
-		if (ingredientsList.size() > 0)
+		for (int i = 0; i < ingredientsList.size(); i++) {
+			values = insertIngredientValues(ingredientsList.get(i), (int) id);
 			database.insert(SQLiteHelper.TABLE_INGRED, null, values);
+		}
 
 		List<Photo> photosList = recipe.getPhotos();
-		values = insertPhotoValues(photosList, (int) id);
-		if (photosList.size() > 0)
+		for (int i = 0; i < photosList.size(); i++) {
+			values = insertPhotoValues(photosList.get(i), (int) id);
 			database.insert(SQLiteHelper.TABLE_PHOTO, null, values);
+		}
 	}
 
 	/**
@@ -160,7 +163,7 @@ public class RecipeDataSource {
 		cursor.close();
 		return recipes;
 	}
-	
+
 	private Recipe cursorToRecipe(Cursor cursor) {	
 		long sqlID = cursor.getLong(0);
 		String name = cursor.getString(1);
@@ -193,7 +196,7 @@ public class RecipeDataSource {
 
 		Cursor instrCursor = database.query(SQLiteHelper.TABLE_INSTR,
 				instrColumns, new String(SQLiteHelper.COL_USER_REFERENCE 
-				+ " = " + cursor.getLong(0)), null, null, null, null);
+						+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		instrCursor.moveToFirst();
 		while (!instrCursor.isAfterLast()) {
@@ -210,7 +213,7 @@ public class RecipeDataSource {
 
 		Cursor ingredCursor = database.query(SQLiteHelper.TABLE_INGRED,
 				ingredColumns, new String(SQLiteHelper.COL_USER_REFERENCE 
-				+ " = " + cursor.getLong(0)), null, null, null, null);
+						+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		ingredCursor.moveToFirst();
 		while (!ingredCursor.isAfterLast()) {
@@ -227,15 +230,15 @@ public class RecipeDataSource {
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-		
+
 		Cursor photoCursor = database.query(SQLiteHelper.TABLE_PHOTO,
 				photoColumns, new String(SQLiteHelper.COL_USER_REFERENCE
-				+ " = " + cursor.getLong(0)), null, null, null, null);
+						+ " = " + cursor.getLong(0)), null, null, null, null);
 
 		photoCursor.moveToFirst();
 		while (!photoCursor.isAfterLast()) {
 			Bitmap bitmap = Photo.decodeBase64(photoCursor.getString(2));
-			
+
 			@SuppressWarnings("deprecation")
 			Photo photo = new Photo(photoCursor.getString(1), bitmap, 
 					new Date(photoCursor.getString(3)));
@@ -266,43 +269,35 @@ public class RecipeDataSource {
 		return values;
 	}
 
-	private ContentValues insertInstructionValues(List<String> instructions,
+	private ContentValues insertInstructionValues(String instruction,
 			int row) {
 		ContentValues values = new ContentValues();
 
-		for (int i = 0; i < instructions.size(); i++) {
-			values.put(SQLiteHelper.INSTR_COL_INSTR, instructions.get(i));
-			values.put(SQLiteHelper.COL_USER_REFERENCE, row);
-		}
+		values.put(SQLiteHelper.INSTR_COL_INSTR, instruction);
+		values.put(SQLiteHelper.COL_USER_REFERENCE, row);
 
 		return values;
 	}
 
-	private ContentValues insertIngredientValues(List<String> ingredients,
-			int row) {
+	private ContentValues insertIngredientValues(String ingredient, int row) {
 		ContentValues values = new ContentValues();
 
-		for (int i = 0; i < ingredients.size(); i++) {
-			values.put(SQLiteHelper.INGRED_COL_INGRED, ingredients.get(i));
-			values.put(SQLiteHelper.COL_USER_REFERENCE, row);
-		}
+		values.put(SQLiteHelper.INGRED_COL_INGRED, ingredient);
+		values.put(SQLiteHelper.COL_USER_REFERENCE, row);
 
 		return values;
 	}
 
-	private ContentValues insertPhotoValues(List<Photo> photos, int row) {
+	private ContentValues insertPhotoValues(Photo photo, int row) {
 		ContentValues values = new ContentValues();
-		
-		for (int i = 0; i < photos.size(); i++) {
-			String photo = photos.get(i).getEncodedPhoto();
-			
-			values.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
-					photos.get(i).getAuthor());
-			values.put(SQLiteHelper.PHOTO_COL_DATE, 
-					photos.get(i).getDate().toString());
-			values.put(SQLiteHelper.PHOTO_COL_PHOTO, photo);
-			values.put(SQLiteHelper.COL_USER_REFERENCE, row);
-		}
+
+		String encodedPhoto = photo.getEncodedPhoto();
+		values.put(SQLiteHelper.PHOTO_COL_AUTHOR, 
+				photo.getAuthor());
+		values.put(SQLiteHelper.PHOTO_COL_DATE, 
+				photo.getDate().toString());
+		values.put(SQLiteHelper.PHOTO_COL_PHOTO, encodedPhoto);
+		values.put(SQLiteHelper.COL_USER_REFERENCE, row);
 
 		return values;
 	}
