@@ -1,12 +1,11 @@
+package team13.cmput301.recipefinder.elasticsearch;
+
 /**
  * Holds the recipe data for an elastic search response.
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-
-package team13.cmput301.recipefinder.elasticsearch;
-
 public class ElasticSearchResponse<T> {
     String _index;
     String _type;

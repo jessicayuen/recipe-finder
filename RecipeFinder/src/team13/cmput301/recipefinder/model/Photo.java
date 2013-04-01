@@ -1,10 +1,3 @@
-/**
- * Stores information for a Photo.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.model;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +8,10 @@ import android.util.Base64;
 
 
 /**
- * class used to store photos along with their author and date inserted
+ * Class used to store photos along with their author and date inserted
+ *  
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 public class Photo {
 
@@ -24,7 +20,7 @@ public class Photo {
 	private Date date;
 	
 	/**
-	 * photo class constructor
+	 * Photo class constructor
 	 * @param author
 	 * @param photo
 	 */
@@ -35,7 +31,7 @@ public class Photo {
 	}
 	
 	/**
-	 * photo class constructor
+	 * Photo class constructor
 	 * @param author
 	 * @param photo
 	 * @param date
@@ -99,7 +95,7 @@ public class Photo {
 	}
 	
 	/**
-	 * sets author of the photo as given in the parameter
+	 * Sets author of the photo as given in the parameter
 	 * @param author
 	 */
 	public void setAuthor(String author) {
@@ -107,7 +103,7 @@ public class Photo {
 	}
 	
 	/**
-	 * sets the photo as the given parameter bitmap
+	 * Sets the photo as the given parameter bitmap
 	 * @param photo
 	 */
 	public void setPhoto(Bitmap photo) {
@@ -122,7 +118,7 @@ public class Photo {
 	}
 	
 	/**
-	 * sets the date as the given date
+	 * Sets the date as the given date
 	 * @param date
 	 */
 	public void setDate(Date date) {
