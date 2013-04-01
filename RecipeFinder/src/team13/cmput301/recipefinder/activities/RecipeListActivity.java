@@ -15,10 +15,12 @@ import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -74,6 +76,9 @@ public class RecipeListActivity extends Activity {
 
 		/* Set up tabs */
 		setupTabs();
+		
+		/* Set up custom font */
+		setCustomFonts();
 	}
 
 	@Override
@@ -235,5 +240,17 @@ public class RecipeListActivity extends Activity {
 		
 		downloadedRecipes = rm.getDownloadedRecipes();
 		downloadedListAdapter.setRecipeList(downloadedRecipes);
+	}
+	
+	/**
+	 * Set the TextViews and Buttons to a custom font.
+	 */
+	private void setCustomFonts() {
+		Typeface typeface;
+
+		typeface = Typeface.createFromAsset(getAssets(), 
+				"fonts/Comfortaa-Regular.ttf");
+
+		((Button)findViewById(R.id.viewAll)).setTypeface(typeface);
 	}
 }

@@ -327,7 +327,6 @@ public class MyIngredientsActivity extends Activity {
 		typeface = Typeface.createFromAsset(getAssets(), 
 				"fonts/Comfortaa-Regular.ttf");
 
-		((AutoCompleteTextView)findViewById(R.id.autoFillAddIng)).setTypeface(typeface);
 		((Button)findViewById(R.id.minus)).setTypeface(typeface);
 		((Button)findViewById(R.id.changeQuantity)).setTypeface(typeface);
 		((Button)findViewById(R.id.plus)).setTypeface(typeface);
