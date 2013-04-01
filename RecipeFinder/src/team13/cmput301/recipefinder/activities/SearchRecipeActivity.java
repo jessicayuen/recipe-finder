@@ -13,6 +13,9 @@ import java.io.FileOutputStream;
 import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
+import team13.cmput301.recipefinder.elasticsearch.AddPhotoTask;
+import team13.cmput301.recipefinder.elasticsearch.UpdateRatingTask;
+import team13.cmput301.recipefinder.elasticsearch.UpdateRecipeTask;
 import team13.cmput301.recipefinder.email.EmailSender;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
@@ -234,11 +237,14 @@ public class SearchRecipeActivity extends Activity {
 					e.printStackTrace();
 				}
 			}
-
-			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
+			
+			final Photo pho = new Photo(User.getUser().getUsername(), photo);
+			recipe.addPhoto(pho);
 			RecipeManager.getRecipeManager(this).getSearchResultRecipes().set( 
 					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe),
 					recipe);
+			AddPhotoTask update = new AddPhotoTask(recipe.getId());
+			update.execute(pho);
 			picGallery.setAdapter(imgAdapt);
 		}
 	}
@@ -350,6 +356,8 @@ public class SearchRecipeActivity extends Activity {
 					public void onClick(View v) {
 						userRating = dialogRatingBar.getRating();
 						recipe.setRating(userRating);
+						UpdateRatingTask uTask = new UpdateRatingTask(
+								recipe.getId(), userRating);
 						recipeRating.setRating(recipe.getRating());
 						ratingDialog.dismiss();						
 					}					
