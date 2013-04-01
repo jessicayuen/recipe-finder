@@ -222,13 +222,13 @@ public class MyIngredientsActivity extends Activity {
 	public void searchClicked(View view) {
 		searchCheckedItems();
 		if(searchList.isEmpty()){
-		Toast.makeText(getApplicationContext(), "You must select an ingredient!"
-				, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "You must select an ingredient!"
+					, Toast.LENGTH_SHORT).show();
 		}
 		else{
-		Intent searchIntent = new Intent(this, SearchResultsActivity.class);
-		searchIntent.putStringArrayListExtra("Ingredients", searchList);
-		startActivity(searchIntent);
+			Intent searchIntent = new Intent(this, SearchResultsActivity.class);
+			searchIntent.putStringArrayListExtra("Ingredients", searchList);
+			startActivity(searchIntent);
 		}
 	}
 
@@ -303,14 +303,14 @@ public class MyIngredientsActivity extends Activity {
 		if(ingredManager.getIngredientList().isEmpty()){
 			Toast.makeText(getApplicationContext(), "You have no ingredients!"
 					, Toast.LENGTH_SHORT).show();
-			}
-		else{
-		for (int i = 0; i < count; i++) {
-			if (this.myList.isItemChecked(i)) {
-				searchList.add(ingredManager.getIngredientList().
-						get(i).getIngredient());
-			}
 		}
+		else{
+			for (int i = 0; i < count; i++) {
+				if (this.myList.isItemChecked(i)) {
+					searchList.add(ingredManager.getIngredientList().
+							get(i).getIngredient());
+				}
+			}
 		}
 	}
 }
