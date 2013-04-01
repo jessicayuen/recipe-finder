@@ -35,12 +35,17 @@
                 <LinearLayout
                     android:id="@+id/allRecipesTab"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="@drawable/notepad" >
 
                     <ListView
                         android:id="@+id/allRecipeList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="25dp"
                         android:scrollbars="vertical" >
                     </ListView>
                 </LinearLayout>
@@ -48,12 +53,17 @@
                 <LinearLayout
                     android:id="@+id/favRecipesTab"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="@drawable/notepad" >
 
                     <ListView
                         android:id="@+id/favRecipeList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="25dp"
                         android:scrollbars="vertical" >
                     </ListView>
                 </LinearLayout>
@@ -61,12 +71,17 @@
                 <LinearLayout
                     android:id="@+id/myRecipesTab"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="@drawable/notepad" >
 
                     <ListView
                         android:id="@+id/myRecipeList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="25dp"
                         android:scrollbars="vertical" >
                     </ListView>
                 </LinearLayout>
@@ -74,12 +89,17 @@
                 <LinearLayout
                     android:id="@+id/downloadedTab"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:background="@drawable/notepad" >
 
                     <ListView
                         android:id="@+id/downloadedList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="25dp"
                         android:scrollbars="vertical" >
                     </ListView>
                 </LinearLayout>
