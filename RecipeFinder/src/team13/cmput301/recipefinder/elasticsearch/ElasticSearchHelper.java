@@ -107,7 +107,7 @@ public class ElasticSearchHelper {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public void getRecipe(String uuid) throws ClientProtocolException,
+	public Recipe getRecipe(String uuid) throws ClientProtocolException,
 			IOException {
 		HttpGet getRequest = new HttpGet(BASEURL + uuid);
 
@@ -126,7 +126,7 @@ public class ElasticSearchHelper {
 		// We get the recipe from it!
 		Recipe recipe = esResponse.getSource();
 		System.out.println(recipe.toString());
-
+		return recipe;
 	}
 
 	/**
@@ -281,8 +281,8 @@ public class ElasticSearchHelper {
 	/**
 	 * Delete an entry specified by the id
 	 */
-	public void deleteRecipe() throws IOException {
-		HttpDelete httpDelete = new HttpDelete(BASEURL + "1");
+	public void deleteRecipe(String id) throws IOException {
+		HttpDelete httpDelete = new HttpDelete(BASEURL + id);
 		httpDelete.addHeader("Accept", "application/json");
 
 		HttpResponse response = httpclient.execute(httpDelete);
