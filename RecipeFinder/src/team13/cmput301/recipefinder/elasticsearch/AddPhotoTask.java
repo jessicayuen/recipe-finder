@@ -22,6 +22,9 @@ public class AddPhotoTask extends AsyncTask<Photo, Void, Boolean> {
 	}
 
 	@Override
+	/**
+	 * Create an async thread to query the database for recipes
+	 */
 	protected Boolean doInBackground(Photo... photos) {
 		try {
 			ElasticSearchHelper.getElasticSearchHelper().addRecipePhoto(id, photos);

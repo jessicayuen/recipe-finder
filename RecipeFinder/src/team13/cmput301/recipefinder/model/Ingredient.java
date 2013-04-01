@@ -29,7 +29,7 @@ public class Ingredient implements Serializable {
 	}
 	
 	/**
-	 * return the ingredient name
+	 * Return the ingredient name
 	 * @return
 	 */
 	public String getIngredient() {
@@ -37,7 +37,7 @@ public class Ingredient implements Serializable {
 	}
 	
 	/**
-	 * sets the quatity of the recipe as specified
+	 * Sets the quatity of the recipe as specified
 	 * @param quantity
 	 */
 	public void setQuantity(float quantity) {
@@ -53,7 +53,7 @@ public class Ingredient implements Serializable {
 	}
 	
 	/**
-	 * decrease the quantity of the ingredient, if the quantity provided is 0
+	 * Decrease the quantity of the ingredient, if the quantity provided is 0
 	 * the decrement the ingredient quantity by 1
 	 * @param quantity
 	 */
@@ -66,7 +66,7 @@ public class Ingredient implements Serializable {
 	}
 	
 	/**
-	 * increment the quantity of the ingredient, if quantity is zero
+	 * Increment the quantity of the ingredient, if quantity is zero
 	 * then the ingredient is incremented once
 	 * @param quantity
 	 */
@@ -80,7 +80,7 @@ public class Ingredient implements Serializable {
 	
 
 	 /**
-	  * returns the string of the recipe
+	  * Returns the string of the recipe
 	  */
 	public String toString() {
 		return new String(ingredientName + " : " + Float.toString(quantity));

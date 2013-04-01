@@ -11,6 +11,7 @@ import team13.cmput301.recipefinder.model.Recipe;
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 public class RatingCompare implements Comparator<Recipe> {
+	
 	@Override
 	public int compare(Recipe o1, Recipe o2) {
 		return (o1.getRating()>o2.getRating() ? 1 : (o1.getRating()==o2.getRating() ? 0 : -1));

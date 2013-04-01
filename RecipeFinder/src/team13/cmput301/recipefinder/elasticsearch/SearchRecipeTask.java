@@ -25,7 +25,7 @@ public class SearchRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>>
 
 	@Override
 	/**
-	 * create an async thread to query the database for recipes
+	 * Create an async thread to query the database for recipes
 	 */
 	protected ArrayList<Recipe> doInBackground(String... queries) {
 

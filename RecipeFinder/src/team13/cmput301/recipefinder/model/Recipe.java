@@ -348,7 +348,7 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
-	 * return the total sum rating of this recipe
+	 * Return the total sum rating of this recipe
 	 * @return
 	 */
 	public float getTotalRating() {
@@ -356,7 +356,7 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
-	 * return the number of rating son this recipe
+	 * Return the number of rating son this recipe
 	 * @return
 	 */
 	public int getNumOfRatings() {
@@ -364,7 +364,7 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
-	 * set the total rating sum of this recipe as totalRating
+	 * Set the total rating sum of this recipe as totalRating
 	 * @param totalRating
 	 */
 	public void setTotalRating(int totalRating) {
@@ -372,7 +372,7 @@ public class Recipe implements Serializable {
 	}
 	
 	/**
-	 * set the total number of ratings of this recipe as provided
+	 * Set the total number of ratings of this recipe as provided
 	 * @param numOfRating
 	 */
 	public void setNumOfRatings(int numOfRating) {

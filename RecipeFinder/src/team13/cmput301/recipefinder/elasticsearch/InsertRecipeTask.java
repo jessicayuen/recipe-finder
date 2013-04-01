@@ -13,7 +13,7 @@ public class InsertRecipeTask extends AsyncTask<Recipe, Void, Boolean> {
 
 	@Override
 	/**
-	 * create an async thread to query the database for recipes
+	 * Create an async thread to query the database for recipes
 	 */
 	protected Boolean doInBackground(Recipe... params) {
 		
