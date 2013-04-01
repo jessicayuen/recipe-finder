@@ -14,15 +14,19 @@ import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.email.EmailSender;
+import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +44,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchRecipeActivity extends Activity {
 
+	private final int FILE_PATH_REQUEST = 1; 
+	private static final int CAMERA_REQUEST = 1888; 
 	private Gallery picGallery;
 	private PicAdapter imgAdapt;
 	private Recipe recipe;
@@ -87,9 +93,6 @@ public class SearchRecipeActivity extends Activity {
 		 */
 		Button fave = (Button) this.findViewById(R.id.fave_button);
 		fave.setVisibility(View.GONE);
-
-		Button addPhoto = (Button) this.findViewById(R.id.addPhoto);
-		addPhoto.setVisibility(View.GONE);
 
 		Button publish = (Button) this.findViewById(R.id.publish);
 		publish.setText("Download");
@@ -177,6 +180,69 @@ public class SearchRecipeActivity extends Activity {
 	}
 
 	/**
+	 * Allows the user to add a photo on 'Add Photo' button click.
+	 * @param view
+	 */
+	public void addPhoto(View view) {
+		AlertDialog alertDialog = 
+				new AlertDialog.Builder(SearchRecipeActivity.this).create();
+		alertDialog.setTitle("Add a Picture");
+
+		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
+				new DialogInterface.OnClickListener() {
+
+			/* Listen for Use Existing button click */
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(Intent.ACTION_PICK, android.
+						provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(intent, FILE_PATH_REQUEST);
+			} 
+		});
+
+		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Take a Picture", 
+				new DialogInterface.OnClickListener() {
+
+			/* Listen for Take a Picture button click */
+			public void onClick(DialogInterface dialog, int which) {
+				Intent cameraIntent = new Intent(
+						android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
+				startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+			} 
+		});
+		alertDialog.show();
+	}
+
+	/**
+	 * Takes the intent result and does something with it. In this case, 
+	 * watches for Camera and File results.
+	 */
+	protected void onActivityResult(int requestCode, int resultCode, 
+			Intent data) {
+
+		/* Display the image taken by the camera or from chosen file */
+		if (resultCode == RESULT_OK) {
+			Bitmap photo = null;
+
+			if (requestCode == CAMERA_REQUEST){
+				photo = (Bitmap) data.getExtras().get("data"); 
+			} else if(requestCode == FILE_PATH_REQUEST) {
+				Uri filePath = data.getData();
+				try {
+					photo = MediaStore.Images.Media.getBitmap(
+							getContentResolver(), filePath);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
+			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, 
+					RecipeManager.getRecipeManager(this).getRecipeIndex(recipe));
+			picGallery.setAdapter(imgAdapt);
+		}
+	}
+
+	/**
 	 * Allows the user to email a recipe on 'Share' button click
 	 * @param view The current activity view
 	 */
@@ -247,7 +313,7 @@ public class SearchRecipeActivity extends Activity {
 
 		alertDialog.show();
 	}
-	
+
 	/**
 	 * set up the custom rating bar that is displayed when
 	 * user touches the tiny rating bar
