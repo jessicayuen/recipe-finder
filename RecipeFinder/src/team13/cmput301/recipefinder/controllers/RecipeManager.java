@@ -9,10 +9,12 @@
 package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
+import team13.cmput301.recipefinder.resources.*;
 import team13.cmput301.recipefinder.sqlitedatabase.RecipeDataSource;
 import android.content.Context;
 
@@ -182,5 +184,17 @@ public class RecipeManager {
 			}
 		}
 		return true;
+	}
+	
+	public void sortSearchResultByRating() {
+		Collections.sort(searchResultRecipes, new RatingCompare());
+	}
+	
+	public void sortSearchResultByName() {
+		Collections.sort(searchResultRecipes, new NameCompare());
+	}
+	
+	public void sortSearchResultByAuthor() {
+		Collections.sort(searchResultRecipes, new AuthorCompare());
 	}
 }

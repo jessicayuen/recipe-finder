@@ -9,6 +9,7 @@
 package team13.cmput301.recipefinder.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import team13.cmput301.recipefinder.R;
@@ -17,20 +18,27 @@ import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.SearchRecipeTask;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.resources.InternetConnectivity;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class SearchResultsActivity extends Activity {
 
+
+	private SearchListAdapter search;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
@@ -43,6 +51,8 @@ public class SearchResultsActivity extends Activity {
 		setContentView(R.layout.activity_search_results);
 		SearchRecipeTask searchRecipeTask = new SearchRecipeTask(ingredientQuery);
 		searchRecipeTask.execute(query);
+		TextView ratingText = (TextView) findViewById(R.id.rating1);
+		TextView sortOption = (TextView) findViewById(R.id.discrip1);
 
 		try {
 			recipeList = searchRecipeTask.get();
@@ -53,12 +63,28 @@ public class SearchResultsActivity extends Activity {
 		}
 		RecipeManager.getRecipeManager(this).setSearchResultRecipes(recipeList);
 
+		search = new SearchListAdapter(this, RecipeManager.getRecipeManager(this)
+				.getSearchResultRecipes());
 		ListView searchResultListView = 
 				(ListView) findViewById(R.id.searchResultListView);
-		searchResultListView.setAdapter(
-				new SearchListAdapter(this, RecipeManager.getRecipeManager(this)
-						.getSearchResultRecipes()));
+		searchResultListView.setAdapter(search);
+		
+		ratingText.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View arg0) {
+				sortResultByRating();				
+			}
+			
+		});
+		
+		sortOption.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showSortOptions();				
+			}			
+		});
 
 		searchResultListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -68,8 +94,7 @@ public class SearchResultsActivity extends Activity {
 						SearchRecipeActivity.class);
 				displayIntent.putExtra("recipe", pos);
 				startActivity(displayIntent);	
-			}
-
+				}
 		});
 	}
 
@@ -79,7 +104,7 @@ public class SearchResultsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_search_results, menu);
 		return true;
 	}
-	
+
 	/**
 	 * Listen for click on 'Search' 
 	 * perform a query based on the user's input.
@@ -102,5 +127,44 @@ public class SearchResultsActivity extends Activity {
 		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 		finish();
 		startActivity(intent);
+	}
+
+	public void showSortOptions() {
+		List<String> options = new ArrayList<String>();
+		options.add("Name");
+		options.add("Author");
+		CharSequence[] cs = options.toArray(new CharSequence[options.size()]);
+		new AlertDialog.Builder(this)
+		.setTitle("Sort By")
+		.setSingleChoiceItems(cs, 0, null)
+		.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				dialog.dismiss();
+				int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+				if(selectedPosition == 0)                	
+					sortResultByName();
+				else
+					sortResultByAuthor();
+			}
+		})
+		.show();
+	}
+
+	public void sortResultByRating() {
+		RecipeManager.getRecipeManager(this).sortSearchResultByRating();
+		search.setRecipeList(RecipeManager.getRecipeManager(this)
+				.getSearchResultRecipes());
+	}
+
+	public void sortResultByName() {
+		RecipeManager.getRecipeManager(this).sortSearchResultByName();
+		search.setRecipeList(RecipeManager.getRecipeManager(this)
+				.getSearchResultRecipes());
+	}
+
+	public void sortResultByAuthor() {
+		RecipeManager.getRecipeManager(this).sortSearchResultByAuthor();
+		search.setRecipeList(RecipeManager.getRecipeManager(this)
+				.getSearchResultRecipes());
 	}
 }
