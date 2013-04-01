@@ -24,6 +24,9 @@ public class UpdateRecipeTask extends AsyncTask<String, Void, Boolean> {
 	}
 
 	@Override
+	/**
+	 * create an async thread to query the database for recipes
+	 */
 	protected Boolean doInBackground(String... params) {
 		try {
 			ElasticSearchHelper.getElasticSearchHelper().replaceRecipe(oldRecipeId, newRecipe);

@@ -21,6 +21,9 @@ public class UpdateRatingTask extends AsyncTask<Void, Void, Boolean>  {
 	}
 
 	@Override
+	/**
+	 * create an async thread to query the database for recipes
+	 */
 	protected Boolean doInBackground(Void... params) {
 		try {
 			ElasticSearchHelper.getElasticSearchHelper().updateRecipeRating(id, newRating);

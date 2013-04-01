@@ -12,6 +12,9 @@ import android.os.AsyncTask;
 public class InsertRecipeTask extends AsyncTask<Recipe, Void, Boolean> {
 
 	@Override
+	/**
+	 * create an async thread to query the database for recipes
+	 */
 	protected Boolean doInBackground(Recipe... params) {
 		
 		ElasticSearchHelper.getElasticSearchHelper().insertRecipe(params[0]);
