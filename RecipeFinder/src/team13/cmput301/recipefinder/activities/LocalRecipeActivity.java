@@ -42,7 +42,7 @@ import android.widget.Toast;
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-public class DisplayRecipeActivity extends Activity  {
+public class LocalRecipeActivity extends Activity  {
 
 	private final int FILE_PATH_REQUEST = 1; 
 	private static final int CAMERA_REQUEST = 1888; 
@@ -135,7 +135,7 @@ public class DisplayRecipeActivity extends Activity  {
 	 */
 	public void addPhoto(View view) {
 		AlertDialog alertDialog = 
-				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
+				new AlertDialog.Builder(LocalRecipeActivity.this).create();
 		alertDialog.setTitle("Add a Picture");
 
 		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Use Existing", 
@@ -208,7 +208,7 @@ public class DisplayRecipeActivity extends Activity  {
 	public void publishRecipe(View view) {
 		InsertRecipeTask irt = new InsertRecipeTask();
 		irt.execute(recipe);
-		Toast.makeText(DisplayRecipeActivity.this, 
+		Toast.makeText(LocalRecipeActivity.this, 
 				"Your recipe has been published!", Toast.LENGTH_LONG).show();
 	}
 
@@ -261,7 +261,7 @@ public class DisplayRecipeActivity extends Activity  {
 		recipeRating.setOnTouchListener(new OnTouchListener() {
 
 			public boolean onTouch(View view, MotionEvent me) {
-				ratingDialog = new Dialog(DisplayRecipeActivity.this);
+				ratingDialog = new Dialog(LocalRecipeActivity.this);
 				ratingDialog.setContentView(R.layout.custom_rating_display);
 				ratingDialog.setCancelable(true);
 				ratingDialog.setTitle("Recipe Rating");
@@ -341,7 +341,7 @@ public class DisplayRecipeActivity extends Activity  {
 	private void showEmailDialog(final EditText input) {
 		/* Setup the alert dialog */
 		AlertDialog alertDialog =
-				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
+				new AlertDialog.Builder(LocalRecipeActivity.this).create();
 		alertDialog.setTitle("Email Recipe");
 		alertDialog.setMessage("Enter recipient(s): ");
 		alertDialog.setView(input);
@@ -376,11 +376,11 @@ public class DisplayRecipeActivity extends Activity  {
 				if(sender.send(new String(User.getUser().getUsername() + 
 						" wants to share a recipe with you!"), 
 						recipe.toEmailString(), recipients)) { 
-					Toast.makeText(DisplayRecipeActivity.this, 
+					Toast.makeText(LocalRecipeActivity.this, 
 							"Email sent successfully.", 
 							Toast.LENGTH_LONG).show();
 				} else { 
-					Toast.makeText(DisplayRecipeActivity.this, 
+					Toast.makeText(LocalRecipeActivity.this, 
 							"Email was not sent.", Toast.LENGTH_LONG).show(); 
 				} 
 

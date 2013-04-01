@@ -47,7 +47,7 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="team13.cmput301.recipefinder.activities.DisplayRecipeActivity"
+            android:name="team13.cmput301.recipefinder.activities.LocalRecipeActivity"
             android:label="@string/title_activity_display_recipe"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden" >
