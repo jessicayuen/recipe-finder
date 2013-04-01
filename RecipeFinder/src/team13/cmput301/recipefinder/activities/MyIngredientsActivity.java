@@ -1,11 +1,3 @@
-/**
- * Allows user to keep track of their ingredients and their quantity;
- * including deleting ingredients, adding ingredients, and
- * increasing/decreasing quantities.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
 package team13.cmput301.recipefinder.activities;
 
 import java.util.ArrayList;
@@ -30,6 +22,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * Allows user to keep track of their ingredients and their quantity;
+ * including deleting ingredients, adding ingredients, and
+ * increasing/decreasing quantities.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class MyIngredientsActivity extends Activity {
 
 	private IngredientManager ingredManager;
@@ -41,16 +41,21 @@ public class MyIngredientsActivity extends Activity {
 	private ListView myList;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	/**
+	 * Called when the activity is first created.
+	 * Sets up adapters to listen for ingredients updates in the list view
+	 */
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_ingredients);
 
 		displayList = new ArrayList<String>();
 		autoFillDisplay = new ArrayList<String>();
 		myList = (ListView) findViewById(R.id.listOfIng);
-		adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_multiple_choice, displayList);
-		addIngredients = (AutoCompleteTextView) findViewById(R.id.autoFillAddIng);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.
+				simple_list_item_multiple_choice, displayList);
+		addIngredients = 
+				(AutoCompleteTextView) findViewById(R.id.autoFillAddIng);
 		quantityEditText = (EditText) findViewById(R.id.quantityItem);
 		autoFillAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, 

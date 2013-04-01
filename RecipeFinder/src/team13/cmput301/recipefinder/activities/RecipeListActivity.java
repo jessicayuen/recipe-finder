@@ -1,10 +1,3 @@
-/**
- * Displays local recipes
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import java.util.List;
@@ -28,6 +21,12 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
+/**
+ * Displays local recipes
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class RecipeListActivity extends Activity {
 
 	private RecipeManager rm;

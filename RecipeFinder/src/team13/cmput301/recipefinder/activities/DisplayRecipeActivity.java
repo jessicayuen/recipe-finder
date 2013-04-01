@@ -1,10 +1,3 @@
-/**
- * Displays the user created recipe.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import java.io.File;
@@ -43,6 +36,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Displays the user created recipe.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class DisplayRecipeActivity extends Activity  {
 
 	private final int FILE_PATH_REQUEST = 1; 
@@ -146,7 +145,7 @@ public class DisplayRecipeActivity extends Activity  {
 
 	/**
 	 * Allows the user to add a photo on 'Add Photo' button click.
-	 * @param view
+	 * @param view The view where the 'Add Photo' button is
 	 */
 	public void addPhoto(View view) {
 		AlertDialog alertDialog = 
@@ -329,8 +328,7 @@ public class DisplayRecipeActivity extends Activity  {
 	}
 
 	/**
-	 * set up the custom rating bar that is displayed when
-	 * user touches the tiny rating bar
+	 * Set up the custom rating bar that allows the user to rate a recipe
 	 */
 	private void setUpRatingBar() {
 
@@ -339,7 +337,7 @@ public class DisplayRecipeActivity extends Activity  {
 
 		recipeRating.setOnTouchListener(new OnTouchListener() {
 
-			public boolean onTouch(View arg0, MotionEvent arg1) {
+			public boolean onTouch(View view, MotionEvent me) {
 				ratingDialog = new Dialog(DisplayRecipeActivity.this);
 				ratingDialog.setContentView(R.layout.custom_rating_display);
 				ratingDialog.setCancelable(true);
@@ -372,5 +370,4 @@ public class DisplayRecipeActivity extends Activity  {
 			}			
 		});
 	}
-
 }

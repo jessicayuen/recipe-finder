@@ -1,11 +1,3 @@
-/**
- * 
- * Adapter used to display search results of recipes in a list view
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
@@ -25,33 +17,58 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * Adapter used to display search results of recipes in a list view
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 
 	private Context context;
 	private List<Recipe> recipeList;
 	private final int fontSize = 10;
 
+	/**
+	 * Constructor
+	 * @param context The activity context
+	 * @param recipeList The list of recipes
+	 */
 	public SearchListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
 		this.recipeList = recipeList;
 	}
 
+	/**
+	 * Set recipe list to the one provided
+	 * @param list The list to be set to
+	 */
 	public void setRecipeList(List<Recipe> list){
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
-	
+
 	@Override
+	/**
+	 * @return the size of the recipe list
+	 */
 	public int getCount() {
 		return this.recipeList.size();
 	}
 
 	@Override
+	/**
+	 * @return the recipe at position 
+	 */
 	public Object getItem(int position) {
 		return this.recipeList.get(position);
 	}
 
 	@Override
+	/**
+	 * @return the position of the recipe
+	 */
 	public long getItemId(int position) {
 		return position;
 	}
@@ -95,9 +112,7 @@ public class SearchListAdapter extends BaseAdapter implements OnClickListener {
 
 		/* Set up rating display*/
 		recipeRating.setIsIndicator(true);
-		if(recipe.getRating() > 0){
-			recipeRating.setRating(recipe.getRating());
-		}
+		recipeRating.setRating(recipe.getRating());
 
 		/* Set up the remove button */
 		btnDownload.setFocusableInTouchMode(false);

@@ -1,15 +1,14 @@
+package team13.cmput301.recipefinder.elasticsearch;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Holds elastic search response times and data.
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-
-package team13.cmput301.recipefinder.elasticsearch;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class ElasticSearchSearchResponse<T> {
     int took;
     boolean timed_out;

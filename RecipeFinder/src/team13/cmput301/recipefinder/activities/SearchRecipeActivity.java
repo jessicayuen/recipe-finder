@@ -1,10 +1,3 @@
-/**
- * Activity that displays the user search results.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import java.io.File;
@@ -15,7 +8,6 @@ import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.AddPhotoTask;
 import team13.cmput301.recipefinder.elasticsearch.UpdateRatingTask;
-import team13.cmput301.recipefinder.elasticsearch.UpdateRecipeTask;
 import team13.cmput301.recipefinder.email.EmailSender;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
@@ -36,6 +28,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
@@ -43,8 +36,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Activity that displays the user search results.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class SearchRecipeActivity extends Activity {
 
 	private final int FILE_PATH_REQUEST = 1; 
@@ -58,6 +56,9 @@ public class SearchRecipeActivity extends Activity {
 	private Dialog ratingDialog;
 
 	@Override
+	/**
+	 * Called when the activity is first created - sets up UI
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_recipe);
@@ -184,7 +185,7 @@ public class SearchRecipeActivity extends Activity {
 
 	/**
 	 * Allows the user to add a photo on 'Add Photo' button click.
-	 * @param view
+	 * @param view The view where the button is.
 	 */
 	public void addPhoto(View view) {
 		AlertDialog alertDialog = 
@@ -373,5 +374,4 @@ public class SearchRecipeActivity extends Activity {
 			}			
 		});
 	}
-
 }

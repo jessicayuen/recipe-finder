@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import team13.cmput301.recipefinder.model.Recipe;
 import android.os.AsyncTask;
 
+/**
+ * Task used query the database for recipes depending on the search text
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class SearchRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>> {
 
 	private final ArrayList<String> ingredients;
@@ -18,6 +24,9 @@ public class SearchRecipeTask extends AsyncTask<String, Void, ArrayList<Recipe>>
 	}
 
 	@Override
+	/**
+	 * Create an async thread to query the database for recipes
+	 */
 	protected ArrayList<Recipe> doInBackground(String... queries) {
 
 		if (ingredients != null) {

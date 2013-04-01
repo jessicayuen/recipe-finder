@@ -1,12 +1,3 @@
-/**
- * Main activity when application first starts and displays the 
- * user's favourite recipes, search bar, and ability to create
- * their own recipe.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import java.util.Collections;
@@ -32,6 +23,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Main activity when application first starts and displays the 
+ * user's favourite recipes, search bar, and ability to create
+ * their own recipe.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class MainActivity extends Activity {
 
 	private RecipeManager rm;
@@ -82,9 +81,10 @@ public class MainActivity extends Activity {
 		displayFaves();
 		super.onResume();
 	}
+	
 	/** 
 	 * Starts the activity Create Recipe on 'Create My Own' button click
-	 * @param view
+	 * @param view The view where the button is
 	 */
 	public void openCreateRecipe(View view) {
 		lm.clearLists();
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 
 	/**
 	 * Starts the activity My Ingredients on 'My Ingredients' button click
-	 * @param view
+	 * @param view The view where the button is
 	 */
 	public void openMyIngredients(View view) {
 		Intent intent = new Intent(this, MyIngredientsActivity.class);
@@ -124,8 +124,6 @@ public class MainActivity extends Activity {
 		intent.putExtra("simpleSearchQuery", simpleSearchQuery); 
 		startActivity(intent);
 	}
-
-
 
 	/**
 	 * Shows all recipe when user touches show all recipe text
@@ -198,9 +196,9 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * displays the recipe clicked on the main page
-	 * @param image imageview that listens to user clicks
-	 * @param recipe recipe to be displayed
+	 * Displays the recipe clicked from the image
+	 * @param image The image that is clicked
+	 * @param recipe Recipe to be displayed
 	 */
 	private void displayClickedRecipe(ImageView image, final Recipe recipe) {
 		image.setOnClickListener(new OnClickListener() {
@@ -217,7 +215,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * clears the display of faves on the main activity
+	 * Clears the display of faves on the main activity
 	 */
 	private void clearFavesDisplayed(){
 		ImageView imageView;

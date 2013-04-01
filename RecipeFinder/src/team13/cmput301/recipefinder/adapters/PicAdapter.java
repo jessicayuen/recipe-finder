@@ -1,11 +1,3 @@
-/**
- * PicAdapter updates images and displays them for the 
- * gallery in the provided activity.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
@@ -23,7 +15,11 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 
 /**
- * Adapter for images in the gallery
+ * PicAdapter updates images and displays them for the 
+ * gallery in the provided activity.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 public class PicAdapter extends BaseAdapter {
 
@@ -58,10 +54,10 @@ public class PicAdapter extends BaseAdapter {
 				(ImageView) picDialog.findViewById(R.id.enlargedImage);
 
 		/*
-		 * if we have image in the list then create a dialog to be
+		 * If we have image in the list then create a dialog to be
 		 * displayed when the user clicks on a certain image.
 		 * 
-		 * the dialog enlarges the photo clicked
+		 * The dialog enlarges the photo clicked
 		 */
 		if(imagePhotos.size() > 0){
 			imgView.setImageBitmap(imagePhotos.get(position).getPhoto());
@@ -89,7 +85,7 @@ public class PicAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * @return number of photos in the gallery
+	 * @return Number of photos in the gallery
 	 */
 	@Override
 	public int getCount() {
@@ -98,7 +94,8 @@ public class PicAdapter extends BaseAdapter {
 
 	@Override
 	/**
-	 * @return Image at @param position
+	 * @return Image at position
+	 * @param position The position of the image in the list
 	 */
 	public Object getItem(int position) {
 		return position;
@@ -106,7 +103,8 @@ public class PicAdapter extends BaseAdapter {
 
 	@Override
 	/**
-	 * @return ID of the image at @param position
+	 * @return ID of the image at position
+	 * @param position The position of image in the list
 	 */
 	public long getItemId(int position) {
 		return position;
@@ -115,9 +113,9 @@ public class PicAdapter extends BaseAdapter {
 	@Override
 	/**
 	 * Displays the images in the provided gallery
-	 * @param position
-	 * @param convertView
-	 * @param parent
+	 * @param position The position of the image in the list
+	 * @param convertView The view where the image is
+	 * @param parent The parent viewgroup
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView = new ImageView(galleryContext);

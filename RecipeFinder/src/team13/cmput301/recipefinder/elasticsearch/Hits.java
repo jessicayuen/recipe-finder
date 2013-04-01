@@ -1,14 +1,13 @@
+package team13.cmput301.recipefinder.elasticsearch;
+import java.util.Collection;
+
+
 /**
  * Records the hits of a Elastic Search Response result
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-
-package team13.cmput301.recipefinder.elasticsearch;
-import java.util.Collection;
-
-
 public class Hits<T> {
     int total;
     double max_score;
