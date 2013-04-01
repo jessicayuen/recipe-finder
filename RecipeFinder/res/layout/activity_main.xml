@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/white" >
+        android:background="@color/white" 
+        android:scrollbars="none" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -35,13 +36,15 @@
                     android:id="@+id/view_all"
                     android:layout_width="85dp"
                     android:layout_height="46dp"
-                    android:layout_alignBottom="@+id/fave"
-                    android:layout_toRightOf="@+id/fave"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="7dp"
+                    android:layout_alignTop="@+id/fave"
+                    android:background="@drawable/regbutton"
                     android:onClick="showAll"
                     android:text="View All"
-                    android:background="@drawable/regbutton"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp" />
+
             </RelativeLayout>
 
             <RelativeLayout
