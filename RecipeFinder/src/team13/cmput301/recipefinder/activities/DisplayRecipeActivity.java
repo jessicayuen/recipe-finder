@@ -202,87 +202,6 @@ public class DisplayRecipeActivity extends Activity  {
 	}
 	
 	/**
-	 * Set up text box definitions for the email dialog box.
-	 * @return The EditText
-	 */
-	private EditText setUpEmailText() {
-		EditText input = new EditText(this);
-		
-		input.setHeight(200);
-		input.setHint("Seperate recipents by ,");
-		input.setGravity(0);
-		
-		return input;
-	}
-
-	/**
-	 * Show the email dialog box - prompts user to enter recipients
-	 * and sends on button click.
-	 * @param input The text box for recipients input
-	 */
-	private void showEmailDialog(final EditText input) {
-		/* Setup the alert dialog */
-		AlertDialog alertDialog =
-				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
-		alertDialog.setTitle("Email Recipe");
-		alertDialog.setMessage("Enter recipient(s): ");
-		alertDialog.setView(input);
-		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
-				new DialogInterface.OnClickListener() {
-
-			/* Listen for Send button click */
-			public void onClick(DialogInterface dialog, int which) {
-				String[] recipients = input.getText().toString().
-						replaceAll("\\s", "").split(",");
-				EmailSender sender = new EmailSender();
-				File cacheDir = getBaseContext().getCacheDir();
-				File f = new File(cacheDir, "temp_email_image.jpg");
-
-				/* Attach the photos to the email */
-				for (int i = 0; i < recipe.getPhotos().size(); i++) {
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						recipe.getPhotos().get(i).getPhoto().compress(
-								Bitmap.CompressFormat.JPEG,
-								100, out);
-						out.flush();
-						out.close();
-						sender.addAttachment(cacheDir.getAbsolutePath() + 
-								"/temp_email_image.jpg");
-					} catch (Exception e) {
-						Log.e("DisplayRecipeActivity", 
-								"Problems attaching photo", e);
-					}
-				}
-				/* Try to send the email */
-				if(sender.send(new String(User.getUser().getUsername() + 
-						" wants to share a recipe with you!"), 
-						recipe.toEmailString(), recipients)) { 
-					Toast.makeText(DisplayRecipeActivity.this, 
-							"Email sent successfully.", 
-							Toast.LENGTH_LONG).show();
-				} else { 
-					Toast.makeText(DisplayRecipeActivity.this, 
-							"Email was not sent.", Toast.LENGTH_LONG).show(); 
-				} 
-
-				return;
-			}
-		});
-
-		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", 
-				new DialogInterface.OnClickListener() {
-
-			/* Listen for Cancel button click */
-			public void onClick(DialogInterface dialog, int which) {
-				return;
-			}
-		});
-
-		alertDialog.show();
-	}
-	
-	/**
 	 * Add the recipe to the online database
 	 * @param view
 	 */
@@ -398,5 +317,86 @@ public class DisplayRecipeActivity extends Activity  {
 		
 		textView = (TextView) this.findViewById(R.id.dateInfo);
 		textView.setText(recipe.getDate().toString());
+	}
+	
+	/**
+	 * Set up text box definitions for the email dialog box.
+	 * @return The EditText
+	 */
+	private EditText setUpEmailText() {
+		EditText input = new EditText(this);
+		
+		input.setHeight(200);
+		input.setHint("Seperate recipents by ,");
+		input.setGravity(0);
+		
+		return input;
+	}
+
+	/**
+	 * Show the email dialog box - prompts user to enter recipients
+	 * and sends on button click.
+	 * @param input The text box for recipients input
+	 */
+	private void showEmailDialog(final EditText input) {
+		/* Setup the alert dialog */
+		AlertDialog alertDialog =
+				new AlertDialog.Builder(DisplayRecipeActivity.this).create();
+		alertDialog.setTitle("Email Recipe");
+		alertDialog.setMessage("Enter recipient(s): ");
+		alertDialog.setView(input);
+		alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Send", 
+				new DialogInterface.OnClickListener() {
+
+			/* Listen for Send button click */
+			public void onClick(DialogInterface dialog, int which) {
+				String[] recipients = input.getText().toString().
+						replaceAll("\\s", "").split(",");
+				EmailSender sender = new EmailSender();
+				File cacheDir = getBaseContext().getCacheDir();
+				File f = new File(cacheDir, "temp_email_image.jpg");
+
+				/* Attach the photos to the email */
+				for (int i = 0; i < recipe.getPhotos().size(); i++) {
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						recipe.getPhotos().get(i).getPhoto().compress(
+								Bitmap.CompressFormat.JPEG,
+								100, out);
+						out.flush();
+						out.close();
+						sender.addAttachment(cacheDir.getAbsolutePath() + 
+								"/temp_email_image.jpg");
+					} catch (Exception e) {
+						Log.e("DisplayRecipeActivity", 
+								"Problems attaching photo", e);
+					}
+				}
+				/* Try to send the email */
+				if(sender.send(new String(User.getUser().getUsername() + 
+						" wants to share a recipe with you!"), 
+						recipe.toEmailString(), recipients)) { 
+					Toast.makeText(DisplayRecipeActivity.this, 
+							"Email sent successfully.", 
+							Toast.LENGTH_LONG).show();
+				} else { 
+					Toast.makeText(DisplayRecipeActivity.this, 
+							"Email was not sent.", Toast.LENGTH_LONG).show(); 
+				} 
+
+				return;
+			}
+		});
+
+		alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", 
+				new DialogInterface.OnClickListener() {
+
+			/* Listen for Cancel button click */
+			public void onClick(DialogInterface dialog, int which) {
+				return;
+			}
+		});
+
+		alertDialog.show();
 	}
 }
