@@ -1,11 +1,3 @@
-/**
- * Singleton that manages all the user's recipes, including their own
- * and ones that were downloaded. Also keeps track of favourite recipes.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.controllers;
 
 import java.util.ArrayList;
@@ -14,10 +6,19 @@ import java.util.List;
 
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.model.User;
-import team13.cmput301.recipefinder.resources.*;
+import team13.cmput301.recipefinder.resources.AuthorCompare;
+import team13.cmput301.recipefinder.resources.NameCompare;
+import team13.cmput301.recipefinder.resources.RatingCompare;
 import team13.cmput301.recipefinder.sqlitedatabase.RecipeDataSource;
 import android.content.Context;
 
+/**
+ * Singleton that manages all the user's recipes, including their own
+ * and ones that were downloaded. Also keeps track of favourite recipes.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class RecipeManager {
 	// Singleton
 	transient private static RecipeManager recipeManager = null;
@@ -88,7 +89,7 @@ public class RecipeManager {
 	}
 	
 	/**
-	 * return the index of the recipes in the search recipe list
+	 * Return the index of the recipes in the search recipe list
 	 * @param recipe the recipe to be found
 	 * @return index of the recipe
 	 */
@@ -179,8 +180,8 @@ public class RecipeManager {
 	}
 
 	/**
-	 * set the recipe search result as provided by parameter
-	 * @param result
+	 * Set the search result set
+	 * @param result Search result set
 	 */
 	public void setSearchResultRecipes(List<Recipe> result) {
 		this.searchResultRecipes = new ArrayList<Recipe>();
@@ -188,17 +189,16 @@ public class RecipeManager {
 	}
 
 	/**
-	 * returns the search result set stored in recipe manager
-	 * @return
+	 * @return The search result set
 	 */
 	public List<Recipe> getSearchResultRecipes() {
 		return this.searchResultRecipes;
 	}
 
 	/**
-	 * checks whether provided recipe is in the recipe list
-	 * @param recipe
-	 * @return
+	 * Checks whether provided recipe is in the recipe list
+	 * @param recipe The recipe to be checked
+	 * @return True if the recipe is in the recipe list, false otherwise
 	 */
 	public boolean checkForExistingRecipe(Recipe recipe) {
 		for(Recipe r : this.allRecipes) {
@@ -210,9 +210,8 @@ public class RecipeManager {
 	}
 
 	/**
-	 * sorts the search result recipe list by rating based on provided boolean, 
-	 * if it is already sorted then it reverses the list
-	 * @param sorted
+	 * Sorts the search result recipe list.
+	 * @param sorted false to sort it in increasing order,true to sort in reverse.
 	 */
 	public void sortSearchResultByRating(boolean sorted) {
 		if(!sorted)
@@ -222,9 +221,8 @@ public class RecipeManager {
 	}
 
 	/**
-	 * sorts the search result recipes list by name based on provided boolean
-	 * if already sorted then reverse the list
-	 * @param sorted
+	 * Sorts the search result recipes list by name.
+	 * @param sorted false to sort it in increasing order,true to sort in reverse.
 	 */
 	public void sortSearchResultByName(boolean sorted) {
 		if(!sorted)
@@ -234,8 +232,8 @@ public class RecipeManager {
 	}
 
 	/**
-	 * sorts the search result recipes by author
-	 * @param sorted
+	 * Sorts the search result recipes by author
+	 * @param sorted false to sort it in increasing order,true to sort in reverse.
 	 */
 	public void sortSearchResultByAuthor(boolean sorted) {
 		if(!sorted)

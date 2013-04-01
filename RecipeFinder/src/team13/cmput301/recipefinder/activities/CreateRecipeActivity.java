@@ -1,12 +1,3 @@
-/**
- * Activity that allows users to create a recipe. The user is allowed to attach
- * one or more photos to the recipe, a name for the recipe, the instructions,
- * the ingredients, and the description.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import java.util.ArrayList;
@@ -42,13 +33,21 @@ import android.widget.Gallery;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Activity that allows users to create a recipe. The user is allowed to attach
+ * one or more photos to the recipe, a name for the recipe, the instructions,
+ * the ingredients, and the description.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class CreateRecipeActivity extends Activity {
 
-	// Request Codes
+	/* Request Codes */
 	private static final int CAMERA_REQUEST = 1;
 	private static final int FILE_PATH_REQUEST = 2; 
 
-	// Activity UI 
+	/* Activity UI */
 	private AutoCompleteTextView addIngredients;
 	private ArrayAdapter<String> autoFillAdapter;
 	private EditText addName, addInstructions, addDescription;
@@ -85,7 +84,7 @@ public class CreateRecipeActivity extends Activity {
 				android.R.layout.simple_dropdown_item_1line, 
 				ingredientAutoFillList);
 		
-		/* number of letters required to have drop list shown is set to 1*/
+		/* Number of letters required to have drop list shown is set to 1*/
 		addIngredients.setThreshold(1);
 		addIngredients.setAdapter(autoFillAdapter);
 
@@ -113,7 +112,7 @@ public class CreateRecipeActivity extends Activity {
 
 	/**
 	 * Called on add picture button click - prompts user to 
-	 * take a new picture or choose from existing
+	 * take a new picture or choose from existing ones
 	 * @param view The view where the add picture button is
 	 */
 	public void addPicturesClicked(View view) {
@@ -203,8 +202,8 @@ public class CreateRecipeActivity extends Activity {
 	}
 
 	/**
-	 * Saves and displays the recipe when save button is clicked
-	 * and all necessary fields are filled out.
+	 * Saves and displays the recipe when save button is clicked.
+	 * Only does so if all necessary fields are filled out.
 	 * @param view Current activity view
 	 */
 	public void createClicked(View view) {			
@@ -316,6 +315,10 @@ public class CreateRecipeActivity extends Activity {
 		((Button)findViewById(R.id.instructionListButton)).setTypeface(typeface);
 	}
 
+	/**
+	 * Private class used for displaying a list with checklist 
+	 * and delete options
+	 */
 	private class CustomDialog {
 		String title;
 		List<String> items;

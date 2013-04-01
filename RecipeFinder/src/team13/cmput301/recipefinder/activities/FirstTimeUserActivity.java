@@ -1,11 +1,3 @@
-/**
- * Activity is displayed when the user uses the app for the first time.
- * Gets setup information from the user.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.activities;
 
 import team13.cmput301.recipefinder.R;
@@ -17,6 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * Activity is displayed when the user uses the app for the first time.
+ * Gets setup information from the user.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class FirstTimeUserActivity extends Activity {
 	
 	@Override

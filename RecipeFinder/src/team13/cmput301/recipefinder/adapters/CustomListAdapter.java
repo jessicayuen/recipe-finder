@@ -1,11 +1,3 @@
-/**
- * Adapter used to display the user recipe infromation when list of recipes are
- * displayed
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.adapters;
 
 import java.util.List;
@@ -25,6 +17,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+/**
+ * Adapter used to display the user recipe infromation when list of recipes are
+ * displayed
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 
 	private Context context;
@@ -33,33 +32,54 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 	private static final int FAV_BUTTON_CLICK = 1;
 	private static final int REMOVE_BUTTON_CLICK = 2;
 
+	/**
+	 * Constructor
+	 * @param context The activity context
+	 * @param recipeList The recipe list to set the adapter to
+	 */
 	public CustomListAdapter(Context context, List<Recipe> recipeList) {
 		this.context = context;
 		this.recipeList = recipeList;
 	}
 
+	/** 
+	 * Set the recipe list to the one provied
+	 * @param list The recipe list 
+	 */
 	public void setRecipeList(List<Recipe> list){
 		this.recipeList = list;
 		notifyDataSetChanged();
 	}
+
 	@Override
+	/**
+	 * @return the number of recipes in the list
+	 */
 	public int getCount() {
 		return this.recipeList.size();
 	}
 
 	@Override
+	/**
+	 * @return the recipe at location of the position
+	 * @param position The position of the recipe
+	 */
 	public Object getItem(int position) {
 		return this.recipeList.get(position);
 	}
 
 	@Override
+	/**
+	 * @return the position of the recipe
+	 * @param the position of the recipe
+	 */
 	public long getItemId(int position) {
 		return position;
 	}
 
 	@Override
 	/**
-	 * set up the custom layout with custom buttons
+	 * Set up the list view
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		

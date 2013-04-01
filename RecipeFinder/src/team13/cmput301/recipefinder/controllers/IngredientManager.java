@@ -1,11 +1,3 @@
-/**
- * Manages the list of ingredients including the saving and loading
- * of them from disk.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.controllers;
 
 import java.io.FileInputStream;
@@ -16,10 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import team13.cmput301.recipefinder.model.Ingredient;
-
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * Manages the list of ingredients including the saving and loading
+ * of them from disk.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class IngredientManager {
 
 	// Singleton
@@ -50,7 +48,7 @@ public class IngredientManager {
 	/**
 	 * Loads the user ingredients and stores the names into a list
 	 * to be used for autofilltextview
-	 * @param ctx Context
+	 * @param ctx The activity context
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadIngredients(Context ctx) {
