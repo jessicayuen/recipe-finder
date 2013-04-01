@@ -30,19 +30,6 @@ public class FirstTimeUserTest extends ActivityInstrumentationTestCase2
 		
 		addUserNameTest = (EditText) FTUA.findViewById(
 				team13.cmput301.recipefinder.R.id.username_input);
-		addEmailTest = (EditText) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.email_input);
-		addEmailPasswordTest = (EditText) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.email_password_input);
-		addHostTest = (EditText) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.host_input);
-		addPortTest = (EditText) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.port_input);
-		addSPortTest = (EditText) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.sport_input);
-		nextButtonTest = (Button) FTUA.findViewById(
-				team13.cmput301.recipefinder.R.id.next);
-	
 	}
 	
 	protected void tearDown() throws Exception {
