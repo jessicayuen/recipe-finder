@@ -1,10 +1,3 @@
-/**
- * Stores information for a Photo.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.model;
 
 import java.io.ByteArrayOutputStream;
@@ -16,6 +9,9 @@ import android.util.Base64;
 
 /**
  * class used to store photos along with their author and date inserted
+ *  
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 public class Photo {
 

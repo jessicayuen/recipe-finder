@@ -1,10 +1,3 @@
-/**
- * Sends a email to the recipient using the admin's email.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.email;
 
 import java.util.Date;
@@ -27,6 +20,12 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 
+/**
+ * Sends a email to the recipient using the admin's email.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class EmailSender extends javax.mail.Authenticator { 
 	private String email; 
 	private String pass; 

@@ -4,6 +4,12 @@ import java.io.IOException;
 
 import android.os.AsyncTask;
 
+/**
+ * Task used to update the database when user updates a rating on a recipe
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class UpdateRatingTask extends AsyncTask<Void, Void, Boolean>  {
 
 	private final String id;

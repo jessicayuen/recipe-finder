@@ -1,11 +1,3 @@
-/**
- * Responsible for interactions with the database - including
- * the addition, removal, retrieving of recipes.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.sqlitedatabase;
 
 import java.util.ArrayList;
@@ -23,6 +15,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+/**
+ * Responsible for interactions with the database - including
+ * the addition, removal, retrieving of recipes.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class RecipeDataSource {
 
 	private SQLiteDatabase database;

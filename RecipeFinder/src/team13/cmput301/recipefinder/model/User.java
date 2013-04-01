@@ -1,10 +1,3 @@
-/**
- * User class holds all the user information.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.model;
 
 import java.io.FileInputStream;
@@ -18,6 +11,12 @@ import java.util.List;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * User class holds all the user information.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 

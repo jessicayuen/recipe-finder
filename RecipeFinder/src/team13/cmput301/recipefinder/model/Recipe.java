@@ -1,10 +1,3 @@
-/**
- * Recipe class that models a Recipe
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.model;
 
 import java.io.Serializable;
@@ -13,6 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 
+/**
+ * Recipe class that models a Recipe
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
 

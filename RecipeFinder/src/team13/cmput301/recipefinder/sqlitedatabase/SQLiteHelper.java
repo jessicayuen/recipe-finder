@@ -1,11 +1,3 @@
-/**
- * Responsible for SQL database definitions.
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
-
 package team13.cmput301.recipefinder.sqlitedatabase;
 
 import android.content.Context;
@@ -13,6 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Responsible for SQL database definitions.
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class SQLiteHelper extends SQLiteOpenHelper {
 	 
 	private static final String DATABASE_NAME = "recipes.db";

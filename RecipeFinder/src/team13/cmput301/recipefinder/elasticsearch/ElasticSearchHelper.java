@@ -1,11 +1,3 @@
-/**
- * Deals with operations related to searching and retrieving of
- * recipes from http://cmput301.softwareprocess.es:8080/cmput301w13t12/
- * 
- * CMPUT301 W13 T13
- * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
- */
-
 package team13.cmput301.recipefinder.elasticsearch;
 
 import java.io.BufferedReader;
@@ -32,6 +24,13 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Deals with operations related to searching and retrieving of
+ * recipes from http://cmput301.softwareprocess.es:8080/cmput301w13t12/
+ * 
+ * CMPUT301 W13 T13
+ * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
+ */
 public class ElasticSearchHelper {
 	private static final String BASEURL = "http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
 
