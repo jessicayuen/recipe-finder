@@ -3,7 +3,6 @@ package team13.cmput301.recipefinder.elasticsearch;
 import java.io.IOException;
 
 import team13.cmput301.recipefinder.model.Photo;
-import team13.cmput301.recipefinder.model.Recipe;
 import android.os.AsyncTask;
 
 /**

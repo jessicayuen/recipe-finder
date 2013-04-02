@@ -6,7 +6,7 @@ import team13.cmput301.recipefinder.model.Recipe;
 import android.os.AsyncTask;
 
 /**
- * Task used query the database for recipes depending on the search text
+ * Task used to query the database for recipes depending on the search text
  * 
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
