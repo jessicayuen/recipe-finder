@@ -14,7 +14,7 @@ public class NameCompare implements Comparator<Recipe> {
 
 	@Override
 	public int compare(Recipe lhs, Recipe rhs) {
-		return lhs.getName().compareTo(rhs.getName());
+		return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
 	}
 
 }
