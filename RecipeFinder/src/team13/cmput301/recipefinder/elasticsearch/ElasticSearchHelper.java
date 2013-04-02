@@ -169,9 +169,9 @@ public class ElasticSearchHelper {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		HttpPost searchRequest = new HttpPost(BASEURL + "_search");
 
-		StringEntity stringentity = setAdvancedSearchQuery(searchTerm,
-				ingredients);
 		try {
+			StringEntity stringentity = setAdvancedSearchQuery(searchTerm,
+					ingredients);
 			searchRequest.setHeader("Accept", "application/json");
 			searchRequest.setEntity(stringentity);
 
@@ -197,7 +197,7 @@ public class ElasticSearchHelper {
 	}
 
 	private StringEntity setAdvancedSearchQuery(String searchTerm,
-			ArrayList<String> ingredients) {
+			ArrayList<String> ingredients) throws UnsupportedEncodingException {
 		String ingredientsString = gson.toJson(ingredients);
 		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"
 				+ "{\"query\":\"" + searchTerm
@@ -267,7 +267,7 @@ public class ElasticSearchHelper {
 	
 	public void addRecipePhoto(String id, Photo... photos) throws IOException {
 		HttpPost updateRequest = new HttpPost(BASEURL + id + "_update");
-		final String photoString = gson.toJson(photos);
+		final String photoString = gson.toJson(photos[0]);
 		String query = "{\"script\" : \"ctx._source.photos += " + photoString +"\"}";
 		StringEntity stringentity = new StringEntity(query);
 
