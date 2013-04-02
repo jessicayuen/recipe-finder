@@ -253,6 +253,9 @@ public class RecipeListActivity extends Activity {
 		((Button)findViewById(R.id.viewAll)).setTypeface(typeface);
 	}
 	
+	/**
+	 * Overwrite back button click and return to main activity.
+	 */
 	public void onBackPressed() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);

@@ -31,12 +31,12 @@ public class Recipe implements Serializable {
 
 	/** 
 	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients
-	 * @param instructions
-	 * @param photos
+	 * @param name The name of the recipe
+	 * @param description The description of the recipe
+	 * @param author The author of the recipe
+	 * @param ingredients The ingredients in the recipe
+	 * @param instructions The instructions for the recipe
+	 * @param photos The photos attached to the recipe
 	 */
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions,
@@ -57,13 +57,13 @@ public class Recipe implements Serializable {
 
 	/** 
 	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients 
-	 * @param instructions
-	 * @param photos
-	 * @param rating
+	 * @param name The name of the recipe
+	 * @param description The description of the recipe
+	 * @param author The author of the recipe
+	 * @param ingredients The ingredients in the recipe
+	 * @param instructions The instructions for the recipe
+	 * @param photos The photos in the recipe
+	 * @param rating The rating for the recipe
 	 */
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 
@@ -73,15 +73,17 @@ public class Recipe implements Serializable {
 		this.rating = rating;
 	}
 
-	/** 
+	/**
 	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients 
-	 * @param instructions
-	 * @param photos
-	 * @param rating
+	 * @param name The name of the recipe
+	 * @param description The description of the recipe
+	 * @param author The author of the recipe
+	 * @param ingredients The ingredients in the recipe
+	 * @param instructions The instructions for the recipe
+	 * @param photos The photos in the recipe
+	 * @param rating The average rating for the recipe
+	 * @param numOfRatings The number of ratings for the recipe
+	 * @param totalRating The total sum of ratings for the recipe
 	 */
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 
@@ -93,16 +95,21 @@ public class Recipe implements Serializable {
 		this.totalRating = totalRating;
 	}
 
-	/** 
+	/**
 	 * Constructor for Recipe object
-	 * @param name
-	 * @param description
-	 * @param author
-	 * @param ingredients 
-	 * @param instructions
-	 * @param photos
-	 * @param rating
-	 * @param date
+	 * @param name The name of the recipe
+	 * @param description The description of the recipe
+	 * @param author The author of the recipe
+	 * @param ingredients The ingredients in the recipe
+	 * @param instructions The instructions for the recipe
+	 * @param photos The photos in the recipe
+	 * @param rating The average rating for the recipe
+	 * @param numOfRatings The number of ratings for the recipe
+	 * @param totalRating The total sum of ratings for the recipe
+	 * @param date The date the recipe was created
+	 * @param fave Whether the recipe is favorited
+	 * @param id The UUID of the recipe 
+	 * @param sqlID The primary key of the recipe in SQL
 	 */
 	public Recipe(String name, String description, String author,
 			List<String> ingredients, List<String> instructions, 

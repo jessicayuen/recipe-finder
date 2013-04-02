@@ -31,7 +31,8 @@ import com.google.gson.reflect.TypeToken;
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
 public class ElasticSearchHelper {
-	private static final String BASEURL = "http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
+	private static final String BASEURL = 
+			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
 
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;

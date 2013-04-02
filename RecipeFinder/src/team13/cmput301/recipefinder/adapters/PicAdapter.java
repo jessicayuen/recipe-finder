@@ -84,10 +84,10 @@ public class PicAdapter extends BaseAdapter {
 		}
 	}
 
+	@Override
 	/**
 	 * @return Number of photos in the gallery
 	 */
-	@Override
 	public int getCount() {
 		return imagePhotos.size();
 	}

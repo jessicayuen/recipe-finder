@@ -195,11 +195,10 @@ public class MyIngredientsActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
-				if(input.getText().toString().equals("")){
+				if (input.getText().toString().equals("")) {
 					Toast.makeText(getApplicationContext(), "You must specify a quantity!"
 							, Toast.LENGTH_SHORT).show();
-				}
-				else{
+				} else {
 					int quantity = Integer.parseInt(input.getText().toString());
 					MyIngredientsActivity.this.incrCheckedItems(quantity);
 				}
@@ -210,11 +209,10 @@ public class MyIngredientsActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int which) {
-				if(input.getText().toString().equals("")){
+				if (input.getText().toString().equals("")) {
 					Toast.makeText(getApplicationContext(), "You must specify a quantity!"
 							, Toast.LENGTH_SHORT).show();
-				}
-				else{
+				} else {
 					int quantity = Integer.parseInt(input.getText().toString());
 					MyIngredientsActivity.this.decrCheckedItems(quantity);
 				}
@@ -309,11 +307,11 @@ public class MyIngredientsActivity extends Activity {
 	private void searchCheckedItems() {
 		int count = this.myList.getAdapter().getCount();
 		searchList = new ArrayList<String>();
-		if(ingredManager.getIngredientList().isEmpty()){
-			Toast.makeText(getApplicationContext(), "You have no ingredients!"
+		if (ingredManager.getIngredientList().isEmpty()) {
+			Toast.makeText(getApplicationContext(), 
+					"You have no ingredients selected!"
 					, Toast.LENGTH_SHORT).show();
-		}
-		else{
+		} else {
 			for (int i = 0; i < count; i++) {
 				if (this.myList.isItemChecked(i)) {
 					searchList.add(ingredManager.getIngredientList().

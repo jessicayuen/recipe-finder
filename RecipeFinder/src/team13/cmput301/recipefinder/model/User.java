@@ -127,6 +127,9 @@ public class User implements Serializable {
 		this.hasUsedApp = hasUsedApp;
 	}
 	
+	/**
+	 * Return a string representing the user of the form Username: user Has used app: true
+	 */
 	public String toString() {
 		return "Username: " + username + " Has used app: " + hasUsedApp;
 	}
