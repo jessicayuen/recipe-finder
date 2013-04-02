@@ -107,7 +107,7 @@ public class MyIngredientsActivity extends Activity {
 
 			/* Ingredient already exists */
 			if (name.equals(ingred.getIngredient())) {
-				ingred.setQuantity(ingred.getQuantity() + 1);
+				ingred.setQuantity(ingred.getQuantity() + quantity);
 				displayList.set(i, ingred.toString());
 				adapter.notifyDataSetChanged();
 				ingredManager.setIngredient(ingred, i);
