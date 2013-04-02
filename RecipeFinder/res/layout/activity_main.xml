@@ -7,7 +7,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/white" 
+        android:background="@drawable/carbonfiber"
         android:scrollbars="none" >
 
         <RelativeLayout
@@ -15,9 +15,17 @@
             android:layout_height="wrap_content" >
 
             <RelativeLayout
+                android:id="@+id/banner"
+                android:layout_width="fill_parent"
+                android:layout_height="61dp"
+                android:background="@drawable/banner" >
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/faveLayoutView"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
+                android:layout_below="@+id/banner"
                 android:background="@drawable/carbonfiber"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
@@ -37,22 +45,21 @@
                     android:layout_width="85dp"
                     android:layout_height="46dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="7dp"
                     android:layout_alignTop="@+id/fave"
+                    android:layout_marginRight="7dp"
                     android:background="@drawable/regbutton"
                     android:onClick="showAll"
                     android:text="View All"
                     android:textColor="#FFFFFF"
                     android:textSize="15sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/imagesLayoutView"
                 android:layout_width="fill_parent"
                 android:layout_height="260dp"
-                android:background="@drawable/linenbg"
                 android:layout_below="@+id/faveLayoutView"
+                android:background="@drawable/linenbg"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
@@ -128,11 +135,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/search_button"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:ems="10" >
+                    android:layout_toLeftOf="@+id/search_button"
+                    android:ems="10"
+                    android:textColor="@color/white" >
                 </EditText>
 
                 <Button
@@ -144,7 +151,6 @@
                     android:background="@drawable/search"
                     android:onClick="searchRecipe"
                     android:textSize="15sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -170,7 +176,7 @@
             <RelativeLayout
                 android:id="@+id/buttonsLayoutView"
                 android:layout_width="fill_parent"
-                android:layout_height="87dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/customizeLayoutView"
                 android:background="@drawable/linenbg"
                 android:paddingBottom="5dp"
@@ -181,12 +187,13 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="24dp"
                     android:layout_toLeftOf="@+id/my_ingredients"
-                    android:onClick="openCreateRecipe"
-                    android:textColor="#FFFFFF"
                     android:background="@drawable/regbutton"
+                    android:onClick="openCreateRecipe"
                     android:text="@string/create_my_own"
+                    android:textColor="#FFFFFF"
                     android:textSize="15sp" />
 
                 <Button
@@ -195,11 +202,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/regbutton"
-                    android:textColor="@color/white"
                     android:onClick="openMyIngredients"
                     android:text="@string/my_ingredients"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </RelativeLayout>
         </RelativeLayout>
