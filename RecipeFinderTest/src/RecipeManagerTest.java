@@ -32,17 +32,17 @@ public class RecipeManagerTest
 		// Adding to user recipe list
 		rm.addToUserRecipe(recipe);
 		assertEquals(rm.getAllRecipes().get(
-				rm.getAllRecipes().size() - 1), recipe);
+				rm.getAllRecipes().size() -1 ), recipe);
 		
 		// Adding to favorites recipe list
 		assertEquals(rm.getFaveRecipes().get(
-				rm.getFaveRecipes().size() - 1), recipe);
+				rm.getFaveRecipes().size()-1), recipe);
 	}
 	
 	@Test
 	public void loadRecipeList() {
 		rm.loadRecipes();
 		assertEquals(rm.getAllRecipes().get(
-				rm.getAllRecipes().size() - 1), recipe);
+				rm.getAllRecipes().size()), recipe);
 	}
 }

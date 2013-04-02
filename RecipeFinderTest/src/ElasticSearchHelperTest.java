@@ -6,14 +6,24 @@ import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import android.test.ActivityInstrumentationTestCase2;
 import team13.cmput301.recipefinder.model.*;
+import team13.cmput301.recipefinder.activities.MainActivity;
+import team13.cmput301.recipefinder.activities.RecipeListActivity;
 import team13.cmput301.recipefinder.elasticsearch.*;
 
-public class ElasticSearchHelperTest {
+public class ElasticSearchHelperTest extends ActivityInstrumentationTestCase2
+<MainActivity> {
 
 	team13.cmput301.recipefinder.model.Recipe recipe;
 	ElasticSearchHelper esh;
 
+	public ElasticSearchHelperTest() {
+		super(MainActivity.class);
+		// TODO Auto-generated constructor stub
+	}
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception {
 		recipe = new Recipe("Name", "Description", "Author",
