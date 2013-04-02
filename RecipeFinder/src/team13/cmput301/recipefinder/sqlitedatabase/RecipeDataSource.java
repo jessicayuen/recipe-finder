@@ -168,12 +168,7 @@ public class RecipeDataSource {
 		String name = cursor.getString(1);
 		String description = cursor.getString(2);
 		String author = cursor.getString(3);
-		int temp = cursor.getInt(4);
-		boolean fave;
-		if (temp == 1) 
-			fave = true;
-		else
-			fave = false;
+		boolean fave = getFave(cursor);
 		float rating = cursor.getFloat(5);
 		@SuppressWarnings("deprecation")
 		Date date = new Date(cursor.getString(6));
@@ -188,6 +183,17 @@ public class RecipeDataSource {
 		return new Recipe(name, description, author, ingredients,
 				instructions, photos, rating, num_ratings,
 				total_rating, date, fave, uuid, sqlID);
+	}
+
+	private boolean getFave(Cursor cursor) {
+		int temp = cursor.getInt(4);
+		boolean fave;
+		if (temp == 1) {
+			fave = true;
+		} else {
+			fave = false;
+		}
+		return fave;
 	}
 
 	private List<String> getInstructions(Cursor cursor) {
