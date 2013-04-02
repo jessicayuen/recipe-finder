@@ -14,7 +14,7 @@ public class AuthorCompare implements Comparator<Recipe> {
 
 	@Override
 	public int compare(Recipe lhs, Recipe rhs) {
-		return lhs.getAuthor().compareTo(rhs.getAuthor());
+		return lhs.getAuthor().toLowerCase().compareTo(rhs.getAuthor().toLowerCase());
 	}
 
 }
