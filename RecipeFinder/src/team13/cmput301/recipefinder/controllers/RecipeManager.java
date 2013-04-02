@@ -121,7 +121,9 @@ public class RecipeManager {
 		List<Recipe> results = new ArrayList<Recipe>();
 		for (int i = 0; i < list.size(); i++) {
 			Recipe recipe = list.get(i);
-			if (recipe.getName().contains(searchString)) {
+			if (recipe.getName().toLowerCase().contains(
+					searchString.toLowerCase()) || recipe.getAuthor()
+					.toLowerCase().contains(searchString.toLowerCase())) {
 				results.add(recipe);
 			}
 		}
