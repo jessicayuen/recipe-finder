@@ -4,9 +4,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="fill_parent"
+        android:layout_height="61dp"
+        android:background="@drawable/banner" >
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_below="@+id/banner"
         android:background="@drawable/carbonfiber"
         android:scrollbars="none" >
 
@@ -15,17 +23,9 @@
             android:layout_height="wrap_content" >
 
             <RelativeLayout
-                android:id="@+id/banner"
-                android:layout_width="fill_parent"
-                android:layout_height="61dp"
-                android:background="@drawable/banner" >
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/faveLayoutView"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/banner"
                 android:background="@drawable/carbonfiber"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
