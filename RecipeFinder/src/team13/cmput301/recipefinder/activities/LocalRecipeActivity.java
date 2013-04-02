@@ -62,19 +62,7 @@ public class LocalRecipeActivity extends Activity  {
 		/* Set the custom fonts */
 		setCustomFonts();
 
-		/* Set up custom dialog pop up for rating*/
-		setUpRatingBar();
-
-		/* Get the recipe to be displayed */
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			recipe = RecipeManager.getRecipeManager(this).
-					getAllRecipes().get(extras.getInt("recipe"));
-			displayRecipe();
-		} 
-
-		recipeRating.setRating(recipe.getRating());
-
+		initializeRating();
 		picGallery = (Gallery) findViewById(R.id.gallery);
 		imgAdapt = new PicAdapter(this, recipe.getPhotos());
 		picGallery.setAdapter(imgAdapt);
@@ -96,6 +84,17 @@ public class LocalRecipeActivity extends Activity  {
 			fave.setText("Favorite");
 		else 
 			fave.setText("Unfavorite");
+	}
+
+	private void initializeRating() {
+		setUpRatingBar();
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			recipe = RecipeManager.getRecipeManager(this).getAllRecipes()
+					.get(extras.getInt("recipe"));
+			displayRecipe();
+		}
+		recipeRating.setRating(recipe.getRating());
 	}
 
 	/**
