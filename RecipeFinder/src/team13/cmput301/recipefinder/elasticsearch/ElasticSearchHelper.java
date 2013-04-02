@@ -266,7 +266,7 @@ public class ElasticSearchHelper {
 	}
 	
 	public void addRecipePhoto(String id, Photo... photos) throws IOException {
-		HttpPost updateRequest = new HttpPost(BASEURL + id + "_update");
+		HttpPost updateRequest = new HttpPost(BASEURL + id + "/_update");
 		final String photoString = gson.toJson(photos[0]);
 		String query = "{\"script\" : \"ctx._source.photos += " + photoString +"\"}";
 		StringEntity stringentity = new StringEntity(query);
