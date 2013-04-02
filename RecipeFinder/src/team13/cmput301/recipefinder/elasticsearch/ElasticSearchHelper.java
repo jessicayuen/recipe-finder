@@ -20,6 +20,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -33,7 +35,6 @@ import com.google.gson.reflect.TypeToken;
 public class ElasticSearchHelper {
 	private static final String BASEURL = 
 			"http://cmput301.softwareprocess.es:8080/cmput301w13t13/recipe/";
-
 	// Singleton
 	transient private static ElasticSearchHelper elasticSearchHelper = null;
 
@@ -139,7 +140,7 @@ public class ElasticSearchHelper {
 		HttpGet searchRequest;
 		try {
 			searchRequest = new HttpGet(BASEURL + "_search?q=*"
-					+ java.net.URLEncoder.encode(query, "UTF-8") + "*");
+					+ java.net.URLEncoder.encode(query, "UTF-8") + "*&size=100");
 
 			searchRequest.setHeader("Accept", "application/json");
 			HttpResponse response = httpclient.execute(searchRequest);
@@ -262,14 +263,17 @@ public class ElasticSearchHelper {
 		response = httpclient.execute(updateRequest);
 		status = response.getStatusLine().toString();
 		System.out.println(status);
-
+		stringentity.consumeContent();
 	}
 	
 	public void addRecipePhoto(String id, Photo... photos) throws IOException {
 		HttpPost updateRequest = new HttpPost(BASEURL + id + "/_update");
 		final String photoString = gson.toJson(photos[0]);
-		String query = "{\"script\" : \"ctx._source.photos += " + photoString +"\"}";
+		Log.wtf("photoString", photoString);
+		String query = "{\"script\" : \"ctx._source.photos += ps\"," +
+				"\"params\":\"ps\":\"" + photoString +"\"}";
 		StringEntity stringentity = new StringEntity(query);
+		Log.wtf("add photo post", query);
 
 		updateRequest.setHeader("Accept", "application/json");
 		updateRequest.setEntity(stringentity);
@@ -277,6 +281,7 @@ public class ElasticSearchHelper {
 		HttpResponse response = httpclient.execute(updateRequest);
 		String status = response.getStatusLine().toString();
 		System.out.println(status);
+		stringentity.consumeContent();
 	}
 
 	/**

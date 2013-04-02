@@ -13,12 +13,12 @@ import android.os.AsyncTask;
  * CMPUT301 W13 T13
  * @author Han (Jim) Wen, Jessica Yuen, Shen Wei Liao, Fangyu Li
  */
-public class UpdateRecipeTask extends AsyncTask<String, Void, Boolean> {
+public class ReplaceRecipeTask extends AsyncTask<String, Void, Boolean> {
 	
 	private final Recipe newRecipe;
 	private final String oldRecipeId;
 	
-	public UpdateRecipeTask(String oldRecipeId, Recipe newRecipe) {
+	public ReplaceRecipeTask(String oldRecipeId, Recipe newRecipe) {
 		this.oldRecipeId = oldRecipeId;
 		this.newRecipe = newRecipe;
 	}

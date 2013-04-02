@@ -8,6 +8,7 @@ import team13.cmput301.recipefinder.adapters.PicAdapter;
 import team13.cmput301.recipefinder.controllers.RecipeManager;
 import team13.cmput301.recipefinder.elasticsearch.AddPhotoTask;
 import team13.cmput301.recipefinder.elasticsearch.UpdateRatingTask;
+import team13.cmput301.recipefinder.elasticsearch.ReplaceRecipeTask;
 import team13.cmput301.recipefinder.email.EmailSender;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
@@ -230,8 +231,9 @@ public class SearchRecipeActivity extends Activity {
 			recipe.addPhoto(pho);
 			RecipeManager.getRecipeManager(this).getSearchResultRecipes().set( 
 					index, recipe);
-			AddPhotoTask update = new AddPhotoTask(recipe.getId());
-			update.execute(pho);
+			//AddPhotoTask update = new AddPhotoTask(recipe.getId());
+			ReplaceRecipeTask update = new ReplaceRecipeTask(recipe.getId(), recipe);
+			update.execute();
 			picGallery.setAdapter(imgAdapt);
 		}
 	}
