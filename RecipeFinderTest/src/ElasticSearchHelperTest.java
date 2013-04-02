@@ -64,18 +64,17 @@ public class ElasticSearchHelperTest {
 	}
 
 	@Test
-	public void testSearchsearchRecipes() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testUpdateRecipes() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testDeleteRecipe() {
-		fail("Not yet implemented"); // TODO
+	public void testUpdateRecipeRating() {
+	    
+		try {
+			esh.updateRecipeRating(recipe.getId(), recipe.getRating() + 1);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
