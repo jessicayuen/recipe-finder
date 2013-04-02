@@ -156,14 +156,8 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		RecipeManager rm = RecipeManager.getRecipeManager(context);
 		
 		if (tRecipe.id == FAV_BUTTON_CLICK) {
-			Recipe recipe = tRecipe.recipe;
-			if (!recipe.isFave()) {
-				recipe.setFave(true);
-			} else {
-				recipe.setFave(false);
-			}
+			Recipe recipe = createRecipe(tRecipe);
 			rm.setRecipeAtLocation(recipe, rm.getRecipeIndex(recipe));
-			
 		} else if(tRecipe.id == REMOVE_BUTTON_CLICK){
 			Recipe recipe = tRecipe.recipe;
 			recipeList.remove(recipe);
@@ -171,6 +165,20 @@ public class CustomListAdapter extends BaseAdapter implements OnClickListener {
 		}
 		
 		notifyDataSetChanged();
+	}
+	
+	private Recipe createRecipe(TempRecipe tRecipe) {
+		Recipe recipe = tRecipe.recipe;
+		setFavorite(recipe);
+		return recipe;
+	}
+	
+	private void setFavorite(Recipe recipe) {
+		if (!recipe.isFave()) {
+			recipe.setFave(true);
+		} else {
+			recipe.setFave(false);
+		}
 	}
 	
 	private class TempRecipe {

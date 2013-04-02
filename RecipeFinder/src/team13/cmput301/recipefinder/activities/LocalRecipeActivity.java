@@ -73,7 +73,6 @@ public class LocalRecipeActivity extends Activity  {
 			displayRecipe();
 		} 
 
-
 		recipeRating.setRating(recipe.getRating());
 
 		picGallery = (Gallery) findViewById(R.id.gallery);
