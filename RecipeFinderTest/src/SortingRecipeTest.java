@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,13 +5,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.test.ActivityInstrumentationTestCase2;
 
-import team13.cmput301.recipefinder.R;
 import team13.cmput301.recipefinder.activities.MainActivity;
-import team13.cmput301.recipefinder.controllers.PhotoManager;
 import team13.cmput301.recipefinder.model.Photo;
 import team13.cmput301.recipefinder.model.Recipe;
 import team13.cmput301.recipefinder.resources.*;
@@ -25,13 +19,14 @@ extends ActivityInstrumentationTestCase2<MainActivity> {
 	private List<Recipe> testList;
 	private Recipe recipe, recipe2;
 	
-	public SortingRecipeTest(Class<MainActivity> activityClass) {
-		super(activityClass);
+	public SortingRecipeTest() {
+		super(MainActivity.class);
 	}
 
 	@BeforeClass
 	public void setUp() throws Exception {
 		super.setUp();
+		testList = new ArrayList<Recipe>();
 		recipe = new Recipe("test1", "this is tests", "tester1",
 				new ArrayList<String>(), new ArrayList<String>(),
 				new ArrayList<Photo>(), 4);
@@ -47,7 +42,7 @@ extends ActivityInstrumentationTestCase2<MainActivity> {
 	}
 	
 	@Test
-	public void sortByRatingTest() {
+	public void testsortByRatingTest() {
 
 		Collections.sort(testList, new RatingCompare());
 
