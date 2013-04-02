@@ -37,12 +37,16 @@ public class RecipeManager {
 	 */
 	public static RecipeManager getRecipeManager(Context context) {
 		if (recipeManager == null) {
-			recipeManager = new RecipeManager();
-			recipeManager.dataSource = new RecipeDataSource(context);
-			recipeManager.allRecipes = new ArrayList<Recipe>();
-			recipeManager.searchResultRecipes =  new ArrayList<Recipe>();
+			startRecipeManager(context);
 		}
 		return recipeManager;
+	}
+
+	private static void startRecipeManager(Context context) {
+		recipeManager = new RecipeManager();
+		recipeManager.dataSource = new RecipeDataSource(context);
+		recipeManager.allRecipes = new ArrayList<Recipe>();
+		recipeManager.searchResultRecipes = new ArrayList<Recipe>();
 	}
 
 	/** 

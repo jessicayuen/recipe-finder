@@ -169,17 +169,9 @@ public class ElasticSearchHelper {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		HttpPost searchRequest = new HttpPost(BASEURL + "_search");
 
-		String ingredientsString = gson.toJson(ingredients);
-
-		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"
-				+ "{\"query\":\"" + searchTerm
-				+ "\"}},\"filter\":{\"term\":{\"ingredients\":"
-				+ ingredientsString + "}}}}}";
-
-		StringEntity stringentity;
+		StringEntity stringentity = setAdvancedSearchQuery(searchTerm,
+				ingredients);
 		try {
-			stringentity = new StringEntity(query);
-
 			searchRequest.setHeader("Accept", "application/json");
 			searchRequest.setEntity(stringentity);
 
@@ -202,6 +194,18 @@ public class ElasticSearchHelper {
 
 		}
 		return recipes;
+	}
+
+	private StringEntity setAdvancedSearchQuery(String searchTerm,
+			ArrayList<String> ingredients) {
+		String ingredientsString = gson.toJson(ingredients);
+		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"
+				+ "{\"query\":\"" + searchTerm
+				+ "\"}},\"filter\":{\"term\":{\"ingredients\":"
+				+ ingredientsString + "}}}}}";
+		StringEntity stringentity;
+		stringentity = new StringEntity(query);
+		return stringentity;
 	}
 
 	public void replaceRecipe(String id, Recipe recipe) throws IOException {
