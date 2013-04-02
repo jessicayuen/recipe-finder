@@ -17,6 +17,7 @@ import team13.cmput301.recipefinder.model.Photo;
 public class PhotoManagerTest 
 extends ActivityInstrumentationTestCase2<MainActivity>{
 
+	MainActivity main;
 	Photo photo;
 	PhotoManager pm;
 	List<Photo> pL = new ArrayList<Photo>();
@@ -27,27 +28,30 @@ extends ActivityInstrumentationTestCase2<MainActivity>{
 	
 	@BeforeClass
 	public void setUp() throws Exception {
-		Bitmap pic = BitmapFactory.decodeResource( null,
-                R.drawable.ic_launcher);
+		super.setUp();
+		
+		main = getActivity();
+		final Bitmap pic = BitmapFactory.decodeResource(main.getResources(), 
+				team13.cmput301.recipefinder.R.drawable.ic_launcher);
 		photo = new Photo("IngredientName", pic);
 		pL.add(photo);
 		pm = PhotoManager.getPhotoManager();
 	}
 
 	@Test
-	public void addPhotoList() {
+	public void testaddPhotoList() {
 		pm.addList(pL);
 		assertEquals(pm.getPhotoList().get(0), photo);
 	}
 	
 	@Test
-	public void getPhotoList() {
+	public void testgetPhotoList() {
 		List<Photo> tempList = pm.getPhotoList();
 		assertEquals(tempList, pL);
 	}
 	
 	@Test
-	public void removePhotoList() {
+	public void testremovePhotoList() {
 		pm.clearList();
 		assertEquals(pm.getPhotoList(), null);
 	}

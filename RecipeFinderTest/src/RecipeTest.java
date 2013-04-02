@@ -4,10 +4,20 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import android.test.ActivityInstrumentationTestCase2;
+
+import team13.cmput301.recipefinder.activities.MainActivity;
+import team13.cmput301.recipefinder.activities.RecipeListActivity;
 import team13.cmput301.recipefinder.model.*;
 
 
-public class RecipeTest {
+public class RecipeTest extends ActivityInstrumentationTestCase2
+<MainActivity>{
+
+	public RecipeTest() {
+		super(MainActivity.class);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Test
 	public void testRecipeConstructor() {
