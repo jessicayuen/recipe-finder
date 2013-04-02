@@ -161,19 +161,28 @@ public class Recipe implements Serializable {
 	 * @return a string describing the Recipe in a email-able format.
 	 */
 	public String toEmailString() {
-		String instr = "";
-		String ingred = "";
-
-		for (int i = 0; i < instructions.size(); i++)
-			instr = instr.concat(i + 1 + ". " + instructions.get(i) + "\n");
-		for (int i = 0; i < ingredients.size(); i++)
-			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
+		String instr = instructionsToString();
+		String ingred = ingredientsToString();
 
 		return new String(name + "\n" +
 				author + "\n\n\n" +
 				"Description:\n" + description + "\n\n" +
 				"Instructions:\n" + instr + "\n" +
 				"Ingredients:\n" + ingred);
+	}
+	
+	private String instructionsToString() {
+		String instr = "";
+		for (int i = 0; i < instructions.size(); i++)
+			instr = instr.concat(i + 1 + ". " + instructions.get(i) + "\n");
+		return instr;
+	}
+	
+	private String ingredientsToString() {
+		String ingred = "";
+		for (int i = 0; i < ingredients.size(); i++)
+			ingred = ingred.concat("->" + ingredients.get(i) + "\n");
+		return ingred;
 	}
 
 	/**
