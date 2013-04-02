@@ -97,7 +97,7 @@ public class RecipeListActivity extends Activity {
 			public void onItemClick(AdapterView<?> av, View view, 
 					int position, long i) {
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
-						DisplayRecipeActivity.class);
+						LocalRecipeActivity.class);
 				displayIntent.putExtra("recipe", position);
 				startActivity(displayIntent);
 			}
@@ -109,7 +109,7 @@ public class RecipeListActivity extends Activity {
 				Recipe temp = favRecipes.get(position);
 				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
-						DisplayRecipeActivity.class);
+						LocalRecipeActivity.class);
 				displayIntent.putExtra("recipe", recipeIndex);
 				startActivity(displayIntent);
 			}
@@ -121,7 +121,7 @@ public class RecipeListActivity extends Activity {
 				Recipe temp = ownRecipes.get(position);
 				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
-						DisplayRecipeActivity.class);
+						LocalRecipeActivity.class);
 				displayIntent.putExtra("recipe", recipeIndex);
 				startActivity(displayIntent);
 			}
@@ -133,7 +133,7 @@ public class RecipeListActivity extends Activity {
 				Recipe temp = downloadedRecipes.get(position);
 				int recipeIndex = allRecipes.indexOf(temp);
 				Intent displayIntent = new Intent(RecipeListActivity.this, 
-						DisplayRecipeActivity.class);
+						LocalRecipeActivity.class);
 				displayIntent.putExtra("recipe", recipeIndex);
 				startActivity(displayIntent);
 			}

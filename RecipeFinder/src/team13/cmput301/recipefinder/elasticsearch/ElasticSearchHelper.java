@@ -168,9 +168,7 @@ public class ElasticSearchHelper {
 			ArrayList<String> ingredients) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		HttpPost searchRequest = new HttpPost(BASEURL + "_search");
-		// String query = "{\"query\" : {\"query_string\" : " +
-		// "{\"default_field\" : \"ingredients\",\"query\" : \""
-		// + str + "\"}}}";
+
 		String ingredientsString = gson.toJson(ingredients);
 
 		String query = "{\"query\":{\"filtered\":{\"query\":{\"query_string\":"

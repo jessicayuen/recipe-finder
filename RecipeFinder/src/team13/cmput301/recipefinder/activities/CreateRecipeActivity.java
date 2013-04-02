@@ -219,7 +219,7 @@ public class CreateRecipeActivity extends Activity {
 			RecipeManager.getRecipeManager(this).addToUserRecipe(recipe);
 
 			Intent displayIntent = new Intent(CreateRecipeActivity.this, 
-					DisplayRecipeActivity.class);
+					LocalRecipeActivity.class);
 
 			displayIntent.putExtra("recipe", 
 					RecipeManager.getRecipeManager(this).getAllRecipes().size() - 1);

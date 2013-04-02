@@ -207,7 +207,7 @@ public class MainActivity extends Activity {
 				int index = RecipeManager.getRecipeManager(MainActivity
 						.this).getAllRecipes().indexOf(recipe);
 				Intent displayIntent = new Intent(MainActivity.this, 
-						DisplayRecipeActivity.class);
+						LocalRecipeActivity.class);
 				displayIntent.putExtra("recipe", index);
 				startActivity(displayIntent);
 			}					
