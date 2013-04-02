@@ -112,7 +112,9 @@
         android:layout_above="@+id/changesBar"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/addBar"
-        android:choiceMode="multipleChoice" >
+        android:choiceMode="multipleChoice" 
+        android:background="@drawable/notepad"
+        android:padding="15dp" >
     </ListView>
 
 </RelativeLayout>
