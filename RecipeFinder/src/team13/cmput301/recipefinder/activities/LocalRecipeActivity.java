@@ -397,4 +397,9 @@ public class LocalRecipeActivity extends Activity  {
 
 		alertDialog.show();
 	}
+	
+	public void onBackPressed() {
+		Intent intent = new Intent(this, RecipeListActivity.class);
+		startActivity(intent);
+	}
 }

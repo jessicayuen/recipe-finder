@@ -17,6 +17,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,7 +47,14 @@ public class MainActivity extends Activity {
 	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		/* Remove title bar */
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+		/* Remove notification bar */
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		setContentView(R.layout.activity_main);		
 
 		User user = User.getUser();
@@ -53,7 +62,7 @@ public class MainActivity extends Activity {
 		pm = PhotoManager.getPhotoManager();
 		rm = RecipeManager.getRecipeManager(this);
 		im = IngredientManager.getIngredientManager();
-
+		
 		/* Load user settings */
 		user.loadUserSettings(this);
 		

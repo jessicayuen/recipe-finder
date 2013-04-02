@@ -252,4 +252,9 @@ public class RecipeListActivity extends Activity {
 
 		((Button)findViewById(R.id.viewAll)).setTypeface(typeface);
 	}
+	
+	public void onBackPressed() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
 }
