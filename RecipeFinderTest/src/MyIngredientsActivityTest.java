@@ -73,14 +73,26 @@ public class MyIngredientsActivityTest extends ActivityInstrumentationTestCase2
 	
 	public void testMinusClicked(){
 		TouchUtils.clickView(this, minusQuantityTest);
+		assertNotNull(createIngredientsTest);
 	}
 	
 	public void testPlusClicked(){
 		
 		TouchUtils.clickView(this, plusQuantityTest);
+		assertNotNull(createIngredientsTest);
 	}
 	public void testQuantityChangeClicked(){
 		TouchUtils.clickView(this, changeQuantityTest);
+		assertNotNull(createIngredientsTest);
+	}
+	public void searchClicked(){
+		TouchUtils.clickView(this, searchIngredientsTest);
+		assertNotNull(createIngredientsTest);
+	}
+	public void deleteClicked(){
+		TouchUtils.clickView(this, deleteIngredientTest);
+		assertNotNull(createIngredientsTest);
+		
 	}
 
 }
