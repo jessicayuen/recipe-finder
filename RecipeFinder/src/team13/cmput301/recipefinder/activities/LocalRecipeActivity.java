@@ -53,6 +53,7 @@ public class LocalRecipeActivity extends Activity  {
 	private float userRating = 0;
 	private Button ratingClose, ratingAccept;
 	private Dialog ratingDialog;
+	private int index;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,12 @@ public class LocalRecipeActivity extends Activity  {
 		else 
 			fave.setText("Unfavorite");
 	}
+	
+	protected void onPause() {
+		RecipeManager.getRecipeManager(this).setRecipeAtLocation(
+				recipe, index);
+		super.onPause();
+	}
 
 	private void initializeRating() {
 		setUpRatingBar();
@@ -92,6 +99,8 @@ public class LocalRecipeActivity extends Activity  {
 		if (extras != null) {
 			recipe = RecipeManager.getRecipeManager(this).getAllRecipes()
 					.get(extras.getInt("recipe"));
+			index = RecipeManager.getRecipeManager(this).getAllRecipes()
+					.indexOf(recipe);
 			displayRecipe();
 		}
 		recipeRating.setRating(recipe.getRating());
@@ -182,7 +191,6 @@ public class LocalRecipeActivity extends Activity  {
 					e.printStackTrace();
 				}
 			}
-			int index = RecipeManager.getRecipeManager(this).getAllRecipes().indexOf(recipe);
 			recipe.addPhoto(new Photo(User.getUser().getUsername(), photo));
 			RecipeManager.getRecipeManager(this).setRecipeAtLocation(recipe, index
 					);
